@@ -1,0 +1,11 @@
+@import '../../scss/vars.scss';
+@import '../../scss/mixins.scss';
+
+.notfound {
+	@include error-text($font-size: 30px);
+	padding: 5% 3%;
+
+	a {
+		color: $primary-black;
+	}
+}

@@ -24,7 +24,7 @@ module.exports = {
 				use: 'html-loader',
 			},
 			{
-				test: /\.css$/,
+				test: /\.s(a|c)ss$/,
 				use: ['style-loader', 'css-loader', 'sass-loader'],
 			},
 			{
@@ -39,6 +39,10 @@ module.exports = {
 	},
 	resolve: {
 		extensions: ['.js', '.jsx'],
+		// alias: {
+		// 	'@components': path.resolve(__dirname, 'src/components/'),
+		// 	'@pages': path.resolve(__dirname, 'src/pages/'),
+		// },
 	},
 	plugins: [
 		new HTMLWebpackPlugin({

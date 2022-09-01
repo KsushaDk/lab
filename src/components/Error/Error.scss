@@ -1,0 +1,5 @@
+@import '../../scss/mixins.scss';
+
+.error {
+	@include error-text;
+}

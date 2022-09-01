@@ -1,0 +1,120 @@
+@import '../../scss/vars.scss';
+@import '../../scss/mixins.scss';
+
+.main {
+	border-bottom: $border;
+	padding: 3% 5%;
+	@include flex($gap: 30px, $justify-content: flex-start);
+
+	&__content {
+		min-height: 250px;
+		@include flex($flex-direction: column, $align-items: start, $gap: 25px);
+		width: 75%;
+		padding-left: 3%;
+		border-left: $border;
+		position: relative;
+
+		&_title {
+			@include text($font-size: 50px, $font-weight: 800);
+		}
+
+		&_table {
+			position: relative;
+			@include text($font-size: 18px, $font-weight: 400);
+			table-layout: fixed;
+			width: 100%;
+			border-collapse: collapse;
+			border: 2px solid $primary-gray;
+
+			caption {
+				@include text($font-size: 30px, $font-weight: 300);
+				min-height: 40px;
+				text-align: left;
+				margin-bottom: 2%;
+			}
+
+			thead {
+				background-color: $primary-gray;
+
+				th:nth-child(1) {
+					text-align: left;
+				}
+			}
+
+			th,
+			td {
+				padding: 2% 3%;
+			}
+
+			tbody td {
+				text-align: center;
+			}
+
+			tbody td:first-child {
+				text-align: left;
+			}
+
+			tr:hover td {
+				background: $primary-gray;
+			}
+
+			tfoot {
+				background-color: $primary-gray;
+
+				th {
+					text-align: left;
+				}
+			}
+
+			a {
+				color: $primary-black;
+			}
+		}
+
+		&_head {
+			width: 100%;
+			@include flex;
+
+			> button {
+				padding: 0 1%;
+				min-height: 40px;
+			}
+		}
+
+		&_cards {
+			@include flex;
+			flex-wrap: wrap;
+
+			&-item {
+				width: 30%;
+				border: $border;
+				padding: 2%;
+				@include flex($flex-direction: column);
+
+				h3 {
+					@include text($font-size: 24px, $font-weight: 600);
+				}
+
+				p {
+					@include text($font-weight: 300);
+					text-align: justify;
+				}
+
+				span {
+					@include text($font-size: 20px, $font-weight: 500);
+				}
+			}
+		}
+
+		&_total {
+			margin-top: 3%;
+			@include text($font-size: 25px, $font-weight: 500);
+			align-self: flex-start;
+		}
+
+		> button {
+			padding: 0 1%;
+			min-height: 40px;
+		}
+	}
+}

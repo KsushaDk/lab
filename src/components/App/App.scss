@@ -1,0 +1,7 @@
+@import '../../scss/vars.scss';
+@import '../../scss/mixins.scss';
+
+.app {
+	background-color: $bg-color;
+	// @include flex;
+}

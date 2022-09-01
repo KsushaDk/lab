@@ -1,0 +1,75 @@
+@import '../../scss/vars.scss';
+@import '../../scss/mixins.scss';
+
+.tabbar {
+	display: flex;
+	flex-direction: column;
+	align-items: stretch;
+
+	&__nav {
+		position: relative;
+		display: flex;
+		z-index: 2;
+
+		&_tab {
+			@include text($font-weight: 600);
+			border: $border;
+			border-radius: 0 10px 0 0;
+			padding: 1%;
+			cursor: pointer;
+			background: $primary-gray;
+			text-align: center;
+			overflow: hidden;
+			outline: none;
+		}
+
+		&_tab:hover {
+			opacity: 0.8;
+		}
+	}
+
+	&__content {
+		@include flex($flex-direction: column, $align-items: start);
+		position: relative;
+		z-index: 1;
+		top: -2px;
+		padding: 2%;
+		min-height: 200px;
+		border: $border;
+
+		&_item {
+			@include flex($flex-direction: column, $align-items: start, $gap: 25px);
+
+			> h4 {
+				@include text($font-size: 25px, $font-weight: 700);
+				position: relative;
+				display: inline-block;
+			}
+
+			> h4::after {
+				content: '';
+				position: absolute;
+				left: 0;
+				right: 0;
+				bottom: -5px;
+				height: 1px;
+				width: 100%;
+				background-color: $primary-black;
+				transition: all 0.3s ease;
+			}
+
+			> h4:hover::after {
+				background-color: $primary-red;
+			}
+
+			> p {
+				@include text($font-weight: 500);
+			}
+		}
+	}
+}
+
+.active_tab {
+	background-color: $primary-white;
+	border-bottom-color: transparent;
+}

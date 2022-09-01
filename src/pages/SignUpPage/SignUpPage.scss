@@ -1,0 +1,55 @@
+@import '../../scss/vars.scss';
+@import '../../scss/mixins.scss';
+
+.signup {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	padding: 5%;
+	// height: 100vh;
+
+	&__form {
+		@include flex($flex-direction: column, $gap: 25px);
+		padding: 2% 3%;
+		background: $primary-white;
+		border: $border;
+		filter: drop-shadow(4px 4px 4px $primary-gray);
+
+		&_title {
+			@include text($font-size: 28px, $font-weight: 600);
+		}
+
+		&_input {
+			@include text($font-size: 18px, $font-weight: 500);
+			min-width: 470px;
+			border: none;
+			border-bottom: 2px solid $primary-red;
+			outline: none;
+			padding: 2% 1%;
+		}
+
+		&_check {
+			@include flex;
+			width: 100%;
+
+			a {
+				color: $primary-black;
+			}
+		}
+
+		&_submit {
+			padding: 2% 3%;
+			border: none;
+			background: $primary-red;
+			font-size: 20px;
+			line-height: 24px;
+			color: $primary-white;
+			cursor: pointer;
+		}
+
+		&_submit:hover {
+			opacity: 0.8;
+		}
+	}
+}

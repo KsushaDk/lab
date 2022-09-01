@@ -1,0 +1,22 @@
+@import '../../scss/mixins.scss';
+
+.main__sidebar {
+	@include flex($flex-direction: column, $align-items: stretch);
+	align-self: baseline;
+	width: 20%;
+
+	a {
+		text-decoration: none;
+		display: inline-block;
+		@include text($font-size: 20px, $color: $primary-white);
+		padding: 3%;
+		background-color: $primary-red;
+		transition: all 0.5s ease;
+		border: none;
+		cursor: pointer;
+	}
+
+	a:hover {
+		background-color: $primary-black;
+	}
+}
