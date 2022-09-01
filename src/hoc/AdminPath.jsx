@@ -1,17 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useLocation, Navigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
 
 export const AdminPath = ({ children }) => {
-	const location = useLocation();
 	const { user } = useAuth();
 
-	if (user.username === '') {
-		return <Navigate to="/signup" state={{ from: location }} />;
+	if (user.username.includes('admin')) {
+		return children;
 	}
 
-	return children;
+	return (
+		<h3 className="notfound">
+			You don&apos;t have an access to this page! Go <Link to="/">home</Link>
+		</h3>
+	);
 };
 
 AdminPath.propTypes = {

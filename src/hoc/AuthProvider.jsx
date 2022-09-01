@@ -1,12 +1,12 @@
 import React, { createContext, useState } from 'react';
+import PropTypes from 'prop-types';
 
 export const AuthContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {
-	const [user, setUser] = useState({ username: '', password: '', email: '' });
+	const [user, setUser] = useState({ username: '', email: '', password: '' });
 
 	const signup = (newUser, cb) => {
-		console.log(newUser);
 		setUser(newUser);
 		cb();
 	};
@@ -19,4 +19,12 @@ export const AuthProvider = ({ children }) => {
 	const value = { user, signup, signout };
 
 	return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+};
+
+AuthProvider.propTypes = {
+	children: PropTypes.node,
+};
+
+AuthProvider.defaultProps = {
+	children: null,
 };

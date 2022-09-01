@@ -12,6 +12,7 @@ const App = () => (
 	<AuthProvider>
 		<Routes>
 			<Route path="/" element={<Layout />}>
+				<Route index element={<LogInPage />} />
 				<Route
 					path="home/*"
 					element={
@@ -20,7 +21,6 @@ const App = () => (
 						</AdminPath>
 					}
 				/>
-				<Route path="login" element={<LogInPage />} />
 				<Route path="signup" element={<SignUpPage />} />
 				<Route path="*" element={<NotFoundPage />} />
 			</Route>

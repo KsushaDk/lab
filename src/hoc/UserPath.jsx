@@ -1,16 +1,15 @@
 // import React from 'react';
 // import PropTypes from 'prop-types';
-// import { useLocation, Navigate } from 'react-router-dom';
 // import { useAuth } from '../hooks/useAuth';
 
 // export const UserPath = ({ children }) => {
-// 	const location = useLocation();
 // 	const { user } = useAuth();
 
-// 	if (user.username === 'user' && user.password === '11111111') {
+// 	if (!user.username.includes('admin')) {
 // 		return children;
 // 	}
-// 	return <Navigate to={location} />;
+
+// 	return <div>You don&apos;t have an access to this page!</div>;
 // };
 
 // UserPath.propTypes = {

@@ -3,16 +3,11 @@ import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { Error } from '../../components/Error/Error';
 import { errMessages, regEmail } from '../../utils/constants';
-import { useAuth } from '../../hooks/useAuth';
 
 import './SignUpPage.scss';
 
 export const SignUpPage = () => {
-	// const location = useLocation();
 	const navigate = useNavigate();
-	const { signup } = useAuth();
-
-	// const fromPage = location.state?.from?.pathname || '/';
 
 	const {
 		register,
@@ -25,7 +20,11 @@ export const SignUpPage = () => {
 	});
 
 	const onSubmit = async (data) => {
-		signup(data, () => navigate('/home'));
+		const users = JSON.parse(localStorage.getItem('users')) || [];
+		users.push(data);
+		localStorage.setItem('users', JSON.stringify(users));
+
+		navigate('/', { replace: true });
 		reset();
 	};
 
