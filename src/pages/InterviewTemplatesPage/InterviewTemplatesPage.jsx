@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavBtn } from '../../components/ui/button/NavBtn';
-import { SearchInput } from '../../components/ui/input/SearchInput';
+import { SearchInput } from '../../components/ui/input/SearchInput/SearchInput';
 import { dammyText } from '../../utils/constants';
 
 export const InterviewTemplatesPage = () => (

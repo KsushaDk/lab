@@ -1,0 +1,11 @@
+@import '../../../../scss/vars.scss';
+@import '../../../../scss/mixins.scss';
+
+.form__field {
+	@include text($font-size: 18px, $font-weight: 500);
+	min-width: 470px;
+	border: none;
+	border-bottom: 2px solid $primary-red;
+	outline: none;
+	padding: 2% 1%;
+}

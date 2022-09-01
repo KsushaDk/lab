@@ -1,21 +1,21 @@
-// import React from 'react';
-// import PropTypes from 'prop-types';
-// import { useAuth } from '../hooks/useAuth';
+import React from 'react';
+import PropTypes from 'prop-types';
+import { useAuth } from '../hooks/useAuth';
 
-// export const UserPath = ({ children }) => {
-// 	const { user } = useAuth();
+export const UserPath = ({ children }) => {
+	const { user } = useAuth();
 
-// 	if (!user.username.includes('admin')) {
-// 		return children;
-// 	}
+	if (!user.username.includes('admin')) {
+		return children;
+	}
 
-// 	return <div>You don&apos;t have an access to this page!</div>;
-// };
+	return <div>You don&apos;t have an access to this page!</div>;
+};
 
-// UserPath.propTypes = {
-// 	children: PropTypes.node,
-// };
+UserPath.propTypes = {
+	children: PropTypes.node,
+};
 
-// UserPath.defaultProps = {
-// 	children: null,
-// };
+UserPath.defaultProps = {
+	children: null,
+};

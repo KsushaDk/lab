@@ -1,10 +1,15 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useState, useMemo } from 'react';
 import PropTypes from 'prop-types';
 
 export const AuthContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {
-	const [user, setUser] = useState({ username: '', email: '', password: '' });
+	const [user, setUser] = useState({
+		username: '',
+		email: '',
+		password: '',
+		isAuthenticated: false,
+	});
 
 	const signup = (newUser, cb) => {
 		setUser(newUser);
@@ -16,7 +21,7 @@ export const AuthProvider = ({ children }) => {
 		cb();
 	};
 
-	const value = { user, signup, signout };
+	const value = useMemo(() => ({ user, signup, signout }), []);
 
 	return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };

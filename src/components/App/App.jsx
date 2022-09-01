@@ -1,7 +1,6 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { AuthProvider } from '../../hoc/AuthProvider';
-import { AdminPath } from '../../hoc/AdminPath';
 import { Layout } from './Layout';
 import { LogInPage } from '../../pages/LogInPage/LogInPage';
 import { SignUpPage } from '../../pages/SignUpPage/SignUpPage';
@@ -13,14 +12,7 @@ const App = () => (
 		<Routes>
 			<Route path="/" element={<Layout />}>
 				<Route index element={<LogInPage />} />
-				<Route
-					path="home/*"
-					element={
-						<AdminPath>
-							<Main />
-						</AdminPath>
-					}
-				/>
+				<Route path="home/*" element={<Main />} />
 				<Route path="signup" element={<SignUpPage />} />
 				<Route path="*" element={<NotFoundPage />} />
 			</Route>

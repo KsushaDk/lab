@@ -6,6 +6,7 @@ import { errMessages } from '../../utils/constants';
 import { useAuth } from '../../hooks/useAuth';
 
 import './LogInPage.scss';
+// import { FormFieldInput } from '../../components/ui/input/FormFieldInput/FormFieldInput';
 
 export const LogInPage = () => {
 	const navigate = useNavigate();
@@ -21,7 +22,7 @@ export const LogInPage = () => {
 	} = useForm({
 		mode: 'onBlur',
 	});
-	console.log(isValid);
+
 	const onSubmit = async (data) => {
 		const users = JSON.parse(localStorage.getItem('users')) || [];
 		const currentUser = users.find((user) => user.email === data.email);
@@ -41,6 +42,14 @@ export const LogInPage = () => {
 				<h2 className="login__form_title">Вход</h2>
 				{!!matchErr && <Error err={matchErr} />}
 				{errors?.email && <Error err={errors?.email?.message || 'error'} />}
+
+				{/* <FormFieldInput
+					placeholder="Enter your email..."
+					name="email"
+					register={register({
+						required: errMessages.notEmptyField,
+					})}
+				/> */}
 				<input
 					className="login__form_input"
 					placeholder="Enter your email..."

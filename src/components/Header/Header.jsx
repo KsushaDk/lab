@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
+import { ImUser } from 'react-icons/im';
 import { useAuth } from '../../hooks/useAuth';
 
 import logo from './logo.svg';
@@ -28,7 +29,9 @@ export const Header = () => {
 						Вход
 					</NavLink>
 				) : (
-					<span>Привет, {user.username}!</span>
+					<div className="header__nav_user">
+						<ImUser /> <span>Привет, {user.username}!</span>
+					</div>
 				)}
 			</nav>
 		</header>
