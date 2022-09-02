@@ -4,8 +4,16 @@
 .form_input {
 	@include text($font-size: 18px, $font-weight: 500);
 	min-width: 470px;
+	width: 100%;
 	border: none;
 	border-bottom: 2px solid $primary-red;
 	outline: none;
 	padding: 2% 1%;
+
+	@media (max-width: 768px) {
+		min-width: 400px;
+	}
+	@media (max-width: 576px) {
+		min-width: 300px;
+	}
 }

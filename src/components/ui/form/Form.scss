@@ -18,5 +18,17 @@
 
 	&__title {
 		@include text($font-size: 28px, $font-weight: 600);
+
+		@media (max-width: 768px) {
+			@include text($font-size: 25px, $font-weight: 600);
+		}
+		@media (max-width: 576px) {
+			@include text($font-size: 20px, $font-weight: 600);
+		}
+	}
+
+	@media (max-width: 576px) {
+		@include flex($flex-direction: column, $gap: 15px);
+		padding: 1% 2%;
 	}
 }

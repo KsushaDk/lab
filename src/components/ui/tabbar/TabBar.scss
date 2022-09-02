@@ -5,6 +5,7 @@
 	display: flex;
 	flex-direction: column;
 	align-items: stretch;
+	width: 100%;
 
 	&__nav {
 		position: relative;
@@ -21,6 +22,18 @@
 			text-align: center;
 			overflow: hidden;
 			outline: none;
+
+			@media (max-width: 1200px) {
+				@include text($font-size: 14px, $font-weight: 600);
+			}
+
+			@media (max-width: 1000px) {
+				@include text($font-size: 12px, $font-weight: 600);
+			}
+
+			@media (max-width: 768px) {
+				@include text($font-size: 10px, $font-weight: 600);
+			}
 		}
 
 		&_tab:hover {
@@ -44,6 +57,14 @@
 				@include text($font-size: 25px, $font-weight: 700);
 				position: relative;
 				display: inline-block;
+
+				@media (max-width: 768px) {
+					@include text($font-size: 20px, $font-weight: 600);
+				}
+
+				@media (max-width: 576px) {
+					@include text($font-size: 16px, $font-weight: 600);
+				}
 			}
 
 			> h4::after {
@@ -52,7 +73,7 @@
 				left: 0;
 				right: 0;
 				bottom: -5px;
-				height: 1px;
+				height: 2px;
 				width: 100%;
 				background-color: $primary-black;
 				transition: all 0.3s ease;
@@ -64,6 +85,10 @@
 
 			> p {
 				@include text($font-weight: 500);
+
+				@media (max-width: 576px) {
+					@include text($font-size: 14px, $font-weight: 400);
+				}
 			}
 		}
 	}

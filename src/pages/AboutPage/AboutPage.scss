@@ -1,0 +1,30 @@
+@import 'Scss/vars.scss';
+@import 'Scss/mixins.scss';
+
+.main__content_header {
+	@include flex;
+	width: 100%;
+
+	@media (max-width: 576px) {
+		@include flex($flex-direction: column);
+	}
+}
+
+.main__content_picture {
+	width: 80%;
+	min-width: 200px;
+	min-height: 200px;
+	background: url('../../../public/assets/bg.jpg');
+	background-repeat: no-repeat;
+	background-size: cover;
+
+	@media (max-width: 768px) {
+		width: 100%;
+		min-height: 150px;
+	}
+
+	@media (max-width: 576px) {
+		width: 100%;
+		min-height: 100px;
+	}
+}
