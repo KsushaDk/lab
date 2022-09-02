@@ -20,11 +20,10 @@ export const AuthProvider = ({ children }) => {
 		cb();
 	};
 
-	const value = useMemo(() => ({ user, signup, signout }), [
-		user,
-		signup,
-		signout,
-	]);
+	const value = useMemo(
+		() => ({ user, signup, signout }),
+		[user, signup, signout]
+	);
 
 	return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };

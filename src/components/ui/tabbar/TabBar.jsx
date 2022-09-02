@@ -1,30 +1,24 @@
-/* eslint-disable react/prop-types */
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-
 import { TabBarNav } from './TabBarNav';
 import './TabBar.scss';
 
 export const TabBar = ({ children, ...attrs }) => {
 	const [activeTab, setActiveTab] = useState(null);
 
-	// eslint-disable-next-line no-shadow
-	const getChildrenLabels = (children) => {
-		const labels = children.map(({ props }) => props.label);
+	const getLabels = (tabItems) => {
+		const labels = tabItems.map(({ props }) => props.label);
 		return labels;
 	};
 
 	useEffect(() => {
-		// eslint-disable-next-line no-shadow
-		const activeTab = getChildrenLabels(children)[0];
-
-		setActiveTab(activeTab);
+		setActiveTab(getLabels(children)[0]);
 	}, []);
 
 	return (
 		<section className="tabbar" {...attrs}>
 			<div className="tabbar__nav">
-				{getChildrenLabels(children).map((navLabel) => (
+				{getLabels(children).map((navLabel) => (
 					<TabBarNav
 						isActive={activeTab === navLabel}
 						key={navLabel}

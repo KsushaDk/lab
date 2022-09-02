@@ -1,5 +1,5 @@
-@import '../../../scss/mixins.scss';
-@import '../../../scss/vars.scss';
+@import 'Scss/mixins.scss';
+@import 'Scss/vars.scss';
 
 .nav_btn {
 	@include text($font-size: 20px, $color: $primary-white);

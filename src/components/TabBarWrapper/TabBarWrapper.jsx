@@ -1,7 +1,7 @@
 import React from 'react';
-import { TabBar } from './TabBar';
-import { TabBarItem } from './TabBarItem';
-import { labels } from '../../utils/constants';
+import { labels } from 'Utils/constants';
+import { TabBar } from '../ui/tabbar/TabBar';
+import { TabBarItem } from '../ui/tabbar/TabBarItem';
 
 export const TabBarWrapper = () => (
 	<TabBar>

@@ -1,4 +1,4 @@
-@import '../../scss/mixins.scss';
+@import 'Scss/mixins.scss';
 
 .main__sidebar {
 	@include flex($flex-direction: column, $align-items: stretch);

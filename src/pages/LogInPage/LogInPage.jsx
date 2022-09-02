@@ -1,11 +1,11 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import { errMessages } from '../../utils/constants';
+import { FormInput } from 'Components/ui/input/FormInput/FormInput';
+import { SubmitInput } from 'Components/ui/input/SubmitInput/SubmitInput';
+import { Form } from 'Components/ui/form/Form';
+import { errMessages } from 'Utils/constants';
 import { useAuth } from '../../hooks/useAuth';
-import { FormInput } from '../../components/ui/input/FormInput/FormInput';
-import { SubmitInput } from '../../components/ui/input/SubmitInput/SubmitInput';
-import { Form } from '../../components/ui/form/Form';
 import './LogInPage.scss';
 
 export const LogInPage = () => {

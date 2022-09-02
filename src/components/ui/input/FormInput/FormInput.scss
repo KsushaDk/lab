@@ -1,5 +1,5 @@
-@import '../../../../scss/vars.scss';
-@import '../../../../scss/mixins.scss';
+@import 'Scss/vars.scss';
+@import 'Scss/mixins.scss';
 
 .form_input {
 	@include text($font-size: 18px, $font-weight: 500);

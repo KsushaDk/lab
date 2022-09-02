@@ -1,6 +1,5 @@
 import React from 'react';
-import { TabBarWrapper } from '../../components/TabBar/TabBarWrapper';
-import './AboutPage.scss';
+import { TabBarWrapper } from 'Components/TabBarWrapper/TabBarWrapper';
 
 export const AboutPage = () => (
 	<section className="main__content">

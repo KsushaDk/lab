@@ -39,10 +39,12 @@ module.exports = {
 	},
 	resolve: {
 		extensions: ['.js', '.jsx'],
-		// alias: {
-		// 	'@components': path.resolve(__dirname, 'src/components/'),
-		// 	'@pages': path.resolve(__dirname, 'src/pages/'),
-		// },
+		alias: {
+			Components: path.resolve(__dirname, '../src/components/'),
+			Pages: path.resolve(__dirname, '../src/pages/'),
+			Utils: path.resolve(__dirname, '../src/utils/'),
+			Scss: path.resolve(__dirname, '../src/scss/'),
+		},
 	},
 	plugins: [
 		new HTMLWebpackPlugin({

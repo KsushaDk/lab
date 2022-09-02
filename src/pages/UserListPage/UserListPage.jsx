@@ -1,5 +1,5 @@
 import React from 'react';
-import { SearchInput } from '../../components/ui/input/SearchInput/SearchInput';
+import { SearchInput } from 'Components/ui/input/SearchInput/SearchInput';
 
 export const UserListPage = () => (
 	<section className="main__content">

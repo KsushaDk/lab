@@ -1,12 +1,12 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
-import { AdminPath } from '../../hoc/AdminPath';
+import { AboutPage } from 'Pages/AboutPage/AboutPage';
+import { CreateInterviewPage } from 'Pages/CreateInterviewPage/CreateInterviewPage';
+import { InterviewListPage } from 'Pages/InterviewListPage/InterviewListPage';
+import { InterviewTemplatesPage } from 'Pages/InterviewTemplatesPage/InterviewTemplatesPage';
+import { UserListPage } from 'Pages/UserListPage/UserListPage';
 import { Sidebar } from '../Sidebar/Sidebar';
-import { AboutPage } from '../../pages/AboutPage/AboutPage';
-import { CreateInterviewPage } from '../../pages/CreateInterviewPage/CreateInterviewPage';
-import { InterviewListPage } from '../../pages/InterviewListPage/InterviewListPage';
-import { InterviewTemplatesPage } from '../../pages/InterviewTemplatesPage/InterviewTemplatesPage';
-import { UserListPage } from '../../pages/UserListPage/UserListPage';
+import { AdminPath } from '../../hoc/AdminPath';
 import './Main.scss';
 
 export const Main = () => (

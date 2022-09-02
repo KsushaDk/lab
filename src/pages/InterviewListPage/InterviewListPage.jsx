@@ -1,6 +1,6 @@
 import React from 'react';
-import { NavBtn } from '../../components/ui/button/NavBtn';
-import { SearchInput } from '../../components/ui/input/SearchInput/SearchInput';
+import { NavBtn } from 'Components/ui/button/NavBtn';
+import { SearchInput } from 'Components/ui/input/SearchInput/SearchInput';
 
 export const InterviewListPage = () => (
 	<section className="main__content">

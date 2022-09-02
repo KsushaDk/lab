@@ -1,10 +1,10 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import { errMessages, regEmail, regPass } from '../../utils/constants';
-import { Form } from '../../components/ui/form/Form';
-import { FormInput } from '../../components/ui/input/FormInput/FormInput';
-import { SubmitInput } from '../../components/ui/input/SubmitInput/SubmitInput';
+import { Form } from 'Components/ui/form/Form';
+import { FormInput } from 'Components/ui/input/FormInput/FormInput';
+import { SubmitInput } from 'Components/ui/input/SubmitInput/SubmitInput';
+import { errMessages, regEmail, regPass } from 'Utils/constants';
 
 export const SignUpPage = () => {
 	const navigate = useNavigate();

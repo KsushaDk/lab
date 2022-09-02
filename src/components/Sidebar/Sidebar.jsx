@@ -1,6 +1,6 @@
 import React from 'react';
+import { btnValues } from 'Utils/constants';
 import { NavBtn } from '../ui/button/NavBtn';
-import { btnValues } from '../../utils/constants';
 import './Sidebar.scss';
 
 export const Sidebar = React.memo(() => (

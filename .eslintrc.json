@@ -36,6 +36,8 @@
 			}
 		],
 		"no-useless-escape": "off",
-		"no-control-regex": "off"
+		"no-control-regex": "off",
+		"react/prop-types": "off",
+		"import/no-unresolved": "off"
 	}
 }
