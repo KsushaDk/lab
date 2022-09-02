@@ -8,7 +8,6 @@ export const AuthProvider = ({ children }) => {
 		username: '',
 		email: '',
 		password: '',
-		isAuthenticated: false,
 	});
 
 	const signup = (newUser, cb) => {
@@ -21,7 +20,11 @@ export const AuthProvider = ({ children }) => {
 		cb();
 	};
 
-	const value = useMemo(() => ({ user, signup, signout }), []);
+	const value = useMemo(() => ({ user, signup, signout }), [
+		user,
+		signup,
+		signout,
+	]);
 
 	return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };

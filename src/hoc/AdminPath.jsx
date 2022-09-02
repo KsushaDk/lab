@@ -5,14 +5,14 @@ import { useAuth } from '../hooks/useAuth';
 
 export const AdminPath = ({ children }) => {
 	const { user } = useAuth();
-
 	if (user.username.includes('admin')) {
 		return children;
 	}
 
 	return (
 		<h3 className="notfound">
-			You don&apos;t have an access to this page! Go <Link to="/">home</Link>
+			You don&apos;t have an access to this page! Go{' '}
+			<Link to="/home">home</Link>
 		</h3>
 	);
 };

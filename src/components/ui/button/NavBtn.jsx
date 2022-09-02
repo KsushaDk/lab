@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import './NavBtn.scss';
 
-export const NavBtn = React.memo(({ btnValue }) => {
+export const NavBtn = ({ btnValue }) => {
 	const navigate = useNavigate();
 
 	const handleClick = (link) => {
@@ -19,8 +19,11 @@ export const NavBtn = React.memo(({ btnValue }) => {
 			{btnValue.value}
 		</button>
 	);
-});
+};
 
 NavBtn.propTypes = {
-	btnValue: PropTypes.objectOf.isRequired,
+	btnValue: PropTypes.shape({
+		value: PropTypes.string,
+		link: PropTypes.string,
+	}).isRequired,
 };

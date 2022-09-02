@@ -1,7 +1,7 @@
 @import '../../../../scss/vars.scss';
 @import '../../../../scss/mixins.scss';
 
-.form__field {
+.form_input {
 	@include text($font-size: 18px, $font-weight: 500);
 	min-width: 470px;
 	border: none;

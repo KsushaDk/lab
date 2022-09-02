@@ -11,7 +11,7 @@ export const Header = () => {
 
 	return (
 		<header className="header">
-			<Link className="header__logo" to="/">
+			<Link className="header__logo" to="/home">
 				<img src={logo} alt="ITechArt Logo" />
 			</Link>
 			<nav className="header__nav">

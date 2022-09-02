@@ -1,10 +1,10 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import { Error } from '../../components/Error/Error';
-import { errMessages, regEmail } from '../../utils/constants';
-
-import './SignUpPage.scss';
+import { errMessages, regEmail, regPass } from '../../utils/constants';
+import { Form } from '../../components/ui/form/Form';
+import { FormInput } from '../../components/ui/input/FormInput/FormInput';
+import { SubmitInput } from '../../components/ui/input/SubmitInput/SubmitInput';
 
 export const SignUpPage = () => {
 	const navigate = useNavigate();
@@ -29,63 +29,65 @@ export const SignUpPage = () => {
 	};
 
 	return (
-		<section className="signup">
-			<form className="signup__form" onSubmit={handleSubmit(onSubmit)}>
-				<h2 className="signup__form_title">Регистрация</h2>
-				{errors?.username && (
-					<Error err={errors?.username?.message || 'error'} />
-				)}
-				<input
-					className="signup__form_input"
-					placeholder="Enter your name..."
-					{...register('username', {
-						required: errMessages.notEmptyField,
-						minLength: { value: 4, message: errMessages.minLength.username },
-						maxLength: { value: 20, message: errMessages.maxLength.username },
-					})}
-				/>
-				{errors?.email && <Error err={errors?.email?.message || 'error'} />}
-				<input
-					className="signup__form_input"
-					placeholder="Enter your email..."
-					{...register('email', {
-						required: errMessages.notEmptyField,
-						pattern: { value: regEmail, message: errMessages.emailErr },
-					})}
-				/>
-				{errors?.password && (
-					<Error err={errors?.password?.message || 'error'} />
-				)}
-				<input
-					className="signup__form_input"
-					type="password"
-					placeholder="Enter your password..."
-					{...register('password', {
-						required: errMessages.notEmptyField,
-						minLength: { value: 8, message: errMessages.minLength.password },
-						maxLength: { value: 15, message: errMessages.maxLength.password },
-					})}
-				/>
-				{errors?.password_repeat && (
-					<Error err={errors?.password_repeat?.message || 'error'} />
-				)}
-				<input
-					className="signup__form_input"
-					type="password"
-					placeholder="Repeat your password..."
-					{...register('password_repeat', {
-						required: errMessages.notEmptyField,
-						validate: (value) =>
-							value === watch('password') || errMessages.notMatchPass,
-					})}
-				/>
-
-				<input
-					className="signup__form_submit"
-					type="submit"
-					disabled={!isValid}
-				/>
-			</form>
-		</section>
+		<Form title="Регистрация" handleSubmit={() => handleSubmit(onSubmit)}>
+			<FormInput
+				type="text"
+				name="username"
+				placeholder="Enter your name..."
+				autoComplete="on"
+				register={register}
+				rules={{
+					required: errMessages.notEmptyField,
+					minLength: { value: 4, message: errMessages.minLength.username },
+					maxLength: { value: 20, message: errMessages.maxLength.username },
+				}}
+				errors={errors}
+			/>
+			<FormInput
+				type="text"
+				name="email"
+				placeholder="Enter your email..."
+				autoComplete="on"
+				register={register}
+				rules={{
+					required: errMessages.notEmptyField,
+					pattern: { value: regEmail, message: errMessages.emailErr },
+					validate: (value) => {
+						const users = JSON.parse(localStorage.getItem('users')) || [];
+						const checkUserEmail = users.find((user) => user.email === value);
+						return !checkUserEmail || errMessages.emailUniqueErr;
+					},
+				}}
+				errors={errors}
+			/>
+			<FormInput
+				type="password"
+				name="password"
+				placeholder="Enter your password..."
+				autoComplete="off"
+				register={register}
+				rules={{
+					required: errMessages.notEmptyField,
+					minLength: { value: 8, message: errMessages.minLength.password },
+					maxLength: { value: 15, message: errMessages.maxLength.password },
+					pattern: { value: regPass, message: errMessages.passErr },
+				}}
+				errors={errors}
+			/>
+			<FormInput
+				type="password"
+				name="password_repeat"
+				placeholder="Repeat your password..."
+				autoComplete="off"
+				register={register}
+				rules={{
+					required: errMessages.notEmptyField,
+					validate: (value) =>
+						value === watch('password') || errMessages.notMatchPass,
+				}}
+				errors={errors}
+			/>
+			<SubmitInput isValid={isValid} />
+		</Form>
 	);
 };

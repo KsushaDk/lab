@@ -1,0 +1,22 @@
+@import '../../../scss/vars.scss';
+@import '../../../scss/mixins.scss';
+
+.form {
+	@include flex($flex-direction: column, $gap: 25px);
+	padding: 2% 3%;
+	background: $primary-white;
+	border: $border;
+	filter: drop-shadow(4px 4px 4px $primary-gray);
+
+	&__wrapper {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		padding: 5%;
+	}
+
+	&__title {
+		@include text($font-size: 28px, $font-weight: 600);
+	}
+}

@@ -1,0 +1,15 @@
+@import '../../../../scss/vars.scss';
+
+.submit_input {
+	padding: 2% 3%;
+	border: none;
+	background: $primary-red;
+	font-size: 20px;
+	line-height: 24px;
+	color: $primary-white;
+	cursor: pointer;
+}
+
+.submit_input:hover {
+	opacity: 0.8;
+}
