@@ -1,70 +1,55 @@
 import React from 'react';
 import { NavBtn } from 'Components/ui/button/NavBtn';
 import { SearchInput } from 'Components/ui/input/SearchInput/SearchInput';
+import { Table } from 'Components/ui/table/Table';
 
-export const InterviewListPage = () => (
-	<section className="main__content">
-		<SearchInput />
+export const InterviewListPage = () => {
+	const cols = [
+		'Название',
+		'Изменен',
+		'Ответы',
+		'Ссылка',
+		'Результаты',
+		'Действия',
+	];
+	const interviewsData = [
+		{
+			name: 'Опрос 1',
+			date: '01.01.2020',
+			answers: 10,
+			link: 'www.blabla.com',
+			results: 'результаты',
+			activity: 'delete',
+		},
+		{
+			name: 'Опрос 2',
+			date: '02.01.2020',
+			answers: 14,
+			link: 'www.blabla.com',
+			results: 'результаты',
+			activity: 'delete',
+		},
+		{
+			name: 'Опрос 3',
+			date: '03.01.2020',
+			answers: 3,
+			link: 'www.blabla.com',
+			results: 'результаты',
+			activity: 'delete',
+		},
+	];
 
-		<NavBtn btnValue={{ value: 'Создать опрос', link: 'create' }} />
+	return (
+		<section className="main__content">
+			<SearchInput />
 
-		<table className="main__content_table">
-			<caption>Мои опросы</caption>
-			<thead>
-				<tr>
-					<th scope="col">Название</th>
-					<th scope="col">Изменен</th>
-					<th scope="col">Ответы</th>
-					<th scope="col">Ссылка</th>
-					<th scope="col">Результаты</th>
-					<th scope="col">Действия</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<td>Опрос 1</td>
-					<td>01.01.2020</td>
-					<td>10</td>
-					<td>
-						<a href="/">www.blabla.com</a>
-					</td>
-					<td>
-						<a href="/">результаты</a>
-					</td>
-					<td>delete</td>
-				</tr>
-				<tr>
-					<td>Опрос 2</td>
-					<td>02.02.2022</td>
-					<td>5</td>
-					<td>
-						<a href="/">www.blabla.com</a>
-					</td>
-					<td>
-						<a href="/">результаты</a>
-					</td>
-					<td>delete</td>
-				</tr>
-				<tr>
-					<td>Опрос 3</td>
-					<td>03.03.2022</td>
-					<td>3</td>
-					<td>
-						<a href="/">www.blabla.com</a>
-					</td>
-					<td>
-						<a href="/">результаты</a>
-					</td>
-					<td>delete</td>
-				</tr>
-			</tbody>
-			<tfoot>
-				<tr>
-					<th scope="row">Всего опросов:</th>
-					<td colSpan="2">...</td>
-					<td colSpan="3"> === </td>
-				</tr>
-			</tfoot>
-		</table>
-	</section>
-);
+			<NavBtn btnValue={{ value: 'Создать опрос', link: 'create' }} />
+			<Table
+				caption="Мои опросы"
+				data={interviewsData}
+				cols={cols}
+				total="Всего опросов"
+			/>
+		</section>
+	);
+};

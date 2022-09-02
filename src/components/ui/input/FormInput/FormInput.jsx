@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Error } from '../../../Error/Error';
+import { EnterError } from '../../../EnterError/EnterError';
 import './FormInput.scss';
 
 export const FormInput = ({ name, register, rules, errors, ...attrs }) => (
 	<>
 		{errors[name] !== undefined && (
-			<Error err={errors[name].message || 'error'} />
+			<EnterError err={errors[name].message || 'error'} />
 		)}
 		<input
 			className="form_input"

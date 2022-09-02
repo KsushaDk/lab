@@ -23,7 +23,7 @@ export const Header = () => {
 				</NavLink>
 				{!user.username ? (
 					<NavLink
-						to="/login"
+						to="/"
 						className={({ isActive }) => (isActive ? 'active' : '')}
 					>
 						Вход

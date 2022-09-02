@@ -1,0 +1,63 @@
+@import 'Scss/vars.scss';
+@import 'Scss/mixins.scss';
+
+.content__table {
+	position: relative;
+	@include text($font-size: 18px, $font-weight: 400);
+	table-layout: fixed;
+	width: 100%;
+	border-collapse: collapse;
+	border: 2px solid $primary-gray;
+
+	caption {
+		@include text($font-size: 30px, $font-weight: 300);
+		min-height: 40px;
+		text-align: left;
+		margin-bottom: 2%;
+	}
+
+	thead {
+		background-color: $primary-gray;
+
+		th:nth-child(1) {
+			text-align: left;
+		}
+	}
+
+	th,
+	td {
+		padding: 2% 3%;
+	}
+
+	tbody td {
+		text-align: center;
+	}
+
+	tbody td:first-child {
+		text-align: left;
+	}
+
+	tr:hover td {
+		background: $secondary-gray;
+	}
+
+	tfoot {
+		background-color: $primary-gray;
+
+		th {
+			text-align: left;
+		}
+	}
+
+	a {
+		color: $primary-black;
+	}
+
+	// @media (max-width: 768px) {
+	// 	@include text($font-size: 16px, $font-weight: 400);
+	// }
+
+	// @media (max-width: 576px) {
+	// 	@include text($font-size: 14px, $font-weight: 300);
+	// }
+}

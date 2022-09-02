@@ -1,50 +1,63 @@
 import React from 'react';
 import { SearchInput } from 'Components/ui/input/SearchInput/SearchInput';
+import { Table } from 'Components/ui/table/Table';
 
-export const UserListPage = () => (
-	<section className="main__content">
-		<SearchInput />
-		<table className="main__content_table">
-			<caption>Пользователи</caption>
-			<thead>
-				<tr>
-					<th scope="col">Имя</th>
-					<th scope="col">Роль</th>
-					<th scope="col">Зарегистрирован</th>
-					<th scope="col">Опросы</th>
-					<th scope="col">Действия</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<td>Админ</td>
-					<td>Администратор</td>
-					<td>01.01.2020</td>
-					<td>10</td>
-					<td>delete</td>
-				</tr>
-				<tr>
-					<td>Юзер 1</td>
-					<td>Пользователь</td>
-					<td>02.02.2021</td>
-					<td>5</td>
-					<td>create</td>
-				</tr>
-				<tr>
-					<td>Юзер 2</td>
-					<td>Пользователь</td>
-					<td>05.05.2022</td>
-					<td>2</td>
-					<td>create</td>
-				</tr>
-			</tbody>
-			<tfoot>
-				<tr>
-					<th scope="row">Всего пользователей:</th>
-					<td colSpan="2">...</td>
-					<td colSpan="2"> === </td>
-				</tr>
-			</tfoot>
-		</table>
-	</section>
-);
+export const UserListPage = () => {
+	const cols = ['Имя', 'Роль', 'Зарегистрирован', 'Опросы', 'Действия'];
+	const usersData = [
+		{
+			name: 'Админ',
+			role: 'Администратор',
+			date: '01.01.2020',
+			interviews: 10,
+			activity: 'delete',
+		},
+		{
+			name: 'Юзер1',
+			role: 'Пользователь',
+			date: '02.01.2021',
+			interviews: 5,
+			activity: 'create',
+		},
+		{
+			name: 'Юзер2',
+			role: 'Пользователь',
+			date: '03.01.2021',
+			interviews: 1,
+			activity: 'delete',
+		},
+		{
+			name: 'Юзер3',
+			role: 'Пользователь',
+			date: '04.01.2022',
+			interviews: 7,
+			activity: 'create',
+		},
+		{
+			name: 'Юзер4',
+			role: 'Пользователь',
+			date: '05.01.2022',
+			interviews: 4,
+			activity: 'create',
+		},
+		{
+			name: 'Юзер5',
+			role: 'Пользователь',
+			date: '06.01.2022',
+			interviews: 13,
+			activity: 'delete',
+		},
+	];
+
+	return (
+		<section className="main__content">
+			<SearchInput />
+			<Table
+				caption="Пользователи"
+				cols={cols}
+				data={usersData}
+				total="Всего пользователей"
+			/>
+		</section>
+	);
+};
