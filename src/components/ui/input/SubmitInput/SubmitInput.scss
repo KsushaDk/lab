@@ -1,19 +1,24 @@
 @import 'Scss/vars.scss';
+@import 'Scss/mixins.scss';
 
 .submit_input {
 	padding: 2% 3%;
 	border: none;
 	background: $primary-red;
-	font-size: 20px;
-	line-height: 24px;
+	@include text($font-size: 20px);
 	color: $primary-white;
 	cursor: pointer;
 
-	@media (max-width: 768px) {
-		font-size: 16px;
+	@media (max-width: 1200px) {
+		@include text-l($color: $primary-white);
 	}
+
+	@media (max-width: 768px) {
+		@include text-m($color: $primary-white);
+	}
+
 	@media (max-width: 576px) {
-		font-size: 14px;
+		@include text-s($color: $primary-white);
 	}
 }
 

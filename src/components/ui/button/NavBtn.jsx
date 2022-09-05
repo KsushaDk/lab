@@ -1,10 +1,12 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import './NavBtn.scss';
 
 export const NavBtn = ({ btnValue }) => {
 	const navigate = useNavigate();
+	const location = useLocation();
+	const path = location.pathname.split('/');
 
 	const handleClick = (link) => {
 		navigate(link);
@@ -12,7 +14,11 @@ export const NavBtn = ({ btnValue }) => {
 
 	return (
 		<button
-			className="nav_btn "
+			className={
+				path[path.length - 1] === btnValue.link
+					? 'nav_btn active_btn'
+					: 'nav_btn'
+			}
 			type="button"
 			onClick={() => handleClick(btnValue.link)}
 		>

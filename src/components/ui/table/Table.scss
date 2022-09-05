@@ -1,63 +1,212 @@
 @import 'Scss/vars.scss';
 @import 'Scss/mixins.scss';
 
-.content__table {
-	position: relative;
-	@include text($font-size: 18px, $font-weight: 400);
-	table-layout: fixed;
-	width: 100%;
-	border-collapse: collapse;
-	border: 2px solid $primary-gray;
+.table {
+	&__content {
+		position: relative;
+		@include text($font-size: 18px, $font-weight: 400);
+		table-layout: fixed;
+		width: 100%;
+		border-collapse: collapse;
+		border: 2px solid $primary-gray;
 
-	caption {
-		@include text($font-size: 30px, $font-weight: 300);
-		min-height: 40px;
-		text-align: left;
-		margin-bottom: 2%;
-	}
-
-	thead {
-		background-color: $primary-gray;
-
-		th:nth-child(1) {
+		caption {
+			@include text($font-size: 30px, $font-weight: 300);
+			min-height: 40px;
 			text-align: left;
+			margin-bottom: 2%;
+
+			@media (max-width: 1200px) {
+				@include text($font-size: 28px, $font-weight: 300);
+			}
+
+			@media (max-width: 768px) {
+				@include text($font-size: 25px, $font-weight: 300);
+			}
+
+			@media (max-width: 576px) {
+				@include text($font-size: 23px, $font-weight: 300);
+			}
+		}
+
+		thead,
+		tfoot {
+			background-color: $primary-gray;
+
+			th:first-child {
+				text-align: left;
+			}
+		}
+
+		th,
+		td {
+			word-wrap: break-word;
+			padding: 1% 2%;
+
+			@media (max-width: 1200px) {
+				padding: 1%;
+			}
+
+			@media (max-width: 576px) {
+				padding: 0.5%;
+			}
+		}
+
+		tbody td {
+			text-align: center;
+		}
+
+		tbody td:first-child {
+			text-align: left;
+		}
+
+		tbody td > form {
+			height: 100%;
+			width: 100%;
+		}
+
+		tbody td > form > input {
+			@include text($font-size: 18px);
+			padding: 1%;
+			background-color: transparent;
+			border: $border;
+			height: 100%;
+			width: 100%;
+			border-radius: 4px;
+			outline: none;
+
+			@media (max-width: 1200px) {
+				@include text-l;
+			}
+
+			@media (max-width: 768px) {
+				@include text-m;
+			}
+
+			@media (max-width: 576px) {
+				@include text-s;
+			}
+		}
+
+		tbody td form > select {
+			@include text($font-size: 18px);
+			padding: 1%;
+			background-color: transparent;
+			border: $border;
+			border-radius: 4px;
+			outline: none;
+
+			@media (max-width: 1200px) {
+				@include text-l;
+			}
+
+			@media (max-width: 768px) {
+				@include text-m;
+			}
+
+			@media (max-width: 576px) {
+				@include text-s;
+			}
+		}
+
+		tbody tr:hover td {
+			background: $secondary-gray;
+		}
+
+		a {
+			color: $primary-black;
+			cursor: pointer;
+		}
+
+		@media (max-width: 1200px) {
+			@include text-l;
+		}
+
+		@media (max-width: 768px) {
+			@include text-m;
+		}
+
+		@media (max-width: 576px) {
+			@include text-s;
 		}
 	}
 
-	th,
-	td {
-		padding: 2% 3%;
-	}
-
-	tbody td {
+	&_icon {
+		@include text($font-size: 18px);
+		background-color: transparent;
+		border: none;
+		margin-right: 5px;
 		text-align: center;
-	}
+		cursor: pointer;
 
-	tbody td:first-child {
-		text-align: left;
-	}
+		@media (max-width: 1200px) {
+			@include text-l;
+		}
 
-	tr:hover td {
-		background: $secondary-gray;
-	}
+		@media (max-width: 768px) {
+			@include text-m;
+		}
 
-	tfoot {
-		background-color: $primary-gray;
+		@media (max-width: 576px) {
+			@include text-s;
+		}
 
-		th {
-			text-align: left;
+		> svg {
+			width: 20px;
+			height: 20px;
+			vertical-align: middle;
+
+			@media (max-width: 768px) {
+				width: 15px;
+				height: 15px;
+			}
+
+			@media (max-width: 576px) {
+				width: 12px;
+				height: 12px;
+			}
+		}
+
+		&:hover {
+			opacity: 0.3;
+		}
+
+		@media (max-width: 576px) {
+			margin-right: 3px;
 		}
 	}
 
-	a {
-		color: $primary-black;
+	&__pagination {
+		@include flex($gap: 5px);
+
+		&_wrapper {
+			@include flex($justify-content: flex-end);
+
+			form > select {
+				@include text($font-size: 18px);
+				padding: 1%;
+				background-color: transparent;
+				border: $border;
+				border-radius: 4px;
+				outline: none;
+
+				@media (max-width: 1200px) {
+					@include text-l;
+				}
+
+				@media (max-width: 768px) {
+					@include text-m;
+				}
+
+				@media (max-width: 576px) {
+					@include text-s;
+				}
+			}
+		}
 	}
+}
 
-	// @media (max-width: 768px) {
-	// 	@include text($font-size: 16px, $font-weight: 400);
-	// }
-
-	// @media (max-width: 576px) {
-	// 	@include text($font-size: 14px, $font-weight: 300);
-	// }
+.active_page {
+	color: $primary-black;
+	font-weight: 700;
 }

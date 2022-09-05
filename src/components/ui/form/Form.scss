@@ -30,5 +30,8 @@
 	@media (max-width: 576px) {
 		@include flex($flex-direction: column, $gap: 15px);
 		padding: 1% 2%;
+		border: none;
+		filter: none;
+		width: 100%;
 	}
 }

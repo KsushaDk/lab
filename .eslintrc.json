@@ -38,6 +38,8 @@
 		"no-useless-escape": "off",
 		"no-control-regex": "off",
 		"react/prop-types": "off",
-		"import/no-unresolved": "off"
+		"import/no-unresolved": "off",
+		"no-param-reassign": "off",
+		"consistent-return": "off"
 	}
 }

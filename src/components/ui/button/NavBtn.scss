@@ -10,17 +10,25 @@
 	border: none;
 	cursor: pointer;
 
+	@media (max-width: 1200px) {
+		@include text-l($color: $primary-white);
+	}
+
 	@media (max-width: 768px) {
-		@include text($font-size: 18px, $color: $primary-white);
+		@include text-m($color: $primary-white);
 		padding: 1% 2%;
 	}
 
 	@media (max-width: 576px) {
-		@include text($font-size: 14px, $color: $primary-white);
+		@include text-s($color: $primary-white);
 		padding: 1%;
 	}
 }
 
 .nav_btn:hover {
+	background-color: $primary-black;
+}
+
+.active_btn {
 	background-color: $primary-black;
 }

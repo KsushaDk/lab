@@ -11,6 +11,6 @@
 	}
 
 	@media (max-width: 576px) {
-		@include text($font-size: 14px, $font-weight: 300);
+		@include text-m($font-weight: 300);
 	}
 }
