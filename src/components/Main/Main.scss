@@ -3,7 +3,6 @@
 
 .main {
 	height: 100%;
-	border-bottom: $border;
 	padding: 3% 5%;
 	@include flex($gap: 30px, $justify-content: flex-start);
 
@@ -14,7 +13,7 @@
 			$flex-direction: column,
 			$justify-content: flex-start,
 			$align-items: start,
-			$gap: 25px
+			$gap: 5px
 		);
 		width: 75%;
 		padding-left: 3%;

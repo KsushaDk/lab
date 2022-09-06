@@ -1,53 +1,36 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { NavBtn } from 'Components/ui/button/NavBtn';
 import { SearchInput } from 'Components/ui/input/SearchInput/SearchInput';
 import { Table } from 'Components/ui/table/Table';
+import { dataInterviews, columnsInterviews } from 'Utils/constants';
 
 export const InterviewListPage = () => {
-	const columns = [
-		{ field: 'title', fieldName: 'Название' },
-		{ field: 'changed', fieldName: 'Изменен' },
-		{ field: 'answers', fieldName: 'Ответы' },
-		{ field: 'link', fieldName: 'Ссылка' },
-		{ field: 'results', fieldName: 'Результаты' },
-		{ field: 'actions', fieldName: 'Действия' },
-	];
-	const data = [
-		{
-			id: 1,
-			title: 'Опрос 1',
-			changed: '01.01.2020',
-			answers: 10,
-			link: 'www.blabla.com',
-			results: 'результаты',
-		},
-		{
-			id: 2,
-			title: 'Опрос 2',
-			changed: '02.01.2020',
-			answers: 14,
-			link: 'www.blabla.com',
-			results: 'результаты',
-		},
-		{
-			id: 3,
-			title: 'Опрос 3',
-			changed: '03.01.2020',
-			answers: 3,
-			link: 'www.blabla.com',
-			results: 'результаты',
-		},
-	];
+	const [interviews, setInterviews] = useState(dataInterviews);
+
+	const handleSubmit = (e) => {
+		e.preventDefault();
+		const newData = dataInterviews.filter((interview) =>
+			interview.title
+				.toLowerCase()
+				.includes(e.target.search.value.toLowerCase().trim())
+		);
+
+		setInterviews(newData);
+
+		if (e.target.search.value === '') {
+			setInterviews(dataInterviews);
+		}
+	};
 
 	return (
 		<section className="main__content">
-			<SearchInput />
+			<SearchInput handleSubmit={handleSubmit} />
 
 			<NavBtn btnValue={{ value: 'Создать опрос', link: 'create' }} />
 			<Table
 				caption="Мои опросы"
-				rows={data}
-				columns={columns}
+				rows={interviews}
+				columns={columnsInterviews}
 				total="Всего опросов"
 			/>
 		</section>

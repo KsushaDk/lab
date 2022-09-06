@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const Td = ({
+export const TableCell = ({
 	isEditMode,
 	rowIDToEdit,
 	editedRow,
@@ -16,6 +16,28 @@ export const Td = ({
 		return (
 			<td>
 				<a href="/">{td[1]}</a>
+			</td>
+		);
+	}
+
+	if (td[0] === 'interviews' || td[0] === 'answers') {
+		return (
+			<td>
+				{isEditMode && rowIDToEdit === row.id ? (
+					<form>
+						<input
+							autoComplete="off"
+							type="number"
+							min="0"
+							defaultValue={editedRow ? editedRow[td[0]] : td[1]}
+							id={row.id}
+							name={td[0]}
+							onBlur={handleOnChangeField}
+						/>
+					</form>
+				) : (
+					td[1]
+				)}
 			</td>
 		);
 	}

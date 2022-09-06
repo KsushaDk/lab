@@ -5,15 +5,15 @@ import './FormInput.scss';
 
 export const FormInput = ({ name, register, rules, errors, ...attrs }) => (
 	<>
-		{errors[name] !== undefined && (
-			<EnterError err={errors[name].message || 'error'} />
-		)}
 		<input
 			className="form_input"
 			name={name}
 			{...attrs}
 			{...(register && register(name, rules))}
 		/>
+		{errors[name] !== undefined && (
+			<EnterError err={errors[name].message || 'error'} />
+		)}
 	</>
 );
 

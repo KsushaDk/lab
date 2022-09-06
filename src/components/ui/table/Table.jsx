@@ -2,7 +2,7 @@ import React, { useState, useEffect, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { ImPencil, ImBin } from 'react-icons/im';
 import { BsCaretDownFill, BsXSquare, BsCheckSquare } from 'react-icons/bs';
-import { Td } from './Td';
+import { TableCell } from './TableCell';
 import { TablePagination } from './TablePagination';
 import './Table.scss';
 
@@ -11,7 +11,6 @@ export const Table = ({ columns, rows, caption, total }) => {
 	const [rowIDToEdit, setRowIDToEdit] = useState(undefined);
 	const [rowsState, setRowsState] = useState(rows);
 	const [editedRow, setEditedRow] = useState();
-
 	//  pagination
 	const [pageSize, setPageSize] = useState(5);
 	const [currentPage, setCurrentPage] = useState(1);
@@ -25,7 +24,7 @@ export const Table = ({ columns, rows, caption, total }) => {
 		const lastPageIndex = firstPageIndex + pageSize;
 		const newData = rows.slice(firstPageIndex, lastPageIndex);
 		setRowsState(newData);
-	}, [currentPage, pageSize]);
+	}, [currentPage, pageSize, rows]);
 
 	const handleEdit = (rowID) => {
 		setIsEditMode(true);
@@ -84,10 +83,15 @@ export const Table = ({ columns, rows, caption, total }) => {
 				</tr>
 			</thead>
 			<tbody>
+				{rows.length === 0 && (
+					<tr>
+						<td colSpan={columns.length}>No sush item. Try again please.</td>
+					</tr>
+				)}
 				{rowsState.map((row) => (
 					<tr key={row.id}>
 						{Object.entries(row).map((td) => (
-							<Td
+							<TableCell
 								key={td[0]}
 								isEditMode={isEditMode}
 								rowIDToEdit={rowIDToEdit}
@@ -176,6 +180,11 @@ Table.propTypes = {
 			role: PropTypes.string,
 			date: PropTypes.string,
 			interviews: PropTypes.number,
+			created: PropTypes.string,
+			answers: PropTypes.number,
+			title: PropTypes.string,
+			link: PropTypes.string,
+			results: PropTypes.string,
 		})
 	).isRequired,
 };

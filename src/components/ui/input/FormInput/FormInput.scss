@@ -10,10 +10,15 @@
 	outline: none;
 	padding: 2% 1%;
 
-	@media (max-width: 768px) {
-		min-width: 400px;
+	@media (max-width: 1200px) {
+		@include text-l($font-weight: 500);
 	}
+
+	@media (max-width: 768px) {
+		@include text-m($font-weight: 500);
+	}
+
 	@media (max-width: 576px) {
-		min-width: 300px;
+		@include text-s($font-weight: 500);
 	}
 }

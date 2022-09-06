@@ -1,5 +1,18 @@
 @import 'Scss/mixins.scss';
+@import 'Scss/vars.scss';
 
 .error {
-	@include error-text;
+	@include text-l($font-size: 18px, $color: $primary-red, $font-weight: 500);
+
+	@media (max-width: 1200px) {
+		@include text-l($color: $primary-red, $font-weight: 500);
+	}
+
+	@media (max-width: 768px) {
+		@include text-m($color: $primary-red, $font-weight: 500);
+	}
+
+	@media (max-width: 576px) {
+		@include text-s($color: $primary-red, $font-weight: 500);
+	}
 }
