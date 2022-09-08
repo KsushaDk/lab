@@ -5,7 +5,7 @@ import { FormInput } from 'Components/ui/input/FormInput/FormInput';
 import { SubmitInput } from 'Components/ui/input/SubmitInput/SubmitInput';
 import { Form } from 'Components/ui/form/Form';
 import { errMessages } from 'Utils/constants';
-import { useAuth } from '../../hooks/useAuth';
+import { useAuth } from 'Hooks/useAuth';
 import './LogInPage.scss';
 
 export const LogInPage = () => {

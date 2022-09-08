@@ -1,6 +1,6 @@
 // import React from 'react';
 // import PropTypes from 'prop-types';
-// import { useAuth } from '../hooks/useAuth';
+// import { useAuth } from 'Hooks/useAuth';
 
 // export const UserPath = ({ children }) => {
 // 	const { user } = useAuth();

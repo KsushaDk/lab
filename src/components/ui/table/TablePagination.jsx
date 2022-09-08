@@ -6,7 +6,8 @@ import {
 	BsChevronLeft,
 	BsThreeDots,
 } from 'react-icons/bs';
-import { usePagination } from '../../../hooks/usePagination';
+import { usePagination } from 'Hooks/usePagination';
+import { TableIcon } from './TableIcon';
 
 export const TablePagination = ({
 	totalCount,
@@ -48,7 +49,6 @@ export const TablePagination = ({
 		<div className="table__pagination_wrapper">
 			<form>
 				<select
-					className="select-perpage"
 					defaultValue={pageSize}
 					onChange={(e) => handleChangePageSize(e)}
 				>
@@ -59,22 +59,16 @@ export const TablePagination = ({
 				</select>
 			</form>
 			<div className="table__pagination">
-				<button
-					className="table_icon"
-					type="button"
-					onClick={() => onPageChange(1)}
-					disabled={totalCount <= pageSize}
-				>
-					<BsChevronDoubleLeft />
-				</button>
-				<button
-					className="table_icon"
-					type="button"
-					onClick={() => handlePrevClick()}
+				<TableIcon
 					disabled={currentPage === 1}
-				>
-					<BsChevronLeft />
-				</button>
+					handleClick={() => onPageChange(1)}
+					btnIcon={<BsChevronDoubleLeft />}
+				/>
+				<TableIcon
+					disabled={currentPage === 1}
+					handleClick={() => handlePrevClick()}
+					btnIcon={<BsChevronLeft />}
+				/>
 
 				{paginationRange.map((pageNumber) => {
 					if (pageNumber === 'dots') {
@@ -102,22 +96,16 @@ export const TablePagination = ({
 					);
 				})}
 
-				<button
-					className="table_icon"
-					type="button"
-					onClick={() => handleNextClick()}
+				<TableIcon
 					disabled={currentPage === totalPages}
-				>
-					<BsChevronRight />
-				</button>
-				<button
-					className="table_icon"
-					type="button"
-					onClick={() => onPageChange(totalPages)}
-					disabled={totalCount <= pageSize}
-				>
-					<BsChevronDoubleRight />
-				</button>
+					handleClick={() => handleNextClick()}
+					btnIcon={<BsChevronRight />}
+				/>
+				<TableIcon
+					disabled={currentPage === totalPages}
+					handleClick={() => onPageChange(totalPages)}
+					btnIcon={<BsChevronDoubleRight />}
+				/>
 			</div>
 		</div>
 	);

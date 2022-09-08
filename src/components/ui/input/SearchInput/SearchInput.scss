@@ -10,6 +10,7 @@
 	background: $primary-white;
 
 	input {
+		@include text-l($font-size: 18px);
 		width: 70%;
 		border: none;
 		padding: 1% 0;
@@ -27,6 +28,11 @@
 		@media (max-width: 576px) {
 			@include text-s;
 		}
+	}
+
+	@media (max-width: 576px) {
+		@include text-s;
+		width: 100%;
 	}
 }
 

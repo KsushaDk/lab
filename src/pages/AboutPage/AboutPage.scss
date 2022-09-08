@@ -2,8 +2,9 @@
 @import 'Scss/mixins.scss';
 
 .main__content_header {
-	@include flex;
+	@include flex($gap: 20px);
 	width: 100%;
+	margin-bottom: 20px;
 
 	@media (max-width: 576px) {
 		@include flex($flex-direction: column);

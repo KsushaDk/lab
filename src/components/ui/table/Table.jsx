@@ -1,19 +1,27 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { ImPencil, ImBin } from 'react-icons/im';
-import { BsCaretDownFill, BsXSquare, BsCheckSquare } from 'react-icons/bs';
+import { BsXSquare, BsCheckSquare } from 'react-icons/bs';
 import { TableCell } from './TableCell';
 import { TablePagination } from './TablePagination';
+import { TableIcon } from './TableIcon';
+import { TableDropMenu } from './TableDropMenu';
 import './Table.scss';
 
 export const Table = ({ columns, rows, caption, total }) => {
+	const [totalRowsState, setTotalRowsState] = useState(rows);
 	const [isEditMode, setIsEditMode] = useState(false);
 	const [rowIDToEdit, setRowIDToEdit] = useState(undefined);
-	const [rowsState, setRowsState] = useState(rows);
+	const [rowsState, setRowsState] = useState(totalRowsState);
 	const [editedRow, setEditedRow] = useState();
-	//  pagination
+
+	// //  pagination
 	const [pageSize, setPageSize] = useState(5);
 	const [currentPage, setCurrentPage] = useState(1);
+
+	useEffect(() => {
+		setTotalRowsState(rows);
+	}, [rows]);
 
 	useEffect(() => {
 		if (currentPage >= rows.length / pageSize) setCurrentPage(1);
@@ -22,9 +30,9 @@ export const Table = ({ columns, rows, caption, total }) => {
 	useMemo(() => {
 		const firstPageIndex = (currentPage - 1) * pageSize;
 		const lastPageIndex = firstPageIndex + pageSize;
-		const newData = rows.slice(firstPageIndex, lastPageIndex);
+		const newData = totalRowsState.slice(firstPageIndex, lastPageIndex);
 		setRowsState(newData);
-	}, [currentPage, pageSize, rows]);
+	}, [currentPage, pageSize, totalRowsState, rows]);
 
 	const handleEdit = (rowID) => {
 		setIsEditMode(true);
@@ -33,8 +41,8 @@ export const Table = ({ columns, rows, caption, total }) => {
 	};
 
 	const handleRemoveRow = (rowID) => {
-		const newData = rowsState.filter((row) => row.id !== rowID);
-		setRowsState(newData);
+		const newTotalData = totalRowsState.filter((row) => row.id !== rowID);
+		setTotalRowsState(newTotalData);
 	};
 
 	const handleOnChangeField = (e, rowID) => {
@@ -55,18 +63,22 @@ export const Table = ({ columns, rows, caption, total }) => {
 	const handleSaveEditing = () => {
 		setIsEditMode(false);
 
-		const changedKeys = Object.keys(editedRow);
+		if (editedRow !== undefined) {
+			const changedKeys = Object.keys(editedRow);
 
-		const newData = rowsState.map((row) => {
-			if (row.id === editedRow.id) {
-				changedKeys.forEach((key) => {
-					row[key] = editedRow[key];
-				});
-			}
-			return row;
-		});
+			const newData = rowsState.map((row) => {
+				if (row.id === editedRow.id) {
+					changedKeys.forEach((key) => {
+						row[key] = editedRow[key];
+					});
+				}
+				return row;
+			});
 
-		setRowsState(newData);
+			setRowsState(newData);
+		}
+
+		setRowsState((prevState) => prevState);
 		setEditedRow(undefined);
 	};
 
@@ -104,43 +116,30 @@ export const Table = ({ columns, rows, caption, total }) => {
 
 						<td>
 							{isEditMode && rowIDToEdit === row.id ? (
-								<button
-									className="table_icon"
-									onClick={() => handleSaveEditing()}
-									type="button"
-								>
-									<BsCheckSquare />
-								</button>
+								<TableIcon
+									handleClick={() => handleSaveEditing()}
+									btnIcon={<BsCheckSquare />}
+								/>
 							) : (
-								<button
-									className="table_icon"
-									onClick={() => handleEdit(row.id)}
-									type="button"
-								>
-									<ImPencil />
-								</button>
+								<TableIcon
+									handleClick={() => handleEdit(row.id)}
+									btnIcon={<ImPencil />}
+								/>
 							)}
 
 							{isEditMode && rowIDToEdit === row.id ? (
-								<button
-									className="table_icon"
-									onClick={() => handleCancelEditing()}
-									type="button"
-								>
-									<BsXSquare />
-								</button>
+								<TableIcon
+									handleClick={() => handleCancelEditing()}
+									btnIcon={<BsXSquare />}
+								/>
 							) : (
-								<button
-									className="table_icon"
-									onClick={() => handleRemoveRow(row.id)}
-									type="button"
-								>
-									<ImBin />
-								</button>
+								<TableIcon
+									handleClick={() => handleRemoveRow(row.id)}
+									btnIcon={<ImBin />}
+								/>
 							)}
-							<button className="table_icon" type="button">
-								<BsCaretDownFill />
-							</button>
+
+							{total.includes('опросов') && <TableDropMenu />}
 						</td>
 					</tr>
 				))}
@@ -148,11 +147,11 @@ export const Table = ({ columns, rows, caption, total }) => {
 			<tfoot>
 				<tr>
 					<th scope="row" colSpan={3}>
-						{total}: &nbsp; {rows.length}
+						{total}: &nbsp; {totalRowsState.length}
 					</th>
-					<td colSpan={(columns.length - 3).toString()}>
+					<td colSpan={columns.length - 3}>
 						<TablePagination
-							totalCount={rows.length}
+							totalCount={totalRowsState.length}
 							pageSize={pageSize}
 							changeItemsPerPage={(page) => setPageSize(page)}
 							onPageChange={(page) => setCurrentPage(page)}

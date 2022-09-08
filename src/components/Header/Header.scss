@@ -5,8 +5,10 @@
 	border-bottom: $border;
 	padding: 3% 5%;
 	@include flex;
+	background: $primary-black;
 
 	&__logo img {
+		filter: brightness(0) invert(1);
 		cursor: pointer;
 		width: 200px;
 		height: auto;
@@ -20,8 +22,8 @@
 		}
 	}
 
-	&__logo:hover {
-		opacity: 0.8;
+	&__logo img:hover {
+		filter: brightness(0) invert(1) drop-shadow($primary-white 1px 0 10px);
 	}
 
 	&__nav {
@@ -29,19 +31,27 @@
 
 		a {
 			position: relative;
-			@include text($font-size: 20px, $font-weight: 500);
+			@include text(
+				$font-size: 20px,
+				$font-weight: 500,
+				$color: $primary-white
+			);
 			text-decoration: none;
 			white-space: nowrap;
 			outline: 0;
 			cursor: pointer;
 
 			@media (max-width: 768px) {
-				@include text-l;
+				@include text-l($color: $primary-white);
 			}
 
 			@media (max-width: 576px) {
-				@include text-m($font-weight: 300);
+				@include text-m($font-weight: 300, $color: $primary-white);
 			}
+		}
+
+		a:hover {
+			text-shadow: $primary-white 1px 0 10px;
 		}
 
 		a:hover::after {
@@ -49,26 +59,33 @@
 			position: absolute;
 			width: 6px;
 			height: 6px;
-			background: $primary-black;
+			background: $primary-white;
 			bottom: -12px;
 			left: calc(50% - 3px);
 		}
 
 		&_user {
 			@include flex;
-
 			white-space: nowrap;
 
 			> span {
-				@include text($font-size: 20px, $font-weight: 500);
+				@include text(
+					$font-size: 20px,
+					$font-weight: 500,
+					$color: $primary-white
+				);
 
 				@media (max-width: 768px) {
-					@include text-l;
+					@include text-l($color: $primary-white);
 				}
 
 				@media (max-width: 576px) {
-					@include text-m($font-weight: 300);
+					@include text-m($font-weight: 300, $color: $primary-white);
 				}
+			}
+
+			> svg {
+				color: $primary-white;
 			}
 		}
 	}
@@ -78,7 +95,7 @@
 		position: absolute;
 		width: 6px;
 		height: 6px;
-		background: $primary-black;
+		background: $primary-white;
 		bottom: -12px;
 		left: calc(50% - 3px);
 	}

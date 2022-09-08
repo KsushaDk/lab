@@ -1,12 +1,13 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
+import { AdminPath } from 'Hoc/AdminPath';
 import { AboutPage } from 'Pages/AboutPage/AboutPage';
 import { CreateInterviewPage } from 'Pages/CreateInterviewPage/CreateInterviewPage';
 import { InterviewListPage } from 'Pages/InterviewListPage/InterviewListPage';
 import { InterviewTemplatesPage } from 'Pages/InterviewTemplatesPage/InterviewTemplatesPage';
 import { UserListPage } from 'Pages/UserListPage/UserListPage';
 import { Sidebar } from '../Sidebar/Sidebar';
-import { AdminPath } from '../../hoc/AdminPath';
+
 import './Main.scss';
 
 export const Main = () => (

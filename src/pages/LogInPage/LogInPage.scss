@@ -6,7 +6,20 @@
 	width: 100%;
 
 	a {
+		@include text($font-size: 18px, $font-weight: 500);
 		color: $primary-black;
+
+		@media (max-width: 1200px) {
+			@include text-l($font-weight: 500);
+		}
+
+		@media (max-width: 768px) {
+			@include text-m($font-weight: 500);
+		}
+
+		@media (max-width: 576px) {
+			@include text-s($font-weight: 500);
+		}
 	}
 	a:hover {
 		opacity: 0.8;

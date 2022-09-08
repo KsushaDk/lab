@@ -44,6 +44,8 @@ module.exports = {
 			Pages: path.resolve(__dirname, '../src/pages/'),
 			Utils: path.resolve(__dirname, '../src/utils/'),
 			Scss: path.resolve(__dirname, '../src/scss/'),
+			Hoc: path.resolve(__dirname, '../src/hoc/'),
+			Hooks: path.resolve(__dirname, '../src/hooks/'),
 		},
 	},
 	plugins: [

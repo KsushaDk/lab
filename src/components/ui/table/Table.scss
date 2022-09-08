@@ -135,7 +135,7 @@
 		@include text($font-size: 18px);
 		background-color: transparent;
 		border: none;
-		margin-right: 5px;
+		margin: 0 5px;
 		text-align: center;
 		cursor: pointer;
 
@@ -209,4 +209,42 @@
 .active_page {
 	color: $primary-black;
 	font-weight: 700;
+}
+
+.dropdown {
+	position: relative;
+	display: inline-block;
+
+	&_content {
+		@include flex($gap: 20px, $flex-direction: column, $align-items: start);
+		background: $primary-white;
+		border: $border;
+		padding: 10px 15px;
+		position: absolute;
+		z-index: 1;
+		filter: drop-shadow(4px 4px 4px $primary-gray);
+
+		> a {
+			@include text($font-size: 18px, $font-weight: 600);
+			text-decoration: none;
+			display: inline-block;
+			cursor: pointer;
+
+			@media (max-width: 1200px) {
+				@include text-l($font-weight: 600);
+			}
+
+			@media (max-width: 768px) {
+				@include text-m($font-weight: 600);
+			}
+
+			@media (max-width: 576px) {
+				@include text-s($font-weight: 600);
+			}
+		}
+
+		> a:hover {
+			opacity: 0.8;
+		}
+	}
 }

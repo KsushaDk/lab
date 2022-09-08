@@ -1,8 +1,7 @@
 import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { ImUser } from 'react-icons/im';
-import { useAuth } from '../../hooks/useAuth';
-
+import { useAuth } from 'Hooks/useAuth';
 import logo from './logo.svg';
 import './Header.scss';
 
