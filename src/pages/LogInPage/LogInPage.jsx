@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import { FormInput } from 'Components/ui/input/FormInput/FormInput';
+import { PrimaryInput } from 'Components/ui/input/PrimaryInput/PrimaryInput';
 import { SubmitInput } from 'Components/ui/input/SubmitInput/SubmitInput';
-import { Form } from 'Components/ui/form/Form';
+import { PrimaryForm } from 'Components/ui/form/PrimaryForm/PrimaryForm';
 import { errMessages } from 'Utils/constants';
 import { useAuth } from 'Hooks/useAuth';
 import './LogInPage.scss';
@@ -32,8 +32,8 @@ export const LogInPage = () => {
 	};
 
 	return (
-		<Form title="Вход" handleSubmit={() => handleSubmit(onSubmit)}>
-			<FormInput
+		<PrimaryForm title="Вход" handleSubmit={() => handleSubmit(onSubmit)}>
+			<PrimaryInput
 				type="text"
 				name="email"
 				placeholder="Enter your email..."
@@ -48,7 +48,7 @@ export const LogInPage = () => {
 				}}
 				errors={errors}
 			/>
-			<FormInput
+			<PrimaryInput
 				type="password"
 				name="password"
 				placeholder="Enter your password..."
@@ -69,12 +69,12 @@ export const LogInPage = () => {
 				errors={errors}
 			/>
 
-			<div className="login__form_check">
+			<div className="login__form_help-block">
 				<Link to="/signup">Регистрация</Link>
 				<a href="/">Забыли пароль?</a>
 			</div>
 
 			<SubmitInput isValid={isValid} />
-		</Form>
+		</PrimaryForm>
 	);
 };

@@ -1,8 +1,8 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import { Form } from 'Components/ui/form/Form';
-import { FormInput } from 'Components/ui/input/FormInput/FormInput';
+import { PrimaryForm } from 'Components/ui/form/PrimaryForm/PrimaryForm';
+import { PrimaryInput } from 'Components/ui/input/PrimaryInput/PrimaryInput';
 import { SubmitInput } from 'Components/ui/input/SubmitInput/SubmitInput';
 import { errMessages, regEmail, regPass } from 'Utils/constants';
 
@@ -29,8 +29,11 @@ export const SignUpPage = () => {
 	};
 
 	return (
-		<Form title="Регистрация" handleSubmit={() => handleSubmit(onSubmit)}>
-			<FormInput
+		<PrimaryForm
+			title="Регистрация"
+			handleSubmit={() => handleSubmit(onSubmit)}
+		>
+			<PrimaryInput
 				type="text"
 				name="username"
 				placeholder="Enter your name..."
@@ -43,7 +46,7 @@ export const SignUpPage = () => {
 				}}
 				errors={errors}
 			/>
-			<FormInput
+			<PrimaryInput
 				type="text"
 				name="email"
 				placeholder="Enter your email..."
@@ -60,7 +63,7 @@ export const SignUpPage = () => {
 				}}
 				errors={errors}
 			/>
-			<FormInput
+			<PrimaryInput
 				type="password"
 				name="password"
 				placeholder="Enter your password..."
@@ -74,7 +77,7 @@ export const SignUpPage = () => {
 				}}
 				errors={errors}
 			/>
-			<FormInput
+			<PrimaryInput
 				type="password"
 				name="password_repeat"
 				placeholder="Repeat your password..."
@@ -88,6 +91,6 @@ export const SignUpPage = () => {
 				errors={errors}
 			/>
 			<SubmitInput isValid={isValid} />
-		</Form>
+		</PrimaryForm>
 	);
 };

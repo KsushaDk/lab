@@ -16,7 +16,7 @@ export const TabBar = ({ children, ...attrs }) => {
 	}, []);
 
 	return (
-		<section className="tabbar" {...attrs}>
+		<div className="tabbar__wrap" {...attrs}>
 			<div className="tabbar__nav">
 				{getLabels(children).map((navLabel) => (
 					<TabBarNav
@@ -33,7 +33,7 @@ export const TabBar = ({ children, ...attrs }) => {
 					React.cloneElement(child, { activeTab })
 				)}
 			</div>
-		</section>
+		</div>
 	);
 };
 

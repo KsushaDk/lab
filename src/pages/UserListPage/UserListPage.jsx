@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { SearchInput } from 'Components/ui/input/SearchInput/SearchInput';
+import { SearchForm } from 'Components/ui/form/SearchForm/SearchForm';
 import { Table } from 'Components/ui/table/Table';
 import { dataUsers, columnsUsers } from 'Utils/constants';
 
@@ -22,8 +22,8 @@ export const UserListPage = () => {
 	};
 
 	return (
-		<section className="main__content">
-			<SearchInput handleSubmit={handleSubmit} />
+		<section className="content">
+			<SearchForm handleSubmit={handleSubmit} />
 			<Table
 				caption="Пользователи"
 				columns={columnsUsers}

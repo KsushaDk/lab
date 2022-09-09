@@ -1,4 +1,5 @@
 import React from 'react';
+import { PrimarySelect } from '../select/PrimarySelect/PrimarySelect';
 
 export const TableCell = ({
 	isEditMode,
@@ -24,16 +25,12 @@ export const TableCell = ({
 		return (
 			<td>
 				{isEditMode && rowIDToEdit === row.id ? (
-					<form>
-						<select
-							onChange={handleOnChangeField}
-							name="role"
-							defaultValue={td[1]}
-						>
-							<option value="Администратор">Администратор</option>
-							<option value="Пользователь">Пользователь</option>
-						</select>
-					</form>
+					<PrimarySelect
+						name="role"
+						options={['Администратор', 'Пользователь']}
+						defaultValue={td[1]}
+						hangleSelectChange={handleOnChangeField}
+					/>
 				) : (
 					td[1]
 				)}
@@ -47,6 +44,7 @@ export const TableCell = ({
 				{isEditMode && rowIDToEdit === row.id ? (
 					<form>
 						<input
+							className="secondary_input"
 							autoComplete="off"
 							type="text"
 							defaultValue={editedRow ? editedRow[td[0]] : td[1]}

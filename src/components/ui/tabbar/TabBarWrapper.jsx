@@ -1,14 +1,14 @@
 import React from 'react';
 import { labels, dammyText } from 'Utils/constants';
-import { TabBar } from '../ui/tabbar/TabBar';
-import { TabBarItem } from '../ui/tabbar/TabBarItem';
+import { TabBar } from './TabBar';
+import { TabBarItem } from './TabBarItem';
 
 export const TabBarWrapper = () => (
 	<TabBar>
 		{labels.map((label) => (
 			<TabBarItem label={label} key={label}>
-				<h4>{label}</h4>
-				<p>{dammyText}</p>
+				<h3 className="title_s underline">{label}</h3>
+				<p className="p_primary">{dammyText}</p>
 			</TabBarItem>
 		))}
 	</TabBar>

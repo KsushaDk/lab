@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { NavBtn } from 'Components/ui/button/NavBtn';
-import { SearchInput } from 'Components/ui/input/SearchInput/SearchInput';
+import { PrimaryBtn } from 'Components/ui/button/PrimaryBtn/PrimaryBtn';
+import { SearchForm } from 'Components/ui/form/SearchForm/SearchForm';
 import { Table } from 'Components/ui/table/Table';
 import { dataInterviews, columnsInterviews } from 'Utils/constants';
 
@@ -23,10 +23,11 @@ export const InterviewListPage = () => {
 	};
 
 	return (
-		<section className="main__content">
-			<SearchInput handleSubmit={handleSubmit} />
-
-			<NavBtn btnValue={{ value: 'Создать опрос', link: 'create' }} />
+		<section className="content">
+			<div className="content__head">
+				<PrimaryBtn btnValue={{ value: 'Создать опрос', link: 'create' }} />
+				<SearchForm handleSubmit={handleSubmit} />
+			</div>
 			<Table
 				caption="Мои опросы"
 				rows={interviews}

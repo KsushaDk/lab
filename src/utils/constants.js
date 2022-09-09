@@ -192,3 +192,30 @@ export const dataInterviews = [
 		results: 'результаты',
 	},
 ];
+
+export const dataTemplates = [
+	{
+		id: 1,
+		title: 'Шаблон 1',
+		questions: 10,
+		pages: 1,
+	},
+	{
+		id: 2,
+		title: 'Шаблон 2',
+		questions: 22,
+		pages: 3,
+	},
+	{
+		id: 3,
+		title: 'Шаблон 3',
+		questions: 40,
+		pages: 4,
+	},
+	{
+		id: 4,
+		title: 'Шаблон 4',
+		questions: 15,
+		pages: 2,
+	},
+];

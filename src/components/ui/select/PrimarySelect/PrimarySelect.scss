@@ -1,0 +1,11 @@
+@import 'Scss/vars.scss';
+@import 'Scss/mixins.scss';
+
+.primary_select {
+	@include text;
+	padding: 0.1rem 0.2rem;
+	background-color: transparent;
+	border: $border;
+	border-radius: 4px;
+	outline: none;
+}

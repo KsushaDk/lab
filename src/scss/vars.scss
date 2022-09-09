@@ -1,5 +1,4 @@
 $font-family: 'IBM Plex Sans Condensed', sans-serif;
-$bg-color: #fff;
 $text-color: #101010;
 $primary-white: #fff;
 $primary-red: #eb3d26;
@@ -8,3 +7,5 @@ $primary-gray: rgba(0, 0, 0, 0.1);
 $secondary-gray: rgba(145, 143, 143, 0.1);
 
 $border: 1px solid $primary-gray;
+$shadow-form: drop-shadow(4px 4px 4px $primary-gray);
+$shadow-text: $primary-white 1px 0 10px;

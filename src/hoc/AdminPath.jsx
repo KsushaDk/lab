@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
 import { useAuth } from 'Hooks/useAuth';
+import { ErrorPage } from 'Pages/ErrorPage/ErrorPage';
 
 export const AdminPath = ({ children }) => {
 	const { user } = useAuth();
@@ -10,10 +10,10 @@ export const AdminPath = ({ children }) => {
 	}
 
 	return (
-		<h3 className="notfound">
-			You don&apos;t have an access to this page! Go{' '}
-			<Link to="/home">home</Link>
-		</h3>
+		<ErrorPage
+			link="/home"
+			message="You don't have an access to this page! Go&nbsp;"
+		/>
 	);
 };
 

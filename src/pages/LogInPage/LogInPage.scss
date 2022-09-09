@@ -1,26 +1,14 @@
 @import 'Scss/vars.scss';
 @import 'Scss/mixins.scss';
 
-.login__form_check {
+.login__form_help-block {
 	@include flex;
 	width: 100%;
 
 	a {
-		@include text($font-size: 18px, $font-weight: 500);
-		color: $primary-black;
-
-		@media (max-width: 1200px) {
-			@include text-l($font-weight: 500);
-		}
-
-		@media (max-width: 768px) {
-			@include text-m($font-weight: 500);
-		}
-
-		@media (max-width: 576px) {
-			@include text-s($font-weight: 500);
-		}
+		@include text($font-weight: 500);
 	}
+
 	a:hover {
 		opacity: 0.8;
 	}

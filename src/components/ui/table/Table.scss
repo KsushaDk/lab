@@ -1,209 +1,88 @@
 @import 'Scss/vars.scss';
 @import 'Scss/mixins.scss';
 
+.table__wrap {
+	text-align: center;
+	display: inline-block;
+	width: 100%;
+
+	@media (max-width: 1200px) {
+		overflow-x: scroll;
+	}
+}
+
 .table {
 	&__content {
-		position: relative;
-		@include text($font-size: 18px, $font-weight: 400);
-		table-layout: fixed;
+		@include text;
+		min-width: 40rem;
 		width: 100%;
 		border-collapse: collapse;
-		border: 2px solid $primary-gray;
-
-		caption {
-			@include text($font-size: 30px, $font-weight: 300);
-			min-height: 40px;
-			text-align: left;
-			margin-bottom: 2%;
-
-			@media (max-width: 1200px) {
-				@include text($font-size: 28px, $font-weight: 300);
-			}
-
-			@media (max-width: 768px) {
-				@include text($font-size: 25px, $font-weight: 300);
-			}
-
-			@media (max-width: 576px) {
-				@include text($font-size: 23px, $font-weight: 300);
-			}
-		}
-
-		thead,
-		tfoot {
-			background-color: $primary-gray;
-
-			th:first-child {
-				text-align: left;
-			}
-		}
+		border: $border;
 
 		th,
 		td {
 			word-wrap: break-word;
-			padding: 1% 2%;
-
-			@media (max-width: 1200px) {
-				padding: 1%;
-			}
-
-			@media (max-width: 576px) {
-				padding: 0.5%;
-			}
-		}
-
-		tbody td {
-			text-align: center;
-		}
-
-		tbody td:first-child {
-			text-align: left;
-		}
-
-		tbody td > form {
-			height: 100%;
-			width: 100%;
-		}
-
-		tbody td > form > input {
-			@include text($font-size: 18px);
-			padding: 1%;
-			background-color: transparent;
-			border: $border;
-			height: 100%;
-			width: 100%;
-			border-radius: 4px;
-			outline: none;
-
-			@media (max-width: 1200px) {
-				@include text-l;
-			}
-
-			@media (max-width: 768px) {
-				@include text-m;
-			}
-
-			@media (max-width: 576px) {
-				@include text-s;
-			}
-		}
-
-		tbody td form > select {
-			@include text($font-size: 18px);
-			padding: 1%;
-			background-color: transparent;
-			border: $border;
-			border-radius: 4px;
-			outline: none;
-
-			@media (max-width: 1200px) {
-				@include text-l;
-			}
-
-			@media (max-width: 768px) {
-				@include text-m;
-			}
-
-			@media (max-width: 576px) {
-				@include text-s;
-			}
-		}
-
-		tbody tr:hover td {
-			background: $secondary-gray;
+			padding: 0.5rem;
 		}
 
 		a {
 			color: $primary-black;
 			cursor: pointer;
 		}
+	}
 
-		@media (max-width: 1200px) {
-			@include text-l;
-		}
+	&__caption {
+		@include text($font-size: 2rem, $font-weight: 300);
+		min-height: 2rem;
+		text-align: left;
+		margin-bottom: 1rem;
+	}
 
-		@media (max-width: 768px) {
-			@include text-m;
-		}
+	&__head,
+	&__foot {
+		background-color: $primary-gray;
 
-		@media (max-width: 576px) {
-			@include text-s;
+		th:first-child {
+			text-align: left;
 		}
 	}
 
-	&_icon {
-		@include text($font-size: 18px);
-		background-color: transparent;
-		border: none;
-		margin: 0 5px;
-		text-align: center;
-		cursor: pointer;
+	&__body {
+		td {
+			text-align: center;
 
-		@media (max-width: 1200px) {
-			@include text-l;
-		}
-
-		@media (max-width: 768px) {
-			@include text-m;
-		}
-
-		@media (max-width: 576px) {
-			@include text-s;
-		}
-
-		> svg {
-			width: 20px;
-			height: 20px;
-			vertical-align: middle;
-
-			@media (max-width: 768px) {
-				width: 15px;
-				height: 15px;
-			}
-
-			@media (max-width: 576px) {
-				width: 12px;
-				height: 12px;
+			&:first-child {
+				text-align: left;
 			}
 		}
 
-		&:hover {
-			opacity: 0.3;
-		}
-
-		@media (max-width: 576px) {
-			margin-right: 3px;
+		tr:hover td {
+			background: $secondary-gray;
 		}
 	}
 
 	&__pagination {
-		@include flex($gap: 5px);
+		@include flex($gap: 0.3rem);
 
 		&_wrapper {
 			@include flex($justify-content: flex-end);
+		}
 
-			form > select {
-				@include text($font-size: 18px);
-				padding: 1%;
-				background-color: transparent;
-				border: $border;
-				border-radius: 4px;
-				outline: none;
-
-				@media (max-width: 1200px) {
-					@include text-l;
-				}
-
-				@media (max-width: 768px) {
-					@include text-m;
-				}
-
-				@media (max-width: 576px) {
-					@include text-s;
-				}
-			}
+		&_range {
+			@include flex($gap: 0.1rem);
 		}
 	}
+}
+
+.secondary_input {
+	@include text;
+	padding: 0.1rem 0.2rem;
+	background-color: transparent;
+	border: $border;
+	height: 100%;
+	width: 100%;
+	border-radius: 4px;
+	outline: none;
 }
 
 .active_page {
@@ -216,35 +95,23 @@
 	display: inline-block;
 
 	&_content {
-		@include flex($gap: 20px, $flex-direction: column, $align-items: start);
+		@include flex($flex-direction: column, $align-items: start);
 		background: $primary-white;
 		border: $border;
-		padding: 10px 15px;
+		padding: 0.5rem 1rem;
 		position: absolute;
+		right: 0;
 		z-index: 1;
-		filter: drop-shadow(4px 4px 4px $primary-gray);
+		filter: $shadow-form;
 
 		> a {
-			@include text($font-size: 18px, $font-weight: 600);
+			@include text($font-weight: 600);
 			text-decoration: none;
-			display: inline-block;
 			cursor: pointer;
-
-			@media (max-width: 1200px) {
-				@include text-l($font-weight: 600);
-			}
-
-			@media (max-width: 768px) {
-				@include text-m($font-weight: 600);
-			}
-
-			@media (max-width: 576px) {
-				@include text-s($font-weight: 600);
-			}
 		}
 
 		> a:hover {
-			opacity: 0.8;
+			opacity: 0.7;
 		}
 	}
 }

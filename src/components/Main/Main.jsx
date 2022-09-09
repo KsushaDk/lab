@@ -13,6 +13,7 @@ import './Main.scss';
 export const Main = () => (
 	<main className="main">
 		<Sidebar />
+		<div className="gray_line" />
 		<Routes>
 			<Route path="/" element={<AboutPage />} />
 			<Route

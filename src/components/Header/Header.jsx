@@ -10,10 +10,10 @@ export const Header = () => {
 
 	return (
 		<header className="header">
-			<Link className="header__logo" to="/home">
+			<Link className="primary_logo" to="/home">
 				<img src={logo} alt="ITechArt Logo" />
 			</Link>
-			<nav className="header__nav">
+			<nav className="nav__links">
 				<NavLink
 					to="/home"
 					className={({ isActive }) => (isActive ? 'active' : '')}
@@ -28,7 +28,7 @@ export const Header = () => {
 						Вход
 					</NavLink>
 				) : (
-					<div className="header__nav_user">
+					<div className="nav__user">
 						<ImUser /> <span>Привет, {user.username}!</span>
 					</div>
 				)}

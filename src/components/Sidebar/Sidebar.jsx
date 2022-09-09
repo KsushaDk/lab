@@ -1,12 +1,12 @@
 import React from 'react';
 import { btnValues } from 'Utils/constants';
-import { NavBtn } from '../ui/button/NavBtn';
+import { PrimaryBtn } from '../ui/button/PrimaryBtn/PrimaryBtn';
 import './Sidebar.scss';
 
 export const Sidebar = () => (
-	<div className="main__sidebar">
+	<section className="sidebar">
 		{btnValues.map((btnValue) => (
-			<NavBtn key={btnValue.link} btnValue={btnValue} />
+			<PrimaryBtn key={btnValue.link} btnValue={btnValue} />
 		))}
-	</div>
+	</section>
 );

@@ -1,38 +1,23 @@
 import React from 'react';
-import { NavBtn } from 'Components/ui/button/NavBtn';
-import { SearchInput } from 'Components/ui/input/SearchInput/SearchInput';
-import { dammyText } from '../../utils/constants';
+import { PrimaryBtn } from 'Components/ui/button/PrimaryBtn/PrimaryBtn';
+import { SearchForm } from 'Components/ui/form/SearchForm/SearchForm';
+import { dataTemplates } from 'Utils/constants';
+import { InterviewTemplatesItem } from './InterviewTemplatesItem';
 
 export const InterviewTemplatesPage = () => (
-	<section className="main__content">
-		<h2 className="main__content_title">Шаблоны</h2>
-		<div className="main__content_head">
-			<NavBtn btnValue={{ value: 'Новый шаблон', link: 'create-template' }} />
-			<SearchInput />
+	<section className="content">
+		<h2 className="title_m">Шаблоны</h2>
+		<div className="content__head">
+			<PrimaryBtn
+				btnValue={{ value: 'Новый шаблон', link: 'create-template' }}
+			/>
+			<SearchForm />
 		</div>
-		<div className="main__content_cards">
-			<div className="main__content_cards-item">
-				<h3>Шаблон 1</h3>
-				<p>{dammyText}</p>
-				<span>Вопросов 12</span>
-				<span>Страниц 3</span>
-				<NavBtn btnValue={{ value: 'Создать опрос', link: 'create' }} />
-			</div>
-			<div className="main__content_cards-item">
-				<h3>Шаблон 2</h3>
-				<p>{dammyText}</p>
-				<span>Вопросов 12</span>
-				<span>Страниц 3</span>
-				<NavBtn btnValue={{ value: 'Создать опрос', link: 'create' }} />
-			</div>
-			<div className="main__content_cards-item">
-				<h3>Шаблон 3</h3>
-				<p>{dammyText}</p>
-				<span>Вопросов: 12</span>
-				<span>Страниц: 3</span>
-				<NavBtn btnValue={{ value: 'Создать опрос', link: 'create' }} />
-			</div>
+		<div className="content__cards">
+			{dataTemplates.map((template) => (
+				<InterviewTemplatesItem template={template} key={template.id} />
+			))}
 		</div>
-		<h4 className="main__content_total">Всего шаблонов: ...</h4>
+		<h3 className="title_s total">Всего шаблонов: ...</h3>
 	</section>
 );

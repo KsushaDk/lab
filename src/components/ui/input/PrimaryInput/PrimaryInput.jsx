@@ -1,15 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { EnterError } from '../../../EnterError/EnterError';
-import './FormInput.scss';
+import './PrimaryInput.scss';
 
-export const FormInput = ({ name, register, rules, errors, ...attrs }) => (
+export const PrimaryInput = ({ name, register, rules, errors, ...attrs }) => (
 	<>
 		{errors[name] !== undefined && (
 			<EnterError err={errors[name].message || 'error'} />
 		)}
 		<input
-			className="form_input"
+			className="primary_input"
 			name={name}
 			{...attrs}
 			{...(register && register(name, rules))}
@@ -17,7 +17,7 @@ export const FormInput = ({ name, register, rules, errors, ...attrs }) => (
 	</>
 );
 
-FormInput.propTypes = {
+PrimaryInput.propTypes = {
 	name: PropTypes.string.isRequired,
 	rules: PropTypes.shape({
 		required: PropTypes.string,

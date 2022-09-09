@@ -1,6 +1,6 @@
 @import 'Scss/mixins.scss';
 
-.main__sidebar {
+.sidebar {
 	@include flex($flex-direction: column, $align-items: stretch);
 	align-self: baseline;
 	width: 20%;
@@ -11,6 +11,7 @@
 	}
 
 	@media (max-width: 576px) {
-		@include text-m($font-weight: 300);
+		width: 100%;
+		@include flex($gap: 0.3rem, $align-items: stretch);
 	}
 }

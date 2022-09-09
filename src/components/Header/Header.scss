@@ -3,104 +3,84 @@
 
 .header {
 	border-bottom: $border;
-	padding: 3% 5%;
+	padding: 2rem;
 	@include flex;
 	background: $primary-black;
 
-	&__logo img {
-		filter: brightness(0) invert(1);
-		cursor: pointer;
-		width: 200px;
-		height: auto;
-
-		@media (max-width: 768px) {
-			width: 150px;
-		}
-
-		@media (max-width: 576px) {
-			width: 100px;
-		}
+	@media (max-width: 1200px) {
+		padding: 1.5rem 1rem;
 	}
 
-	&__logo img:hover {
-		filter: brightness(0) invert(1) drop-shadow($primary-white 1px 0 10px);
+	@media (max-width: 576px) {
+		padding: 1.3rem 1rem;
 	}
+}
 
-	&__nav {
-		@include flex($gap: 15px);
+.primary_logo img {
+	filter: brightness(0) invert(1);
+	cursor: pointer;
+	width: 10rem;
+	height: auto;
 
-		a {
+	&:hover {
+		filter: brightness(0) invert(1) drop-shadow($shadow-text);
+	}
+}
+
+.nav {
+	&__links {
+		@include flex($gap: 1rem);
+
+		> a {
 			position: relative;
-			@include text(
-				$font-size: 20px,
-				$font-weight: 500,
-				$color: $primary-white
-			);
+			@include text($font-weight: 500, $color: $primary-white);
 			text-decoration: none;
 			white-space: nowrap;
 			outline: 0;
 			cursor: pointer;
 
-			@media (max-width: 768px) {
-				@include text-l($color: $primary-white);
+			&:hover {
+				text-shadow: $shadow-text;
+
+				&::after {
+					content: '';
+					position: absolute;
+					width: 6px;
+					height: 6px;
+					background: $primary-white;
+					bottom: -12px;
+					left: calc(50% - 3px);
+				}
 			}
+		}
+	}
+
+	&__user {
+		@include flex;
+		white-space: nowrap;
+
+		> span {
+			@include text($font-weight: 500, $color: $primary-white);
 
 			@media (max-width: 576px) {
-				@include text-m($font-weight: 300, $color: $primary-white);
+				display: none;
 			}
 		}
 
-		a:hover {
-			text-shadow: $primary-white 1px 0 10px;
-		}
-
-		a:hover::after {
-			content: '';
-			position: absolute;
-			width: 6px;
-			height: 6px;
-			background: $primary-white;
-			bottom: -12px;
-			left: calc(50% - 3px);
-		}
-
-		&_user {
-			@include flex;
-			white-space: nowrap;
-
-			> span {
-				@include text(
-					$font-size: 20px,
-					$font-weight: 500,
-					$color: $primary-white
-				);
-
-				@media (max-width: 768px) {
-					@include text-l($color: $primary-white);
-				}
-
-				@media (max-width: 576px) {
-					@include text-m($font-weight: 300, $color: $primary-white);
-				}
-			}
-
-			> svg {
-				color: $primary-white;
-			}
+		> svg {
+			color: $primary-white;
+			width: 1.2rem;
+			height: 1.2rem;
 		}
 	}
+}
 
-	.active::after {
-		content: '';
-		position: absolute;
-		width: 6px;
-		height: 6px;
-		background: $primary-white;
-		bottom: -12px;
-		left: calc(50% - 3px);
-	}
-
-	@media (max-width: 576px) {
-		padding: 4% 3%;
-	}
+.active::after {
+	content: '';
+	position: absolute;
+	width: 6px;
+	height: 6px;
+	background: $primary-white;
+	bottom: -12px;
+	left: calc(50% - 3px);
 }

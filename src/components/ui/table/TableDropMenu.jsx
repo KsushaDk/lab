@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { BsCaretDownFill } from 'react-icons/bs';
-import { TableIcon } from './TableIcon';
+import { IconBtn } from '../button/IconBtn/IconBtn';
 
 export const TableDropMenu = () => {
 	const [isShown, setShown] = useState(false);
@@ -16,9 +16,8 @@ export const TableDropMenu = () => {
 			role="button"
 			tabIndex={0}
 			onClick={() => handleDropMenu()}
-			onMouseLeave={() => setShown(false)}
 		>
-			<TableIcon btnIcon={<BsCaretDownFill />} />
+			<IconBtn btnIcon={<BsCaretDownFill />} />
 
 			{isShown && (
 				<div className="dropdown_content">
