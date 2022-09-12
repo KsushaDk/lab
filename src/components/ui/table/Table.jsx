@@ -2,6 +2,7 @@ import React, { useState, useEffect, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { ImPencil, ImBin } from 'react-icons/im';
 import { BsXSquare, BsCheckSquare } from 'react-icons/bs';
+import { PrimaryModal } from '../modal/PrimaryModal/PrimaryModal';
 import { IconBtn } from '../button/IconBtn/IconBtn';
 import { TableCell } from './TableCell';
 import { TablePagination } from './TablePagination';
@@ -14,6 +15,8 @@ export const Table = ({ columns, rows, caption, total }) => {
 	const [rowIDToEdit, setRowIDToEdit] = useState(undefined);
 	const [rowsState, setRowsState] = useState(totalRowsState);
 	const [editedRow, setEditedRow] = useState();
+	const [modalActive, setModalActive] = useState(false);
+	const [modalTitle, setModalTitle] = useState('');
 
 	//  pagination
 	const [pageSize, setPageSize] = useState(5);
@@ -45,30 +48,40 @@ export const Table = ({ columns, rows, caption, total }) => {
 		setTotalRowsState(newTotalData);
 	};
 
-	const handleOnChangeField = (e, rowID) => {
-		const { name: fieldName, value } = e.target;
-		if (value === '') {
-			console.log('The field can not be empty');
-		}
-
-		setEditedRow({
-			id: rowID,
-			[fieldName]: value,
-			...editedRow,
-		});
-	};
-
 	const handleCancelEditing = () => {
 		setIsEditMode(false);
 		setEditedRow(undefined);
 	};
 
 	const handleSaveEditing = () => {
-		setIsEditMode(false);
+		if (editedRow !== undefined && editedRow.title !== undefined) {
+			const checkUniqueTitle = rowsState.find(
+				(row) => row.title === editedRow.title
+			);
 
-		if (editedRow !== undefined) {
+			if (checkUniqueTitle !== undefined) {
+				setModalActive(true);
+				setModalTitle('Название опроса должно быть уникальным');
+				handleCancelEditing();
+			} else {
+				setIsEditMode(false);
+
+				const changedKeys = Object.keys(editedRow);
+				const newData = rowsState.map((row) => {
+					if (row.id === editedRow.id) {
+						changedKeys.forEach((key) => {
+							row[key] = editedRow[key];
+						});
+					}
+					return row;
+				});
+
+				setRowsState(newData);
+			}
+		}
+
+		if (editedRow !== undefined && editedRow.username !== undefined) {
 			const changedKeys = Object.keys(editedRow);
-
 			const newData = rowsState.map((row) => {
 				if (row.id === editedRow.id) {
 					changedKeys.forEach((key) => {
@@ -85,87 +98,129 @@ export const Table = ({ columns, rows, caption, total }) => {
 		setEditedRow(undefined);
 	};
 
+	const handleOnChangeField = (e, rowID) => {
+		const { name: fieldName, value } = e.target;
+		if (value === '') {
+			setModalActive(true);
+			setModalTitle('Поле не может быть пустым');
+			handleCancelEditing();
+		}
+
+		setEditedRow({
+			id: rowID,
+			[fieldName]: value,
+			...editedRow,
+		});
+	};
+
+	const handleModalCancel = () => {
+		setModalActive(false);
+		handleCancelEditing();
+	};
+
+	const handleModalSubmit = () => {
+		setModalActive(false);
+		handleSaveEditing();
+	};
+
 	return (
-		<div className="table__wrap">
-			<table className="table__content">
-				<caption className="table__caption">{caption}</caption>
-				<thead className="table__head">
-					<tr>
-						{columns.map((column) => (
-							<th key={column.field} scope="col">
-								{column.fieldName}
-							</th>
-						))}
-					</tr>
-				</thead>
-				<tbody className="table__body">
-					{rows.length === 0 && (
+		<>
+			<PrimaryModal
+				title={modalTitle}
+				isActive={modalActive}
+				setActive={setModalActive}
+				onCancel={handleModalCancel}
+				onSubmit={handleModalSubmit}
+			/>
+
+			<div className="table__wrap">
+				<table className="table__content">
+					<caption className="table__caption">{caption}</caption>
+					<thead className="table__head">
 						<tr>
-							<td colSpan={columns.length}>No sush item. Try again please.</td>
-						</tr>
-					)}
-					{rowsState.map((row) => (
-						<tr key={row.id}>
-							{Object.entries(row).map((td) => (
-								<TableCell
-									key={td[0]}
-									isEditMode={isEditMode}
-									rowIDToEdit={rowIDToEdit}
-									row={row}
-									td={td}
-									editedRow={editedRow}
-									handleOnChangeField={(e) => handleOnChangeField(e, row.id)}
-								/>
+							{columns.map((column) => (
+								<th key={column.field} scope="col">
+									{column.fieldName}
+								</th>
 							))}
+						</tr>
+					</thead>
+					<tbody className="table__body">
+						{rows.length === 0 && (
+							<tr>
+								<td colSpan={columns.length}>
+									No sush item. Try again please.
+								</td>
+							</tr>
+						)}
+						{rowsState.map((row) => (
+							<tr key={row.id}>
+								{Object.entries(row).map((td) => (
+									<TableCell
+										key={td[0]}
+										isEditMode={isEditMode}
+										rowIDToEdit={rowIDToEdit}
+										row={row}
+										td={td}
+										editedRow={editedRow}
+										handleOnChangeField={(e) => handleOnChangeField(e, row.id)}
+									/>
+								))}
 
-							<td>
-								{isEditMode && rowIDToEdit === row.id ? (
-									<IconBtn
-										handleClick={() => handleSaveEditing()}
-										btnIcon={<BsCheckSquare />}
-									/>
-								) : (
-									<IconBtn
-										handleClick={() => handleEdit(row.id)}
-										btnIcon={<ImPencil />}
-									/>
-								)}
+								<td>
+									{isEditMode && rowIDToEdit === row.id ? (
+										<IconBtn
+											handleClick={() => {
+												setModalActive(true);
+												setModalTitle(
+													'Вы действительно хотите сохранить изменения?'
+												);
+											}}
+											btnIcon={<BsCheckSquare />}
+										/>
+									) : (
+										<IconBtn
+											handleClick={() => handleEdit(row.id)}
+											btnIcon={<ImPencil />}
+										/>
+									)}
 
-								{isEditMode && rowIDToEdit === row.id ? (
-									<IconBtn
-										handleClick={() => handleCancelEditing()}
-										btnIcon={<BsXSquare />}
-									/>
-								) : (
-									<IconBtn
-										handleClick={() => handleRemoveRow(row.id)}
-										btnIcon={<ImBin />}
-									/>
-								)}
+									{isEditMode && rowIDToEdit === row.id ? (
+										<IconBtn
+											handleClick={() => handleCancelEditing()}
+											btnIcon={<BsXSquare />}
+										/>
+									) : (
+										<IconBtn
+											handleClick={() => handleRemoveRow(row.id)}
+											btnIcon={<ImBin />}
+										/>
+									)}
 
-								{total.includes('опросов') && <TableDropMenu />}
+									{total.includes('опросов') && <TableDropMenu />}
+								</td>
+							</tr>
+						))}
+					</tbody>
+					<tfoot className="table__foot">
+						<tr>
+							<th scope="row" colSpan={3}>
+								{total}: &nbsp; {totalRowsState.length}
+							</th>
+							<td colSpan={columns.length - 3}>
+								<TablePagination
+									totalCount={totalRowsState.length}
+									pageSize={pageSize}
+									changeItemsPerPage={(page) => setPageSize(page)}
+									onPageChange={(page) => setCurrentPage(page)}
+									currentPage={currentPage}
+								/>
 							</td>
 						</tr>
-					))}
-				</tbody>
-				<tfoot className="table__foot">
-					<tr>
-						<th scope="row" colSpan={3}>
-							{total}: &nbsp; {totalRowsState.length}
-						</th>
-						<td colSpan={columns.length - 3}>
-							<TablePagination
-								totalCount={totalRowsState.length}
-								pageSize={pageSize}
-								changeItemsPerPage={(page) => setPageSize(page)}
-								onPageChange={(page) => setCurrentPage(page)}
-								currentPage={currentPage}
-							/>
-						</td>
-					</tr>
-				</tfoot>
-			</table>
-		</div>
+					</tfoot>
+				</table>
+			</div>
+		</>
 	);
 };
 
@@ -179,7 +234,7 @@ Table.propTypes = {
 		})
 	).isRequired,
 	rows: PropTypes.arrayOf(
-		PropTypes.oneOf([
+		PropTypes.oneOfType([
 			PropTypes.shape({
 				id: PropTypes.number,
 				username: PropTypes.string,

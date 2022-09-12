@@ -1,0 +1,46 @@
+@import 'Scss/vars.scss';
+@import 'Scss/mixins.scss';
+
+.primary_modal {
+	&__wrapper {
+		@include flex($justify-content: center, $align-items: center);
+		position: fixed;
+		z-index: 1;
+		left: 0;
+		top: 0;
+		width: 100vw;
+		height: 100vh;
+		overflow: auto;
+		background-color: rgba(0, 0, 0, 0.4);
+		opacity: 0;
+		pointer-events: none;
+		transition: 0.5s;
+	}
+
+	&__content {
+		@include flex($align-items: center, $flex-direction: column);
+		background-color: $primary-white;
+		padding: 2rem;
+		border: $border;
+		width: 50vw;
+		transform: scale(0.5);
+		transition: 0.5s all;
+	}
+
+	&__title {
+		@include text($font-weight: 600);
+	}
+
+	&__footer {
+		@include flex;
+	}
+}
+
+.active_modal {
+	opacity: 1;
+	pointer-events: all;
+}
+
+.active_modal-content {
+	transform: scale(1);
+}

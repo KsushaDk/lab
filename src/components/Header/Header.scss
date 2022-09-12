@@ -3,16 +3,16 @@
 
 .header {
 	border-bottom: $border;
-	padding: 2rem;
+	padding: $padding-l;
 	@include flex;
 	background: $primary-black;
 
 	@media (max-width: 1200px) {
-		padding: 1.5rem 1rem;
+		padding: $padding-s;
 	}
 
 	@media (max-width: 576px) {
-		padding: 1.3rem 1rem;
+		padding: $padding-s;
 	}
 }
 
