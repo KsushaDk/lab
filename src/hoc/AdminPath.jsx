@@ -4,8 +4,9 @@ import { useAuth } from 'Hooks/useAuth';
 import { ErrorPage } from 'Pages/ErrorPage/ErrorPage';
 
 export const AdminPath = ({ children }) => {
-	const { user } = useAuth();
-	if (user.username.includes('admin')) {
+	const { currentUser } = useAuth();
+
+	if (currentUser.role === 'Администратор') {
 		return children;
 	}
 

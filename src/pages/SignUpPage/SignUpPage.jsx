@@ -1,13 +1,18 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { v4 as uuidv4 } from 'uuid';
 import { PrimaryForm } from 'Components/ui/form/PrimaryForm/PrimaryForm';
 import { PrimaryInput } from 'Components/ui/input/PrimaryInput/PrimaryInput';
 import { SubmitInput } from 'Components/ui/input/SubmitInput/SubmitInput';
 import { errMessages, regEmail, regPass } from 'Utils/constants';
+import { useAuth } from 'Hooks/useAuth';
+import { addUser } from 'Redux/slices/userSlice';
 
 export const SignUpPage = () => {
 	const navigate = useNavigate();
+	const dispatch = useDispatch();
 
 	const {
 		register,
@@ -19,10 +24,17 @@ export const SignUpPage = () => {
 		mode: 'onBlur',
 	});
 
+	const { users } = useAuth();
+
 	const onSubmit = async (data) => {
-		const users = JSON.parse(localStorage.getItem('users')) || [];
-		users.push(data);
-		localStorage.setItem('users', JSON.stringify(users));
+		const newData = {
+			...data,
+			id: uuidv4(),
+			role: 'Пользователь',
+			interviews: 0,
+			date: new Date(Date.now()).toLocaleDateString(),
+		};
+		dispatch(addUser(newData));
 
 		navigate('/', { replace: true });
 		reset();
@@ -56,7 +68,6 @@ export const SignUpPage = () => {
 					required: errMessages.notEmptyField,
 					pattern: { value: regEmail, message: errMessages.emailErr },
 					validate: (value) => {
-						const users = JSON.parse(localStorage.getItem('users')) || [];
 						const checkUserEmail = users.find((user) => user.email === value);
 						return !checkUserEmail || errMessages.emailUniqueErr;
 					},

@@ -1,16 +1,18 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
+import { useDispatch } from 'react-redux';
 import { PrimaryInput } from 'Components/ui/input/PrimaryInput/PrimaryInput';
 import { SubmitInput } from 'Components/ui/input/SubmitInput/SubmitInput';
 import { PrimaryForm } from 'Components/ui/form/PrimaryForm/PrimaryForm';
 import { errMessages } from 'Utils/constants';
 import { useAuth } from 'Hooks/useAuth';
+import { loginUser } from 'Redux/slices/userSlice';
 import './LogInPage.scss';
 
 export const LogInPage = () => {
 	const navigate = useNavigate();
-	const { signup } = useAuth();
+	const dispatch = useDispatch();
 
 	const {
 		register,
@@ -22,11 +24,15 @@ export const LogInPage = () => {
 		mode: 'onBlur',
 	});
 
-	const users = JSON.parse(localStorage.getItem('users')) || [];
+	const { users } = useAuth();
 
 	const onSubmit = (data) => {
 		const currentUser = users.find((user) => user.email === data.email);
-		signup(currentUser, () => navigate('/home', { replace: true }));
+
+		const newUser = { ...currentUser, isAuth: true };
+		dispatch(loginUser(newUser));
+
+		navigate('/home', { replace: true });
 
 		reset();
 	};

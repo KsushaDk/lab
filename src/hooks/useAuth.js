@@ -1,4 +1,7 @@
-import { useContext } from 'react';
-import { AuthContext } from '../hoc/AuthProvider';
+import { useSelector } from 'react-redux';
 
-export const useAuth = () => useContext(AuthContext);
+export function useAuth() {
+	const users = useSelector((state) => state.users);
+
+	return users;
+}

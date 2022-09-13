@@ -66,12 +66,18 @@
 				display: none;
 			}
 		}
+	}
+}
 
-		> svg {
-			color: $primary-white;
-			width: 1.2rem;
-			height: 1.2rem;
-		}
+.icon_white {
+	background-color: $primary-black;
+	color: $primary-white;
+	width: 1.2rem;
+	height: 1.2rem;
+	cursor: pointer;
+
+	&:hover {
+		opacity: 0.8;
 	}
 }
 

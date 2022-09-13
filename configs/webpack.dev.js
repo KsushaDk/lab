@@ -10,5 +10,6 @@ module.exports = merge(commonConfig, {
 		liveReload: true,
 		hot: true,
 		open: true,
+		historyApiFallback: true,
 	},
 });

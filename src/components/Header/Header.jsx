@@ -1,12 +1,22 @@
 import React from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { ImUser } from 'react-icons/im';
+import { BsBoxArrowRight } from 'react-icons/bs';
 import { useAuth } from 'Hooks/useAuth';
+import { useDispatch } from 'react-redux';
+import { logoutUser } from 'Redux/slices/userSlice';
 import logo from './logo.svg';
 import './Header.scss';
 
 export const Header = () => {
-	const { user } = useAuth();
+	const navigate = useNavigate();
+	const dispatch = useDispatch();
+	const { currentUser } = useAuth();
+
+	const logout = () => {
+		dispatch(logoutUser());
+		navigate('/', { replace: true });
+	};
 
 	return (
 		<header className="header">
@@ -20,7 +30,7 @@ export const Header = () => {
 				>
 					О компании
 				</NavLink>
-				{!user.username ? (
+				{currentUser === null ? (
 					<NavLink
 						to="/"
 						className={({ isActive }) => (isActive ? 'active' : '')}
@@ -29,7 +39,9 @@ export const Header = () => {
 					</NavLink>
 				) : (
 					<div className="nav__user">
-						<ImUser /> <span>Привет, {user.username}!</span>
+						<ImUser className="icon_white" />
+						<span>Привет, {currentUser.username}!</span>
+						<BsBoxArrowRight className="icon_white" onClick={logout} />
 					</div>
 				)}
 			</nav>

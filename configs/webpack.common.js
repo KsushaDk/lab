@@ -46,6 +46,7 @@ module.exports = {
 			Scss: path.resolve(__dirname, '../src/scss/'),
 			Hoc: path.resolve(__dirname, '../src/hoc/'),
 			Hooks: path.resolve(__dirname, '../src/hooks/'),
+			Redux: path.resolve(__dirname, '../src/redux/'),
 		},
 	},
 	plugins: [

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { AdminPath } from 'Hoc/AdminPath';
+import { UserPath } from 'Hoc/UserPath';
 import { AboutPage } from 'Pages/AboutPage/AboutPage';
 import { CreateInterviewPage } from 'Pages/CreateInterviewPage/CreateInterviewPage';
 import { InterviewListPage } from 'Pages/InterviewListPage/InterviewListPage';
@@ -15,7 +16,14 @@ export const Main = () => (
 		<Sidebar />
 		<div className="gray_line" />
 		<Routes>
-			<Route path="/" element={<AboutPage />} />
+			<Route
+				path="/"
+				element={
+					<UserPath>
+						<AboutPage />
+					</UserPath>
+				}
+			/>
 			<Route
 				path="create"
 				element={

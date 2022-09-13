@@ -65,7 +65,6 @@ export const Table = ({ columns, rows, caption, total }) => {
 				handleCancelEditing();
 			} else {
 				setIsEditMode(false);
-
 				const changedKeys = Object.keys(editedRow);
 				const newData = rowsState.map((row) => {
 					if (row.id === editedRow.id) {
@@ -82,6 +81,7 @@ export const Table = ({ columns, rows, caption, total }) => {
 
 		if (editedRow !== undefined && editedRow.username !== undefined) {
 			const changedKeys = Object.keys(editedRow);
+
 			const newData = rowsState.map((row) => {
 				if (row.id === editedRow.id) {
 					changedKeys.forEach((key) => {
@@ -92,9 +92,11 @@ export const Table = ({ columns, rows, caption, total }) => {
 			});
 
 			setRowsState(newData);
+			setIsEditMode(false);
 		}
 
 		setRowsState((prevState) => prevState);
+		setIsEditMode(false);
 		setEditedRow(undefined);
 	};
 
@@ -238,6 +240,8 @@ Table.propTypes = {
 			PropTypes.shape({
 				id: PropTypes.number,
 				username: PropTypes.string,
+				email: PropTypes.string,
+				password: PropTypes.string,
 				role: PropTypes.string,
 				date: PropTypes.string,
 				interviews: PropTypes.number,

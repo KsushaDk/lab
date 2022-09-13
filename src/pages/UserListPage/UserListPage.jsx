@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
 import { SearchForm } from 'Components/ui/form/SearchForm/SearchForm';
 import { Table } from 'Components/ui/table/Table';
-import { dataUsers, columnsUsers } from 'Utils/constants';
+import { columnsUsers, dataUsers } from 'Utils/constants';
+// import { useAuth } from 'Hooks/useAuth';
 
 export const UserListPage = () => {
-	const [users, setUsers] = useState(dataUsers);
+	// const { users } = useAuth();
+
+	const [userData, setUserData] = useState(dataUsers);
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
@@ -14,10 +17,10 @@ export const UserListPage = () => {
 				.includes(e.target.search.value.toLowerCase().trim())
 		);
 
-		setUsers(newData);
+		setUserData(newData);
 
 		if (e.target.search.value === '') {
-			setUsers(dataUsers);
+			setUserData(dataUsers);
 		}
 	};
 
@@ -27,7 +30,7 @@ export const UserListPage = () => {
 			<Table
 				caption="Пользователи"
 				columns={columnsUsers}
-				rows={users}
+				rows={userData}
 				total="Всего пользователей"
 			/>
 		</section>
