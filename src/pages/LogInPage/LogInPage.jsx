@@ -6,7 +6,7 @@ import { PrimaryInput } from 'Components/ui/input/PrimaryInput/PrimaryInput';
 import { SubmitInput } from 'Components/ui/input/SubmitInput/SubmitInput';
 import { PrimaryForm } from 'Components/ui/form/PrimaryForm/PrimaryForm';
 import { errMessages } from 'Utils/constants';
-import { useAuth } from 'Hooks/useAuth';
+import { useUsers } from 'Hooks/useUsers';
 import { loginUser } from 'Redux/slices/userSlice';
 import './LogInPage.scss';
 
@@ -24,7 +24,7 @@ export const LogInPage = () => {
 		mode: 'onBlur',
 	});
 
-	const { users } = useAuth();
+	const { users } = useUsers();
 
 	const onSubmit = (data) => {
 		const currentUser = users.find((user) => user.email === data.email);

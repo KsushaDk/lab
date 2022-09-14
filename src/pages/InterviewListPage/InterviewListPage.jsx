@@ -1,26 +1,33 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { PrimaryBtn } from 'Components/ui/button/PrimaryBtn/PrimaryBtn';
 import { SearchForm } from 'Components/ui/form/SearchForm/SearchForm';
 import { Table } from 'Components/ui/table/Table';
-import { dataInterviews, columnsInterviews } from 'Utils/constants';
+import { columnsInterviews } from 'Utils/constants';
+import { useInterviews } from 'Hooks/useInterviews';
 
 export const InterviewListPage = () => {
-	const [interviews, setInterviews] = useState(dataInterviews);
+	const { interviews } = useInterviews();
+
+	const [interviewsData, setInterviewData] = useState(interviews);
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		const newData = dataInterviews.filter((interview) =>
+		const newData = interviews.filter((interview) =>
 			interview.title
 				.toLowerCase()
 				.includes(e.target.search.value.toLowerCase().trim())
 		);
 
-		setInterviews(newData);
+		setInterviewData(newData);
 
 		if (e.target.search.value === '') {
-			setInterviews(dataInterviews);
+			setInterviewData(interviews);
 		}
 	};
+
+	useEffect(() => {
+		setInterviewData(interviews);
+	}, [interviews]);
 
 	return (
 		<section className="content">
@@ -30,7 +37,7 @@ export const InterviewListPage = () => {
 			</div>
 			<Table
 				caption="Мои опросы"
-				rows={interviews}
+				rows={interviewsData}
 				columns={columnsInterviews}
 				total="Всего опросов"
 			/>

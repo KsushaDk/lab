@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useAuth } from 'Hooks/useAuth';
+import { useUsers } from 'Hooks/useUsers';
 import { ErrorPage } from 'Pages/ErrorPage/ErrorPage';
 
 export const UserPath = ({ children }) => {
-	const { currentUser } = useAuth();
+	const { currentUser } = useUsers();
 
 	if (currentUser.role === 'Пользователь') {
 		return children;

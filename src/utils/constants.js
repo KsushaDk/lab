@@ -46,7 +46,7 @@ export const regPass = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])/;
 export const columnsUsers = [
 	{ field: 'username', fieldName: 'Имя' },
 	{ field: 'role', fieldName: 'Роль' },
-	{ field: 'date', fieldName: 'Зарегистрирован' },
+	{ field: 'registered', fieldName: 'Зарегистрирован' },
 	{ field: 'interviews', fieldName: 'Опросы' },
 	{ field: 'actions', fieldName: 'Действия' },
 ];
@@ -58,7 +58,7 @@ export const dataUsers = [
 		email: 'admin@gmail.com',
 		password: 'Admin1234!',
 		role: 'Администратор',
-		date: new Date(Date.now()).toLocaleDateString(),
+		registered: new Date(Date.now()).toLocaleDateString(),
 		interviews: 10,
 	},
 	{
@@ -67,7 +67,7 @@ export const dataUsers = [
 		email: 'user1@gmail.com',
 		password: 'User1234!',
 		role: 'Пользователь',
-		date: new Date(Date.now()).toLocaleDateString(),
+		registered: new Date(Date.now()).toLocaleDateString(),
 		interviews: 5,
 	},
 	{
@@ -76,7 +76,7 @@ export const dataUsers = [
 		email: 'user2@gmail.com',
 		password: 'User1234!',
 		role: 'Пользователь',
-		date: new Date(Date.now()).toLocaleDateString(),
+		registered: new Date(Date.now()).toLocaleDateString(),
 		interviews: 1,
 	},
 	{
@@ -85,7 +85,7 @@ export const dataUsers = [
 		email: 'user3@gmail.com',
 		password: 'User1234!',
 		role: 'Пользователь',
-		date: new Date(Date.now()).toLocaleDateString(),
+		registered: new Date(Date.now()).toLocaleDateString(),
 		interviews: 7,
 	},
 	{
@@ -94,7 +94,7 @@ export const dataUsers = [
 		email: 'user4@gmail.com',
 		password: 'User1234!',
 		role: 'Пользователь',
-		date: new Date(Date.now()).toLocaleDateString(),
+		registered: new Date(Date.now()).toLocaleDateString(),
 		interviews: 4,
 	},
 	{
@@ -103,7 +103,7 @@ export const dataUsers = [
 		email: 'user5@gmail.com',
 		password: 'User1234!',
 		role: 'Пользователь',
-		date: new Date(Date.now()).toLocaleDateString(),
+		registered: new Date(Date.now()).toLocaleDateString(),
 		interviews: 13,
 	},
 	{
@@ -112,7 +112,7 @@ export const dataUsers = [
 		email: 'user6@gmail.com',
 		password: 'User1234!',
 		role: 'Пользователь',
-		date: new Date(Date.now()).toLocaleDateString(),
+		registered: new Date(Date.now()).toLocaleDateString(),
 		interviews: 13,
 	},
 	{
@@ -121,7 +121,7 @@ export const dataUsers = [
 		email: 'user7@gmail.com',
 		password: 'User1234!',
 		role: 'Пользователь',
-		date: new Date(Date.now()).toLocaleDateString(),
+		registered: new Date(Date.now()).toLocaleDateString(),
 		interviews: 13,
 	},
 	{
@@ -130,7 +130,7 @@ export const dataUsers = [
 		email: 'user8@gmail.com',
 		password: 'User1234!',
 		role: 'Пользователь',
-		date: new Date(Date.now()).toLocaleDateString(),
+		registered: new Date(Date.now()).toLocaleDateString(),
 		interviews: 13,
 	},
 	{
@@ -139,7 +139,7 @@ export const dataUsers = [
 		email: 'user9@gmail.com',
 		password: 'User1234!',
 		role: 'Пользователь',
-		date: new Date(Date.now()).toLocaleDateString(),
+		registered: new Date(Date.now()).toLocaleDateString(),
 		interviews: 13,
 	},
 ];
@@ -155,25 +155,25 @@ export const columnsInterviews = [
 
 export const dataInterviews = [
 	{
-		id: 1,
+		id: uuidv4(),
 		title: 'Опрос 1',
-		changed: '01.01.2020',
+		changed: new Date(Date.now()).toLocaleDateString(),
 		answers: 10,
 		link: 'www.blabla.com',
 		results: 'результаты',
 	},
 	{
-		id: 2,
+		id: uuidv4(),
 		title: 'Опрос 2',
-		changed: '02.01.2020',
+		changed: new Date(Date.now()).toLocaleDateString(),
 		answers: 14,
 		link: 'www.blabla.com',
 		results: 'результаты',
 	},
 	{
-		id: 3,
+		id: uuidv4(),
 		title: 'Опрос 3',
-		changed: '03.01.2020',
+		changed: new Date(Date.now()).toLocaleDateString(),
 		answers: 3,
 		link: 'www.blabla.com',
 		results: 'результаты',

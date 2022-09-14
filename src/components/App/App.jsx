@@ -9,7 +9,6 @@ import { Main } from '../Main/Main';
 const App = () => (
 	<Routes>
 		<Route path="/" element={<Layout />}>
-			{/* <Route index element={<SignUpPage />} /> */}
 			<Route index element={<LogInPage />} />
 			<Route path="home/*" element={<Main />} />
 			<Route path="signup" element={<SignUpPage />} />

@@ -1,17 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { SearchForm } from 'Components/ui/form/SearchForm/SearchForm';
 import { Table } from 'Components/ui/table/Table';
-import { columnsUsers, dataUsers } from 'Utils/constants';
-// import { useAuth } from 'Hooks/useAuth';
+import { columnsUsers } from 'Utils/constants';
+import { useUsers } from 'Hooks/useUsers';
 
 export const UserListPage = () => {
-	// const { users } = useAuth();
+	const { users } = useUsers();
 
-	const [userData, setUserData] = useState(dataUsers);
+	const [userData, setUserData] = useState(users);
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		const newData = dataUsers.filter((user) =>
+		const newData = users.filter((user) =>
 			user.username
 				.toLowerCase()
 				.includes(e.target.search.value.toLowerCase().trim())
@@ -20,9 +20,13 @@ export const UserListPage = () => {
 		setUserData(newData);
 
 		if (e.target.search.value === '') {
-			setUserData(dataUsers);
+			setUserData(users);
 		}
 	};
+
+	useEffect(() => {
+		setUserData(users);
+	}, [users]);
 
 	return (
 		<section className="content">

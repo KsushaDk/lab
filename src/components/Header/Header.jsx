@@ -2,7 +2,7 @@ import React from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { ImUser } from 'react-icons/im';
 import { BsBoxArrowRight } from 'react-icons/bs';
-import { useAuth } from 'Hooks/useAuth';
+import { useUsers } from 'Hooks/useUsers';
 import { useDispatch } from 'react-redux';
 import { logoutUser } from 'Redux/slices/userSlice';
 import logo from './logo.svg';
@@ -11,7 +11,8 @@ import './Header.scss';
 export const Header = () => {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
-	const { currentUser } = useAuth();
+
+	const { currentUser } = useUsers();
 
 	const logout = () => {
 		dispatch(logoutUser());

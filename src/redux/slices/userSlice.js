@@ -13,8 +13,8 @@ const userSlice = createSlice({
 		addUser(state, action) {
 			state.users.push(action.payload);
 		},
-		deleteUser(state, action) {
-			state.users.filter((user) => user.id !== action.payload.id);
+		updateUsers(state, action) {
+			state.users = action.payload;
 		},
 		loginUser(state, action) {
 			state.currentUser = action.payload;
@@ -25,5 +25,6 @@ const userSlice = createSlice({
 	},
 });
 
-export const { addUser, deleteUser, loginUser, logoutUser } = userSlice.actions;
+export const { addUser, updateUsers, loginUser, logoutUser } =
+	userSlice.actions;
 export default userSlice.reducer;

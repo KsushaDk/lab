@@ -7,7 +7,7 @@ import { PrimaryForm } from 'Components/ui/form/PrimaryForm/PrimaryForm';
 import { PrimaryInput } from 'Components/ui/input/PrimaryInput/PrimaryInput';
 import { SubmitInput } from 'Components/ui/input/SubmitInput/SubmitInput';
 import { errMessages, regEmail, regPass } from 'Utils/constants';
-import { useAuth } from 'Hooks/useAuth';
+import { useUsers } from 'Hooks/useUsers';
 import { addUser } from 'Redux/slices/userSlice';
 
 export const SignUpPage = () => {
@@ -24,7 +24,7 @@ export const SignUpPage = () => {
 		mode: 'onBlur',
 	});
 
-	const { users } = useAuth();
+	const { users } = useUsers();
 
 	const onSubmit = async (data) => {
 		const newData = {
@@ -32,7 +32,7 @@ export const SignUpPage = () => {
 			id: uuidv4(),
 			role: 'Пользователь',
 			interviews: 0,
-			date: new Date(Date.now()).toLocaleDateString(),
+			registered: new Date(Date.now()).toLocaleDateString(),
 		};
 		dispatch(addUser(newData));
 

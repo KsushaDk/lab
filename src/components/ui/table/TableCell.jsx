@@ -9,7 +9,12 @@ export const TableCell = ({
 	td,
 	handleOnChangeField,
 }) => {
-	if (td[0] === 'id' || td[0] === 'email' || td[0] === 'password') {
+	if (
+		td[0] === 'id' ||
+		td[0] === 'email' ||
+		td[0] === 'password' ||
+		td[0] === 'password_repeat'
+	) {
 		return null;
 	}
 

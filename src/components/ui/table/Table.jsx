@@ -1,7 +1,10 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import PropTypes from 'prop-types';
+import { useDispatch } from 'react-redux';
 import { ImPencil, ImBin } from 'react-icons/im';
 import { BsXSquare, BsCheckSquare } from 'react-icons/bs';
+import { updateUsers } from 'Redux/slices/userSlice';
+import { updateInterviews } from 'Redux/slices/interviewSlice';
 import { PrimaryModal } from '../modal/PrimaryModal/PrimaryModal';
 import { IconBtn } from '../button/IconBtn/IconBtn';
 import { TableCell } from './TableCell';
@@ -15,12 +18,16 @@ export const Table = ({ columns, rows, caption, total }) => {
 	const [rowIDToEdit, setRowIDToEdit] = useState(undefined);
 	const [rowsState, setRowsState] = useState(totalRowsState);
 	const [editedRow, setEditedRow] = useState();
-	const [modalActive, setModalActive] = useState(false);
-	const [modalTitle, setModalTitle] = useState('');
 
 	//  pagination
 	const [pageSize, setPageSize] = useState(5);
 	const [currentPage, setCurrentPage] = useState(1);
+
+	// modal
+	const [modalActive, setModalActive] = useState(false);
+	const [modalTitle, setModalTitle] = useState('');
+
+	const dispatch = useDispatch();
 
 	useEffect(() => {
 		setTotalRowsState(rows);
@@ -30,12 +37,26 @@ export const Table = ({ columns, rows, caption, total }) => {
 		if (currentPage >= rows.length / pageSize) setCurrentPage(1);
 	}, [pageSize]);
 
+	useEffect(() => {
+		if (caption === 'Пользователи') {
+			dispatch(updateUsers(totalRowsState));
+		} else {
+			dispatch(updateInterviews(totalRowsState));
+		}
+	}, [totalRowsState]);
+
 	useMemo(() => {
 		const firstPageIndex = (currentPage - 1) * pageSize;
 		const lastPageIndex = firstPageIndex + pageSize;
 		const newData = totalRowsState.slice(firstPageIndex, lastPageIndex);
+
 		setRowsState(newData);
-	}, [currentPage, pageSize, totalRowsState, rows]);
+	}, [currentPage, pageSize, totalRowsState]);
+
+	const handleRemoveRow = (rowID) => {
+		const newData = totalRowsState.filter((user) => user.id !== rowID);
+		setTotalRowsState(newData);
+	};
 
 	const handleEdit = (rowID) => {
 		setIsEditMode(true);
@@ -43,65 +64,49 @@ export const Table = ({ columns, rows, caption, total }) => {
 		setRowIDToEdit(rowID);
 	};
 
-	const handleRemoveRow = (rowID) => {
-		const newTotalData = totalRowsState.filter((row) => row.id !== rowID);
-		setTotalRowsState(newTotalData);
-	};
-
 	const handleCancelEditing = () => {
 		setIsEditMode(false);
 		setEditedRow(undefined);
+		setRowIDToEdit(undefined);
 	};
 
 	const handleSaveEditing = () => {
-		if (editedRow !== undefined && editedRow.title !== undefined) {
-			const checkUniqueTitle = rowsState.find(
-				(row) => row.title === editedRow.title
-			);
+		if (editedRow !== undefined) {
+			const newData = totalRowsState.map((row) => {
+				if (row.id === rowIDToEdit) {
+					if (editedRow.title !== undefined) {
+						const checkUniqueTitle = totalRowsState.find(
+							(item) => item.title === editedRow.title
+						);
 
-			if (checkUniqueTitle !== undefined) {
-				setModalActive(true);
-				setModalTitle('Название опроса должно быть уникальным');
-				handleCancelEditing();
-			} else {
-				setIsEditMode(false);
-				const changedKeys = Object.keys(editedRow);
-				const newData = rowsState.map((row) => {
-					if (row.id === editedRow.id) {
-						changedKeys.forEach((key) => {
-							row[key] = editedRow[key];
-						});
+						if (checkUniqueTitle !== undefined) {
+							setModalActive(true);
+							setModalTitle('Название опроса должно быть уникальным');
+							handleCancelEditing();
+							return row;
+						}
 					}
-					return row;
-				});
 
-				setRowsState(newData);
-			}
-		}
-
-		if (editedRow !== undefined && editedRow.username !== undefined) {
-			const changedKeys = Object.keys(editedRow);
-
-			const newData = rowsState.map((row) => {
-				if (row.id === editedRow.id) {
-					changedKeys.forEach((key) => {
-						row[key] = editedRow[key];
-					});
+					return Object.keys(row).reduce((newRow, key) => {
+						if (Object.keys(editedRow).includes(key)) {
+							return { ...newRow, [key]: editedRow[key] };
+						}
+						return { ...newRow, [key]: row[key] };
+					}, {});
 				}
 				return row;
 			});
 
-			setRowsState(newData);
+			setTotalRowsState(newData);
 			setIsEditMode(false);
 		}
 
-		setRowsState((prevState) => prevState);
-		setIsEditMode(false);
-		setEditedRow(undefined);
+		handleCancelEditing();
 	};
 
-	const handleOnChangeField = (e, rowID) => {
+	const handleOnChangeField = (e) => {
 		const { name: fieldName, value } = e.target;
+
 		if (value === '') {
 			setModalActive(true);
 			setModalTitle('Поле не может быть пустым');
@@ -109,7 +114,6 @@ export const Table = ({ columns, rows, caption, total }) => {
 		}
 
 		setEditedRow({
-			id: rowID,
 			[fieldName]: value,
 			...editedRow,
 		});
@@ -238,16 +242,16 @@ Table.propTypes = {
 	rows: PropTypes.arrayOf(
 		PropTypes.oneOfType([
 			PropTypes.shape({
-				id: PropTypes.number,
+				id: PropTypes.string,
 				username: PropTypes.string,
 				email: PropTypes.string,
 				password: PropTypes.string,
 				role: PropTypes.string,
-				date: PropTypes.string,
+				registered: PropTypes.string,
 				interviews: PropTypes.number,
 			}),
 			PropTypes.shape({
-				id: PropTypes.number,
+				id: PropTypes.string,
 				changed: PropTypes.string,
 				answers: PropTypes.number,
 				title: PropTypes.string,
