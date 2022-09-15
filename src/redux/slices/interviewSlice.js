@@ -13,7 +13,7 @@ const interviewSlice = createSlice({
 		// 	state.interviews.push(action.payload);
 		// },
 		updateInterviews(state, action) {
-			state.users = action.payload;
+			state.interviews = action.payload;
 		},
 	},
 });

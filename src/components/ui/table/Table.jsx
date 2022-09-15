@@ -40,7 +40,7 @@ export const Table = ({ columns, rows, caption, total }) => {
 	useEffect(() => {
 		if (caption === 'Пользователи') {
 			dispatch(updateUsers(totalRowsState));
-		} else {
+		} else if (caption === 'Мои опросы') {
 			dispatch(updateInterviews(totalRowsState));
 		}
 	}, [totalRowsState]);
