@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useModal } from 'Hooks/useModal';
-import Portal from '../../portal/Portal';
+import { Portal } from '../../portal/Portal';
 import './PrimaryModal.scss';
 
 export const PrimaryModal = ({ children, onCancel, onSubmit }) => {
