@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { SearchForm } from 'Components/ui/form/SearchForm/SearchForm';
-import { Table } from 'Components/ui/table/Table';
-import { columnsUsers } from 'Utils/constants';
 import { useUsers } from 'Hooks/useUsers';
+import { UserTable } from 'Components/UserTable/UserTable';
 
 export const UserListPage = () => {
 	const { users } = useUsers();
@@ -31,12 +30,7 @@ export const UserListPage = () => {
 	return (
 		<section className="content">
 			<SearchForm handleSubmit={handleSubmit} />
-			<Table
-				caption="Пользователи"
-				columns={columnsUsers}
-				rows={userData}
-				total="Всего пользователей"
-			/>
+			<UserTable userData={userData} />
 		</section>
 	);
 };
