@@ -1,3 +1,5 @@
+import { v4 as uuidv4 } from 'uuid';
+
 export const labels = [
 	'О нас',
 	'Обучение',
@@ -16,7 +18,7 @@ export const btnValues = [
 ];
 
 export const dammyText =
-	'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolorem, excepturi deleniti, ducimus debitis aliquid sit magnam enim atque tempora';
+	'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolorem, excepturi deleniti, ducimus debitis aliquid sit magnam enim atque tempora. Lorem ipsum dolor sit amet consectetur adipisicing elit. Error quo, nulla, sequi magni eaque a, velit perferendis illo cum repellat voluptas impedit cupiditate vel expedita labore minus voluptatibus tenetur odit.';
 
 export const errMessages = {
 	minLength: {
@@ -29,17 +31,178 @@ export const errMessages = {
 	},
 	notEmptyField: 'The field can not be empty',
 	emailErr: 'Invalid email',
-	// passErr: 'Password must have a number and a special character',
+	emailUniqueErr: 'This email already exists',
+	passErr:
+		'Password must have a number, a special character and lowercase/uppercase letters',
 	notMatchPass: 'The passwords do not match',
 	incorrectEmail: 'Email is incorrect',
-	incorrectPass: 'Password is incorrect',
+	incorrectPass: 'Check your email or password',
 };
 
 export const regEmail =
-	/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
+	/^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@(gmail|yahoo)+(\.com)$/gm;
+export const regPass = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])/;
 
-export const admin = {
-	username: 'admin',
-	email: 'admin@gmail.com',
-	password: '00000000',
-};
+export const columnsUsers = [
+	{ field: 'username', fieldName: 'Имя' },
+	{ field: 'role', fieldName: 'Роль' },
+	{ field: 'registered', fieldName: 'Зарегистрирован' },
+	{ field: 'interviews', fieldName: 'Опросы' },
+	{ field: 'actions', fieldName: 'Действия' },
+];
+
+export const dataUsers = [
+	{
+		id: uuidv4(),
+		username: 'Админ',
+		email: 'admin@gmail.com',
+		password: 'Admin1234!',
+		role: 'Администратор',
+		registered: new Date(Date.now()).toLocaleDateString(),
+		interviews: 10,
+	},
+	{
+		id: uuidv4(),
+		username: 'Юзер1',
+		email: 'user1@gmail.com',
+		password: 'User1234!',
+		role: 'Пользователь',
+		registered: new Date(Date.now()).toLocaleDateString(),
+		interviews: 5,
+	},
+	{
+		id: uuidv4(),
+		username: 'Юзер2',
+		email: 'user2@gmail.com',
+		password: 'User1234!',
+		role: 'Пользователь',
+		registered: new Date(Date.now()).toLocaleDateString(),
+		interviews: 1,
+	},
+	{
+		id: uuidv4(),
+		username: 'Юзер3',
+		email: 'user3@gmail.com',
+		password: 'User1234!',
+		role: 'Пользователь',
+		registered: new Date(Date.now()).toLocaleDateString(),
+		interviews: 7,
+	},
+	{
+		id: uuidv4(),
+		username: 'Юзер4',
+		email: 'user4@gmail.com',
+		password: 'User1234!',
+		role: 'Пользователь',
+		registered: new Date(Date.now()).toLocaleDateString(),
+		interviews: 4,
+	},
+	{
+		id: uuidv4(),
+		username: 'Юзер5',
+		email: 'user5@gmail.com',
+		password: 'User1234!',
+		role: 'Пользователь',
+		registered: new Date(Date.now()).toLocaleDateString(),
+		interviews: 13,
+	},
+	{
+		id: uuidv4(),
+		username: 'Юзер6',
+		email: 'user6@gmail.com',
+		password: 'User1234!',
+		role: 'Пользователь',
+		registered: new Date(Date.now()).toLocaleDateString(),
+		interviews: 13,
+	},
+	{
+		id: uuidv4(),
+		username: 'Юзер7',
+		email: 'user7@gmail.com',
+		password: 'User1234!',
+		role: 'Пользователь',
+		registered: new Date(Date.now()).toLocaleDateString(),
+		interviews: 13,
+	},
+	{
+		id: uuidv4(),
+		username: 'Юзер8',
+		email: 'user8@gmail.com',
+		password: 'User1234!',
+		role: 'Пользователь',
+		registered: new Date(Date.now()).toLocaleDateString(),
+		interviews: 13,
+	},
+	{
+		id: uuidv4(),
+		username: 'Юзер9',
+		email: 'user9@gmail.com',
+		password: 'User1234!',
+		role: 'Пользователь',
+		registered: new Date(Date.now()).toLocaleDateString(),
+		interviews: 13,
+	},
+];
+
+export const columnsInterviews = [
+	{ field: 'title', fieldName: 'Название' },
+	{ field: 'changed', fieldName: 'Изменен' },
+	{ field: 'answers', fieldName: 'Ответы' },
+	{ field: 'link', fieldName: 'Ссылка' },
+	{ field: 'results', fieldName: 'Результаты' },
+	{ field: 'actions', fieldName: 'Действия' },
+];
+
+export const dataInterviews = [
+	{
+		id: uuidv4(),
+		title: 'Опрос 1',
+		changed: new Date(Date.now()).toLocaleDateString(),
+		answers: 10,
+		link: 'www.blabla.com',
+		results: 'результаты',
+	},
+	{
+		id: uuidv4(),
+		title: 'Опрос 2',
+		changed: new Date(Date.now()).toLocaleDateString(),
+		answers: 14,
+		link: 'www.blabla.com',
+		results: 'результаты',
+	},
+	{
+		id: uuidv4(),
+		title: 'Опрос 3',
+		changed: new Date(Date.now()).toLocaleDateString(),
+		answers: 3,
+		link: 'www.blabla.com',
+		results: 'результаты',
+	},
+];
+
+export const dataTemplates = [
+	{
+		id: 1,
+		title: 'Шаблон 1',
+		questions: 10,
+		pages: 1,
+	},
+	{
+		id: 2,
+		title: 'Шаблон 2',
+		questions: 22,
+		pages: 3,
+	},
+	{
+		id: 3,
+		title: 'Шаблон 3',
+		questions: 40,
+		pages: 4,
+	},
+	{
+		id: 4,
+		title: 'Шаблон 4',
+		questions: 15,
+		pages: 2,
+	},
+];

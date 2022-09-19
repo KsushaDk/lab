@@ -1,0 +1,6 @@
+@import 'Scss/mixins.scss';
+@import 'Scss/vars.scss';
+
+.enter_error {
+	@include text($color: $primary-red, $font-weight: 500);
+}

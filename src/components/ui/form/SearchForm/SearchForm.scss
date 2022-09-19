@@ -1,0 +1,23 @@
+@import 'Scss/vars.scss';
+@import 'Scss/mixins.scss';
+
+.search_form {
+	@include flex($gap: 0.1rem);
+	align-self: flex-end;
+	border: $border;
+	padding: 0 0.5rem;
+	background: $primary-white;
+
+	input {
+		@include text;
+		width: 90%;
+		border: none;
+		padding: 0.5rem;
+		outline: none;
+		background: transparent;
+	}
+
+	@media (max-width: 576px) {
+		width: 100%;
+	}
+}

@@ -1,31 +1,25 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
-import { AuthProvider } from '../../hoc/AuthProvider';
-import { AdminPath } from '../../hoc/AdminPath';
+import { LogInPage } from 'Pages/LogInPage/LogInPage';
+import { SignUpPage } from 'Pages/SignUpPage/SignUpPage';
+import { ErrorPage } from 'Pages/ErrorPage/ErrorPage';
 import { Layout } from './Layout';
-import { LogInPage } from '../../pages/LogInPage/LogInPage';
-import { SignUpPage } from '../../pages/SignUpPage/SignUpPage';
 import { Main } from '../Main/Main';
-import { NotFoundPage } from '../../pages/NotFoundPage/NotFoundPage';
 
 const App = () => (
-	<AuthProvider>
-		<Routes>
-			<Route path="/" element={<Layout />}>
-				<Route
-					path="home/*"
-					element={
-						<AdminPath>
-							<Main />
-						</AdminPath>
-					}
-				/>
-				<Route path="login" element={<LogInPage />} />
-				<Route path="signup" element={<SignUpPage />} />
-				<Route path="*" element={<NotFoundPage />} />
-			</Route>
-		</Routes>
-	</AuthProvider>
+	<Routes>
+		<Route path="/" element={<Layout />}>
+			<Route index element={<LogInPage />} />
+			<Route path="home/*" element={<Main />} />
+			<Route path="signup" element={<SignUpPage />} />
+			<Route
+				path="*"
+				element={
+					<ErrorPage link="/" message="This page doesn't exist. Go&nbsp;" />
+				}
+			/>
+		</Route>
+	</Routes>
 );
 
 export default App;

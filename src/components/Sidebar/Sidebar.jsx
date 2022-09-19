@@ -1,12 +1,12 @@
 import React from 'react';
-import { NavBtn } from '../ui/button/NavBtn';
-import { btnValues } from '../../utils/constants';
+import { btnValues } from 'Utils/constants';
+import { PrimaryBtn } from '../ui/button/PrimaryBtn/PrimaryBtn';
 import './Sidebar.scss';
 
-export const Sidebar = React.memo(() => (
-		<div className="main__sidebar">
-			{btnValues.map((btnValue) => (
-				<NavBtn key={btnValue.link} btnValue={btnValue} />
-			))}
-		</div>
-	));
+export const Sidebar = () => (
+	<section className="sidebar">
+		{btnValues.map((btnValue) => (
+			<PrimaryBtn key={btnValue.link} btnValue={btnValue} />
+		))}
+	</section>
+);

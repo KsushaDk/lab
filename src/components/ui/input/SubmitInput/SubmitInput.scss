@@ -1,0 +1,18 @@
+@import 'Scss/vars.scss';
+@import 'Scss/mixins.scss';
+
+.submit_input {
+	padding: 0.7rem 1rem;
+	border: none;
+	background: $primary-red;
+	@include text($color: $primary-white, $font-weight: 500);
+	cursor: pointer;
+
+	&:disabled {
+		opacity: 0.7;
+	}
+
+	&:hover {
+		text-shadow: $shadow-text;
+	}
+}

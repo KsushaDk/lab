@@ -1,52 +1,92 @@
-@import '../../scss/vars.scss';
-@import '../../scss/mixins.scss';
+@import 'Scss/vars.scss';
+@import 'Scss/mixins.scss';
 
 .header {
 	border-bottom: $border;
-	padding: 3% 5%;
+	padding: $padding-l;
 	@include flex;
+	background: $primary-black;
 
-	&__logo img {
-		cursor: pointer;
-		width: 200px;
-		height: auto;
+	@media (max-width: 1200px) {
+		padding: $padding-s;
 	}
 
-	&__logo:hover {
-		opacity: 0.8;
+	@media (max-width: 576px) {
+		padding: $padding-s;
 	}
+}
 
-	&__nav {
-		@include flex;
-		width: 13%;
+.primary_logo img {
+	filter: brightness(0) invert(1);
+	cursor: pointer;
+	width: 10rem;
+	height: auto;
 
-		a {
+	&:hover {
+		filter: brightness(0) invert(1) drop-shadow($shadow-text);
+	}
+}
+
+.nav {
+	&__links {
+		@include flex($gap: 1rem);
+
+		> a {
 			position: relative;
-			@include text($font-size: 20px, $font-weight: 500);
+			@include text($font-weight: 500, $color: $primary-white);
 			text-decoration: none;
 			white-space: nowrap;
 			outline: 0;
 			cursor: pointer;
-		}
 
-		a:hover::after {
-			content: '';
-			position: absolute;
-			width: 6px;
-			height: 6px;
-			background: $primary-black;
-			bottom: -12px;
-			left: calc(50% - 3px);
+			&:hover {
+				text-shadow: $shadow-text;
+
+				&::after {
+					content: '';
+					position: absolute;
+					width: 6px;
+					height: 6px;
+					background: $primary-white;
+					bottom: -12px;
+					left: calc(50% - 3px);
+				}
+			}
 		}
 	}
 
-	.active::after {
-		content: '';
-		position: absolute;
-		width: 6px;
-		height: 6px;
-		background: $primary-black;
-		bottom: -12px;
-		left: calc(50% - 3px);
+	&__user {
+		@include flex;
+		white-space: nowrap;
+
+		> span {
+			@include text($font-weight: 500, $color: $primary-white);
+
+			@media (max-width: 576px) {
+				display: none;
+			}
+		}
 	}
+}
+
+.icon_white {
+	background-color: $primary-black;
+	color: $primary-white;
+	width: 1.2rem;
+	height: 1.2rem;
+	cursor: pointer;
+
+	&:hover {
+		opacity: 0.8;
+	}
+}
+
+.active::after {
+	content: '';
+	position: absolute;
+	width: 6px;
+	height: 6px;
+	background: $primary-white;
+	bottom: -12px;
+	left: calc(50% - 3px);
 }

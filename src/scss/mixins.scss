@@ -5,7 +5,7 @@
 	$flex-direction: row,
 	$justify-content: space-between,
 	$align-items: center,
-	$gap: 10px
+	$gap: 1rem
 ) {
 	display: $display;
 	flex-direction: $flex-direction;
@@ -16,7 +16,7 @@
 
 @mixin text(
 	$font-family: $font-family,
-	$font-size: 16px,
+	$font-size: 1.2rem,
 	$font-weight: 400,
 	$color: $primary-black
 ) {
@@ -24,28 +24,4 @@
 	font-size: $font-size;
 	font-weight: $font-weight;
 	color: $color;
-}
-
-@mixin title(
-	$font-family: $font-family,
-	$font-size: 50px,
-	$font-weight: 600,
-	$color: $primary-black
-) {
-	font-family: $font-family;
-	font-size: $font-size;
-	font-weight: $font-weight;
-	color: $color;
-}
-
-@mixin error-text(
-	$font-family: $font-family,
-	$font-size: 20px,
-	$font-weight: 600,
-	$color: $primary-red
-) {
-	font-family: $font-family;
-	color: $color;
-	font-size: $font-size;
-	font-weight: $font-weight;
 }

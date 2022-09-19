@@ -1,0 +1,24 @@
+@import 'Scss/mixins.scss';
+@import 'Scss/vars.scss';
+
+.primary_btn {
+	@include text($font-weight: 500, $color: $primary-white);
+	align-content: center;
+	padding: 0.5rem 1rem;
+	background-color: $primary-red;
+	transition: all 0.3s ease;
+	border: none;
+	cursor: pointer;
+
+	@media (max-width: 576px) {
+		padding: 0.3rem 0.5rem;
+	}
+
+	&:hover {
+		background-color: $primary-black;
+	}
+}
+
+.active_btn {
+	background-color: $primary-black;
+}

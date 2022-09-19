@@ -1,0 +1,34 @@
+@import 'Scss/vars.scss';
+@import 'Scss/mixins.scss';
+
+.primary_form {
+	&__wrapper {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		padding: 2rem;
+
+		@media (max-width: 576px) {
+			padding: 1.5rem 1rem;
+		}
+	}
+
+	&__inner {
+		@include flex($flex-direction: column, $gap: 1.5rem);
+		min-width: 30rem;
+		padding: 2rem;
+		background: $primary-white;
+		border: $border;
+		filter: $shadow-form;
+
+		@media (max-width: 576px) {
+			@include flex($flex-direction: column);
+			min-width: 25rem;
+			padding: 1rem;
+			border: none;
+			filter: none;
+			width: 100%;
+		}
+	}
+}

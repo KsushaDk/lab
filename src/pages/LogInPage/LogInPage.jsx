@@ -1,70 +1,86 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import { Error } from '../../components/Error/Error';
-import { admin, errMessages } from '../../utils/constants';
-import { useAuth } from '../../hooks/useAuth';
-
+import { useDispatch } from 'react-redux';
+import { PrimaryInput } from 'Components/ui/input/PrimaryInput/PrimaryInput';
+import { SubmitInput } from 'Components/ui/input/SubmitInput/SubmitInput';
+import { PrimaryForm } from 'Components/ui/form/PrimaryForm/PrimaryForm';
+import { errMessages } from 'Utils/constants';
+import { useUsers } from 'Hooks/useUsers';
+import { loginUser } from 'Redux/slices/userSlice';
 import './LogInPage.scss';
 
 export const LogInPage = () => {
 	const navigate = useNavigate();
-	const { signup } = useAuth();
+	const dispatch = useDispatch();
 
 	const {
 		register,
 		handleSubmit,
 		reset,
+		getValues,
 		formState: { errors, isValid },
 	} = useForm({
 		mode: 'onBlur',
 	});
 
-	const onSubmit = async (data) => {
-		signup(data, () => navigate('/home', { replace: true }));
+	const { users } = useUsers();
+
+	const onSubmit = (data) => {
+		const currentUser = users.find((user) => user.email === data.email);
+
+		const newUser = { ...currentUser, isAuth: true };
+		dispatch(loginUser(newUser));
+
+		navigate('/home', { replace: true });
+
 		reset();
 	};
 
 	return (
-		<section className="login">
-			<form className="login__form" onSubmit={handleSubmit(onSubmit)}>
-				<h2 className="login__form_title">Вход</h2>
+		<PrimaryForm title="Вход" handleSubmit={() => handleSubmit(onSubmit)}>
+			<PrimaryInput
+				type="text"
+				name="email"
+				placeholder="Enter your email..."
+				autoComplete="on"
+				register={register}
+				rules={{
+					required: errMessages.notEmptyField,
+					validate: (value) => {
+						const currentUser = users.find((user) => user.email === value);
+						return currentUser || errMessages.incorrectEmail;
+					},
+				}}
+				errors={errors}
+			/>
+			<PrimaryInput
+				type="password"
+				name="password"
+				placeholder="Enter your password..."
+				autoComplete="off"
+				register={register}
+				rules={{
+					required: errMessages.notEmptyField,
+					validate: (value) => {
+						const currentUser = users.find(
+							(user) => user.email === getValues('email')
+						);
+						return (
+							(currentUser && currentUser.password === value) ||
+							errMessages.incorrectPass
+						);
+					},
+				}}
+				errors={errors}
+			/>
 
-				{errors?.email && <Error err={errors?.email?.message || 'error'} />}
-				<input
-					className="login__form_input"
-					placeholder="Enter your email..."
-					{...register('email', {
-						required: errMessages.notEmptyField,
-						validate: (value) =>
-							value === admin.email || errMessages.incorrectEmail,
-					})}
-				/>
-				{errors?.password && (
-					<Error err={errors?.password?.message || 'error'} />
-				)}
-				<input
-					className="login__form_input"
-					type="password"
-					placeholder="Enter your password..."
-					{...register('password', {
-						required: errMessages.notEmptyField,
-						validate: (value) =>
-							value === admin.password || errMessages.incorrectPass,
-					})}
-				/>
+			<div className="login__form_help-block">
+				<Link to="/signup">Регистрация</Link>
+				<a href="/">Забыли пароль?</a>
+			</div>
 
-				<div className="login__form_check">
-					<Link to="/signup">Регистрация</Link>
-					<a href="/">Забыли пароль?</a>
-				</div>
-
-				<input
-					className="signup__form_submit"
-					type="submit"
-					disabled={!isValid}
-				/>
-			</form>
-		</section>
+			<SubmitInput isValid={isValid} />
+		</PrimaryForm>
 	);
 };

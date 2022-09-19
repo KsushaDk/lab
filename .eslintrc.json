@@ -34,6 +34,15 @@
 			{
 				"html": "ignore"
 			}
-		]
+		],
+		"no-useless-escape": "off",
+		"no-control-regex": "off",
+		"react/prop-types": "off",
+		"import/no-unresolved": "off",
+		"no-param-reassign": "off",
+		"consistent-return": "off",
+		"jsx-a11y/no-static-element-interactions": "off",
+		"jsx-a11y/click-events-have-key-events": "off",
+		"react/button-has-type": "off"
 	}
 }

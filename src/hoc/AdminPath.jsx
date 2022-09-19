@@ -1,17 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useLocation, Navigate } from 'react-router-dom';
-import { useAuth } from '../hooks/useAuth';
+import { useUsers } from 'Hooks/useUsers';
+import { ErrorPage } from 'Pages/ErrorPage/ErrorPage';
 
 export const AdminPath = ({ children }) => {
-	const location = useLocation();
-	const { user } = useAuth();
+	const { currentUser } = useUsers();
 
-	if (user.username === '') {
-		return <Navigate to="/signup" state={{ from: location }} />;
+	if (currentUser.role === 'Администратор') {
+		return children;
 	}
 
-	return children;
+	return (
+		<ErrorPage
+			link="/home"
+			message="You don't have an access to this page! Go&nbsp;"
+		/>
+	);
 };
 
 AdminPath.propTypes = {

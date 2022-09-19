@@ -1,22 +1,27 @@
-// import React from 'react';
-// import PropTypes from 'prop-types';
-// import { useLocation, Navigate } from 'react-router-dom';
-// import { useAuth } from '../hooks/useAuth';
+import React from 'react';
+import PropTypes from 'prop-types';
+import { useUsers } from 'Hooks/useUsers';
+import { ErrorPage } from 'Pages/ErrorPage/ErrorPage';
 
-// export const UserPath = ({ children }) => {
-// 	const location = useLocation();
-// 	const { user } = useAuth();
+export const UserPath = ({ children }) => {
+	const { currentUser } = useUsers();
 
-// 	if (user.username === 'user' && user.password === '11111111') {
-// 		return children;
-// 	}
-// 	return <Navigate to={location} />;
-// };
+	if (currentUser.role === 'Пользователь') {
+		return children;
+	}
 
-// UserPath.propTypes = {
-// 	children: PropTypes.node,
-// };
+	return (
+		<ErrorPage
+			link="/home"
+			message="You don't have an access to this page! Go&nbsp;"
+		/>
+	);
+};
 
-// UserPath.defaultProps = {
-// 	children: null,
-// };
+UserPath.propTypes = {
+	children: PropTypes.node,
+};
+
+UserPath.defaultProps = {
+	children: null,
+};

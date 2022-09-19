@@ -1,10 +1,12 @@
 import React from 'react';
-import { TabBarWrapper } from '../../components/TabBar/TabBarWrapper';
-import './AboutPage.scss';
+import { TabBarWrapper } from 'Components/ui/tabbar/TabBarWrapper';
 
 export const AboutPage = () => (
-	<section className="main__content">
-		<h2 className="main__content_title ">iTechArt</h2>
+	<section className="content">
+		<div className="content__head">
+			<h2 className="title_l">iTechArt</h2>
+			<div className="content__picture" />
+		</div>
 		<TabBarWrapper />
 	</section>
 );

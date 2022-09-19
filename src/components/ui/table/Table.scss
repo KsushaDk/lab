@@ -1,0 +1,117 @@
+@import 'Scss/vars.scss';
+@import 'Scss/mixins.scss';
+
+.table__wrap {
+	text-align: center;
+	display: inline-block;
+	width: 100%;
+
+	@media (max-width: 1200px) {
+		overflow-x: scroll;
+	}
+}
+
+.table {
+	&__content {
+		@include text;
+		min-width: 40rem;
+		width: 100%;
+		border-collapse: collapse;
+		border: $border;
+
+		th,
+		td {
+			word-wrap: break-word;
+			padding: 0.5rem;
+		}
+
+		a {
+			color: $primary-black;
+			cursor: pointer;
+		}
+	}
+
+	&__caption {
+		@include text($font-size: 2rem, $font-weight: 300);
+		min-height: 2rem;
+		text-align: left;
+		margin-bottom: 1rem;
+	}
+
+	&__head,
+	&__foot {
+		background-color: $primary-gray;
+
+		th:first-child {
+			text-align: left;
+		}
+	}
+
+	&__body {
+		td {
+			text-align: center;
+
+			&:first-child {
+				text-align: left;
+			}
+		}
+
+		tr:hover td {
+			background: $secondary-gray;
+		}
+	}
+
+	&__pagination {
+		@include flex($gap: 0.3rem);
+
+		&_wrapper {
+			@include flex($justify-content: flex-end);
+		}
+
+		&_range {
+			@include flex($gap: 0.1rem);
+		}
+	}
+}
+
+.secondary_input {
+	@include text;
+	padding: 0.1rem 0.2rem;
+	background-color: transparent;
+	border: $border;
+	height: 100%;
+	width: 100%;
+	border-radius: 4px;
+	outline: none;
+}
+
+.active_page {
+	color: $primary-black;
+	font-weight: 700;
+}
+
+.dropdown {
+	position: relative;
+	display: inline-block;
+
+	&_content {
+		@include flex($flex-direction: column, $align-items: start);
+		background: $primary-white;
+		border: $border;
+		padding: 0.5rem 1rem;
+		position: absolute;
+		right: 0;
+		z-index: 1;
+		filter: $shadow-form;
+
+		> a {
+			@include text($font-weight: 600);
+			text-decoration: none;
+			cursor: pointer;
+		}
+
+		> a:hover {
+			opacity: 0.7;
+		}
+	}
+}
