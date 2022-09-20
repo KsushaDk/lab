@@ -1,16 +1,10 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import PropTypes from 'prop-types';
-import { ImPencil, ImBin } from 'react-icons/im';
-import { BsXSquare, BsCheckSquare } from 'react-icons/bs';
-import { useDispatch } from 'react-redux';
-import { setModalState } from 'Redux/slices/modalSlice';
 import { useTable } from 'Hooks/useTable';
 import { Loader } from '../../Loader/Loader';
-import { IconBtn } from '../button/IconBtn/IconBtn';
-import { TableCell } from './TableCell';
 import { TablePagination } from './TablePagination';
-import { TableDropMenu } from './TableDropMenu';
 import './Table.scss';
+import { TableRow } from './TableRow';
 
 export const Table = ({
 	columns,
@@ -23,8 +17,6 @@ export const Table = ({
 	setModalSubmitted,
 	current,
 }) => {
-	const dispatch = useDispatch();
-
 	const {
 		totalRowsState,
 		isEditMode,
@@ -86,58 +78,19 @@ export const Table = ({
 							</tr>
 						)}
 						{rowsToDisplay.map((row) => (
-							<tr key={row.id}>
-								{Object.entries(row).map((td) => (
-									<TableCell
-										key={td[0]}
-										isEditMode={isEditMode}
-										rowIDToEdit={rowIDToEdit}
-										row={row}
-										td={td}
-										editedRow={editedRow}
-										handleOnChangeField={(e) => handleOnChangeField(e)}
-									/>
-								))}
-
-								<td>
-									{isEditMode && rowIDToEdit === row.id ? (
-										<IconBtn
-											type="submit"
-											handleClick={() => {
-												dispatch(
-													setModalState({
-														isActive: true,
-														message:
-															'Вы действительно хотите сохранить изменения?',
-														isSubmitted: false,
-													})
-												);
-											}}
-											btnIcon={<BsCheckSquare />}
-										/>
-									) : (
-										<IconBtn
-											handleClick={() => handleEdit(row.id)}
-											btnIcon={<ImPencil />}
-										/>
-									)}
-
-									{isEditMode && rowIDToEdit === row.id ? (
-										<IconBtn
-											handleClick={() => handleCancelEditing()}
-											btnIcon={<BsXSquare />}
-										/>
-									) : (
-										<IconBtn
-											handleClick={() => handleRemoveRow(row.id)}
-											disabled={current?.id === row.id}
-											btnIcon={<ImBin />}
-										/>
-									)}
-
-									{total.includes('опросов') && <TableDropMenu />}
-								</td>
-							</tr>
+							<TableRow
+								key={row.id}
+								total={total}
+								current={current}
+								row={row}
+								editedRow={editedRow}
+								rowIDToEdit={rowIDToEdit}
+								isEditMode={isEditMode}
+								handleOnChangeField={handleOnChangeField}
+								handleEdit={handleEdit}
+								handleCancelEditing={handleCancelEditing}
+								handleRemoveRow={handleRemoveRow}
+							/>
 						))}
 					</tbody>
 					<tfoot className="table__foot">
