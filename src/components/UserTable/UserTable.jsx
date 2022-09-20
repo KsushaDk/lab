@@ -7,7 +7,7 @@ import { columnsUsers } from 'Utils/constants';
 import { PrimaryModal } from '../ui/modal/PrimaryModal/PrimaryModal';
 import { Table } from '../ui/table/Table';
 
-export const UserTable = ({ userData }) => {
+export const UserTable = ({ userData, searchResult }) => {
 	const dispatch = useDispatch();
 	const [isModalSubmitted, setModalSubmitted] = useState(false);
 
@@ -43,10 +43,12 @@ export const UserTable = ({ userData }) => {
 			<Table
 				caption="Пользователи"
 				columns={columnsUsers}
+				searchResult={searchResult}
 				rows={userData}
 				total="Всего пользователей"
 				updateData={updateData}
 				isSubmitted={isModalSubmitted}
+				setModalSubmitted={setModalSubmitted}
 			/>
 		</>
 	);
@@ -56,12 +58,25 @@ UserTable.propTypes = {
 	userData: PropTypes.arrayOf(
 		PropTypes.shape({
 			id: PropTypes.string,
-			username: PropTypes.string,
-			email: PropTypes.string,
-			password: PropTypes.string,
-			role: PropTypes.string,
-			registered: PropTypes.string,
-			interviews: PropTypes.number,
+			changed: PropTypes.string,
+			answers: PropTypes.number,
+			title: PropTypes.string,
+			link: PropTypes.string,
+			results: PropTypes.string,
 		})
 	).isRequired,
+	searchResult: PropTypes.arrayOf(
+		PropTypes.shape({
+			id: PropTypes.string,
+			changed: PropTypes.string,
+			answers: PropTypes.number,
+			title: PropTypes.string,
+			link: PropTypes.string,
+			results: PropTypes.string,
+		})
+	),
+};
+
+UserTable.defaultProps = {
+	searchResult: null,
 };

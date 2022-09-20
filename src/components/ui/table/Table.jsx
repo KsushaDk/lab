@@ -15,10 +15,12 @@ import './Table.scss';
 export const Table = ({
 	columns,
 	rows,
+	searchResult,
 	caption,
 	total,
 	updateData,
 	isSubmitted,
+	setModalSubmitted,
 }) => {
 	const dispatch = useDispatch();
 
@@ -31,11 +33,11 @@ export const Table = ({
 		handleRemoveRow,
 		handleEdit,
 		handleCancelEditing,
-	} = useTable(rows, isSubmitted);
+	} = useTable(rows, isSubmitted, setModalSubmitted);
 
 	const [rowsToDisplay, setRowsToDisplay] = useState(totalRowsState);
 
-	// //  pagination
+	//  pagination
 	const [pageSize, setPageSize] = useState(5);
 	const [currentPage, setCurrentPage] = useState(1);
 
@@ -46,10 +48,15 @@ export const Table = ({
 	useMemo(() => {
 		const firstPageIndex = (currentPage - 1) * pageSize;
 		const lastPageIndex = firstPageIndex + pageSize;
-		const newData = totalRowsState.slice(firstPageIndex, lastPageIndex);
 
-		setRowsToDisplay(newData);
-	}, [currentPage, pageSize, totalRowsState]);
+		if (searchResult === null) {
+			setRowsToDisplay(totalRowsState.slice(firstPageIndex, lastPageIndex));
+		} else if (searchResult.length !== 0) {
+			setRowsToDisplay(searchResult.slice(firstPageIndex, lastPageIndex));
+		} else if (searchResult.length === 0) {
+			setRowsToDisplay([]);
+		}
+	}, [currentPage, pageSize, totalRowsState, rows, searchResult]);
 
 	useEffect(() => {
 		updateData(totalRowsState);
@@ -70,7 +77,7 @@ export const Table = ({
 						</tr>
 					</thead>
 					<tbody className="table__body">
-						{rows.length === 0 && (
+						{rowsToDisplay.length === 0 && (
 							<tr>
 								<td colSpan={columns.length}>
 									No sush item. Try again please.
@@ -94,6 +101,7 @@ export const Table = ({
 								<td>
 									{isEditMode && rowIDToEdit === row.id ? (
 										<IconBtn
+											type="submit"
 											handleClick={() => {
 												dispatch(
 													setModalState({
@@ -186,4 +194,5 @@ Table.propTypes = {
 	).isRequired,
 	updateData: PropTypes.func.isRequired,
 	isSubmitted: PropTypes.bool.isRequired,
+	setModalSubmitted: PropTypes.func.isRequired,
 };

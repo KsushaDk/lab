@@ -7,6 +7,7 @@ export const UserListPage = () => {
 	const { users } = useUsers();
 
 	const [userData, setUserData] = useState(users);
+	const [searchResult, setSearchResult] = useState(null);
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
@@ -16,11 +17,13 @@ export const UserListPage = () => {
 				.includes(e.target.search.value.toLowerCase().trim())
 		);
 
-		setUserData(newData);
-
-		if (e.target.search.value === '') {
-			setUserData(users);
+		if (newData === undefined) {
+			setSearchResult([]);
+		} else if (e.target.search.value === '') {
+			setSearchResult(users);
 		}
+
+		setSearchResult(newData);
 	};
 
 	useEffect(() => {
@@ -30,7 +33,7 @@ export const UserListPage = () => {
 	return (
 		<section className="content">
 			<SearchForm handleSubmit={handleSubmit} />
-			<UserTable userData={userData} />
+			<UserTable userData={userData} searchResult={searchResult} />
 		</section>
 	);
 };

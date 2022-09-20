@@ -8,20 +8,24 @@ export const InterviewListPage = () => {
 	const { interviews } = useInterviews();
 
 	const [interviewData, setInterviewData] = useState(interviews);
+	const [searchResult, setSearchResult] = useState(null);
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
+
 		const newData = interviews.filter((interview) =>
 			interview.title
 				.toLowerCase()
 				.includes(e.target.search.value.toLowerCase().trim())
 		);
 
-		setInterviewData(newData);
-
-		if (e.target.search.value === '') {
-			setInterviewData(interviews);
+		if (newData === undefined) {
+			setSearchResult([]);
+		} else if (e.target.search.value === '') {
+			setSearchResult(interviews);
 		}
+
+		setSearchResult(newData);
 	};
 
 	useEffect(() => {
@@ -34,7 +38,10 @@ export const InterviewListPage = () => {
 				<PrimaryBtn btnValue={{ value: 'Создать опрос', link: 'create' }} />
 				<SearchForm handleSubmit={handleSubmit} />
 			</div>
-			<InterviewTable interviewData={interviewData} />
+			<InterviewTable
+				interviewData={interviewData}
+				searchResult={searchResult}
+			/>
 		</section>
 	);
 };

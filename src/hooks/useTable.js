@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { setModalState } from 'Redux/slices/modalSlice';
 
-export const useTable = (rows, isSubmitted) => {
+export const useTable = (rows, isSubmitted, setModalSubmitted) => {
 	const [totalRowsState, setTotalRowsState] = useState(rows);
 	const [isEditMode, setIsEditMode] = useState(false);
 	const [rowIDToEdit, setRowIDToEdit] = useState(undefined);
@@ -29,6 +29,7 @@ export const useTable = (rows, isSubmitted) => {
 		setIsEditMode(false);
 		setEditedRow(undefined);
 		setRowIDToEdit(undefined);
+		setModalSubmitted(false);
 	};
 
 	const handleOnChangeField = (e) => {
@@ -83,9 +84,9 @@ export const useTable = (rows, isSubmitted) => {
 			});
 			handleCancelEditing();
 			setTotalRowsState(newData);
+		} else {
+			handleCancelEditing();
 		}
-
-		handleCancelEditing();
 	};
 
 	useEffect(() => {

@@ -7,8 +7,9 @@ import { columnsInterviews } from 'Utils/constants';
 import { Table } from '../ui/table/Table';
 import { PrimaryModal } from '../ui/modal/PrimaryModal/PrimaryModal';
 
-export const InterviewTable = ({ interviewData }) => {
+export const InterviewTable = ({ interviewData, searchResult }) => {
 	const dispatch = useDispatch();
+
 	const [isModalSubmitted, setModalSubmitted] = useState(false);
 
 	const updateData = (data) => {
@@ -43,10 +44,12 @@ export const InterviewTable = ({ interviewData }) => {
 			<Table
 				caption="Мои опросы"
 				rows={interviewData}
+				searchResult={searchResult}
 				columns={columnsInterviews}
 				total="Всего опросов"
 				updateData={updateData}
 				isSubmitted={isModalSubmitted}
+				setModalSubmitted={setModalSubmitted}
 			/>
 		</>
 	);
@@ -63,4 +66,18 @@ InterviewTable.propTypes = {
 			results: PropTypes.string,
 		})
 	).isRequired,
+	searchResult: PropTypes.arrayOf(
+		PropTypes.shape({
+			id: PropTypes.string,
+			changed: PropTypes.string,
+			answers: PropTypes.number,
+			title: PropTypes.string,
+			link: PropTypes.string,
+			results: PropTypes.string,
+		})
+	),
+};
+
+InterviewTable.defaultProps = {
+	searchResult: null,
 };
