@@ -4,12 +4,16 @@ import { useDispatch } from 'react-redux';
 import { updateUsers } from 'Redux/slices/userSlice';
 import { setModalState } from 'Redux/slices/modalSlice';
 import { columnsUsers } from 'Utils/constants';
+import { useUsers } from 'Hooks/useUsers';
 import { PrimaryModal } from '../ui/modal/PrimaryModal/PrimaryModal';
 import { Table } from '../ui/table/Table';
 
 export const UserTable = ({ userData, searchResult }) => {
 	const dispatch = useDispatch();
+
 	const [isModalSubmitted, setModalSubmitted] = useState(false);
+
+	const { currentUser } = useUsers();
 
 	const updateData = (data) => {
 		dispatch(updateUsers(data));
@@ -49,6 +53,7 @@ export const UserTable = ({ userData, searchResult }) => {
 				updateData={updateData}
 				isSubmitted={isModalSubmitted}
 				setModalSubmitted={setModalSubmitted}
+				current={currentUser}
 			/>
 		</>
 	);

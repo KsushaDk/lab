@@ -21,6 +21,7 @@ export const Table = ({
 	updateData,
 	isSubmitted,
 	setModalSubmitted,
+	current,
 }) => {
 	const dispatch = useDispatch();
 
@@ -129,6 +130,7 @@ export const Table = ({
 									) : (
 										<IconBtn
 											handleClick={() => handleRemoveRow(row.id)}
+											disabled={current?.id === row.id}
 											btnIcon={<ImBin />}
 										/>
 									)}
@@ -195,4 +197,17 @@ Table.propTypes = {
 	updateData: PropTypes.func.isRequired,
 	isSubmitted: PropTypes.bool.isRequired,
 	setModalSubmitted: PropTypes.func.isRequired,
+	current: PropTypes.shape({
+		id: PropTypes.string,
+		username: PropTypes.string,
+		email: PropTypes.string,
+		password: PropTypes.string,
+		role: PropTypes.string,
+		registered: PropTypes.string,
+		interviews: PropTypes.number,
+	}),
+};
+
+Table.defaultProps = {
+	current: undefined,
 };
