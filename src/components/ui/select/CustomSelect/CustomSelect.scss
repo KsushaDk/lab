@@ -1,0 +1,68 @@
+@import 'Scss/vars.scss';
+@import 'Scss/mixins.scss';
+
+.select {
+	&__wrapper {
+		@include flex($flex-direction: column, $align-items: start, $gap: 0rem);
+		background-color: transparent;
+		border: $border;
+		width: 100%;
+	}
+
+	&__header {
+		@include flex($gap: 0.1rem);
+		width: 100%;
+		padding: 0.5rem 0.5rem 0.5rem 1rem;
+		background-color: transparent;
+		border: none;
+		border-radius: 4px;
+
+		&_input {
+			@include text;
+			border: none;
+			outline: none;
+			min-width: 90%;
+		}
+	}
+
+	&__content {
+		@include flex($flex-direction: column, $gap: 0rem);
+		width: 100%;
+		border-top: $border;
+		overflow-y: scroll;
+		max-height: 30rem;
+
+		&::-webkit-scrollbar {
+			width: 1rem;
+		}
+
+		&::-webkit-scrollbar-track {
+			background: transparent;
+			border-left: $border;
+		}
+
+		&::-webkit-scrollbar-thumb {
+			box-shadow: inset 0 0 0.4rem rgba(0, 0, 0, 0.3);
+			outline: none;
+		}
+	}
+
+	&__options {
+		@include flex($flex-direction: column, $gap: 0.3rem);
+		width: 100%;
+		list-style-type: none;
+	}
+
+	&__option {
+		@include text;
+		padding: 0.3rem 1rem;
+		display: inline-block;
+		width: 100%;
+		text-align: start;
+		cursor: pointer;
+
+		&:hover {
+			background: $primary-gray;
+		}
+	}
+}
