@@ -1,27 +1,22 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import PropTypes from 'prop-types';
-import { ImPencil, ImBin } from 'react-icons/im';
-import { BsXSquare, BsCheckSquare } from 'react-icons/bs';
-import { useDispatch } from 'react-redux';
-import { setModalState } from 'Redux/slices/modalSlice';
 import { useTable } from 'Hooks/useTable';
 import { Loader } from '../../Loader/Loader';
-import { IconBtn } from '../button/IconBtn/IconBtn';
-import { TableCell } from './TableCell';
 import { TablePagination } from './TablePagination';
-import { TableDropMenu } from './TableDropMenu';
 import './Table.scss';
+import { TableRow } from './TableRow';
 
 export const Table = ({
 	columns,
 	rows,
+	searchResult,
 	caption,
 	total,
 	updateData,
 	isSubmitted,
+	setModalSubmitted,
+	current,
 }) => {
-	const dispatch = useDispatch();
-
 	const {
 		totalRowsState,
 		isEditMode,
@@ -31,11 +26,11 @@ export const Table = ({
 		handleRemoveRow,
 		handleEdit,
 		handleCancelEditing,
-	} = useTable(rows, isSubmitted);
+	} = useTable(rows, isSubmitted, setModalSubmitted);
 
 	const [rowsToDisplay, setRowsToDisplay] = useState(totalRowsState);
 
-	// //  pagination
+	//  pagination
 	const [pageSize, setPageSize] = useState(5);
 	const [currentPage, setCurrentPage] = useState(1);
 
@@ -46,10 +41,15 @@ export const Table = ({
 	useMemo(() => {
 		const firstPageIndex = (currentPage - 1) * pageSize;
 		const lastPageIndex = firstPageIndex + pageSize;
-		const newData = totalRowsState.slice(firstPageIndex, lastPageIndex);
 
-		setRowsToDisplay(newData);
-	}, [currentPage, pageSize, totalRowsState]);
+		searchResult?.length !== 0
+			? setRowsToDisplay(searchResult?.slice(firstPageIndex, lastPageIndex))
+			: setRowsToDisplay([]);
+
+		if (searchResult === null) {
+			setRowsToDisplay(totalRowsState.slice(firstPageIndex, lastPageIndex));
+		}
+	}, [currentPage, pageSize, totalRowsState, rows, searchResult]);
 
 	useEffect(() => {
 		updateData(totalRowsState);
@@ -70,7 +70,7 @@ export const Table = ({
 						</tr>
 					</thead>
 					<tbody className="table__body">
-						{rows.length === 0 && (
+						{rowsToDisplay.length === 0 && (
 							<tr>
 								<td colSpan={columns.length}>
 									No sush item. Try again please.
@@ -78,56 +78,19 @@ export const Table = ({
 							</tr>
 						)}
 						{rowsToDisplay.map((row) => (
-							<tr key={row.id}>
-								{Object.entries(row).map((td) => (
-									<TableCell
-										key={td[0]}
-										isEditMode={isEditMode}
-										rowIDToEdit={rowIDToEdit}
-										row={row}
-										td={td}
-										editedRow={editedRow}
-										handleOnChangeField={(e) => handleOnChangeField(e)}
-									/>
-								))}
-
-								<td>
-									{isEditMode && rowIDToEdit === row.id ? (
-										<IconBtn
-											handleClick={() => {
-												dispatch(
-													setModalState({
-														isActive: true,
-														message:
-															'Вы действительно хотите сохранить изменения?',
-														isSubmitted: false,
-													})
-												);
-											}}
-											btnIcon={<BsCheckSquare />}
-										/>
-									) : (
-										<IconBtn
-											handleClick={() => handleEdit(row.id)}
-											btnIcon={<ImPencil />}
-										/>
-									)}
-
-									{isEditMode && rowIDToEdit === row.id ? (
-										<IconBtn
-											handleClick={() => handleCancelEditing()}
-											btnIcon={<BsXSquare />}
-										/>
-									) : (
-										<IconBtn
-											handleClick={() => handleRemoveRow(row.id)}
-											btnIcon={<ImBin />}
-										/>
-									)}
-
-									{total.includes('опросов') && <TableDropMenu />}
-								</td>
-							</tr>
+							<TableRow
+								key={row.id}
+								total={total}
+								current={current}
+								row={row}
+								editedRow={editedRow}
+								rowIDToEdit={rowIDToEdit}
+								isEditMode={isEditMode}
+								handleOnChangeField={handleOnChangeField}
+								handleEdit={handleEdit}
+								handleCancelEditing={handleCancelEditing}
+								handleRemoveRow={handleRemoveRow}
+							/>
 						))}
 					</tbody>
 					<tfoot className="table__foot">
@@ -186,4 +149,18 @@ Table.propTypes = {
 	).isRequired,
 	updateData: PropTypes.func.isRequired,
 	isSubmitted: PropTypes.bool.isRequired,
+	setModalSubmitted: PropTypes.func.isRequired,
+	current: PropTypes.shape({
+		id: PropTypes.string,
+		username: PropTypes.string,
+		email: PropTypes.string,
+		password: PropTypes.string,
+		role: PropTypes.string,
+		registered: PropTypes.string,
+		interviews: PropTypes.number,
+	}),
+};
+
+Table.defaultProps = {
+	current: undefined,
 };

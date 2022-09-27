@@ -68,7 +68,7 @@ export const TablePagination = ({
 
 				{paginationRange.map((pageNumber) => {
 					if (pageNumber === 'dots') {
-						return <IconBtn disabled btnIcon={<BsThreeDots />} />;
+						return <IconBtn btnIcon={<BsThreeDots />} />;
 					}
 
 					return (

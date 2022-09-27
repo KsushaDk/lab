@@ -1,21 +1,20 @@
-import { Component } from 'react';
+import { useEffect } from 'react';
 import ReactDOM from 'react-dom';
+import PropTypes from 'prop-types';
 
-class Portal extends Component {
-	el = document.createElement('div');
+export const Portal = ({ children }) => {
+	const el = document.createElement('div');
 
-	componentDidMount() {
-		document.body.appendChild(this.el);
-	}
+	useEffect(() => {
+		document.body.appendChild(el);
+		return () => {
+			document.body.removeChild(el);
+		};
+	}, []);
 
-	componentWillUnmount() {
-		document.body.removeChild(this.el);
-	}
+	return ReactDOM.createPortal(children, el);
+};
 
-	render() {
-		const { children } = this.props;
-		return ReactDOM.createPortal(children, this.el);
-	}
-}
-
-export default Portal;
+Portal.propTypes = {
+	children: PropTypes.node.isRequired,
+};

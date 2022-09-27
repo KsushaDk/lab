@@ -21,13 +21,9 @@
 
 		th,
 		td {
+			outline: $primary-gray;
 			word-wrap: break-word;
 			padding: 0.5rem;
-		}
-
-		a {
-			color: $primary-black;
-			cursor: pointer;
 		}
 	}
 
@@ -74,6 +70,16 @@
 	}
 }
 
+.link_black {
+	@include text;
+	color: $primary-black;
+	cursor: pointer;
+
+	&:hover {
+		opacity: 0.8;
+	}
+}
+
 .secondary_input {
 	@include text;
 	padding: 0.1rem 0.2rem;
@@ -82,7 +88,6 @@
 	height: 100%;
 	width: 100%;
 	border-radius: 4px;
-	outline: none;
 }
 
 .active_page {
@@ -94,24 +99,26 @@
 	position: relative;
 	display: inline-block;
 
-	&_content {
-		@include flex($flex-direction: column, $align-items: start);
+	&__content {
+		@include flex($flex-direction: column, $gap: 0rem);
 		background: $primary-white;
 		border: $border;
-		padding: 0.5rem 1rem;
 		position: absolute;
 		right: 0;
 		z-index: 1;
 		filter: $shadow-form;
 
-		> a {
+		&_link {
 			@include text($font-weight: 600);
+			padding: 0.5rem;
+			display: block;
+			width: 100%;
+			text-align: left;
 			text-decoration: none;
-			cursor: pointer;
-		}
 
-		> a:hover {
-			opacity: 0.7;
+			&:hover {
+				background-color: $primary-gray;
+			}
 		}
 	}
 }

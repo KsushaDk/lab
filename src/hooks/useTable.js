@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { setModalState } from 'Redux/slices/modalSlice';
+import { removeItemByQuery } from 'Utils/removeItemByQuery';
 
-export const useTable = (rows, isSubmitted) => {
+export const useTable = (rows, isSubmitted, setModalSubmitted) => {
 	const [totalRowsState, setTotalRowsState] = useState(rows);
 	const [isEditMode, setIsEditMode] = useState(false);
 	const [rowIDToEdit, setRowIDToEdit] = useState(undefined);
@@ -15,7 +16,7 @@ export const useTable = (rows, isSubmitted) => {
 	}, [rows]);
 
 	const handleRemoveRow = (rowID) => {
-		const newData = totalRowsState.filter((user) => user.id !== rowID);
+		const newData = removeItemByQuery(totalRowsState, rowID);
 		setTotalRowsState(newData);
 	};
 
@@ -29,6 +30,7 @@ export const useTable = (rows, isSubmitted) => {
 		setIsEditMode(false);
 		setEditedRow(undefined);
 		setRowIDToEdit(undefined);
+		setModalSubmitted(false);
 	};
 
 	const handleOnChangeField = (e) => {
@@ -39,6 +41,7 @@ export const useTable = (rows, isSubmitted) => {
 				setModalState({
 					isActive: true,
 					message: 'Поле не может быть пустым',
+					btnValues: ['Ок'],
 					isSubmitted: false,
 				})
 			);
@@ -55,6 +58,7 @@ export const useTable = (rows, isSubmitted) => {
 					setModalState({
 						isActive: true,
 						message: 'Название опроса должно быть уникальным',
+						btnValues: ['Ок'],
 						isSubmitted: false,
 					})
 				);
@@ -83,9 +87,9 @@ export const useTable = (rows, isSubmitted) => {
 			});
 			handleCancelEditing();
 			setTotalRowsState(newData);
+		} else {
+			handleCancelEditing();
 		}
-
-		handleCancelEditing();
 	};
 
 	useEffect(() => {

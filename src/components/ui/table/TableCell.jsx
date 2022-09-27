@@ -1,5 +1,5 @@
-import React from 'react';
-import { PrimarySelect } from '../select/PrimarySelect/PrimarySelect';
+import { getCellType } from 'Utils/getCellType';
+import { getСellToRender } from 'Utils/CellType';
 
 export const TableCell = ({
 	isEditMode,
@@ -9,61 +9,19 @@ export const TableCell = ({
 	td,
 	handleOnChangeField,
 }) => {
-	if (
-		td[0] === 'id' ||
-		td[0] === 'email' ||
-		td[0] === 'password' ||
-		td[0] === 'password_repeat'
-	) {
-		return null;
-	}
+	const content = {
+		key: td[0],
+		value: td[1],
+		handleOnChangeField,
+		isEditMode,
+		rowIDToEdit,
+		editedRow,
+		row,
+	};
 
-	if (td[0] === 'link' || td[0] === 'results') {
-		return (
-			<td>
-				<a href="/">{td[1]}</a>
-			</td>
-		);
-	}
+	const cellType = getCellType(td[0]);
 
-	if (td[0] === 'role') {
-		return (
-			<td>
-				{isEditMode && rowIDToEdit === row.id ? (
-					<PrimarySelect
-						name="role"
-						options={['Администратор', 'Пользователь']}
-						defaultValue={td[1]}
-						hangleSelectChange={handleOnChangeField}
-					/>
-				) : (
-					td[1]
-				)}
-			</td>
-		);
-	}
+	const el = getСellToRender(content)[cellType];
 
-	if (td[0] === 'username' || td[0] === 'title') {
-		return (
-			<td>
-				{isEditMode && rowIDToEdit === row.id ? (
-					<form>
-						<input
-							className="secondary_input"
-							autoComplete="off"
-							type="text"
-							defaultValue={editedRow ? editedRow[td[0]] : td[1]}
-							id={row.id}
-							name={td[0]}
-							onBlur={handleOnChangeField}
-						/>
-					</form>
-				) : (
-					td[1]
-				)}
-			</td>
-		);
-	}
-
-	return <td>{td[1]}</td>;
+	return el;
 };

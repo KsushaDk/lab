@@ -4,6 +4,7 @@ const initialState = {
 	modal: {
 		isActive: false,
 		message: '',
+		btnValues: [],
 		isSubmitted: false,
 	},
 };
