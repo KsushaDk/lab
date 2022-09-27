@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { updateUsers } from 'Redux/slices/userSlice';
 import { setModalState } from 'Redux/slices/modalSlice';
 import { columnsUsers } from 'Utils/constants';
+import { getModalResponse } from 'Utils/getModalResponse';
 import { useUsers } from 'Hooks/useUsers';
 import { PrimaryModal } from '../ui/modal/PrimaryModal/PrimaryModal';
 import { Table } from '../ui/table/Table';
@@ -15,35 +16,28 @@ export const UserTable = ({ userData, searchResult }) => {
 
 	const { currentUser } = useUsers();
 
-	const updateData = (data) => {
+	const updateData = useCallback((data) => {
 		dispatch(updateUsers(data));
-	};
+	}, []);
 
-	const handleModalCancel = () => {
+	const handleModalClick = (e) => {
+		const btnValue = e.target.value;
+		const modalResponse = getModalResponse(btnValue);
+
 		dispatch(
 			setModalState({
 				isActive: false,
 				message: '',
-				isSubmitted: false,
+				btnValues: [],
+				isSubmitted: modalResponse,
 			})
 		);
-		setModalSubmitted(false);
-	};
-
-	const handleModalSubmit = () => {
-		dispatch(
-			setModalState({
-				isActive: false,
-				message: '',
-				isSubmitted: true,
-			})
-		);
-		setModalSubmitted(true);
+		setModalSubmitted(modalResponse);
 	};
 
 	return (
 		<>
-			<PrimaryModal onCancel={handleModalCancel} onSubmit={handleModalSubmit} />
+			<PrimaryModal handleModalClick={handleModalClick} />
 			<Table
 				caption="Пользователи"
 				columns={columnsUsers}

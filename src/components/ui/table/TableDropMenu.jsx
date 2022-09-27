@@ -20,9 +20,13 @@ export const TableDropMenu = () => {
 			<IconBtn btnIcon={<BsCaretDownFill />} />
 
 			{isShown && (
-				<div className="dropdown_content">
-					<Link to="/home/create">Copy</Link>
-					<Link to="/home/create">Play/Resume</Link>
+				<div className="dropdown__content">
+					<Link className="dropdown__content_link" to="/home/create">
+						Copy
+					</Link>
+					<Link className="dropdown__content_link" to="/home/create">
+						Play/Resume
+					</Link>
 				</div>
 			)}
 		</div>

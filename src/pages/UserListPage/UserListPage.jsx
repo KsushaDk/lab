@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { SearchForm } from 'Components/ui/form/SearchForm/SearchForm';
 import { useUsers } from 'Hooks/useUsers';
 import { UserTable } from 'Components/UserTable/UserTable';
+import { getSearchResult } from 'Utils/getSearchResult';
 
 export const UserListPage = () => {
 	const { users } = useUsers();
@@ -11,19 +12,9 @@ export const UserListPage = () => {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		const newData = users.filter((user) =>
-			user.username
-				.toLowerCase()
-				.includes(e.target.search.value.toLowerCase().trim())
-		);
 
-		if (newData === undefined) {
-			setSearchResult([]);
-		} else if (e.target.search.value === '') {
-			setSearchResult(users);
-		}
-
-		setSearchResult(newData);
+		const search = getSearchResult(users, e.target.search.value, 'username');
+		setSearchResult(search);
 	};
 
 	useEffect(() => {

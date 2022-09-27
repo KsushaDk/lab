@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { TabBarNav } from './TabBarNav';
 import './TabBar.scss';
@@ -6,14 +6,14 @@ import './TabBar.scss';
 export const TabBar = ({ children, ...attrs }) => {
 	const [activeTab, setActiveTab] = useState(null);
 
-	const getLabels = (tabItems) => {
-		const labels = tabItems.map(({ props }) => props.label);
-		return labels;
-	};
+	const getLabels = useCallback(
+		(tabItems) => tabItems.map(({ props }) => props.label),
+		[children]
+	);
 
 	useEffect(() => {
 		setActiveTab(getLabels(children)[0]);
-	}, []);
+	}, [children]);
 
 	return (
 		<div className="tabbar__wrap" {...attrs}>

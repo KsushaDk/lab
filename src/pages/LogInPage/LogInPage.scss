@@ -4,12 +4,4 @@
 .login__form_help-block {
 	@include flex;
 	width: 100%;
-
-	a {
-		@include text($font-weight: 500);
-	}
-
-	a:hover {
-		opacity: 0.8;
-	}
 }

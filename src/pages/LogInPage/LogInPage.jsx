@@ -76,8 +76,12 @@ export const LogInPage = () => {
 			/>
 
 			<div className="login__form_help-block">
-				<Link to="/signup">Регистрация</Link>
-				<a href="/">Забыли пароль?</a>
+				<Link className="link_black" to="/signup">
+					Регистрация
+				</Link>
+				<a className="link_black" href="/">
+					Забыли пароль?
+				</a>
 			</div>
 
 			<SubmitInput isValid={isValid} />

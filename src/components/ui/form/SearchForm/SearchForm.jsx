@@ -10,6 +10,7 @@ export const SearchForm = ({ handleSubmit }) => {
 		<form className="search_form" onSubmit={handleSubmit}>
 			<IconBtn type="submit" btnIcon={<BsSearch />} />
 			<input
+				className="search_form_field"
 				type="text"
 				name="search"
 				placeholder="Search..."

@@ -4,7 +4,7 @@ import { useModal } from 'Hooks/useModal';
 import { Portal } from '../../portal/Portal';
 import './PrimaryModal.scss';
 
-export const PrimaryModal = ({ children, onCancel, onSubmit }) => {
+export const PrimaryModal = ({ children, handleModalClick }) => {
 	const { modal } = useModal();
 
 	const wrapperModalStyle = modal.isActive
@@ -19,7 +19,10 @@ export const PrimaryModal = ({ children, onCancel, onSubmit }) => {
 		<div>
 			{modal.isActive && (
 				<Portal>
-					<div className={wrapperModalStyle} onClick={onCancel}>
+					<div
+						className={wrapperModalStyle}
+						onClick={(e) => handleModalClick(e)}
+					>
 						<div
 							className={contentModalStyle}
 							onClick={(e) => e.stopPropagation()}
@@ -31,33 +34,17 @@ export const PrimaryModal = ({ children, onCancel, onSubmit }) => {
 							<div className="primary_modal__body">{children}</div>
 
 							<div className="primary_modal__footer">
-								{modal.message.includes('пустым') ||
-								modal.message.includes('уникальным') ? (
+								{modal.btnValues.map((btnValue) => (
 									<button
+										key={btnValue}
 										className="primary_btn"
-										type="submit"
-										onClick={onSubmit}
+										type="button"
+										value={btnValue}
+										onClick={(e) => handleModalClick(e)}
 									>
-										Ok
+										{btnValue}
 									</button>
-								) : (
-									<>
-										<button
-											className="primary_btn"
-											type="submit"
-											onClick={onSubmit}
-										>
-											Сохранить
-										</button>
-										<button
-											className="primary_btn"
-											type="button"
-											onClick={onCancel}
-										>
-											Отмена
-										</button>
-									</>
-								)}
+								))}
 							</div>
 						</div>
 					</div>
@@ -69,12 +56,10 @@ export const PrimaryModal = ({ children, onCancel, onSubmit }) => {
 
 PrimaryModal.propTypes = {
 	children: PropTypes.node,
-	onSubmit: PropTypes.func,
-	onCancel: PropTypes.func,
+	handleModalClick: PropTypes.func,
 };
 
 PrimaryModal.defaultProps = {
 	children: null,
-	onSubmit: () => {},
-	onCancel: () => {},
+	handleModalClick: () => {},
 };

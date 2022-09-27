@@ -45,6 +45,7 @@ export const TableRow = ({
 								setModalState({
 									isActive: true,
 									message: 'Вы действительно хотите сохранить изменения?',
+									btnValues: ['Сохранить', 'Отмена'],
 									isSubmitted: false,
 								})
 							);

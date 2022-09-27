@@ -1,0 +1,35 @@
+@import 'Scss/vars.scss';
+@import 'Scss/mixins.scss';
+
+.checkbox {
+	&__wrapper {
+		@include flex($justify-content: start);
+		@include text;
+		background: transparent;
+		cursor: pointer;
+	}
+
+	&__checkmark {
+		@include flex($justify-content: center);
+		border: $border;
+		border-radius: 4px;
+		height: 1.2rem;
+		width: 1.2rem;
+		background-color: transparent;
+
+		> svg {
+			color: $primary-white;
+			height: 0.6rem;
+			width: 0.6rem;
+		}
+
+		&:hover {
+			opacity: 0.8;
+		}
+	}
+}
+
+.checked {
+	background-color: $primary-red;
+	box-shadow: $shadow-checkbox;
+}

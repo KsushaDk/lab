@@ -122,3 +122,9 @@
 		height: 2px;
 	}
 }
+
+.Toastify__toast-theme--light {
+	background-color: $secondary-gray;
+	color: $primary-black;
+	@include text($font-size: 1rem);
+}

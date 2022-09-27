@@ -1,17 +1,20 @@
 import React, { useState, useEffect } from 'react';
-import { BsChevronUp, BsChevronDown } from 'react-icons/bs';
+import PropTypes from 'prop-types';
+import { BsChevronUp, BsChevronDown, BsX } from 'react-icons/bs';
 import { useDebounce } from 'Hooks/useDebounce';
+import { removeItemByQuery } from 'Utils/removeItemByQuery';
 import { Loader } from '../../../Loader/Loader';
 import { IconBtn } from '../../button/IconBtn/IconBtn';
-
+import { CheckboxInput } from '../../input/CheckboxInput/CheckboxInput';
 import './CustomSelect.scss';
 
-export const CustomSelect = ({ data }) => {
+export const CustomSelect = ({ data, multi }) => {
+	const [options, setOptions] = useState([]);
 	const [isLoading, setIsLoading] = useState(false);
 	const [isOptionOpen, setIsOptionOpen] = useState(false);
-	const [selectedOption, setSelectedOption] = useState([]);
-	const [options, setOptions] = useState([]);
+	const [selectedOptions, setSelectedOptions] = useState([]);
 	const [search, setSearch] = useState('');
+	const [selectedID, setSelectedID] = useState([]);
 
 	const debouncedSearch = useDebounce(search, 500);
 
@@ -20,37 +23,55 @@ export const CustomSelect = ({ data }) => {
 	};
 
 	const handleChangeInput = (e) => {
-		setSelectedOption([]);
+		setSelectedOptions([]);
 		setSearch(e.target.value);
+	};
+
+	const handleSingleSelection = (selected) => {
+		setSelectedOptions([selected]);
+		setIsOptionOpen(false);
+	};
+
+	const removeSelectedOption = (e, id) => {
+		e.stopPropagation();
+		const newSelectedOptions = removeItemByQuery(selectedOptions, id);
+		setSelectedOptions(newSelectedOptions);
 	};
 
 	const handleChangeOption = (e) => {
 		e.stopPropagation();
 
-		const selected = options.find((option) => +option.id === +e.target.id);
+		if (selectedID.includes(+e.target.id)) {
+			removeSelectedOption(e, +e.target.id);
+		} else {
+			const selected = options.find((option) => +option.id === +e.target.id);
 
-		setSelectedOption(selected);
-		setSearch(selected.title);
-		setIsOptionOpen(false);
+			multi
+				? setSelectedOptions([...selectedOptions, selected])
+				: handleSingleSelection(selected);
+		}
 	};
 
 	useEffect(() => {
 		setIsLoading(true);
 
+		if (debouncedSearch.trim() === '') {
+			setOptions(data);
+		}
+
 		const searchResult = data.filter((option) =>
 			option.title.includes(debouncedSearch)
 		);
 
-		if (debouncedSearch.trim() === '') {
-			setOptions(data);
-		} else if (searchResult === undefined) {
-			setOptions([]);
-		} else {
-			setOptions(searchResult);
-		}
+		searchResult === undefined ? setOptions([]) : setOptions(searchResult);
 
 		setIsLoading(false);
 	}, [debouncedSearch]);
+
+	useEffect(() => {
+		const selected = selectedOptions.map((option) => option.id);
+		setSelectedID(selected);
+	}, [selectedOptions]);
 
 	useEffect(() => {
 		setOptions(data);
@@ -59,13 +80,28 @@ export const CustomSelect = ({ data }) => {
 	return (
 		<div className="select__wrapper" onClick={toggleOption}>
 			<div className="select__header">
-				<input
-					className="select__header_input"
-					type="text"
-					onChange={handleChangeInput}
-					placeholder="Search..."
-					value={selectedOption?.title || search || ''}
-				/>
+				{multi ? (
+					<div className="select__header_input-multi">
+						{selectedOptions.map((option) => (
+							<div className="input-multi_item" key={option.id}>
+								<span>{option.title}</span>
+								<IconBtn
+									btnIcon={<BsX />}
+									className="icon_white"
+									handleClick={(e) => removeSelectedOption(e, option.id)}
+								/>
+							</div>
+						))}
+					</div>
+				) : (
+					<input
+						className="select__header_input"
+						type="text"
+						onChange={handleChangeInput}
+						placeholder="Search..."
+						value={selectedOptions[0]?.title || search || ''}
+					/>
+				)}
 				<IconBtn btnIcon={isOptionOpen ? <BsChevronUp /> : <BsChevronDown />} />
 			</div>
 
@@ -81,8 +117,24 @@ export const CustomSelect = ({ data }) => {
 								</li>
 							)}
 							{options.map((option) => (
-								<li className="select__option" key={option.id} id={option.id}>
-									{option.title}
+								<li
+									className={
+										selectedID.includes(option.id)
+											? 'select__option selected'
+											: 'select__option'
+									}
+									key={option.id}
+									id={option.id}
+								>
+									{multi ? (
+										<CheckboxInput
+											selectedID={selectedID}
+											option={option}
+											handleCheckbox={handleChangeOption}
+										/>
+									) : (
+										option.title
+									)}
 								</li>
 							))}
 						</ul>
@@ -93,4 +145,18 @@ export const CustomSelect = ({ data }) => {
 	);
 };
 
-CustomSelect.propTypes = {};
+CustomSelect.propTypes = {
+	multi: PropTypes.bool.isRequired,
+	data: PropTypes.arrayOf(
+		PropTypes.shape({
+			userId: PropTypes.number,
+			id: PropTypes.number,
+			title: PropTypes.string,
+			completed: PropTypes.bool,
+		}).isRequired
+	),
+};
+
+CustomSelect.defaultProps = {
+	data: null,
+};

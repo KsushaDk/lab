@@ -1,5 +1,7 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { PublicPath } from 'Hoc/PublicPath';
 import { AdminPath } from 'Hoc/AdminPath';
 import { UserPath } from 'Hoc/UserPath';
@@ -15,6 +17,17 @@ import './Main.scss';
 export const Main = () => (
 	<PublicPath>
 		<main className="main">
+			<ToastContainer
+				position="bottom-right"
+				autoClose={1000}
+				hideProgressBar={false}
+				newestOnTop
+				closeOnClick
+				rtl={false}
+				pauseOnFocusLoss
+				draggable
+				pauseOnHover
+			/>
 			<Sidebar />
 			<div className="gray_line" />
 			<Routes>

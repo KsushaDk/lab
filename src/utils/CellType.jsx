@@ -21,7 +21,9 @@ export const getСellToRender = ({
 	[Cell.Empty]: null,
 	[Cell.Link]: (
 		<td>
-			<a href="/">{value}</a>
+			<a className="link_black" href="/">
+				{value}
+			</a>
 		</td>
 	),
 	[Cell.Select]: (

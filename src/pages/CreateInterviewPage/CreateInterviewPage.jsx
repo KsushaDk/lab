@@ -1,21 +1,25 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { CustomSelect } from 'Components/ui/select/CustomSelect/CustomSelect';
+import { Loader } from 'Components/Loader/Loader';
+import { useFetch } from '../../hooks/useFetch';
 
 export const CreateInterviewPage = () => {
-	const [data, setData] = useState([]);
-
-	useEffect(() => {
-		fetch('https://jsonplaceholder.typicode.com/todos')
-			.then((response) => response.json())
-			.then((json) => {
-				setData(json);
-			});
-	}, []);
+	const { data, loading, error } = useFetch(
+		'https://jsonplaceholder.typicode.com/todos'
+	);
 
 	return (
 		<section className="content">
 			<h2 className="title_m">Create interview</h2>
-			<CustomSelect data={data} />
+			{error && <h2 className="enter_error">{error}</h2>}
+			{loading ? (
+				<Loader />
+			) : (
+				<>
+					<CustomSelect data={data} multi={false} />
+					<CustomSelect data={data} multi />
+				</>
+			)}
 		</section>
 	);
 };

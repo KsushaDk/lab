@@ -3,6 +3,7 @@ import { PrimaryBtn } from 'Components/ui/button/PrimaryBtn/PrimaryBtn';
 import { SearchForm } from 'Components/ui/form/SearchForm/SearchForm';
 import { useInterviews } from 'Hooks/useInterviews';
 import { InterviewTable } from 'Components/InterviewTable/InterviewTable';
+import { getSearchResult } from 'Utils/getSearchResult';
 
 export const InterviewListPage = () => {
 	const { interviews } = useInterviews();
@@ -13,19 +14,8 @@ export const InterviewListPage = () => {
 	const handleSubmit = (e) => {
 		e.preventDefault();
 
-		const newData = interviews.filter((interview) =>
-			interview.title
-				.toLowerCase()
-				.includes(e.target.search.value.toLowerCase().trim())
-		);
-
-		if (newData === undefined) {
-			setSearchResult([]);
-		} else if (e.target.search.value === '') {
-			setSearchResult(interviews);
-		}
-
-		setSearchResult(newData);
+		const search = getSearchResult(interviews, e.target.search.value, 'title');
+		setSearchResult(search);
 	};
 
 	useEffect(() => {

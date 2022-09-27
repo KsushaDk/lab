@@ -42,12 +42,12 @@ export const Table = ({
 		const firstPageIndex = (currentPage - 1) * pageSize;
 		const lastPageIndex = firstPageIndex + pageSize;
 
+		searchResult?.length !== 0
+			? setRowsToDisplay(searchResult?.slice(firstPageIndex, lastPageIndex))
+			: setRowsToDisplay([]);
+
 		if (searchResult === null) {
 			setRowsToDisplay(totalRowsState.slice(firstPageIndex, lastPageIndex));
-		} else if (searchResult.length !== 0) {
-			setRowsToDisplay(searchResult.slice(firstPageIndex, lastPageIndex));
-		} else if (searchResult.length === 0) {
-			setRowsToDisplay([]);
 		}
 	}, [currentPage, pageSize, totalRowsState, rows, searchResult]);
 

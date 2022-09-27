@@ -27,21 +27,27 @@ export const Header = () => {
 			<nav className="nav__links">
 				<NavLink
 					to="/home"
-					className={({ isActive }) => (isActive ? 'active' : '')}
+					className={({ isActive }) =>
+						isActive ? 'active link_white' : 'link_white'
+					}
 				>
 					О компании
 				</NavLink>
 				{currentUser === null ? (
 					<NavLink
 						to="/"
-						className={({ isActive }) => (isActive ? 'active' : '')}
+						className={({ isActive }) =>
+							isActive ? 'active link_white' : 'link_white'
+						}
 					>
 						Вход
 					</NavLink>
 				) : (
 					<div className="nav__user">
 						<ImUser className="icon_white" />
-						<span>Привет, {currentUser.username}!</span>
+						<span className="nav__user_name">
+							Привет, {currentUser.username}!
+						</span>
 						<BsBoxArrowRight className="icon_white" onClick={logout} />
 					</div>
 				)}

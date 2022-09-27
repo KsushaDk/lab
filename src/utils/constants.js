@@ -206,3 +206,23 @@ export const dataTemplates = [
 		pages: 2,
 	},
 ];
+
+export const successNotification = {
+	position: 'bottom-right',
+	autoClose: 2000,
+	hideProgressBar: false,
+	closeOnClick: true,
+	pauseOnHover: true,
+	draggable: true,
+	progress: undefined,
+};
+
+export const failedNotification = {
+	position: 'bottom-right',
+	autoClose: 2000,
+	hideProgressBar: false,
+	closeOnClick: true,
+	pauseOnHover: true,
+	draggable: true,
+	progress: undefined,
+};

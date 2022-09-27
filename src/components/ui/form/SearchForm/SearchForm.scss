@@ -8,7 +8,7 @@
 	padding: 0 0.5rem;
 	background: $primary-white;
 
-	input {
+	&_field {
 		@include text;
 		width: 90%;
 		border: none;
