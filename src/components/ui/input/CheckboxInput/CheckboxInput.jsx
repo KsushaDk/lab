@@ -15,6 +15,9 @@ export const CheckboxInput = ({ option, handleCheckbox, selectedID }) => {
 			className="checkbox__wrapper"
 			id={option.id}
 			onClick={(e) => handleCheckbox(e)}
+			role="checkbox"
+			aria-checked={isChecked}
+			tabIndex={-1}
 		>
 			<div
 				id={option.id}

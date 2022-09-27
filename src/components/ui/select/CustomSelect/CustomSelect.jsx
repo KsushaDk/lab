@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { BsChevronUp, BsChevronDown, BsX } from 'react-icons/bs';
 import { useDebounce } from 'Hooks/useDebounce';
 import { removeItemByQuery } from 'Utils/removeItemByQuery';
+import { getNextElem } from 'Utils/getNextElem';
 import { Loader } from '../../../Loader/Loader';
 import { IconBtn } from '../../button/IconBtn/IconBtn';
 import { CheckboxInput } from '../../input/CheckboxInput/CheckboxInput';
@@ -52,6 +53,15 @@ export const CustomSelect = ({ data, multi }) => {
 		}
 	};
 
+	const handleKeyDownOption = (e) => {
+		if (e.key === 'Enter') {
+			handleChangeOption(e);
+		} else {
+			const nextEl = getNextElem(e.key, e.target.id);
+			nextEl.focus();
+		}
+	};
+
 	useEffect(() => {
 		setIsLoading(true);
 
@@ -81,7 +91,7 @@ export const CustomSelect = ({ data, multi }) => {
 		<div className="select__wrapper" onClick={toggleOption}>
 			<div className="select__header">
 				{multi ? (
-					<div className="select__header_input-multi">
+					<div className="select__header_input-multi" role="button">
 						{selectedOptions.map((option) => (
 							<div className="input-multi_item" key={option.id}>
 								<span>{option.title}</span>
@@ -110,7 +120,7 @@ export const CustomSelect = ({ data, multi }) => {
 					{isLoading ? (
 						<Loader />
 					) : (
-						<ul className="select__options">
+						<ul className="select__options" role="menu">
 							{options.length === 0 && (
 								<li className="select__option">
 									No such item. Please try again.
@@ -125,6 +135,9 @@ export const CustomSelect = ({ data, multi }) => {
 									}
 									key={option.id}
 									id={option.id}
+									role="menuitem"
+									tabIndex={0}
+									onKeyDown={(e) => handleKeyDownOption(e)}
 								>
 									{multi ? (
 										<CheckboxInput
