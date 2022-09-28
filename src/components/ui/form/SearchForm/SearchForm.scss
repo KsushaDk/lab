@@ -3,7 +3,7 @@
 
 .search_form {
 	@include flex($gap: 0.1rem);
-	align-self: flex-end;
+	margin-left: auto;
 	border: $border;
 	padding: 0 0.5rem;
 	background: $primary-white;

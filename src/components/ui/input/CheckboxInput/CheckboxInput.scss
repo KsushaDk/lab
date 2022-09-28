@@ -4,7 +4,7 @@
 .checkbox {
 	&__wrapper {
 		@include flex($justify-content: start);
-		@include text;
+		@include text($font-size: 1.1rem);
 		background: transparent;
 		cursor: pointer;
 	}

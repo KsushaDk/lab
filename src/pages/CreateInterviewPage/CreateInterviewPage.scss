@@ -1,0 +1,54 @@
+@import 'Scss/vars.scss';
+@import 'Scss/mixins.scss';
+
+.btn_group {
+	@include flex;
+	flex-wrap: wrap;
+	width: 100%;
+
+	> button:last-child {
+		margin-left: auto;
+	}
+}
+
+.interview__settings {
+	@include flex($flex-direction: column);
+	padding-top: 1rem;
+	border: $border;
+	width: 100%;
+	background: $primary-white;
+}
+
+.settings__list {
+	@include flex($flex-direction: column, $align-items: start, $gap: 0);
+	border-top: $border;
+	background: $secondary-gray;
+	list-style: none;
+	width: 100%;
+
+	&_option {
+		@include flex($justify-content: start);
+		@include text;
+		padding: 0.5rem 1rem;
+		width: 100%;
+		cursor: pointer;
+
+		&:hover {
+			background: $primary-gray;
+		}
+	}
+}
+
+.question {
+	&__head {
+		@include flex;
+		margin-left: auto;
+	}
+
+	&__list {
+		@include flex($flex-direction: column, $align-items: start, $gap: 0);
+		background: transparent;
+		list-style: none;
+		width: 100%;
+	}
+}

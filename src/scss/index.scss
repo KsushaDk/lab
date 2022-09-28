@@ -38,6 +38,10 @@ body {
 	@include text($font-size: 1.5rem, $font-weight: 600);
 }
 
+.title_xs {
+	@include text($font-size: 1.2rem, $font-weight: 600);
+}
+
 .p_primary {
 	@include text($font-weight: 300);
 }

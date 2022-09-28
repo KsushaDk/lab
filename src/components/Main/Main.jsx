@@ -29,7 +29,7 @@ export const Main = () => (
 				pauseOnHover
 			/>
 			<Sidebar />
-			<div className="gray_line" />
+			<div className="vertical_gray-line" />
 			<Routes>
 				<Route
 					path="/"

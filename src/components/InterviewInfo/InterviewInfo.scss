@@ -1,0 +1,8 @@
+@import 'Scss/vars.scss';
+@import 'Scss/mixins.scss';
+
+.interview__info {
+	@include flex;
+	flex-wrap: wrap;
+	@include text($font-size: 1.4rem);
+}

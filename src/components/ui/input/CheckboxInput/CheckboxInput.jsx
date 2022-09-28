@@ -35,10 +35,17 @@ export const CheckboxInput = ({ option, handleCheckbox, selectedID }) => {
 CheckboxInput.propTypes = {
 	option: PropTypes.shape({
 		userId: PropTypes.number,
-		id: PropTypes.number,
+		id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 		title: PropTypes.string,
 		completed: PropTypes.bool,
 	}).isRequired,
-	selectedID: PropTypes.arrayOf(PropTypes.number).isRequired,
-	handleCheckbox: PropTypes.func.isRequired,
+	selectedID: PropTypes.arrayOf(
+		PropTypes.oneOfType([PropTypes.number, PropTypes.string])
+	),
+	handleCheckbox: PropTypes.func,
+};
+
+CheckboxInput.defaultProps = {
+	handleCheckbox: () => {},
+	selectedID: [],
 };

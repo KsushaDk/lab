@@ -226,3 +226,81 @@ export const failedNotification = {
 	draggable: true,
 	progress: undefined,
 };
+
+export const interviewQuery = [
+	{
+		id: uuidv4(),
+		title: 'Анонимный опрос',
+	},
+	{
+		id: uuidv4(),
+		title: 'Номера вопросов',
+	},
+	{
+		id: uuidv4(),
+		title: 'Номера страниц',
+	},
+	{
+		id: uuidv4(),
+		title: 'Случайный порядок вопросов',
+	},
+	{
+		id: uuidv4(),
+		title: 'Случайный порядок вопросов',
+	},
+	{
+		id: uuidv4(),
+		title: 'Звездочки обязательных полей',
+	},
+	{
+		id: uuidv4(),
+		title: 'Индикатор выполнения',
+	},
+];
+
+export const questionCheckbox = [
+	{
+		id: uuidv4(),
+		title:
+			'Ученик элитной школы обнаруживает свое родство с маньяком-убийцей и помогает ему бежать от правосудия',
+		options: [
+			{ id: uuidv4(), title: 'Гарри Поттер и Узник Азкабана' },
+			{ id: uuidv4(), title: 'Общество мертвых поэтов' },
+			{ id: uuidv4(), title: 'Легкое дыхание' },
+			{ id: uuidv4(), title: 'Матрица' },
+		],
+	},
+	{
+		id: uuidv4(),
+		title:
+			'Капризный подросток слишком много жалуется. И у него есть красная кепка.',
+		options: [
+			{ id: uuidv4(), title: 'Красная шапочка' },
+			{ id: uuidv4(), title: 'Над пропастью во ржи' },
+			{ id: uuidv4(), title: 'По эту сторону рая' },
+			{ id: uuidv4(), title: 'Доктор Живаго' },
+		],
+	},
+	{
+		id: uuidv4(),
+		title:
+			'История о том, почему доверять топор студентам на практике - плохая идея',
+		options: [
+			{ id: uuidv4(), title: 'Сияние' },
+			{ id: uuidv4(), title: 'Братья Карамазовы' },
+			{ id: uuidv4(), title: 'Вишневый сад' },
+			{ id: uuidv4(), title: 'Преступление и наказание' },
+		],
+	},
+	{
+		id: uuidv4(),
+		title:
+			'Девушка ненавидит богатого аристократа. А нет, погодите, не ненавидит',
+		options: [
+			{ id: uuidv4(), title: 'Война и мир' },
+			{ id: uuidv4(), title: 'Джейн Эйр' },
+			{ id: uuidv4(), title: 'Гордость и предубеждение' },
+			{ id: uuidv4(), title: 'Евгений Онегин' },
+		],
+	},
+];
