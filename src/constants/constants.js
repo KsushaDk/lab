@@ -208,7 +208,7 @@ export const dataTemplates = [
 ];
 
 export const successNotification = {
-	position: 'bottom-right',
+	position: 'bottom-left',
 	autoClose: 2000,
 	hideProgressBar: false,
 	closeOnClick: true,
@@ -218,11 +218,71 @@ export const successNotification = {
 };
 
 export const failedNotification = {
-	position: 'bottom-right',
+	position: 'bottom-left',
 	autoClose: 2000,
 	hideProgressBar: false,
 	closeOnClick: true,
 	pauseOnHover: true,
 	draggable: true,
 	progress: undefined,
+};
+
+export const interviewQuery = [
+	{
+		id: uuidv4(),
+		title: 'Анонимный опрос',
+		checked: false,
+	},
+	{
+		id: uuidv4(),
+		title: 'Номера вопросов',
+		checked: false,
+	},
+	{
+		id: uuidv4(),
+		title: 'Номера страниц',
+		checked: false,
+	},
+	{
+		id: uuidv4(),
+		title: 'Случайный порядок вопросов',
+		checked: false,
+	},
+	{
+		id: uuidv4(),
+		title: 'Звездочки обязательных полей',
+		checked: false,
+	},
+	{
+		id: uuidv4(),
+		title: 'Индикатор выполнения',
+		checked: false,
+	},
+];
+
+export const questionCheckbox = {
+	id: uuidv4(),
+	question:
+		'Ученик элитной школы обнаруживает свое родство с маньяком-убийцей и помогает ему бежать от правосудия',
+	options: [
+		{
+			id: uuidv4(),
+			title: 'Гарри Поттер и Узник Азкабана',
+			checked: true,
+			correct: true,
+		},
+		{
+			id: uuidv4(),
+			title: 'Общество мертвых поэтов',
+			checked: false,
+			correct: false,
+		},
+		{
+			id: uuidv4(),
+			title: 'Легкое дыхание',
+			checked: false,
+			correct: false,
+		},
+		{ id: uuidv4(), title: 'Матрица', checked: false, correct: false },
+	],
 };

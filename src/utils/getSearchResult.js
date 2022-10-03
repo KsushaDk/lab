@@ -1,10 +1,10 @@
-export const getSearchResult = (data, query, field) => {
-	if (query === '') {
+export const getSearchResult = (data, search, field) => {
+	if (search.trim() === '') {
 		return data;
 	}
 
 	const newData = data.filter((item) =>
-		item[field].toLowerCase().includes(query.toLowerCase().trim())
+		item[field].toLowerCase().includes(search.toLowerCase().trim())
 	);
 
 	return newData === undefined ? [] : newData;

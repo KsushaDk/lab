@@ -20,7 +20,8 @@
 		&_input {
 			@include text;
 			border: none;
-			outline: none;
+			outline-color: transparent;
+			outline-offset: 2px;
 			min-width: 90%;
 
 			&-multi {
@@ -64,10 +65,15 @@
 		display: inline-block;
 		width: 100%;
 		text-align: start;
+		outline: transparent;
 		cursor: pointer;
 
 		&:hover {
-			background: $primary-gray;
+			background: $secondary-gray;
+		}
+
+		&:focus {
+			background: $secondary-gray;
 		}
 	}
 }
@@ -83,5 +89,5 @@
 }
 
 .selected {
-	background: $primary-gray;
+	background: $secondary-gray;
 }

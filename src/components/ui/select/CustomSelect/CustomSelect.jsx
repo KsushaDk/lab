@@ -2,7 +2,10 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { BsChevronUp, BsChevronDown, BsX } from 'react-icons/bs';
 import { useDebounce } from 'Hooks/useDebounce';
-import { removeItemByQuery } from 'Utils/removeItemByQuery';
+import { getNextElem } from 'Utils/getNextElem';
+import { getSearchResult } from 'Utils/getSearchResult';
+import { toggleValueByKey } from 'Utils/toggleValueByKey';
+import { findInArrByID } from 'Utils/findInArrByID';
 import { Loader } from '../../../Loader/Loader';
 import { IconBtn } from '../../button/IconBtn/IconBtn';
 import { CheckboxInput } from '../../input/CheckboxInput/CheckboxInput';
@@ -12,9 +15,8 @@ export const CustomSelect = ({ data, multi }) => {
 	const [options, setOptions] = useState([]);
 	const [isLoading, setIsLoading] = useState(false);
 	const [isOptionOpen, setIsOptionOpen] = useState(false);
-	const [selectedOptions, setSelectedOptions] = useState([]);
+	const [selectedOption, setSelectedOption] = useState(null);
 	const [search, setSearch] = useState('');
-	const [selectedID, setSelectedID] = useState([]);
 
 	const debouncedSearch = useDebounce(search, 500);
 
@@ -23,75 +25,74 @@ export const CustomSelect = ({ data, multi }) => {
 	};
 
 	const handleChangeInput = (e) => {
-		setSelectedOptions([]);
+		setSelectedOption(null);
 		setSearch(e.target.value);
 	};
 
-	const handleSingleSelection = (selected) => {
-		setSelectedOptions([selected]);
+	const handleSingleSelection = (id) => {
+		const selected = findInArrByID(options, id);
+
+		setSelectedOption(selected);
 		setIsOptionOpen(false);
 	};
 
-	const removeSelectedOption = (e, id) => {
-		e.stopPropagation();
-		const newSelectedOptions = removeItemByQuery(selectedOptions, id);
-		setSelectedOptions(newSelectedOptions);
+	const handleMultiSelection = (id) => {
+		const updatedOptions = toggleValueByKey(options, id, 'checked');
+
+		setOptions(updatedOptions);
 	};
 
-	const handleChangeOption = (e) => {
+	const handleChangeOption = (e, id = e.currentTarget.id) => {
 		e.stopPropagation();
 
-		if (selectedID.includes(+e.target.id)) {
-			removeSelectedOption(e, +e.target.id);
-		} else {
-			const selected = options.find((option) => +option.id === +e.target.id);
+		multi ? handleMultiSelection(id) : handleSingleSelection(id);
+	};
 
-			multi
-				? setSelectedOptions([...selectedOptions, selected])
-				: handleSingleSelection(selected);
+	const handleKeyDownOption = (e) => {
+		if (e.key === 'Enter') {
+			handleChangeOption(e);
+		} else {
+			const nextEl = getNextElem(e.key, e.target.id);
+			nextEl.focus();
 		}
 	};
 
 	useEffect(() => {
 		setIsLoading(true);
 
-		if (debouncedSearch.trim() === '') {
-			setOptions(data);
-		}
-
-		const searchResult = data.filter((option) =>
-			option.title.includes(debouncedSearch)
-		);
-
-		searchResult === undefined ? setOptions([]) : setOptions(searchResult);
+		const searchResult = getSearchResult(data, debouncedSearch, 'title');
+		setOptions(searchResult);
 
 		setIsLoading(false);
 	}, [debouncedSearch]);
 
 	useEffect(() => {
-		const selected = selectedOptions.map((option) => option.id);
-		setSelectedID(selected);
-	}, [selectedOptions]);
+		const updatedOptions = data.map((option) => {
+			option.checked = false;
+			return option;
+		});
 
-	useEffect(() => {
-		setOptions(data);
+		setOptions(updatedOptions);
 	}, [data]);
 
 	return (
 		<div className="select__wrapper" onClick={toggleOption}>
 			<div className="select__header">
 				{multi ? (
-					<div className="select__header_input-multi">
-						{selectedOptions.map((option) => (
-							<div className="input-multi_item" key={option.id}>
-								<span>{option.title}</span>
-								<IconBtn
-									btnIcon={<BsX />}
-									className="icon_white"
-									handleClick={(e) => removeSelectedOption(e, option.id)}
-								/>
-							</div>
-						))}
+					<div className="select__header_input-multi" role="button">
+						{options.map(
+							(option) =>
+								option.checked && (
+									<div className="input-multi_item" key={option.id}>
+										<span>{option.title}</span>
+										<IconBtn
+											btnIcon={<BsX />}
+											className="icon_white"
+											handleClick={(e) => handleChangeOption(e, option.id)}
+										/>
+									</div>
+								)
+						)}
 					</div>
 				) : (
 					<input
@@ -99,44 +100,41 @@ export const CustomSelect = ({ data, multi }) => {
 						type="text"
 						onChange={handleChangeInput}
 						placeholder="Search..."
-						value={selectedOptions[0]?.title || search || ''}
+						value={selectedOption?.title || search || ''}
 					/>
 				)}
 				<IconBtn btnIcon={isOptionOpen ? <BsChevronUp /> : <BsChevronDown />} />
 			</div>
 
 			{isOptionOpen && (
-				<div className="select__content" onClick={(e) => handleChangeOption(e)}>
+				<div className="select__content">
 					{isLoading ? (
 						<Loader />
 					) : (
-						<ul className="select__options">
-							{options.length === 0 && (
+						<ul className="select__options" role="menu">
+							{options.length === 0 ? (
 								<li className="select__option">
 									No such item. Please try again.
 								</li>
+							) : (
+								options.map((option) => (
+									<li
+										className={
+											option.checked
+												? 'select__option selected'
+												: 'select__option'
+										}
+										key={option.id}
+										id={option.id}
+										role="menuitem"
+										tabIndex={0}
+										onKeyDown={handleKeyDownOption}
+										onClick={handleChangeOption}
+									>
+										{multi ? <CheckboxInput option={option} /> : option.title}
+									</li>
+								))
 							)}
-							{options.map((option) => (
-								<li
-									className={
-										selectedID.includes(option.id)
-											? 'select__option selected'
-											: 'select__option'
-									}
-									key={option.id}
-									id={option.id}
-								>
-									{multi ? (
-										<CheckboxInput
-											selectedID={selectedID}
-											option={option}
-											handleCheckbox={handleChangeOption}
-										/>
-									) : (
-										option.title
-									)}
-								</li>
-							))}
 						</ul>
 					)}
 				</div>

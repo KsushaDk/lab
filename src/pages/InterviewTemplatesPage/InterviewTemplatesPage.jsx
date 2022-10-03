@@ -1,7 +1,7 @@
 import React from 'react';
 import { PrimaryBtn } from 'Components/ui/button/PrimaryBtn/PrimaryBtn';
 import { SearchForm } from 'Components/ui/form/SearchForm/SearchForm';
-import { dataTemplates } from 'Utils/constants';
+import { dataTemplates } from 'Constants/constants';
 import { InterviewTemplatesItem } from './InterviewTemplatesItem';
 
 export const InterviewTemplatesPage = () => (

@@ -1,4 +1,4 @@
-import { Cell } from './CellType';
+import { Cell } from '../constants/CellType';
 
 export const getCellType = (cellName) => {
 	let cellType = '';

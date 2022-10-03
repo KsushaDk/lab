@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { dataInterviews } from 'Utils/constants';
+import { dataInterviews } from 'Constants/constants';
 
 const initialState = {
 	interviews: [...dataInterviews],

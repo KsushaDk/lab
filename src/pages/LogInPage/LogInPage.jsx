@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux';
 import { PrimaryInput } from 'Components/ui/input/PrimaryInput/PrimaryInput';
 import { SubmitInput } from 'Components/ui/input/SubmitInput/SubmitInput';
 import { PrimaryForm } from 'Components/ui/form/PrimaryForm/PrimaryForm';
-import { errMessages } from 'Utils/constants';
+import { errMessages } from 'Constants/constants';
 import { useUsers } from 'Hooks/useUsers';
 import { loginUser } from 'Redux/slices/userSlice';
 import './LogInPage.scss';

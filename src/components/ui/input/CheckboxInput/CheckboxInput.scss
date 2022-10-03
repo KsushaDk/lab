@@ -4,13 +4,15 @@
 .checkbox {
 	&__wrapper {
 		@include flex($justify-content: start);
-		@include text;
+		@include text($font-size: 1.1rem);
 		background: transparent;
 		cursor: pointer;
+		width: 100%;
 	}
 
 	&__checkmark {
 		@include flex($justify-content: center);
+		flex-shrink: 0;
 		border: $border;
 		border-radius: 4px;
 		height: 1.2rem;

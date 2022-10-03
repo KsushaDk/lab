@@ -19,5 +19,5 @@ PrimaryForm.propTypes = {
 };
 
 PrimaryForm.defaultProps = {
-	onSubmit: undefined,
+	onSubmit: () => {},
 };

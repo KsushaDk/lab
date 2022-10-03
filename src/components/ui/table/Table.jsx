@@ -1,34 +1,25 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import PropTypes from 'prop-types';
-import { useTable } from 'Hooks/useTable';
 import { Loader } from '../../Loader/Loader';
 import { TablePagination } from './TablePagination';
-import './Table.scss';
 import { TableRow } from './TableRow';
+import './Table.scss';
 
 export const Table = ({
+	idToEdit,
+	editedItem,
+	handleOnChangeField,
+	handleRemove,
+	handleEdit,
+	handleCancelEditing,
 	columns,
 	rows,
 	searchResult,
 	caption,
 	total,
-	updateData,
-	isSubmitted,
-	setModalSubmitted,
 	current,
 }) => {
-	const {
-		totalRowsState,
-		isEditMode,
-		editedRow,
-		rowIDToEdit,
-		handleOnChangeField,
-		handleRemoveRow,
-		handleEdit,
-		handleCancelEditing,
-	} = useTable(rows, isSubmitted, setModalSubmitted);
-
-	const [rowsToDisplay, setRowsToDisplay] = useState(totalRowsState);
+	const [rowsToDisplay, setRowsToDisplay] = useState(null);
 
 	//  pagination
 	const [pageSize, setPageSize] = useState(5);
@@ -47,13 +38,9 @@ export const Table = ({
 			: setRowsToDisplay([]);
 
 		if (searchResult === null) {
-			setRowsToDisplay(totalRowsState.slice(firstPageIndex, lastPageIndex));
+			setRowsToDisplay(rows.slice(firstPageIndex, lastPageIndex));
 		}
-	}, [currentPage, pageSize, totalRowsState, rows, searchResult]);
-
-	useEffect(() => {
-		updateData(totalRowsState);
-	}, [totalRowsState]);
+	}, [currentPage, pageSize, rows, searchResult]);
 
 	return (
 		<div className="table__wrap">
@@ -83,24 +70,23 @@ export const Table = ({
 								total={total}
 								current={current}
 								row={row}
-								editedRow={editedRow}
-								rowIDToEdit={rowIDToEdit}
-								isEditMode={isEditMode}
+								editedItem={editedItem}
+								idToEdit={idToEdit}
 								handleOnChangeField={handleOnChangeField}
 								handleEdit={handleEdit}
 								handleCancelEditing={handleCancelEditing}
-								handleRemoveRow={handleRemoveRow}
+								handleRemove={handleRemove}
 							/>
 						))}
 					</tbody>
 					<tfoot className="table__foot">
 						<tr>
 							<th scope="row" colSpan={3}>
-								{total}: &nbsp; {totalRowsState.length}
+								{total}: &nbsp; {rows.length}
 							</th>
 							<td colSpan={columns.length - 3}>
 								<TablePagination
-									totalCount={totalRowsState.length}
+									totalCount={rows.length}
 									pageSize={pageSize}
 									changeItemsPerPage={(page) => setPageSize(page)}
 									onPageChange={(page) => setCurrentPage(page)}
@@ -120,6 +106,11 @@ export const Table = ({
 Table.propTypes = {
 	caption: PropTypes.string.isRequired,
 	total: PropTypes.string.isRequired,
+	searchResult: PropTypes.string,
+	handleCancelEditing: PropTypes.func.isRequired,
+	handleOnChangeField: PropTypes.func.isRequired,
+	handleRemove: PropTypes.func.isRequired,
+	handleEdit: PropTypes.func.isRequired,
 	columns: PropTypes.arrayOf(
 		PropTypes.shape({
 			field: PropTypes.string,
@@ -147,9 +138,7 @@ Table.propTypes = {
 			}),
 		])
 	).isRequired,
-	updateData: PropTypes.func.isRequired,
-	isSubmitted: PropTypes.bool.isRequired,
-	setModalSubmitted: PropTypes.func.isRequired,
+	idToEdit: PropTypes.string.isRequired,
 	current: PropTypes.shape({
 		id: PropTypes.string,
 		username: PropTypes.string,
@@ -163,4 +152,5 @@ Table.propTypes = {
 
 Table.defaultProps = {
 	current: undefined,
+	searchResult: null,
 };

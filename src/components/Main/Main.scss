@@ -40,30 +40,30 @@
 	@include flex(
 		$flex-direction: column,
 		$justify-content: flex-start,
-		$align-items: start
+		$align-items: start,
+		$gap: 0.5rem
 	);
 
 	&__head {
-		@include flex;
+		@include flex($justify-content: flex-start);
 		width: 100%;
 		margin-bottom: 1rem;
+
+		&_input {
+			@include text;
+			padding: 0.5rem;
+			background-color: transparent;
+			border: $border;
+			width: 50%;
+			height: 100%;
+			border-radius: 4px;
+			outline-color: $primary-gray;
+		}
 
 		@media (max-width: 768px) {
 			@include flex($flex-direction: column);
 			align-items: flex-start;
 		}
-	}
-
-	&__title_l {
-		@include text($font-size: 3.5rem, $font-weight: 800);
-	}
-
-	&__title_m {
-		@include text($font-size: 2rem, $font-weight: 700);
-	}
-
-	&__title_s {
-		@include text($font-size: 1.5rem, $font-weight: 700);
 	}
 
 	&__picture {
@@ -75,6 +75,38 @@
 
 		@media (max-width: 768px) {
 			width: 100%;
+		}
+	}
+
+	&__body {
+		@include flex($align-items: flex-start);
+		list-style-position: inside;
+		width: 100%;
+
+		&_left {
+			@include flex($flex-direction: column, $align-items: start, $gap: 2rem);
+			padding-top: 2rem;
+			min-width: 65%;
+		}
+
+		&_right {
+			@include flex($flex-direction: column, $align-items: start, $gap: 2rem);
+			min-width: 30%;
+		}
+
+		&_items {
+			@include flex($flex-direction: column);
+			border: $border;
+			width: 100%;
+			padding: 2rem 1rem;
+		}
+
+		&_item {
+			@include flex($flex-direction: column, $align-items: start);
+			border: $border;
+			padding: 1rem;
+			width: 100%;
+			min-height: 5rem;
 		}
 	}
 
@@ -93,11 +125,6 @@
 		border: $border;
 		padding: 1rem;
 		@include flex($flex-direction: column);
-
-		&_info {
-			@include flex;
-			flex-wrap: wrap;
-		}
 	}
 
 	@media (max-width: 768px) {
@@ -110,7 +137,7 @@
 	align-self: flex-start;
 }
 
-.gray_line {
+.vertical_gray-line {
 	background: $primary-gray;
 	height: 100%;
 	width: 2px;
@@ -123,8 +150,34 @@
 	}
 }
 
+.horizontal_gray-line {
+	background: $secondary-gray;
+	height: 2px;
+	width: 96%;
+	margin: 0 auto;
+}
+
 .Toastify__toast-theme--light {
 	background-color: $secondary-gray;
 	color: $primary-black;
 	@include text($font-size: 1rem);
+}
+
+.icon_black {
+	background-color: transparent;
+	border: none;
+	color: $primary-black;
+	width: 1.6rem;
+	height: 1.6rem;
+	cursor: pointer;
+	outline-color: $primary-black;
+
+	> svg {
+		width: 100%;
+		height: 100%;
+	}
+
+	&:hover {
+		opacity: 0.7;
+	}
 }

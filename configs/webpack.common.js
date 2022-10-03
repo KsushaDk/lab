@@ -24,6 +24,10 @@ module.exports = {
 				use: 'html-loader',
 			},
 			{
+				test: /\.css$/i,
+				use: ['style-loader', 'css-loader'],
+			},
+			{
 				test: /\.s(a|c)ss$/,
 				use: ['style-loader', 'css-loader', 'sass-loader'],
 			},
@@ -47,6 +51,7 @@ module.exports = {
 			Hoc: path.resolve(__dirname, '../src/hoc/'),
 			Hooks: path.resolve(__dirname, '../src/hooks/'),
 			Redux: path.resolve(__dirname, '../src/redux/'),
+			Constants: path.resolve(__dirname, '../src/constants/'),
 		},
 	},
 	plugins: [

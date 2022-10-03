@@ -1,5 +1,5 @@
 import React from 'react';
-import { labels, dammyText } from 'Utils/constants';
+import { labels, dammyText } from 'Constants/constants';
 import { TabBar } from './TabBar';
 import { TabBarItem } from './TabBarItem';
 
