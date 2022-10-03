@@ -1,5 +1,5 @@
 import React from 'react';
-import { btnValues } from 'Utils/constants';
+import { btnValues } from 'Constants/constants';
 import { PrimaryBtn } from '../ui/button/PrimaryBtn/PrimaryBtn';
 import './Sidebar.scss';
 

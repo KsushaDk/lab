@@ -6,7 +6,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { PrimaryForm } from 'Components/ui/form/PrimaryForm/PrimaryForm';
 import { PrimaryInput } from 'Components/ui/input/PrimaryInput/PrimaryInput';
 import { SubmitInput } from 'Components/ui/input/SubmitInput/SubmitInput';
-import { errMessages, regEmail, regPass } from 'Utils/constants';
+import { errMessages, regEmail, regPass } from 'Constants/constants';
 import { useUsers } from 'Hooks/useUsers';
 import { addUser } from 'Redux/slices/userSlice';
 

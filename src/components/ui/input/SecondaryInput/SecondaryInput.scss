@@ -1,0 +1,13 @@
+@import 'Scss/vars.scss';
+@import 'Scss/mixins.scss';
+
+.secondary_input {
+	@include text;
+	padding: 0.1rem 0.2rem;
+	background-color: transparent;
+	border: $border;
+	height: 100%;
+	width: 100%;
+	border-radius: 4px;
+	outline-color: $primary-gray;
+}

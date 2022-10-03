@@ -14,5 +14,5 @@ IconBtn.propTypes = {
 };
 
 IconBtn.defaultProps = {
-	handleClick: undefined,
+	handleClick: () => {},
 };

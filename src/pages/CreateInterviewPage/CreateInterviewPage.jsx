@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
 	BsFileEarmarkFill,
 	BsListOl,
@@ -7,15 +7,18 @@ import {
 	BsStar,
 	BsBatteryHalf,
 } from 'react-icons/bs';
+import { ImBin } from 'react-icons/im';
 import { CustomSelect } from 'Components/ui/select/CustomSelect/CustomSelect';
 import { Loader } from 'Components/Loader/Loader';
 import { PrimaryBtn } from 'Components/ui/button/PrimaryBtn/PrimaryBtn';
 import { InterviewInfo } from 'Components/InterviewInfo/InterviewInfo';
 import { CheckboxInput } from 'Components/ui/input/CheckboxInput/CheckboxInput';
-import { CheckboxQuestion } from 'Components/Questions/CheckboxQuestion';
+import { IconBtn } from 'Components/ui/button/IconBtn/IconBtn';
 import { useFetch } from 'Hooks/useFetch';
-import { interviewQuery, questionCheckbox } from 'Utils/constants';
-import { removeItemByQuery } from 'Utils/removeItemByQuery';
+import { interviewQuery, questionCheckbox } from 'Constants/constants';
+import { getQuestionToRender } from 'Constants/QuestionType';
+import { getQuestionType } from 'Utils/getQuestionType';
+import { toggleValueByKey } from 'Utils/toggleValueByKey';
 import './CreateInterviewPage.scss';
 
 export const CreateInterviewPage = () => {
@@ -23,37 +26,27 @@ export const CreateInterviewPage = () => {
 		'https://jsonplaceholder.typicode.com/todos'
 	);
 
-	const [queryForInterview, setQueryForInterview] = useState([]);
-	const [selectedQueryID, setSelectedQueryID] = useState([]);
+	const [queryForInterview, setQueryForInterview] = useState(interviewQuery);
 	const [questionType, setQuestionType] = useState('checkbox');
 
-	const handleCheckboxQuery = (e) => {
-		if (selectedQueryID.includes(e.target.id)) {
-			const newSelectedQuery = removeItemByQuery(
-				queryForInterview,
-				e.target.id
-			);
-			setQueryForInterview(newSelectedQuery);
-		} else {
-			const selectedQuery = interviewQuery.find(
-				(query) => query.id === e.target.id
-			);
-			setQueryForInterview([...queryForInterview, selectedQuery]);
-		}
+	const handleChangeQuery = (e) => {
+		const updatedQuery = toggleValueByKey(
+			queryForInterview,
+			e.currentTarget.id,
+			'checked'
+		);
+
+		setQueryForInterview(updatedQuery);
 	};
 
-	const handleCheckboxQuestion = (e) => {
-		console.log('answer', e);
+
+	const handleRemoveInterview = () => {
+		localStorage.clear();
 	};
 
 	const handleQuestionType = (e) => {
 		setQuestionType(e.target.getAttribute('name'));
 	};
-
-	useEffect(() => {
-		const selectedId = queryForInterview.map((query) => query.id);
-		setSelectedQueryID(selectedId);
-	}, [queryForInterview]);
 
 	return (
 		<section className="content">
@@ -66,37 +59,31 @@ export const CreateInterviewPage = () => {
 					<CustomSelect data={data} multi />
 				</>
 			)}
+
 			<div className="content__head">
 				<h2 className="title_m">Новый опрос</h2>
 				<input className="content__head_input" placeholder="Опрос номер..." />
 			</div>
 			<InterviewInfo pages={1} questions={5} />
+
 			<div className="content__body">
 				<div className="content__body_left">
 					<div className="btn_group">
 						<PrimaryBtn btnValue={{ value: 'Сохранить', link: '#' }} />
 						<PrimaryBtn btnValue={{ value: 'Отмена', link: '#' }} />
-						<PrimaryBtn btnValue={{ value: 'Новая страница', link: '#' }} />
+						{/* <PrimaryBtn btnValue={{ value: 'Новая страница', link: '#' }} /> */}
+						<IconBtn
+							handleClick={() => handleRemoveInterview()}
+							btnIcon={<ImBin />}
+						/>
 					</div>
 
 					<div className="content__body_items">
-						{questionType === 'checkbox' && (
-							<CheckboxQuestion
-								questionId={questionCheckbox[0].id}
-								title={questionCheckbox[0].title}
-								options={questionCheckbox[0].options}
-								handleCheckboxQuestion={handleCheckboxQuestion}
-							/>
-						)}
-						<hr className="horizontal_gray-line" />
-						{questionType === 'checkbox' && (
-							<CheckboxQuestion
-								questionId={questionCheckbox[1].id}
-								title={questionCheckbox[1].title}
-								options={questionCheckbox[1].options}
-								handleCheckboxQuestion={handleCheckboxQuestion}
-							/>
-						)}
+						{
+							getQuestionToRender(questionCheckbox)[
+								getQuestionType(questionType)
+							]
+						}
 						<hr className="horizontal_gray-line" />
 					</div>
 				</div>
@@ -106,7 +93,7 @@ export const CreateInterviewPage = () => {
 						<h3 className="title_xs">Тип вопроса</h3>
 						<ul
 							className="settings__list"
-							onClick={(e) => handleQuestionType(e)}
+							onClick={handleQuestionType}
 							role="menu"
 						>
 							<li className="settings__list_option" name="radio">
@@ -131,14 +118,16 @@ export const CreateInterviewPage = () => {
 					</div>
 					<div className="interview__settings">
 						<h3 className="title_xs">Параметры опроса</h3>
-						<ul className="settings__list">
-							{interviewQuery.map((query) => (
-								<li className="settings__list_option" key={query.id}>
-									<CheckboxInput
-										option={query}
-										handleCheckbox={handleCheckboxQuery}
-										selectedID={selectedQueryID}
-									/>
+						<ul className="settings__list" role="menu">
+							{queryForInterview.map((query) => (
+								<li
+									className="settings__list_option"
+									key={query.id}
+									id={query.id}
+									onClick={handleChangeQuery}
+									role="menuitem"
+								>
+									<CheckboxInput option={query} />
 								</li>
 							))}
 						</ul>

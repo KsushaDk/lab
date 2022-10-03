@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { successNotification, failedNotification } from 'Utils/constants';
+import { successNotification, failedNotification } from 'Constants/constants';
 
 export const useFetch = (url) => {
 	const [data, setData] = useState([]);

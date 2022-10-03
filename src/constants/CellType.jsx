@@ -12,11 +12,10 @@ export const Cell = Object.freeze({
 export const getСellToRender = ({
 	key,
 	value,
-	isEditMode,
-	rowIDToEdit,
+	idToEdit,
 	row,
 	handleOnChangeField,
-	editedRow,
+	editedItem,
 }) => ({
 	[Cell.Empty]: null,
 	[Cell.Link]: (
@@ -28,7 +27,7 @@ export const getСellToRender = ({
 	),
 	[Cell.Select]: (
 		<td>
-			{isEditMode && rowIDToEdit === row.id ? (
+			{idToEdit === row.id ? (
 				<PrimarySelect
 					name="role"
 					options={['Администратор', 'Пользователь']}
@@ -42,13 +41,13 @@ export const getСellToRender = ({
 	),
 	[Cell.Input]: (
 		<td>
-			{isEditMode && rowIDToEdit === row.id ? (
+			{idToEdit === row.id ? (
 				<form>
 					<input
 						className="secondary_input"
 						autoComplete="off"
 						type="text"
-						defaultValue={editedRow ? editedRow[key] : value}
+						defaultValue={editedItem ? editedItem[key] : value}
 						id={row.id}
 						name={key}
 						onBlur={handleOnChangeField}

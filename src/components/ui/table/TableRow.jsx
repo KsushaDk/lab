@@ -12,13 +12,12 @@ export const TableRow = ({
 	total,
 	current,
 	row,
-	editedRow,
-	rowIDToEdit,
-	isEditMode,
+	editedItem,
+	idToEdit,
 	handleOnChangeField,
 	handleEdit,
 	handleCancelEditing,
-	handleRemoveRow,
+	handleRemove,
 }) => {
 	const dispatch = useDispatch();
 
@@ -27,17 +26,16 @@ export const TableRow = ({
 			{Object.entries(row).map((td) => (
 				<TableCell
 					key={td[0]}
-					isEditMode={isEditMode}
-					rowIDToEdit={rowIDToEdit}
+					idToEdit={idToEdit}
 					row={row}
 					td={td}
-					editedRow={editedRow}
+					editedItem={editedItem}
 					handleOnChangeField={(e) => handleOnChangeField(e)}
 				/>
 			))}
 
 			<td>
-				{isEditMode && rowIDToEdit === row.id ? (
+				{idToEdit === row.id ? (
 					<IconBtn
 						type="submit"
 						handleClick={() => {
@@ -59,14 +57,14 @@ export const TableRow = ({
 					/>
 				)}
 
-				{isEditMode && rowIDToEdit === row.id ? (
+				{idToEdit === row.id ? (
 					<IconBtn
 						handleClick={() => handleCancelEditing()}
 						btnIcon={<BsXSquare />}
 					/>
 				) : (
 					<IconBtn
-						handleClick={() => handleRemoveRow(row.id)}
+						handleClick={() => handleRemove(row.id)}
 						disabled={current?.id === row.id}
 						btnIcon={<ImBin />}
 					/>
@@ -108,15 +106,14 @@ TableRow.propTypes = {
 		registered: PropTypes.string,
 		interviews: PropTypes.number,
 	}),
-	rowIDToEdit: PropTypes.string,
-	isEditMode: PropTypes.bool.isRequired,
+	idToEdit: PropTypes.string,
 	handleOnChangeField: PropTypes.func.isRequired,
 	handleEdit: PropTypes.func.isRequired,
 	handleCancelEditing: PropTypes.func.isRequired,
-	handleRemoveRow: PropTypes.func.isRequired,
+	handleRemove: PropTypes.func.isRequired,
 };
 
 TableRow.defaultProps = {
 	current: undefined,
-	rowIDToEdit: undefined,
+	idToEdit: null,
 };

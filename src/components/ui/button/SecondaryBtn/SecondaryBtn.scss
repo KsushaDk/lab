@@ -1,0 +1,21 @@
+@import 'Scss/mixins.scss';
+@import 'Scss/vars.scss';
+
+.secondary_btn {
+	@include text($font-size: 1rem, $font-weight: 600, $color: $primary-red);
+	align-content: center;
+	padding: 0.3rem 0.8rem;
+	background-color: $primary-white;
+	border: 1px solid $primary-red;
+	cursor: pointer;
+
+	@media (max-width: 576px) {
+		padding: 0.3rem 0.5rem;
+	}
+
+	&:hover {
+		box-shadow: $shadow-checkbox;
+		background-color: $primary-red;
+		color: $primary-white;
+	}
+}

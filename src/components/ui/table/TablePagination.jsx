@@ -75,7 +75,7 @@ export const TablePagination = ({
 						<button
 							key={pageNumber}
 							className={
-								currentPage === pageNumber ? 'icon_btn active_page' : 'icon_btn'
+								currentPage === pageNumber ? 'page_num active_page' : 'page_num'
 							}
 							onClick={() => onPageChange(pageNumber)}
 							disabled={totalCount <= pageSize}

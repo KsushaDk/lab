@@ -51,6 +51,7 @@ module.exports = {
 			Hoc: path.resolve(__dirname, '../src/hoc/'),
 			Hooks: path.resolve(__dirname, '../src/hooks/'),
 			Redux: path.resolve(__dirname, '../src/redux/'),
+			Constants: path.resolve(__dirname, '../src/constants/'),
 		},
 	},
 	plugins: [

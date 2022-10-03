@@ -1,51 +1,35 @@
-import React, { useState, useCallback } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import { useDispatch } from 'react-redux';
+import { toast } from 'react-toastify';
 import { updateInterviews } from 'Redux/slices/interviewSlice';
-import { setModalState } from 'Redux/slices/modalSlice';
-import { columnsInterviews } from 'Utils/constants';
-import { getModalResponse } from 'Utils/getModalResponse';
-import { Table } from '../ui/table/Table';
-import { PrimaryModal } from '../ui/modal/PrimaryModal/PrimaryModal';
+import { columnsInterviews, failedNotification } from 'Constants/constants';
+
+import { TableWrapper } from '../ui/table/TableWrapper';
 
 export const InterviewTable = ({ interviewData, searchResult }) => {
-	const dispatch = useDispatch();
+	const failed = (message) => toast.error(message, failedNotification);
 
-	const [isModalSubmitted, setModalSubmitted] = useState(false);
+	const handleInterviewChange = (value) => {
+		const checkUniqueTitle = interviewData.find((item) => item.title === value);
 
-	const updateData = useCallback((data) => {
-		dispatch(updateInterviews(data));
-	}, []);
+		if (checkUniqueTitle !== undefined) {
+			failed('Название опроса должно быть уникальным');
+			return false;
+		}
 
-	const handleModalClick = (e) => {
-		const btnValue = e.target.value;
-		const modalResponse = getModalResponse(btnValue);
-
-		dispatch(
-			setModalState({
-				isActive: false,
-				message: '',
-				btnValues: [],
-				isSubmitted: modalResponse,
-			})
-		);
-		setModalSubmitted(modalResponse);
+		return true;
 	};
 
 	return (
-		<>
-			<PrimaryModal handleModalClick={handleModalClick} />
-			<Table
-				caption="Мои опросы"
-				rows={interviewData}
-				searchResult={searchResult}
-				columns={columnsInterviews}
-				total="Всего опросов"
-				updateData={updateData}
-				isSubmitted={isModalSubmitted}
-				setModalSubmitted={setModalSubmitted}
-			/>
-		</>
+		<TableWrapper
+			slice={updateInterviews}
+			caption="Мои опросы"
+			total="Всего опросов"
+			columns={columnsInterviews}
+			rows={interviewData}
+			searchResult={searchResult}
+			handleInterviewChange={handleInterviewChange}
+		/>
 	);
 };
 

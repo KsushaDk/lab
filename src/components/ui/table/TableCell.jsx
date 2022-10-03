@@ -1,10 +1,9 @@
 import { getCellType } from 'Utils/getCellType';
-import { getСellToRender } from 'Utils/CellType';
+import { getСellToRender } from 'Constants/CellType';
 
 export const TableCell = ({
-	isEditMode,
-	rowIDToEdit,
-	editedRow,
+	idToEdit,
+	editedItem,
 	row,
 	td,
 	handleOnChangeField,
@@ -13,9 +12,8 @@ export const TableCell = ({
 		key: td[0],
 		value: td[1],
 		handleOnChangeField,
-		isEditMode,
-		rowIDToEdit,
-		editedRow,
+		idToEdit,
+		editedItem,
 		row,
 	};
 
