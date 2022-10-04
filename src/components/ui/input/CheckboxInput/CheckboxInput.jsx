@@ -13,7 +13,9 @@ export const CheckboxInput = ({ option }) => (
 	>
 		<div
 			className={
-				option.checked ? 'checkbox__checkmark checked' : 'checkbox__checkmark'
+				option.checked
+					? 'checkbox__checkmark checked-box'
+					: 'checkbox__checkmark'
 			}
 		>
 			{option.checked && <BsCheckLg />}

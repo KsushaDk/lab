@@ -1,0 +1,45 @@
+@import 'Scss/vars.scss';
+@import 'Scss/mixins.scss';
+
+.radio {
+	&__wrapper {
+		@include flex($justify-content: start);
+		background: transparent;
+		width: 100%;
+	}
+
+	&_checkmark {
+		@include flex($justify-content: center);
+		border: 3px solid $primary-gray;
+		border-radius: 100%;
+		height: 1.2rem;
+		width: 1.2rem;
+		cursor: pointer;
+		transition: border 0.25s linear;
+		-webkit-transition: border 0.25s linear;
+	}
+
+	&_span {
+		@include text;
+		cursor: pointer;
+		-webkit-transition: all 0.25s linear;
+
+		&:hover {
+			color: $primary-red;
+		}
+	}
+}
+
+ul li:hover .radio_checkmark {
+	border: 3px solid $primary-red;
+}
+
+ul li:hover .radio_span {
+	color: $primary-red;
+}
+
+.checked-radio {
+	border: 7px solid $primary-red;
+	background: $primary-white;
+	box-shadow: $shadow-checkbox;
+}

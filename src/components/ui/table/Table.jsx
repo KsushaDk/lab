@@ -138,7 +138,7 @@ Table.propTypes = {
 			}),
 		])
 	).isRequired,
-	idToEdit: PropTypes.string.isRequired,
+	idToEdit: PropTypes.string,
 	current: PropTypes.shape({
 		id: PropTypes.string,
 		username: PropTypes.string,
@@ -153,4 +153,5 @@ Table.propTypes = {
 Table.defaultProps = {
 	current: undefined,
 	searchResult: null,
+	idToEdit: null,
 };

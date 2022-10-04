@@ -1,18 +1,13 @@
 import { useState } from 'react';
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import { successNotification, failedNotification } from 'Constants/constants';
+import { getNotification } from 'Utils/getNotification';
 
 export const useItemEditing = ({ removeCb, saveCb, cancelCb, changeCb }) => {
 	const [idToEdit, setIdToEdit] = useState(null);
 	const [editedItem, setEditedItem] = useState(null);
 
-	const failed = (message) => toast.error(message, failedNotification);
-	const success = (message) => toast.success(message, successNotification);
-
 	const handleRemove = (id) => {
 		removeCb(id);
-		success('Успешно удалено!');
+		getNotification.success('Успешно удалено!');
 	};
 
 	const handleEdit = (id) => {
@@ -30,13 +25,15 @@ export const useItemEditing = ({ removeCb, saveCb, cancelCb, changeCb }) => {
 		const { name: fieldName, value } = e.target;
 
 		if (value === '') {
-			failed('Упс, поле не может быть пустым');
+			getNotification.failed('Упс, поле не может быть пустым');
 			handleCancelEditing();
 		}
 
-		(fieldName === 'title' || fieldName === 'option') &&
+		fieldName === 'title' && changeCb && changeCb(fieldName, value);
+
+		fieldName === 'option' &&
 			changeCb &&
-			changeCb(fieldName, value);
+			changeCb(fieldName, value, e.target.id);
 
 		setEditedItem({
 			[fieldName]: value,
@@ -48,7 +45,7 @@ export const useItemEditing = ({ removeCb, saveCb, cancelCb, changeCb }) => {
 		editedItem === null ? handleCancelEditing() : saveCb(editedItem, idToEdit);
 
 		setIdToEdit(null);
-		success('Успешно сохранено!');
+		getNotification.success('Успешно сохранено!');
 	};
 
 	return {

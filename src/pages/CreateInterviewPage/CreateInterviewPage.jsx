@@ -8,26 +8,22 @@ import {
 	BsBatteryHalf,
 } from 'react-icons/bs';
 import { ImBin } from 'react-icons/im';
-import { CustomSelect } from 'Components/ui/select/CustomSelect/CustomSelect';
-import { Loader } from 'Components/Loader/Loader';
+import { v4 as uuidv4 } from 'uuid';
 import { PrimaryBtn } from 'Components/ui/button/PrimaryBtn/PrimaryBtn';
 import { InterviewInfo } from 'Components/InterviewInfo/InterviewInfo';
 import { CheckboxInput } from 'Components/ui/input/CheckboxInput/CheckboxInput';
 import { IconBtn } from 'Components/ui/button/IconBtn/IconBtn';
-import { useFetch } from 'Hooks/useFetch';
-import { interviewQuery, questionCheckbox } from 'Constants/constants';
+import { interviewQuery } from 'Constants/constants';
 import { getQuestionToRender } from 'Constants/QuestionType';
+import { getNotification } from 'Utils/getNotification';
 import { getQuestionType } from 'Utils/getQuestionType';
 import { toggleValueByKey } from 'Utils/toggleValueByKey';
+import { removeFromArrByID } from 'Utils/removeFromArrByID';
 import './CreateInterviewPage.scss';
 
 export const CreateInterviewPage = () => {
-	const { data, loading, error } = useFetch(
-		'https://jsonplaceholder.typicode.com/todos'
-	);
-
 	const [queryForInterview, setQueryForInterview] = useState(interviewQuery);
-	const [questionType, setQuestionType] = useState('checkbox');
+	const [questions, setQuestions] = useState([]);
 
 	const handleChangeQuery = (e) => {
 		const updatedQuery = toggleValueByKey(
@@ -39,27 +35,29 @@ export const CreateInterviewPage = () => {
 		setQueryForInterview(updatedQuery);
 	};
 
-
 	const handleRemoveInterview = () => {
 		localStorage.clear();
+		setQuestions([]);
+		getNotification.success('Опрос удален!');
 	};
 
-	const handleQuestionType = (e) => {
-		setQuestionType(e.target.getAttribute('name'));
+	const handleAddQuestion = (e) => {
+		setQuestions([
+			{
+				id: uuidv4(),
+				type: e.target.getAttribute('name'),
+			},
+			...questions,
+		]);
+	};
+
+	const handleRemoveQuestion = (id) => {
+		const newQuestions = removeFromArrByID(questions, id);
+		setQuestions(newQuestions);
 	};
 
 	return (
 		<section className="content">
-			{error && <h2 className="enter_error">{error}</h2>}
-			{loading ? (
-				<Loader />
-			) : (
-				<>
-					<CustomSelect data={data} multi={false} />
-					<CustomSelect data={data} multi />
-				</>
-			)}
-
 			<div className="content__head">
 				<h2 className="title_m">Новый опрос</h2>
 				<input className="content__head_input" placeholder="Опрос номер..." />
@@ -72,20 +70,24 @@ export const CreateInterviewPage = () => {
 						<PrimaryBtn btnValue={{ value: 'Сохранить', link: '#' }} />
 						<PrimaryBtn btnValue={{ value: 'Отмена', link: '#' }} />
 						{/* <PrimaryBtn btnValue={{ value: 'Новая страница', link: '#' }} /> */}
-						<IconBtn
-							handleClick={() => handleRemoveInterview()}
-							btnIcon={<ImBin />}
-						/>
 					</div>
 
-					<div className="content__body_items">
-						{
-							getQuestionToRender(questionCheckbox)[
-								getQuestionType(questionType)
-							]
-						}
-						<hr className="horizontal_gray-line" />
-					</div>
+					{questions.length !== 0 && (
+						<div className="content__body_items">
+							<IconBtn
+								handleClick={() => handleRemoveInterview()}
+								btnIcon={<ImBin />}
+							/>
+							{questions.map(
+								(question) =>
+									getQuestionToRender(question, handleRemoveQuestion)[
+										getQuestionType(question.type)
+									]
+							)}
+
+							{/* <hr className="horizontal_gray-line" /> */}
+						</div>
+					)}
 				</div>
 
 				<aside className="content__body_right">
@@ -93,7 +95,7 @@ export const CreateInterviewPage = () => {
 						<h3 className="title_xs">Тип вопроса</h3>
 						<ul
 							className="settings__list"
-							onClick={handleQuestionType}
+							onClick={handleAddQuestion}
 							role="menu"
 						>
 							<li className="settings__list_option" name="radio">

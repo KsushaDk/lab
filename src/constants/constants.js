@@ -227,6 +227,16 @@ export const failedNotification = {
 	progress: undefined,
 };
 
+export const infoNotification = {
+	position: 'bottom-left',
+	autoClose: 2000,
+	hideProgressBar: false,
+	closeOnClick: true,
+	pauseOnHover: true,
+	draggable: true,
+	progress: undefined,
+};
+
 export const interviewQuery = [
 	{
 		id: uuidv4(),
@@ -260,7 +270,34 @@ export const interviewQuery = [
 	},
 ];
 
-export const questionCheckbox = {
+export const questionCheckboxExample = {
+	id: uuidv4(),
+	question:
+		'Кто из знаменитых художников стал знаменитым сразу после своей смерти?',
+	options: [
+		{
+			id: uuidv4(),
+			title: 'Пьер Огюст Ренуар',
+			checked: false,
+			correct: false,
+		},
+		{
+			id: uuidv4(),
+			title: 'Винсент Ван Гог',
+			checked: true,
+			correct: true,
+		},
+		{
+			id: uuidv4(),
+			title: 'Рембрандт',
+			checked: false,
+			correct: false,
+		},
+		{ id: uuidv4(), title: 'Поль Гоген', checked: true, correct: true },
+	],
+};
+
+export const questionRadioExample = {
 	id: uuidv4(),
 	question:
 		'Ученик элитной школы обнаруживает свое родство с маньяком-убийцей и помогает ему бежать от правосудия',

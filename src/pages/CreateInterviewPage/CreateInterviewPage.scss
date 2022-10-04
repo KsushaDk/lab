@@ -2,13 +2,9 @@
 @import 'Scss/mixins.scss';
 
 .btn_group {
-	@include flex;
+	@include flex($justify-content: start);
 	flex-wrap: wrap;
 	width: 100%;
-
-	> button:last-child {
-		margin-left: auto;
-	}
 }
 
 .interview__settings {
@@ -50,11 +46,24 @@
 		background: transparent;
 		list-style: none;
 		width: 100%;
+
+		&_option {
+			@include flex($justify-content: start);
+			@include text;
+			padding: 0.5rem 0rem 0.5rem 1rem;
+			width: 100%;
+			cursor: pointer;
+
+			&:hover {
+				background: $secondary-gray;
+			}
+		}
 	}
 
 	&__control_btn {
 		@include flex($justify-content: flex-end);
 		width: 100%;
+		padding: 1rem 0;
 
 		button:first-of-type {
 			margin-right: auto;
