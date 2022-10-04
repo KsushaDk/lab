@@ -24,8 +24,8 @@ export const TableWrapper = ({
 	const [totalRowsState, setTotalRowsState] = useState(rows);
 	const [isSubmitted, setSubmitted] = useState(false);
 
-	const cancelCb = (isFailed) => {
-		setSubmitted(isFailed);
+	const cancelCb = () => {
+		setSubmitted(false);
 	};
 
 	const removeCb = (id) => {
@@ -41,10 +41,8 @@ export const TableWrapper = ({
 	};
 
 	const changeCb = (fieldName, value) => {
-		if (fieldName === 'title') {
-			const isFailed = handleInterviewChange(value);
-			!isFailed && cancelCb(isFailed);
-		}
+		const isFailed = handleInterviewChange(value);
+		return isFailed;
 	};
 
 	const {

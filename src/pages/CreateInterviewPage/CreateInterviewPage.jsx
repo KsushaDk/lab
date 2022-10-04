@@ -22,8 +22,13 @@ import { removeFromArrByID } from 'Utils/removeFromArrByID';
 import './CreateInterviewPage.scss';
 
 export const CreateInterviewPage = () => {
+	const [interviewName, setInterviewName] = useState('');
 	const [queryForInterview, setQueryForInterview] = useState(interviewQuery);
 	const [questions, setQuestions] = useState([]);
+
+	const handleInterviewName = (e) => {
+		setInterviewName(e.target.value);
+	};
 
 	const handleChangeQuery = (e) => {
 		const updatedQuery = toggleValueByKey(
@@ -60,7 +65,12 @@ export const CreateInterviewPage = () => {
 		<section className="content">
 			<div className="content__head">
 				<h2 className="title_m">Новый опрос</h2>
-				<input className="content__head_input" placeholder="Опрос номер..." />
+				<input
+					className="content__head_input"
+					placeholder="Опрос номер..."
+					value={interviewName}
+					onChange={handleInterviewName}
+				/>
 			</div>
 			<InterviewInfo pages={1} questions={5} />
 

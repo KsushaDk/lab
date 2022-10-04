@@ -15,9 +15,9 @@ export const SecondaryInput = ({ name, handleBlur, ...attrs }) => (
 
 SecondaryInput.propTypes = {
 	name: PropTypes.string.isRequired,
-	handleOnChangeField: PropTypes.func,
+	handleBlur: PropTypes.func,
 };
 
 SecondaryInput.defaultProps = {
-	handleOnChangeField: () => {},
+	handleBlur: () => {},
 };

@@ -4,7 +4,6 @@ import { v4 as uuidv4 } from 'uuid';
 import { ImPencil, ImBin } from 'react-icons/im';
 import { BsPlusSquare } from 'react-icons/bs';
 import { useItemEditing } from 'Hooks/useItemEditing';
-import { toggleValueByKey } from 'Utils/toggleValueByKey';
 import { getNotification } from 'Utils/getNotification';
 import { CheckboxInput } from '../ui/input/CheckboxInput/CheckboxInput';
 import { IconBtn } from '../ui/button/IconBtn/IconBtn';
@@ -17,6 +16,8 @@ export const QuestionWrapper = ({
 	questionType,
 	example,
 	handleRemoveQuestion,
+	handleAnswer,
+	notification,
 }) => {
 	const [question, setQuestion] = useState(null);
 	const [options, setOptions] = useState([
@@ -54,7 +55,8 @@ export const QuestionWrapper = ({
 	};
 
 	const saveCb = (edited, id) => {
-		getNotification.failed('Выберете правильный(ые) варианты ответа');
+		getNotification.failed(notification);
+
 		setQuestion({ ...edited, id, type: questionType, options });
 	};
 
@@ -68,7 +70,7 @@ export const QuestionWrapper = ({
 		handleSaveEditing,
 	} = useItemEditing({ removeCb, saveCb, changeCb });
 
-	const handleAdding = () => {
+	const handleAddingField = () => {
 		setOptions([
 			...options,
 			{
@@ -80,15 +82,13 @@ export const QuestionWrapper = ({
 		]);
 	};
 
-	const handleChooseAnswer = (e) => {
+	const handleCorrectAnswers = (e) => {
 		if (e.target.name !== 'option') {
-			const updatedOptions = toggleValueByKey(
-				options,
-				e.currentTarget.id,
-				'checked'
-			);
+			const newOptions = handleAnswer(e, options);
 
-			setOptions(updatedOptions);
+			setOptions(newOptions);
+			setQuestion({ ...question, options: newOptions });
+			getNotification.success('Ответ сохранен.');
 		}
 	};
 
@@ -140,7 +140,7 @@ export const QuestionWrapper = ({
 							role="menuitem"
 							key={option.id}
 							id={option.id}
-							onClick={handleChooseAnswer}
+							onClick={handleCorrectAnswers}
 						>
 							{idToEdit === questionId || question === null ? (
 								<SecondaryInput
@@ -159,12 +159,15 @@ export const QuestionWrapper = ({
 
 				{idToEdit === questionId && (
 					<div className="question__control_btn">
-						<IconBtn handleClick={handleAdding} btnIcon={<BsPlusSquare />} />
-						<SecondaryBtn btnValue="Отмена" handleClick={handleCancelEditing} />
+						<IconBtn
+							handleClick={handleAddingField}
+							btnIcon={<BsPlusSquare />}
+						/>
 						<SecondaryBtn
 							btnValue="Сохранить"
 							handleClick={handleSaveEditing}
 						/>
+						<SecondaryBtn btnValue="Отмена" handleClick={handleCancelEditing} />
 					</div>
 				)}
 			</div>
@@ -174,8 +177,18 @@ export const QuestionWrapper = ({
 
 QuestionWrapper.propTypes = {
 	questionId: PropTypes.string,
+	notification: PropTypes.string,
+	questionType: PropTypes.string,
+	example: PropTypes.node,
+	handleRemoveQuestion: PropTypes.func,
+	handleAnswer: PropTypes.func,
 };
 
 QuestionWrapper.defaultProps = {
+	notification: '',
 	questionId: null,
+	questionType: null,
+	example: null,
+	handleRemoveQuestion: () => {},
+	handleAnswer: () => {},
 };

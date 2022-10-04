@@ -24,21 +24,31 @@ export const useItemEditing = ({ removeCb, saveCb, cancelCb, changeCb }) => {
 	const handleOnChangeField = (e) => {
 		const { name: fieldName, value } = e.target;
 
-		if (value === '') {
-			getNotification.failed('Упс, поле не может быть пустым');
-			handleCancelEditing();
+		switch (true) {
+			case value.trim() === '':
+				getNotification.failed('Упс, поле не может быть пустым');
+				handleCancelEditing();
+				break;
+
+			case fieldName === 'title':
+				!changeCb(fieldName, value.trim())
+					? handleCancelEditing()
+					: setEditedItem({
+							[fieldName]: value.trim(),
+							...editedItem,
+					  });
+				break;
+
+			case fieldName === 'option':
+				changeCb && changeCb(fieldName, value.trim(), e.target.id);
+				break;
+
+			default:
+				setEditedItem({
+					[fieldName]: value.trim(),
+					...editedItem,
+				});
 		}
-
-		fieldName === 'title' && changeCb && changeCb(fieldName, value);
-
-		fieldName === 'option' &&
-			changeCb &&
-			changeCb(fieldName, value, e.target.id);
-
-		setEditedItem({
-			[fieldName]: value,
-			...editedItem,
-		});
 	};
 
 	const handleSaveEditing = () => {

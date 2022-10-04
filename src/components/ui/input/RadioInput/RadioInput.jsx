@@ -19,7 +19,11 @@ RadioInput.propTypes = {
 	option: PropTypes.shape({
 		id: PropTypes.string.isRequired,
 		title: PropTypes.string.isRequired,
-		checked: PropTypes.bool.isRequired,
-		completed: PropTypes.bool.isRequired,
-	}).isRequired,
+		checked: PropTypes.bool,
+		completed: PropTypes.bool,
+	}),
+};
+
+RadioInput.defaultProps = {
+	option: undefined,
 };
