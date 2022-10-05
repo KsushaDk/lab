@@ -13,7 +13,14 @@ export const Question = Object.freeze({
 });
 
 export const getQuestionToRender = (question, handleRemoveQuestion) => ({
-	[Question.Text]: <TextQuestion />,
+	[Question.Text]: (
+		<TextQuestion
+			questionId={question.id}
+			questionType={question.type}
+			key={question.id}
+			handleRemoveQuestion={handleRemoveQuestion}
+		/>
+	),
 	[Question.Checkbox]: (
 		<CheckboxQuestion
 			questionId={question.id}

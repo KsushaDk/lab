@@ -5,6 +5,7 @@
 	@include flex($justify-content: start);
 	flex-wrap: wrap;
 	width: 100%;
+	padding-top: 1.5rem;
 }
 
 .interview__settings {
@@ -65,7 +66,7 @@
 		width: 100%;
 		padding: 1rem 0;
 
-		button:first-of-type {
+		button[class='icon_btn'] {
 			margin-right: auto;
 		}
 	}

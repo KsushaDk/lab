@@ -1,15 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { v4 as uuidv4 } from 'uuid';
 import { ImPencil, ImBin } from 'react-icons/im';
-import { BsPlusSquare } from 'react-icons/bs';
+import { BsPlusSquare, BsX } from 'react-icons/bs';
 import { useItemEditing } from 'Hooks/useItemEditing';
 import { getNotification } from 'Utils/getNotification';
-import { CheckboxInput } from '../ui/input/CheckboxInput/CheckboxInput';
+import { getAnswerFieldType } from 'Utils/getAnswerFieldType';
 import { IconBtn } from '../ui/button/IconBtn/IconBtn';
 import { SecondaryBtn } from '../ui/button/SecondaryBtn/SecondaryBtn';
 import { SecondaryInput } from '../ui/input/SecondaryInput/SecondaryInput';
-import { RadioInput } from '../ui/input/RadioInput/RadioInput';
+import { removeFromArrByID } from '../../utils/removeFromArrByID';
 
 export const QuestionWrapper = ({
 	questionId,
@@ -29,12 +29,13 @@ export const QuestionWrapper = ({
 		},
 	]);
 
-	const getInputType = (option) =>
-		questionType === 'radio' ? (
-			<RadioInput option={option} />
-		) : (
-			<CheckboxInput option={option} />
-		);
+	const setUpdatedData = useCallback(
+		(newQuestion, newOptions) => {
+			setOptions(newOptions);
+			setQuestion({ ...newQuestion, options: newOptions });
+		},
+		[question, options]
+	);
 
 	const removeCb = (id) => {
 		localStorage.removeItem(id.toString());
@@ -51,13 +52,17 @@ export const QuestionWrapper = ({
 			return option;
 		});
 
-		setOptions(newOptions);
+		setUpdatedData(question, newOptions);
 	};
 
 	const saveCb = (edited, id) => {
-		getNotification.failed(notification);
-
-		setQuestion({ ...edited, id, type: questionType, options });
+		if (questionType === 'text') {
+			const newQuestion = handleAnswer(edited, id, options);
+			setQuestion(newQuestion);
+		} else {
+			getNotification.failed(notification);
+			setQuestion({ ...edited, id, type: questionType, options });
+		}
 	};
 
 	const {
@@ -82,12 +87,19 @@ export const QuestionWrapper = ({
 		]);
 	};
 
+	const handleRemovingField = (e, id) => {
+		e.stopPropagation();
+
+		const newOptions = removeFromArrByID(options, id);
+
+		setUpdatedData(question, newOptions);
+	};
+
 	const handleCorrectAnswers = (e) => {
-		if (e.target.name !== 'option') {
+		if (questionType !== 'text' && e.target.name !== 'option') {
 			const newOptions = handleAnswer(e, options);
 
-			setOptions(newOptions);
-			setQuestion({ ...question, options: newOptions });
+			setUpdatedData(question, newOptions);
 			getNotification.success('Ответ сохранен.');
 		}
 	};
@@ -143,15 +155,28 @@ export const QuestionWrapper = ({
 							onClick={handleCorrectAnswers}
 						>
 							{idToEdit === questionId || question === null ? (
-								<SecondaryInput
-									name="option"
-									id={option.id}
-									placeholder="Введите вариант ответа..."
-									defaultValue={option.title}
-									handleBlur={handleOnChangeField}
-								/>
+								<>
+									<SecondaryInput
+										name="option"
+										id={option.id}
+										placeholder={
+											questionType === 'text'
+												? 'Введите правильный ответ...'
+												: 'Введите вариант ответа...'
+										}
+										defaultValue={option.title}
+										handleBlur={handleOnChangeField}
+									/>
+
+									{questionType !== 'text' && (
+										<BsX
+											className="icon_black"
+											onClick={(e) => handleRemovingField(e, option.id)}
+										/>
+									)}
+								</>
 							) : (
-								getInputType(option)
+								getAnswerFieldType(questionType, option)
 							)}
 						</li>
 					))}
@@ -159,10 +184,12 @@ export const QuestionWrapper = ({
 
 				{idToEdit === questionId && (
 					<div className="question__control_btn">
-						<IconBtn
-							handleClick={handleAddingField}
-							btnIcon={<BsPlusSquare />}
-						/>
+						{questionType !== 'text' && (
+							<IconBtn
+								handleClick={handleAddingField}
+								btnIcon={<BsPlusSquare />}
+							/>
+						)}
 						<SecondaryBtn
 							btnValue="Сохранить"
 							handleClick={handleSaveEditing}
