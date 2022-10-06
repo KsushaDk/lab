@@ -1,7 +1,11 @@
-export const toggleValueByKey = (data, id, key) => {
+export const toggleValueByKey = (data, id, keys) => {
 	const newData = data.map((item) => {
 		if (item.id.toString() === id.toString()) {
-			item[key] = !item[key];
+			Array.isArray(keys)
+				? keys.forEach((k) => {
+						item[k] = !item[k];
+				  })
+				: (item[keys] = !item[keys]);
 		}
 		return item;
 	});

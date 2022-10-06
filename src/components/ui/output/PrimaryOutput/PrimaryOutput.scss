@@ -1,0 +1,12 @@
+@import 'Scss/vars.scss';
+@import 'Scss/mixins.scss';
+
+.primary_output {
+	@include text;
+	padding: 0.3rem 0.5rem;
+	background-color: transparent;
+	width: 100%;
+	border: $border;
+	border-radius: 4px;
+	outline-color: $primary-gray;
+}

@@ -1,19 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { toast } from 'react-toastify';
 import { updateInterviews } from 'Redux/slices/interviewSlice';
-import { columnsInterviews, failedNotification } from 'Constants/constants';
+import { getNotification } from 'Utils/getNotification';
+import { columnsInterviews } from 'Constants/constants';
 
 import { TableWrapper } from '../ui/table/TableWrapper';
 
 export const InterviewTable = ({ interviewData, searchResult }) => {
-	const failed = (message) => toast.error(message, failedNotification);
-
 	const handleInterviewChange = (value) => {
 		const checkUniqueTitle = interviewData.find((item) => item.title === value);
 
 		if (checkUniqueTitle !== undefined) {
-			failed('Название опроса должно быть уникальным');
+			getNotification.failed('Название опроса должно быть уникальным');
 			return false;
 		}
 

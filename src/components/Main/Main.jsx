@@ -4,7 +4,6 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { PublicPath } from 'Hoc/PublicPath';
 import { AdminPath } from 'Hoc/AdminPath';
-import { UserPath } from 'Hoc/UserPath';
 import { AboutPage } from 'Pages/AboutPage/AboutPage';
 import { CreateInterviewPage } from 'Pages/CreateInterviewPage/CreateInterviewPage';
 import { InterviewListPage } from 'Pages/InterviewListPage/InterviewListPage';
@@ -31,14 +30,7 @@ export const Main = () => (
 			<Sidebar />
 			<div className="vertical_gray-line" />
 			<Routes>
-				<Route
-					path="/"
-					element={
-						<UserPath>
-							<AboutPage />
-						</UserPath>
-					}
-				/>
+				<Route path="/" element={<AboutPage />} />
 				<Route
 					path="create"
 					element={

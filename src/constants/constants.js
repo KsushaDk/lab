@@ -1,4 +1,13 @@
+import React from 'react';
 import { v4 as uuidv4 } from 'uuid';
+import {
+	BsFileEarmarkFill,
+	BsListOl,
+	BsListUl,
+	BsTextareaT,
+	BsStar,
+	BsBatteryHalf,
+} from 'react-icons/bs';
 
 export const labels = [
 	'О нас',
@@ -207,6 +216,45 @@ export const dataTemplates = [
 	},
 ];
 
+export const questionTypeList = [
+	{
+		id: uuidv4(),
+		title: 'Варианты ответа (один)',
+		type: 'radio',
+		icon: <BsListUl className="icon_black" />,
+	},
+	{
+		id: uuidv4(),
+		title: 'Варианты ответа (несколько)',
+		type: 'checkbox',
+		icon: <BsListOl className="icon_black" />,
+	},
+	{
+		id: uuidv4(),
+		title: 'Текст',
+		type: 'text',
+		icon: <BsTextareaT className="icon_black" />,
+	},
+	{
+		id: uuidv4(),
+		title: 'Файл',
+		type: 'file',
+		icon: <BsFileEarmarkFill className="icon_black" />,
+	},
+	{
+		id: uuidv4(),
+		title: 'Рейтинг в звездах',
+		type: 'rating',
+		icon: <BsStar className="icon_black" />,
+	},
+	{
+		id: uuidv4(),
+		title: 'Шкала',
+		type: 'scale',
+		icon: <BsBatteryHalf className="icon_black" />,
+	},
+];
+
 export const successNotification = {
 	position: 'bottom-left',
 	autoClose: 2000,
@@ -218,6 +266,16 @@ export const successNotification = {
 };
 
 export const failedNotification = {
+	position: 'bottom-left',
+	autoClose: 2000,
+	hideProgressBar: false,
+	closeOnClick: true,
+	pauseOnHover: true,
+	draggable: true,
+	progress: undefined,
+};
+
+export const infoNotification = {
 	position: 'bottom-left',
 	autoClose: 2000,
 	hideProgressBar: false,
@@ -260,7 +318,34 @@ export const interviewQuery = [
 	},
 ];
 
-export const questionCheckbox = {
+export const questionCheckboxExample = {
+	id: uuidv4(),
+	question:
+		'Кто из знаменитых художников стал знаменитым сразу после своей смерти?',
+	options: [
+		{
+			id: uuidv4(),
+			title: 'Пьер Огюст Ренуар',
+			checked: false,
+			correct: false,
+		},
+		{
+			id: uuidv4(),
+			title: 'Винсент Ван Гог',
+			checked: true,
+			correct: true,
+		},
+		{
+			id: uuidv4(),
+			title: 'Рембрандт',
+			checked: false,
+			correct: false,
+		},
+		{ id: uuidv4(), title: 'Поль Гоген', checked: true, correct: true },
+	],
+};
+
+export const questionRadioExample = {
 	id: uuidv4(),
 	question:
 		'Ученик элитной школы обнаруживает свое родство с маньяком-убийцей и помогает ему бежать от правосудия',
@@ -284,5 +369,19 @@ export const questionCheckbox = {
 			correct: false,
 		},
 		{ id: uuidv4(), title: 'Матрица', checked: false, correct: false },
+	],
+};
+
+export const questionTextExample = {
+	id: uuidv4(),
+	question:
+		'Вы находитесь в самолете. Перед вами лошадь, сзади вас - автомобиль. Где вы находитесь?',
+	options: [
+		{
+			id: uuidv4(),
+			title: 'На карусели',
+			checked: true,
+			correct: true,
+		},
 	],
 };

@@ -12,10 +12,31 @@ export const Question = Object.freeze({
 	Rating: 6,
 });
 
-export const getQuestionToRender = (questionCheckbox) => ({
-	[Question.Text]: <TextQuestion />,
-	[Question.Checkbox]: <CheckboxQuestion questionId={questionCheckbox.id} />,
-	[Question.Radio]: <RadioQuestion />,
+export const getQuestionToRender = (question, handleRemoveQuestion) => ({
+	[Question.Text]: (
+		<TextQuestion
+			questionId={question.id}
+			questionType={question.type}
+			key={question.id}
+			handleRemoveQuestion={handleRemoveQuestion}
+		/>
+	),
+	[Question.Checkbox]: (
+		<CheckboxQuestion
+			questionId={question.id}
+			questionType={question.type}
+			key={question.id}
+			handleRemoveQuestion={handleRemoveQuestion}
+		/>
+	),
+	[Question.Radio]: (
+		<RadioQuestion
+			questionId={question.id}
+			questionType={question.type}
+			key={question.id}
+			handleRemoveQuestion={handleRemoveQuestion}
+		/>
+	),
 	[Question.File]: null,
 	[Question.Scale]: null,
 	[Question.Rating]: null,

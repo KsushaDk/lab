@@ -1,18 +1,13 @@
 import { useState } from 'react';
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import { successNotification, failedNotification } from 'Constants/constants';
+import { getNotification } from 'Utils/getNotification';
 
 export const useItemEditing = ({ removeCb, saveCb, cancelCb, changeCb }) => {
 	const [idToEdit, setIdToEdit] = useState(null);
 	const [editedItem, setEditedItem] = useState(null);
 
-	const failed = (message) => toast.error(message, failedNotification);
-	const success = (message) => toast.success(message, successNotification);
-
 	const handleRemove = (id) => {
 		removeCb(id);
-		success('Успешно удалено!');
+		getNotification.success('Успешно удалено!');
 	};
 
 	const handleEdit = (id) => {
@@ -29,26 +24,38 @@ export const useItemEditing = ({ removeCb, saveCb, cancelCb, changeCb }) => {
 	const handleOnChangeField = (e) => {
 		const { name: fieldName, value } = e.target;
 
-		if (value === '') {
-			failed('Упс, поле не может быть пустым');
-			handleCancelEditing();
+		switch (true) {
+			case value.trim() === '':
+				getNotification.failed('Упс, поле не может быть пустым');
+				handleCancelEditing();
+				break;
+
+			case fieldName === 'title':
+				!changeCb(fieldName, value.trim())
+					? handleCancelEditing()
+					: setEditedItem({
+							[fieldName]: value.trim(),
+							...editedItem,
+					  });
+				break;
+
+			case fieldName === 'option':
+				changeCb && changeCb(fieldName, value.trim(), e.target.id);
+				break;
+
+			default:
+				setEditedItem({
+					[fieldName]: value.trim(),
+					...editedItem,
+				});
 		}
-
-		(fieldName === 'title' || fieldName === 'option') &&
-			changeCb &&
-			changeCb(fieldName, value);
-
-		setEditedItem({
-			[fieldName]: value,
-			...editedItem,
-		});
 	};
 
 	const handleSaveEditing = () => {
 		editedItem === null ? handleCancelEditing() : saveCb(editedItem, idToEdit);
 
 		setIdToEdit(null);
-		success('Успешно сохранено!');
+		getNotification.success('Успешно сохранено!');
 	};
 
 	return {

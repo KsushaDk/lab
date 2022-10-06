@@ -2,7 +2,7 @@
 @import 'Scss/vars.scss';
 
 .secondary_btn {
-	@include text($font-size: 1rem, $font-weight: 600, $color: $primary-red);
+	@include text($font-size: 1rem, $color: $primary-red);
 	align-content: center;
 	padding: 0.3rem 0.8rem;
 	background-color: $primary-white;
