@@ -1,15 +1,15 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { v4 as uuidv4 } from 'uuid';
-import { ImPencil, ImBin } from 'react-icons/im';
-import { BsPlusSquare, BsX } from 'react-icons/bs';
-import { useItemEditing } from 'Hooks/useItemEditing';
+import { BsPlusSquare } from 'react-icons/bs';
+import { removeFromArrByID } from 'Utils/removeFromArrByID';
 import { getNotification } from 'Utils/getNotification';
-import { getAnswerFieldType } from 'Utils/getAnswerFieldType';
+import { addDefaultValue } from 'Utils/addDefaultValue';
+import { useItemEditing } from 'Hooks/useItemEditing';
+import { EditDeleteActionBtns } from '../ActionItems/EditDeleteActionBtns';
+import { SaveCancelActionBtns } from '../ActionItems/SaveCancelActionBtns';
+import { ActionTitle } from '../ActionItems/ActionTitle';
+import { ActionInput } from '../ActionItems/ActionInput';
 import { IconBtn } from '../ui/button/IconBtn/IconBtn';
-import { SecondaryBtn } from '../ui/button/SecondaryBtn/SecondaryBtn';
-import { SecondaryInput } from '../ui/input/SecondaryInput/SecondaryInput';
-import { removeFromArrByID } from '../../utils/removeFromArrByID';
 
 export const QuestionWrapper = ({
 	questionId,
@@ -19,49 +19,39 @@ export const QuestionWrapper = ({
 	handleAnswer,
 	notification,
 }) => {
-	const [question, setQuestion] = useState(null);
-	const [options, setOptions] = useState([
-		{
-			id: uuidv4(),
-			title: '',
-			checked: false,
-			correct: false,
-		},
-	]);
-
-	const setUpdatedData = useCallback(
-		(newQuestion, newOptions) => {
-			setOptions(newOptions);
-			setQuestion({ ...newQuestion, options: newOptions });
-		},
-		[question, options]
+	const [question, setQuestion] = useState(
+		addDefaultValue.question(questionId, questionType)
 	);
 
 	const removeCb = (id) => {
 		localStorage.removeItem(id.toString());
 		setQuestion(null);
-		setOptions([]);
 		handleRemoveQuestion(id);
 	};
 
 	const changeCb = (fieldName, value, id) => {
-		const newOptions = options.map((option) => {
+		const newOptions = question.options.map((option) => {
 			if (option.id === id) {
 				option.title = value;
 			}
 			return option;
 		});
 
-		setUpdatedData(question, newOptions);
+		setQuestion({ ...question, id, type: questionType, options: newOptions });
 	};
 
 	const saveCb = (edited, id) => {
 		if (questionType === 'text') {
-			const newQuestion = handleAnswer(edited, id, options);
+			const newQuestion = handleAnswer(edited, id, question.options);
 			setQuestion(newQuestion);
 		} else {
 			getNotification.failed(notification);
-			setQuestion({ ...edited, id, type: questionType, options });
+			setQuestion({
+				...edited,
+				id,
+				type: questionType,
+				options: question.options,
+			});
 		}
 	};
 
@@ -76,30 +66,32 @@ export const QuestionWrapper = ({
 	} = useItemEditing({ removeCb, saveCb, changeCb });
 
 	const handleAddingField = () => {
-		setOptions([
-			...options,
-			{
-				id: uuidv4(),
-				title: '',
-				checked: false,
-				correct: false,
-			},
-		]);
+		setQuestion({
+			...question,
+			options: [...question.options, addDefaultValue.option()],
+		});
 	};
 
 	const handleRemovingField = (e, id) => {
 		e.stopPropagation();
 
-		const newOptions = removeFromArrByID(options, id);
+		const newOptions = removeFromArrByID(question.options, id);
 
-		setUpdatedData(question, newOptions);
+		setQuestion({
+			...question,
+			options: newOptions,
+		});
 	};
 
 	const handleCorrectAnswers = (e) => {
 		if (questionType !== 'text' && e.target.name !== 'option') {
-			const newOptions = handleAnswer(e, options);
+			const newOptions = handleAnswer(e, question.options);
 
-			setUpdatedData(question, newOptions);
+			setQuestion({
+				...question,
+				options: newOptions,
+			});
+
 			getNotification.success('Ответ сохранен.');
 		}
 	};
@@ -118,35 +110,26 @@ export const QuestionWrapper = ({
 			{example}
 			<div className="content__body_item">
 				<div className="question__head">
-					{idToEdit === questionId ? (
-						<IconBtn
-							handleClick={() => handleRemove(questionId)}
-							btnIcon={<ImBin />}
-						/>
-					) : (
-						<IconBtn
-							handleClick={() => handleEdit(questionId)}
-							btnIcon={<ImPencil />}
-						/>
-					)}
+					<EditDeleteActionBtns
+						idToEdit={idToEdit}
+						currentId={questionId}
+						handleRemove={handleRemove}
+						handleEdit={handleEdit}
+					/>
 				</div>
 
-				{idToEdit === questionId ? (
-					<SecondaryInput
-						name="question"
-						id={questionId}
-						placeholder="Введите вопрос..."
-						defaultValue={editedItem ? editedItem.question : question?.question}
-						handleBlur={handleOnChangeField}
-					/>
-				) : (
-					<h3 className="title_xs">
-						{question !== null ? question.question : 'Введите вопрос...'}
-					</h3>
-				)}
+				<ActionTitle
+					idToEdit={idToEdit}
+					currentId={questionId}
+					defaultValue={editedItem ? editedItem.question : question?.question}
+					title={
+						question.question === '' ? 'Введите вопрос...' : question.question
+					}
+					handleOnChangeField={handleOnChangeField}
+				/>
 
 				<ul className="question__list" role="menu">
-					{options.map((option) => (
+					{question.options.map((option) => (
 						<li
 							className="question__list_option"
 							role="menuitem"
@@ -154,47 +137,35 @@ export const QuestionWrapper = ({
 							id={option.id}
 							onClick={handleCorrectAnswers}
 						>
-							{idToEdit === questionId || question === null ? (
-								<>
-									<SecondaryInput
-										name="option"
-										id={option.id}
-										placeholder={
-											questionType === 'text'
-												? 'Введите правильный ответ...'
-												: 'Введите вариант ответа...'
-										}
-										defaultValue={option.title}
-										handleBlur={handleOnChangeField}
-									/>
-
-									{questionType !== 'text' && (
-										<BsX
-											className="icon_black"
-											onClick={(e) => handleRemovingField(e, option.id)}
-										/>
-									)}
-								</>
-							) : (
-								getAnswerFieldType(questionType, option)
-							)}
+							<ActionInput
+								idToEdit={idToEdit}
+								currentId={questionId}
+								question={question}
+								option={option}
+								type={questionType}
+								handleRemove={handleRemovingField}
+								handleOnChangeField={handleOnChangeField}
+							/>
 						</li>
 					))}
+					{idToEdit === questionId && questionType !== 'text' && (
+						<li
+							className="question__list_option p_info"
+							role="menuitem"
+							onClick={handleAddingField}
+						>
+							<IconBtn btnIcon={<BsPlusSquare />} />
+							Добавить ответ...
+						</li>
+					)}
 				</ul>
 
 				{idToEdit === questionId && (
 					<div className="question__control_btn">
-						{questionType !== 'text' && (
-							<IconBtn
-								handleClick={handleAddingField}
-								btnIcon={<BsPlusSquare />}
-							/>
-						)}
-						<SecondaryBtn
-							btnValue="Сохранить"
-							handleClick={handleSaveEditing}
+						<SaveCancelActionBtns
+							handleSaveEditing={handleSaveEditing}
+							handleCancelEditing={handleCancelEditing}
 						/>
-						<SecondaryBtn btnValue="Отмена" handleClick={handleCancelEditing} />
 					</div>
 				)}
 			</div>

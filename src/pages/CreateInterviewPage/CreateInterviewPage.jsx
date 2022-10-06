@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { ImBin } from 'react-icons/im';
 import { v4 as uuidv4 } from 'uuid';
-import { SecondaryBtn } from 'Components/ui/button/SecondaryBtn/SecondaryBtn';
+import { InterviewQueryList } from 'Components/InterviewQueryList/InterviewQueryList';
+import { SaveCancelActionBtns } from 'Components/ActionItems/SaveCancelActionBtns';
+import { QuestionTypeList } from 'Components/QuestionTypeList/QuestionTypeList';
 import { InterviewInfo } from 'Components/InterviewInfo/InterviewInfo';
-import { CheckboxInput } from 'Components/ui/input/CheckboxInput/CheckboxInput';
 import { IconBtn } from 'Components/ui/button/IconBtn/IconBtn';
 import { Loader } from 'Components/Loader/Loader';
-import { interviewQuery, questionTypeList } from 'Constants/constants';
 import { getQuestionToRender } from 'Constants/QuestionType';
+import { interviewQuery } from 'Constants/constants';
+import { addDefaultValue } from 'Utils/addDefaultValue';
 import { getNotification } from 'Utils/getNotification';
 import { getQuestionType } from 'Utils/getQuestionType';
 import { toggleValueByKey } from 'Utils/toggleValueByKey';
@@ -37,11 +39,7 @@ export const CreateInterviewPage = () => {
 
 	const handleRemoveInterview = () => {
 		localStorage.clear();
-		setInterview({
-			id: uuidv4(),
-			name: '',
-			questions: [],
-		});
+		setInterview(addDefaultValue.interview());
 
 		getNotification.success('Опрос удален!');
 	};
@@ -62,10 +60,7 @@ export const CreateInterviewPage = () => {
 			...interview,
 			questions: [
 				...interview.questions,
-				{
-					id: uuidv4(),
-					type: e.target.getAttribute('name'),
-				},
+				addDefaultValue.question(uuidv4(), e.target.getAttribute('name')),
 			],
 		});
 	};
@@ -84,11 +79,7 @@ export const CreateInterviewPage = () => {
 	}, [interview]);
 
 	useEffect(() => {
-		setInterview({
-			id: uuidv4(),
-			name: '',
-			questions: [],
-		});
+		setInterview(addDefaultValue.interview());
 	}, []);
 
 	return (
@@ -108,13 +99,9 @@ export const CreateInterviewPage = () => {
 					</div>
 					<InterviewInfo pages={1} questions={interview?.questions.length} />
 					<div className="btn_group">
-						<SecondaryBtn
-							btnValue="Сохранить"
-							handleClick={handleSaveInterview}
-						/>
-						<SecondaryBtn
-							btnValue="Отмена"
-							handleClick={handleRemoveInterview}
+						<SaveCancelActionBtns
+							handleSaveEditing={handleSaveInterview}
+							handleCancelEditing={handleRemoveInterview}
 						/>
 					</div>
 					<div className="content__body">
@@ -136,40 +123,11 @@ export const CreateInterviewPage = () => {
 						</div>
 
 						<aside className="content__body_right">
-							<div className="interview__settings">
-								<h3 className="title_xs">Тип вопроса</h3>
-								<ul
-									className="settings__list"
-									onClick={handleAddQuestion}
-									role="menu"
-								>
-									{questionTypeList.map((questionType) => (
-										<li
-											className="settings__list_option"
-											name={questionType.type}
-											key={questionType.id}
-										>
-											{questionType.icon} {questionType.title}
-										</li>
-									))}
-								</ul>
-							</div>
-							<div className="interview__settings">
-								<h3 className="title_xs">Параметры опроса</h3>
-								<ul className="settings__list" role="menu">
-									{queryForInterview.map((query) => (
-										<li
-											className="settings__list_option"
-											key={query.id}
-											id={query.id}
-											onClick={handleChangeQuery}
-											role="menuitem"
-										>
-											<CheckboxInput option={query} />
-										</li>
-									))}
-								</ul>
-							</div>
+							<QuestionTypeList handleAddQuestion={handleAddQuestion} />
+							<InterviewQueryList
+								queries={queryForInterview}
+								handleChangeQuery={handleChangeQuery}
+							/>
 						</aside>
 					</div>
 				</>

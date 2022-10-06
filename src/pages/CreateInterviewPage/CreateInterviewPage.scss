@@ -65,9 +65,5 @@
 		@include flex($justify-content: flex-end);
 		width: 100%;
 		padding: 1rem 0;
-
-		button[class='icon_btn'] {
-			margin-right: auto;
-		}
 	}
 }

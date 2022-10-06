@@ -37,7 +37,7 @@ export const PrimaryModal = ({ children, handleModalClick }) => {
 								{modal.btnValues.map((btnValue) => (
 									<button
 										key={btnValue}
-										className="primary_btn"
+										className="secondary_btn"
 										type="button"
 										value={btnValue}
 										onClick={(e) => handleModalClick(e)}

@@ -49,3 +49,7 @@ body {
 .p_secondary {
 	@include text($font-size: 1.3rem, $font-weight: 500);
 }
+
+.p_info {
+	@include text($font-size: 1rem, $color: $info-gray);
+}
