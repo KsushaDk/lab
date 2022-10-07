@@ -39,7 +39,7 @@
 .question {
 	&__head {
 		@include flex;
-		margin-left: auto;
+		width: 100%;
 	}
 
 	&__list {

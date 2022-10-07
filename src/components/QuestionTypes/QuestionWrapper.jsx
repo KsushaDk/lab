@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
-import { BsPlusSquare } from 'react-icons/bs';
+import { BsPlusSquare, BsInfo } from 'react-icons/bs';
 import { removeFromArrByID } from 'Utils/removeFromArrByID';
 import { getNotification } from 'Utils/getNotification';
 import { addDefaultValue } from 'Utils/addDefaultValue';
@@ -22,6 +22,7 @@ export const QuestionWrapper = ({
 	const [question, setQuestion] = useState(
 		addDefaultValue.question(questionId, questionType)
 	);
+	const [isExampleShown, setIsExampleShown] = useState(false);
 
 	const removeCb = (id) => {
 		localStorage.removeItem(id.toString());
@@ -96,6 +97,10 @@ export const QuestionWrapper = ({
 		}
 	};
 
+	const handleShowExample = useCallback(() => {
+		setIsExampleShown((prevState) => !prevState);
+	});
+
 	useEffect(() => {
 		question !== null &&
 			localStorage.setItem(questionId.toString(), JSON.stringify(question));
@@ -106,70 +111,73 @@ export const QuestionWrapper = ({
 	}, []);
 
 	return (
-		<>
-			{example}
-			<div className="content__body_item">
-				<div className="question__head">
-					<EditDeleteActionBtns
-						idToEdit={idToEdit}
-						currentId={questionId}
-						handleRemove={handleRemove}
-						handleEdit={handleEdit}
-					/>
-				</div>
-
-				<ActionTitle
+		<div className="content__body_item">
+			<div className="question__head">
+				<EditDeleteActionBtns
 					idToEdit={idToEdit}
 					currentId={questionId}
-					defaultValue={editedItem ? editedItem.question : question?.question}
-					title={
-						question.question === '' ? 'Введите вопрос...' : question.question
-					}
-					handleOnChangeField={handleOnChangeField}
+					handleRemove={handleRemove}
+					handleEdit={handleEdit}
 				/>
-
-				<ul className="question__list" role="menu">
-					{question.options.map((option) => (
-						<li
-							className="question__list_option"
-							role="menuitem"
-							key={option.id}
-							id={option.id}
-							onClick={handleCorrectAnswers}
-						>
-							<ActionInput
-								idToEdit={idToEdit}
-								currentId={questionId}
-								question={question}
-								option={option}
-								type={questionType}
-								handleRemove={handleRemovingField}
-								handleOnChangeField={handleOnChangeField}
-							/>
-						</li>
-					))}
-					{idToEdit === questionId && questionType !== 'text' && (
-						<li
-							className="question__list_option p_info"
-							role="menuitem"
-							onClick={handleAddingField}
-						>
-							<IconBtn btnIcon={<BsPlusSquare />} />
-							Добавить ответ...
-						</li>
-					)}
-				</ul>
-
-				{idToEdit === questionId && (
-					<div className="question__control_btn">
-						<SaveCancelActionBtns
-							handleSaveEditing={handleSaveEditing}
-							handleCancelEditing={handleCancelEditing}
-						/>
-					</div>
-				)}
+				<BsInfo
+					className="icon_black"
+					onMouseOver={handleShowExample}
+					onMouseOut={handleShowExample}
+				/>
+				{isExampleShown && example}
 			</div>
-		</>
+
+			<ActionTitle
+				idToEdit={idToEdit}
+				currentId={questionId}
+				defaultValue={editedItem ? editedItem.question : question?.question}
+				title={
+					question.question === '' ? 'Введите вопрос...' : question.question
+				}
+				handleOnChangeField={handleOnChangeField}
+			/>
+
+			<ul className="question__list" role="menu">
+				{question.options.map((option) => (
+					<li
+						className="question__list_option"
+						role="menuitem"
+						key={option.id}
+						id={option.id}
+						onClick={handleCorrectAnswers}
+					>
+						<ActionInput
+							idToEdit={idToEdit}
+							currentId={questionId}
+							question={question}
+							option={option}
+							type={questionType}
+							handleRemove={handleRemovingField}
+							handleOnChangeField={handleOnChangeField}
+						/>
+					</li>
+				))}
+				{idToEdit === questionId && questionType !== 'text' && (
+					<li
+						className="question__list_option p_info"
+						role="menuitem"
+						onClick={handleAddingField}
+					>
+						<IconBtn btnIcon={<BsPlusSquare />} />
+						Добавить ответ...
+					</li>
+				)}
+			</ul>
+
+			{idToEdit === questionId && (
+				<div className="question__control_btn">
+					<SaveCancelActionBtns
+						handleSaveEditing={handleSaveEditing}
+						handleCancelEditing={handleCancelEditing}
+					/>
+				</div>
+			)}
+		</div>
 	);
 };
 
