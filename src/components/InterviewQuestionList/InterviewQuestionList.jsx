@@ -12,6 +12,7 @@ import { getQuestionType } from 'Utils/getQuestionType';
 export const InterviewQuestionList = ({
 	interview,
 	setInterview,
+	queries,
 	handleRemoveInterview,
 	handleRemoveQuestion,
 }) => {
@@ -28,6 +29,7 @@ export const InterviewQuestionList = ({
 			}),
 		});
 	};
+
 	return (
 		<DndProvider backend={HTML5Backend}>
 			{interview.questions.length !== 0 && (
@@ -41,6 +43,7 @@ export const InterviewQuestionList = ({
 							getQuestionToRender(
 								question,
 								index,
+								queries,
 								handleRemoveQuestion,
 								moveItem
 							)[getQuestionType(question.type)]

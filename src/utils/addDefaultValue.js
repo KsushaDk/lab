@@ -11,6 +11,7 @@ export const addDefaultValue = {
 		type,
 		question: '',
 		options: [],
+		required: false,
 	}),
 	option: () => ({
 		id: uuidv4(),

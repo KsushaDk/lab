@@ -61,9 +61,30 @@
 		}
 	}
 
-	&__control_btn {
-		@include flex($justify-content: flex-end);
+	&__control {
+		&_btn {
+			@include flex($justify-content: flex-end);
+			width: 100%;
+			padding: 1rem 0;
+		}
+
+		&_required {
+			height: 60%;
+			margin-left: auto;
+		}
+	}
+}
+
+.icon_red {
+	margin-left: auto;
+	background-color: transparent;
+	border: none;
+	color: $primary-red;
+	width: 0.6rem;
+	height: 0.6rem;
+
+	> svg {
 		width: 100%;
-		padding: 1rem 0;
+		height: 100%;
 	}
 }

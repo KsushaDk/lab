@@ -8,6 +8,7 @@ export const RadioQuestion = ({
 	question,
 	questionNum,
 	index,
+	queries,
 	moveItem,
 	handleRemoveQuestion,
 }) => {
@@ -30,6 +31,7 @@ export const RadioQuestion = ({
 			question={question}
 			questionNum={questionNum}
 			index={index}
+			queries={queries}
 			moveItem={moveItem}
 			example={<RadioQuestionExample />}
 			handleRemoveQuestion={handleRemoveQuestion}

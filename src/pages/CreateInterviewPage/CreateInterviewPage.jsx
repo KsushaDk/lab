@@ -105,6 +105,7 @@ export const CreateInterviewPage = () => {
 							<InterviewQuestionList
 								interview={interview}
 								setInterview={setInterview}
+								queries={queryForInterview}
 								handleRemoveInterview={handleRemoveInterview}
 								handleRemoveQuestion={handleRemoveQuestion}
 							/>

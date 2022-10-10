@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { SecondaryInput } from '../ui/input/SecondaryInput/SecondaryInput';
 
 export const ActionTitle = ({
+	queries,
 	idToEdit,
 	currentId,
 	currentNum,
@@ -10,6 +11,17 @@ export const ActionTitle = ({
 	title,
 	handleOnChangeField,
 }) => {
+	const [showNumber, setShowNumber] = useState(false);
+
+	useEffect(() => {
+		queries.forEach((query) => {
+			if (query.checked === true && query.title === 'Номера вопросов') {
+				setShowNumber(true);
+			}
+		});
+		return () => setShowNumber(false);
+	}, [queries]);
+
 	if (idToEdit === currentId) {
 		return (
 			<SecondaryInput
@@ -23,7 +35,7 @@ export const ActionTitle = ({
 	}
 	return (
 		<h3 className="title_xs">
-			{currentNum}.&nbsp;{title}
+			{showNumber && `${currentNum}.`}&nbsp;{title}
 		</h3>
 	);
 };

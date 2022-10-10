@@ -15,6 +15,7 @@ export const Question = Object.freeze({
 export const getQuestionToRender = (
 	question,
 	index,
+	queries,
 	handleRemoveQuestion,
 	moveItem
 ) => ({
@@ -23,6 +24,7 @@ export const getQuestionToRender = (
 			question={question}
 			questionNum={index + 1}
 			index={index}
+			queries={queries}
 			moveItem={moveItem}
 			key={question.id}
 			handleRemoveQuestion={handleRemoveQuestion}
@@ -33,6 +35,7 @@ export const getQuestionToRender = (
 			question={question}
 			questionNum={index + 1}
 			index={index}
+			queries={queries}
 			moveItem={moveItem}
 			key={question.id}
 			handleRemoveQuestion={handleRemoveQuestion}
@@ -43,6 +46,7 @@ export const getQuestionToRender = (
 			question={question}
 			questionNum={index + 1}
 			index={index}
+			queries={queries}
 			moveItem={moveItem}
 			key={question.id}
 			handleRemoveQuestion={handleRemoveQuestion}

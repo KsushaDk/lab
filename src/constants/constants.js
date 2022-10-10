@@ -296,11 +296,11 @@ export const interviewQuery = [
 		title: 'Номера вопросов',
 		checked: false,
 	},
-	{
-		id: uuidv4(),
-		title: 'Номера страниц',
-		checked: false,
-	},
+	// {
+	// 	id: uuidv4(),
+	// 	title: 'Номера страниц',
+	// 	checked: false,
+	// },
 	{
 		id: uuidv4(),
 		title: 'Случайный порядок вопросов',

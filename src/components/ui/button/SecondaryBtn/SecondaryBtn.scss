@@ -7,6 +7,7 @@
 	padding: 0.3rem 0.8rem;
 	background-color: $primary-white;
 	border: 1px solid $primary-red;
+	transition: all 0.3s ease;
 	cursor: pointer;
 
 	@media (max-width: 576px) {

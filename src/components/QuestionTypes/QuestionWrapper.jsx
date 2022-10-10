@@ -10,6 +10,7 @@ import { addDefaultValue } from 'Utils/addDefaultValue';
 import { useItemEditing } from 'Hooks/useItemEditing';
 import { EditDeleteActionBtns } from '../ActionItems/EditDeleteActionBtns';
 import { SaveCancelActionBtns } from '../ActionItems/SaveCancelActionBtns';
+import { ActionRequiredMark } from '../ActionItems/ActionRequiredMark';
 import { ActionTitle } from '../ActionItems/ActionTitle';
 import { ActionInput } from '../ActionItems/ActionInput';
 import { IconBtn } from '../ui/button/IconBtn/IconBtn';
@@ -18,14 +19,16 @@ export const QuestionWrapper = ({
 	question,
 	questionNum,
 	index,
+	queries,
 	moveItem,
 	example,
 	handleRemoveQuestion,
 	handleAnswer,
 	notification,
 }) => {
-	const [current, setQuestion] = useState(question);
+	const [current, setCurrent] = useState(question);
 	const [isExampleShown, setIsExampleShown] = useState(false);
+	const [isRequired, setRequired] = useState(false);
 
 	const ref = useRef(null);
 
@@ -61,7 +64,7 @@ export const QuestionWrapper = ({
 
 	const removeCb = (id) => {
 		localStorage.removeItem(id.toString());
-		setQuestion(null);
+		setCurrent(null);
 		handleRemoveQuestion(id);
 	};
 
@@ -73,16 +76,16 @@ export const QuestionWrapper = ({
 			return option;
 		});
 
-		setQuestion({ ...current, options: newOptions });
+		setCurrent({ ...current, options: newOptions });
 	};
 
 	const saveCb = (edited) => {
 		if (question.type === 'text') {
 			const newQuestion = handleAnswer(edited, current);
-			setQuestion(newQuestion);
+			setCurrent(newQuestion);
 		} else {
 			getNotification.failed(notification);
-			setQuestion({
+			setCurrent({
 				...current,
 				question: edited.question,
 			});
@@ -99,19 +102,19 @@ export const QuestionWrapper = ({
 		handleSaveEditing,
 	} = useItemEditing({ removeCb, saveCb, changeCb });
 
-	const handleAddingField = () => {
-		setQuestion({
+	const handleAddingField = useCallback(() => {
+		setCurrent({
 			...current,
 			options: [...current.options, addDefaultValue.option()],
 		});
-	};
+	});
 
 	const handleRemovingField = (e, id) => {
 		e.stopPropagation();
 
 		const newOptions = removeFromArrByID(current.options, id);
 
-		setQuestion({
+		setCurrent({
 			...current,
 			options: newOptions,
 		});
@@ -121,7 +124,7 @@ export const QuestionWrapper = ({
 		if (question.type !== 'text' && e.target.name !== 'option') {
 			const newOptions = handleAnswer(e, current.options);
 
-			setQuestion({
+			setCurrent({
 				...current,
 				options: newOptions,
 			});
@@ -134,6 +137,10 @@ export const QuestionWrapper = ({
 		setIsExampleShown((prevState) => !prevState);
 	});
 
+	const handleRequiredField = useCallback(() => {
+		setCurrent({ ...current, required: !current.required });
+	});
+
 	useEffect(() => {
 		current !== null &&
 			localStorage.setItem(question.id.toString(), JSON.stringify(current));
@@ -141,11 +148,23 @@ export const QuestionWrapper = ({
 
 	useEffect(() => {
 		handleEdit(question.id);
-		setQuestion({
+		setCurrent({
 			...current,
 			options: [...current.options, addDefaultValue.option()],
 		});
 	}, []);
+
+	useEffect(() => {
+		queries.forEach((query) => {
+			if (
+				query.checked === true &&
+				query.title === 'Звездочки обязательных полей'
+			) {
+				setRequired(true);
+			}
+		});
+		return () => setRequired(false);
+	}, [queries]);
 
 	return (
 		<div
@@ -161,6 +180,14 @@ export const QuestionWrapper = ({
 					handleRemove={handleRemove}
 					handleEdit={handleEdit}
 				/>
+				{isRequired && (
+					<ActionRequiredMark
+						idToEdit={idToEdit}
+						currentId={question.id}
+						currentItem={current}
+						handleRequiredField={handleRequiredField}
+					/>
+				)}
 				<BsInfo
 					className="icon_black"
 					onMouseOver={handleShowExample}
@@ -170,6 +197,7 @@ export const QuestionWrapper = ({
 			</div>
 
 			<ActionTitle
+				queries={queries}
 				idToEdit={idToEdit}
 				currentId={question.id}
 				currentNum={questionNum}

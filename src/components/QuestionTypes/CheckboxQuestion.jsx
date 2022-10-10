@@ -9,6 +9,7 @@ export const CheckboxQuestion = ({
 	question,
 	questionNum,
 	index,
+	queries,
 	moveItem,
 	handleRemoveQuestion,
 }) => {
@@ -26,6 +27,7 @@ export const CheckboxQuestion = ({
 			questionNum={questionNum}
 			index={index}
 			moveItem={moveItem}
+			queries={queries}
 			example={<CheckboxQuestionExample />}
 			handleRemoveQuestion={handleRemoveQuestion}
 			handleAnswer={handleCheckboxAnswer}
