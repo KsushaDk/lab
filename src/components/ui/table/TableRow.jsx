@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { ImPencil, ImBin } from 'react-icons/im';
 import { BsXSquare, BsCheckSquare } from 'react-icons/bs';
 import { useDispatch } from 'react-redux';
+import { propTypesConst } from 'Constants/propTypesConst';
 import { setModalState } from 'Redux/slices/modalSlice';
 import { TableCell } from './TableCell';
 import { IconBtn } from '../button/IconBtn/IconBtn';
@@ -78,34 +79,8 @@ export const TableRow = ({
 
 TableRow.propTypes = {
 	total: PropTypes.string.isRequired,
-	row: PropTypes.oneOfType([
-		PropTypes.shape({
-			id: PropTypes.string,
-			username: PropTypes.string,
-			email: PropTypes.string,
-			password: PropTypes.string,
-			role: PropTypes.string,
-			registered: PropTypes.string,
-			interviews: PropTypes.number,
-		}),
-		PropTypes.shape({
-			id: PropTypes.string,
-			changed: PropTypes.string,
-			answers: PropTypes.number,
-			title: PropTypes.string,
-			link: PropTypes.string,
-			results: PropTypes.string,
-		}),
-	]).isRequired,
-	current: PropTypes.shape({
-		id: PropTypes.string,
-		username: PropTypes.string,
-		email: PropTypes.string,
-		password: PropTypes.string,
-		role: PropTypes.string,
-		registered: PropTypes.string,
-		interviews: PropTypes.number,
-	}),
+	row: PropTypes.oneOfType([propTypesConst.tableRowsItem]).isRequired,
+	current: propTypesConst.currentUser,
 	idToEdit: PropTypes.string,
 	handleOnChangeField: PropTypes.func.isRequired,
 	handleEdit: PropTypes.func.isRequired,

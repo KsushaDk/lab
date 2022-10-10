@@ -1,26 +1,31 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { propTypesConst } from 'Constants/propTypesConst';
 import { QuestionWrapper } from './QuestionWrapper';
 import { TextQuestionExample } from './TextQuestionExample';
 
 export const TextQuestion = ({
-	questionId,
-	questionType,
+	question,
+	questionNum,
+	index,
+	moveItem,
 	handleRemoveQuestion,
 }) => {
-	const handleTextAnswer = (edited, id, options) => {
-		const newOptions = options.map((option) => {
+	const handleTextAnswer = (edited, current) => {
+		const newOptions = current.options.map((option) => {
 			option.checked = true;
 			option.correct = true;
 			return option;
 		});
-		return { ...edited, id, type: questionType, options: newOptions };
+		return { ...current, question: edited.question, options: newOptions };
 	};
 
 	return (
 		<QuestionWrapper
-			questionId={questionId}
-			questionType={questionType}
+			question={question}
+			questionNum={questionNum}
+			index={index}
+			moveItem={moveItem}
 			example={<TextQuestionExample />}
 			handleRemoveQuestion={handleRemoveQuestion}
 			handleAnswer={handleTextAnswer}
@@ -30,7 +35,13 @@ export const TextQuestion = ({
 };
 
 TextQuestion.propTypes = {
-	questionId: PropTypes.string.isRequired,
-	questionType: PropTypes.string.isRequired,
-	handleRemoveQuestion: PropTypes.func.isRequired,
+	question: propTypesConst.question,
+	questionNum: PropTypes.number,
+	handleRemoveQuestion: PropTypes.func,
+};
+
+TextQuestion.defaultProps = {
+	question: {},
+	questionNum: 0,
+	handleRemoveQuestion: () => {},
 };

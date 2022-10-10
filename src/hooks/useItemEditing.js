@@ -52,10 +52,14 @@ export const useItemEditing = ({ removeCb, saveCb, cancelCb, changeCb }) => {
 	};
 
 	const handleSaveEditing = () => {
-		editedItem === null ? handleCancelEditing() : saveCb(editedItem, idToEdit);
+		if (editedItem === null) {
+			handleCancelEditing();
+		} else {
+			saveCb(editedItem, idToEdit);
 
-		setIdToEdit(null);
-		getNotification.success('Успешно сохранено!');
+			setIdToEdit(null);
+			getNotification.success('Успешно сохранено!');
+		}
 	};
 
 	return {

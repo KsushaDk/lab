@@ -5,6 +5,7 @@ import { SecondaryInput } from '../ui/input/SecondaryInput/SecondaryInput';
 export const ActionTitle = ({
 	idToEdit,
 	currentId,
+	currentNum,
 	defaultValue,
 	title,
 	handleOnChangeField,
@@ -20,12 +21,17 @@ export const ActionTitle = ({
 			/>
 		);
 	}
-	return <h3 className="title_xs">{title}</h3>;
+	return (
+		<h3 className="title_xs">
+			{currentNum}.&nbsp;{title}
+		</h3>
+	);
 };
 
 ActionTitle.propTypes = {
 	idToEdit: PropTypes.string,
 	currentId: PropTypes.string,
+	currentNum: PropTypes.number,
 	defaultValue: PropTypes.string,
 	title: PropTypes.string,
 	handleOnChangeField: PropTypes.func,
@@ -34,6 +40,7 @@ ActionTitle.propTypes = {
 ActionTitle.defaultProps = {
 	idToEdit: null,
 	currentId: null,
+	currentNum: 0,
 	defaultValue: '',
 	title: '',
 	handleOnChangeField: () => {},

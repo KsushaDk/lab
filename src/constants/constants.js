@@ -1,12 +1,12 @@
 import React from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import {
-	BsFileEarmarkFill,
+	// BsFileEarmarkFill,
 	BsListOl,
 	BsListUl,
 	BsTextareaT,
-	BsStar,
-	BsBatteryHalf,
+	// BsStar,
+	// BsBatteryHalf,
 } from 'react-icons/bs';
 
 export const labels = [
@@ -235,24 +235,24 @@ export const questionTypeList = [
 		type: 'text',
 		icon: <BsTextareaT className="icon_black" />,
 	},
-	{
-		id: uuidv4(),
-		title: 'Файл',
-		type: 'file',
-		icon: <BsFileEarmarkFill className="icon_black" />,
-	},
-	{
-		id: uuidv4(),
-		title: 'Рейтинг в звездах',
-		type: 'rating',
-		icon: <BsStar className="icon_black" />,
-	},
-	{
-		id: uuidv4(),
-		title: 'Шкала',
-		type: 'scale',
-		icon: <BsBatteryHalf className="icon_black" />,
-	},
+	// {
+	// 	id: uuidv4(),
+	// 	title: 'Файл',
+	// 	type: 'file',
+	// 	icon: <BsFileEarmarkFill className="icon_black" />,
+	// },
+	// {
+	// 	id: uuidv4(),
+	// 	title: 'Рейтинг в звездах',
+	// 	type: 'rating',
+	// 	icon: <BsStar className="icon_black" />,
+	// },
+	// {
+	// 	id: uuidv4(),
+	// 	title: 'Шкала',
+	// 	type: 'scale',
+	// 	icon: <BsBatteryHalf className="icon_black" />,
+	// },
 ];
 
 export const successNotification = {
@@ -384,4 +384,8 @@ export const questionTextExample = {
 			correct: true,
 		},
 	],
+};
+
+export const DragDropItem = {
+	QUESTION: 'question',
 };

@@ -1,11 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { propTypesConst } from 'Constants/propTypesConst';
 import { QuestionWrapper } from './QuestionWrapper';
 import { RadioQuestionExample } from './RadioQuestionExample';
 
 export const RadioQuestion = ({
-	questionId,
-	questionType,
+	question,
+	questionNum,
+	index,
+	moveItem,
 	handleRemoveQuestion,
 }) => {
 	const handleRadioAnswer = (e, options) => {
@@ -24,8 +27,10 @@ export const RadioQuestion = ({
 	};
 	return (
 		<QuestionWrapper
-			questionId={questionId}
-			questionType={questionType}
+			question={question}
+			questionNum={questionNum}
+			index={index}
+			moveItem={moveItem}
 			example={<RadioQuestionExample />}
 			handleRemoveQuestion={handleRemoveQuestion}
 			handleAnswer={handleRadioAnswer}
@@ -35,7 +40,13 @@ export const RadioQuestion = ({
 };
 
 RadioQuestion.propTypes = {
-	questionId: PropTypes.string.isRequired,
-	questionType: PropTypes.string.isRequired,
-	handleRemoveQuestion: PropTypes.func.isRequired,
+	question: propTypesConst.question,
+	questionNum: PropTypes.number,
+	handleRemoveQuestion: PropTypes.func,
+};
+
+RadioQuestion.defaultProps = {
+	question: {},
+	questionNum: 0,
+	handleRemoveQuestion: () => {},
 };

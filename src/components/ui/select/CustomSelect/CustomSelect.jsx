@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { BsChevronUp, BsChevronDown, BsX } from 'react-icons/bs';
+import { propTypesConst } from 'Constants/propTypesConst';
 import { useDebounce } from 'Hooks/useDebounce';
 import { getNextElem } from 'Utils/getNextElem';
 import { getSearchResult } from 'Utils/getSearchResult';
@@ -145,14 +146,7 @@ export const CustomSelect = ({ data, multi }) => {
 
 CustomSelect.propTypes = {
 	multi: PropTypes.bool.isRequired,
-	data: PropTypes.arrayOf(
-		PropTypes.shape({
-			userId: PropTypes.number,
-			id: PropTypes.number,
-			title: PropTypes.string,
-			completed: PropTypes.bool,
-		}).isRequired
-	),
+	data: PropTypes.arrayOf(propTypesConst.selectItem),
 };
 
 CustomSelect.defaultProps = {

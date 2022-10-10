@@ -1,17 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { ImBin } from 'react-icons/im';
-import { v4 as uuidv4 } from 'uuid';
 import { InterviewQueryList } from 'Components/InterviewQueryList/InterviewQueryList';
+import { InterviewQuestionList } from 'Components/InterviewQuestionList/InterviewQuestionList';
 import { SaveCancelActionBtns } from 'Components/ActionItems/SaveCancelActionBtns';
 import { QuestionTypeList } from 'Components/QuestionTypeList/QuestionTypeList';
 import { InterviewInfo } from 'Components/InterviewInfo/InterviewInfo';
-import { IconBtn } from 'Components/ui/button/IconBtn/IconBtn';
 import { Loader } from 'Components/Loader/Loader';
-import { getQuestionToRender } from 'Constants/QuestionType';
 import { interviewQuery } from 'Constants/constants';
 import { addDefaultValue } from 'Utils/addDefaultValue';
 import { getNotification } from 'Utils/getNotification';
-import { getQuestionType } from 'Utils/getQuestionType';
 import { toggleValueByKey } from 'Utils/toggleValueByKey';
 import { removeFromArrByID } from 'Utils/removeFromArrByID';
 import './CreateInterviewPage.scss';
@@ -60,7 +56,7 @@ export const CreateInterviewPage = () => {
 			...interview,
 			questions: [
 				...interview.questions,
-				addDefaultValue.question(uuidv4(), e.target.getAttribute('name')),
+				addDefaultValue.question(e.target.getAttribute('name')),
 			],
 		});
 	};
@@ -106,20 +102,12 @@ export const CreateInterviewPage = () => {
 					</div>
 					<div className="content__body">
 						<div className="content__body_left">
-							{interview?.questions.length !== 0 && (
-								<div className="content__body_items">
-									<IconBtn
-										handleClick={() => handleRemoveInterview()}
-										btnIcon={<ImBin />}
-									/>
-									{interview?.questions.map(
-										(question) =>
-											getQuestionToRender(question, handleRemoveQuestion)[
-												getQuestionType(question.type)
-											]
-									)}
-								</div>
-							)}
+							<InterviewQuestionList
+								interview={interview}
+								setInterview={setInterview}
+								handleRemoveInterview={handleRemoveInterview}
+								handleRemoveQuestion={handleRemoveQuestion}
+							/>
 						</div>
 
 						<aside className="content__body_right">

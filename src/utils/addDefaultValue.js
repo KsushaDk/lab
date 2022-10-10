@@ -6,8 +6,8 @@ export const addDefaultValue = {
 		name: '',
 		questions: [],
 	}),
-	question: (id, type) => ({
-		id,
+	question: (type) => ({
+		id: uuidv4(),
 		type,
 		question: '',
 		options: [],

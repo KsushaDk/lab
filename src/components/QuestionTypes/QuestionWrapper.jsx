@@ -1,6 +1,9 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState, useCallback, useRef } from 'react';
 import PropTypes from 'prop-types';
+import { useDrag, useDrop } from 'react-dnd';
 import { BsPlusSquare, BsInfo } from 'react-icons/bs';
+import { propTypesConst } from 'Constants/propTypesConst';
+import { DragDropItem } from 'Constants/constants';
 import { removeFromArrByID } from 'Utils/removeFromArrByID';
 import { getNotification } from 'Utils/getNotification';
 import { addDefaultValue } from 'Utils/addDefaultValue';
@@ -12,17 +15,49 @@ import { ActionInput } from '../ActionItems/ActionInput';
 import { IconBtn } from '../ui/button/IconBtn/IconBtn';
 
 export const QuestionWrapper = ({
-	questionId,
-	questionType,
+	question,
+	questionNum,
+	index,
+	moveItem,
 	example,
 	handleRemoveQuestion,
 	handleAnswer,
 	notification,
 }) => {
-	const [question, setQuestion] = useState(
-		addDefaultValue.question(questionId, questionType)
-	);
+	const [current, setQuestion] = useState(question);
 	const [isExampleShown, setIsExampleShown] = useState(false);
+
+	const ref = useRef(null);
+
+	const [, drop] = useDrop({
+		accept: DragDropItem.QUESTION,
+		hover(item) {
+			if (!ref.current) {
+				return;
+			}
+			const dragIndex = item.index;
+
+			const hoverIndex = index;
+
+			if (dragIndex === hoverIndex) {
+				return;
+			}
+
+			moveItem(dragIndex, hoverIndex);
+
+			item.index = hoverIndex;
+		},
+	});
+
+	const [{ isDragging }, drag] = useDrag(() => ({
+		type: DragDropItem.QUESTION,
+		item: { id: question.id, index },
+		collect: (monitor) => ({
+			isDragging: monitor.isDragging(),
+		}),
+	}));
+
+	drag(drop(ref));
 
 	const removeCb = (id) => {
 		localStorage.removeItem(id.toString());
@@ -31,27 +66,25 @@ export const QuestionWrapper = ({
 	};
 
 	const changeCb = (fieldName, value, id) => {
-		const newOptions = question.options.map((option) => {
+		const newOptions = current.options.map((option) => {
 			if (option.id === id) {
 				option.title = value;
 			}
 			return option;
 		});
 
-		setQuestion({ ...question, id, type: questionType, options: newOptions });
+		setQuestion({ ...current, options: newOptions });
 	};
 
-	const saveCb = (edited, id) => {
-		if (questionType === 'text') {
-			const newQuestion = handleAnswer(edited, id, question.options);
+	const saveCb = (edited) => {
+		if (question.type === 'text') {
+			const newQuestion = handleAnswer(edited, current);
 			setQuestion(newQuestion);
 		} else {
 			getNotification.failed(notification);
 			setQuestion({
-				...edited,
-				id,
-				type: questionType,
-				options: question.options,
+				...current,
+				question: edited.question,
 			});
 		}
 	};
@@ -68,28 +101,28 @@ export const QuestionWrapper = ({
 
 	const handleAddingField = () => {
 		setQuestion({
-			...question,
-			options: [...question.options, addDefaultValue.option()],
+			...current,
+			options: [...current.options, addDefaultValue.option()],
 		});
 	};
 
 	const handleRemovingField = (e, id) => {
 		e.stopPropagation();
 
-		const newOptions = removeFromArrByID(question.options, id);
+		const newOptions = removeFromArrByID(current.options, id);
 
 		setQuestion({
-			...question,
+			...current,
 			options: newOptions,
 		});
 	};
 
 	const handleCorrectAnswers = (e) => {
-		if (questionType !== 'text' && e.target.name !== 'option') {
-			const newOptions = handleAnswer(e, question.options);
+		if (question.type !== 'text' && e.target.name !== 'option') {
+			const newOptions = handleAnswer(e, current.options);
 
 			setQuestion({
-				...question,
+				...current,
 				options: newOptions,
 			});
 
@@ -102,20 +135,29 @@ export const QuestionWrapper = ({
 	});
 
 	useEffect(() => {
-		question !== null &&
-			localStorage.setItem(questionId.toString(), JSON.stringify(question));
-	}, [question]);
+		current !== null &&
+			localStorage.setItem(question.id.toString(), JSON.stringify(current));
+	}, [current]);
 
 	useEffect(() => {
-		handleEdit(questionId);
+		handleEdit(question.id);
+		setQuestion({
+			...current,
+			options: [...current.options, addDefaultValue.option()],
+		});
 	}, []);
 
 	return (
-		<div className="content__body_item">
+		<div
+			className={
+				isDragging ? 'content__body_item dragged' : 'content__body_item'
+			}
+			ref={ref}
+		>
 			<div className="question__head">
 				<EditDeleteActionBtns
 					idToEdit={idToEdit}
-					currentId={questionId}
+					currentId={question.id}
 					handleRemove={handleRemove}
 					handleEdit={handleEdit}
 				/>
@@ -129,16 +171,15 @@ export const QuestionWrapper = ({
 
 			<ActionTitle
 				idToEdit={idToEdit}
-				currentId={questionId}
-				defaultValue={editedItem ? editedItem.question : question?.question}
-				title={
-					question.question === '' ? 'Введите вопрос...' : question.question
-				}
+				currentId={question.id}
+				currentNum={questionNum}
+				defaultValue={editedItem ? editedItem.question : current?.question}
+				title={current.question === '' ? 'Введите вопрос...' : current.question}
 				handleOnChangeField={handleOnChangeField}
 			/>
 
 			<ul className="question__list" role="menu">
-				{question.options.map((option) => (
+				{current.options.map((option) => (
 					<li
 						className="question__list_option"
 						role="menuitem"
@@ -148,16 +189,16 @@ export const QuestionWrapper = ({
 					>
 						<ActionInput
 							idToEdit={idToEdit}
-							currentId={questionId}
-							question={question}
+							currentId={question.id}
+							question={current}
 							option={option}
-							type={questionType}
+							type={question.type}
 							handleRemove={handleRemovingField}
 							handleOnChangeField={handleOnChangeField}
 						/>
 					</li>
 				))}
-				{idToEdit === questionId && questionType !== 'text' && (
+				{idToEdit === question.id && question.type !== 'text' && (
 					<li
 						className="question__list_option p_info"
 						role="menuitem"
@@ -169,7 +210,7 @@ export const QuestionWrapper = ({
 				)}
 			</ul>
 
-			{idToEdit === questionId && (
+			{idToEdit === question.id && (
 				<div className="question__control_btn">
 					<SaveCancelActionBtns
 						handleSaveEditing={handleSaveEditing}
@@ -182,18 +223,18 @@ export const QuestionWrapper = ({
 };
 
 QuestionWrapper.propTypes = {
-	questionId: PropTypes.string,
+	question: propTypesConst.question,
+	questionNum: PropTypes.number,
 	notification: PropTypes.string,
-	questionType: PropTypes.string,
 	example: PropTypes.node,
 	handleRemoveQuestion: PropTypes.func,
 	handleAnswer: PropTypes.func,
 };
 
 QuestionWrapper.defaultProps = {
+	question: {},
+	questionNum: 0,
 	notification: '',
-	questionId: null,
-	questionType: null,
 	example: null,
 	handleRemoveQuestion: () => {},
 	handleAnswer: () => {},

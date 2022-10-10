@@ -1,12 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { propTypesConst } from 'Constants/propTypesConst';
 import { toggleValueByKey } from 'Utils/toggleValueByKey';
 import { CheckboxQuestionExample } from './CheckboxQuestionExample';
 import { QuestionWrapper } from './QuestionWrapper';
 
 export const CheckboxQuestion = ({
-	questionId,
-	questionType,
+	question,
+	questionNum,
+	index,
+	moveItem,
 	handleRemoveQuestion,
 }) => {
 	const handleCheckboxAnswer = (e, options) => {
@@ -19,8 +22,10 @@ export const CheckboxQuestion = ({
 
 	return (
 		<QuestionWrapper
-			questionId={questionId}
-			questionType={questionType}
+			question={question}
+			questionNum={questionNum}
+			index={index}
+			moveItem={moveItem}
 			example={<CheckboxQuestionExample />}
 			handleRemoveQuestion={handleRemoveQuestion}
 			handleAnswer={handleCheckboxAnswer}
@@ -30,7 +35,13 @@ export const CheckboxQuestion = ({
 };
 
 CheckboxQuestion.propTypes = {
-	questionId: PropTypes.string.isRequired,
-	questionType: PropTypes.string.isRequired,
-	handleRemoveQuestion: PropTypes.func.isRequired,
+	question: propTypesConst.question,
+	questionNum: PropTypes.number,
+	handleRemoveQuestion: PropTypes.func,
+};
+
+CheckboxQuestion.defaultProps = {
+	question: {},
+	questionNum: 0,
+	handleRemoveQuestion: () => {},
 };

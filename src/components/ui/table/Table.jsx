@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import PropTypes from 'prop-types';
+import { propTypesConst } from 'Constants/propTypesConst';
 import { Loader } from '../../Loader/Loader';
 import { TablePagination } from './TablePagination';
 import { TableRow } from './TableRow';
@@ -106,7 +107,7 @@ export const Table = ({
 Table.propTypes = {
 	caption: PropTypes.string.isRequired,
 	total: PropTypes.string.isRequired,
-	searchResult: PropTypes.string,
+	searchResult: PropTypes.arrayOf(propTypesConst.tableRowsItem),
 	handleCancelEditing: PropTypes.func.isRequired,
 	handleOnChangeField: PropTypes.func.isRequired,
 	handleRemove: PropTypes.func.isRequired,
@@ -117,37 +118,9 @@ Table.propTypes = {
 			fieldName: PropTypes.string,
 		})
 	).isRequired,
-	rows: PropTypes.arrayOf(
-		PropTypes.oneOfType([
-			PropTypes.shape({
-				id: PropTypes.string,
-				username: PropTypes.string,
-				email: PropTypes.string,
-				password: PropTypes.string,
-				role: PropTypes.string,
-				registered: PropTypes.string,
-				interviews: PropTypes.number,
-			}),
-			PropTypes.shape({
-				id: PropTypes.string,
-				changed: PropTypes.string,
-				answers: PropTypes.number,
-				title: PropTypes.string,
-				link: PropTypes.string,
-				results: PropTypes.string,
-			}),
-		])
-	).isRequired,
+	rows: PropTypes.arrayOf(propTypesConst.tableRowsItem).isRequired,
 	idToEdit: PropTypes.string,
-	current: PropTypes.shape({
-		id: PropTypes.string,
-		username: PropTypes.string,
-		email: PropTypes.string,
-		password: PropTypes.string,
-		role: PropTypes.string,
-		registered: PropTypes.string,
-		interviews: PropTypes.number,
-	}),
+	current: propTypesConst.currentUser,
 };
 
 Table.defaultProps = {
