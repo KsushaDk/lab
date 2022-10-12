@@ -214,6 +214,25 @@
 	}
 }
 
+.icon_gray {
+	background-color: transparent;
+	border: none;
+	color: $primary-gray;
+	width: 1.6rem;
+	height: 1.6rem;
+	cursor: pointer;
+	outline-color: $primary-gray;
+
+	> svg {
+		width: 100%;
+		height: 100%;
+	}
+
+	&:hover {
+		color: $primary-black;
+	}
+}
+
 .example {
 	gap: 0.5rem;
 	padding: 0.3rem 0.5rem;
@@ -224,6 +243,7 @@
 	top: 3rem;
 	right: 2rem;
 	height: auto;
+	border: 2px dotted $primary-red;
 }
 
 .dragged {

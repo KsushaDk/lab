@@ -35,10 +35,18 @@ export const TableWrapper = ({
 	};
 
 	const saveCb = (edited, id) => {
-		const newData = saveItem(edited, id, totalRowsState);
+		if (edited !== null) {
+			const newData = saveItem(edited, id, totalRowsState);
 
-		setTotalRowsState(newData);
+			setTotalRowsState(newData);
+			setSubmitted(false);
+
+			return true;
+		}
+
+		setTotalRowsState(totalRowsState);
 		setSubmitted(false);
+		return false;
 	};
 
 	const changeCb = (fieldName, value) => {

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { checkQueryForQuestion } from 'Utils/checkQueryForQuestion';
 import { SecondaryInput } from '../ui/input/SecondaryInput/SecondaryInput';
 
 export const ActionTitle = ({
@@ -14,11 +15,9 @@ export const ActionTitle = ({
 	const [showNumber, setShowNumber] = useState(false);
 
 	useEffect(() => {
-		queries.forEach((query) => {
-			if (query.checked === true && query.title === 'Номера вопросов') {
-				setShowNumber(true);
-			}
-		});
+		const number = checkQueryForQuestion(queries, 'Номера вопросов');
+		setShowNumber(number);
+
 		return () => setShowNumber(false);
 	}, [queries]);
 

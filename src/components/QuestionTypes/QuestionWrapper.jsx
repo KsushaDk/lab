@@ -4,6 +4,7 @@ import { useDrag, useDrop } from 'react-dnd';
 import { BsPlusSquare, BsInfo } from 'react-icons/bs';
 import { propTypesConst } from 'Constants/propTypesConst';
 import { DragDropItem } from 'Constants/constants';
+import { checkQueryForQuestion } from 'Utils/checkQueryForQuestion';
 import { removeFromArrByID } from 'Utils/removeFromArrByID';
 import { getNotification } from 'Utils/getNotification';
 import { addDefaultValue } from 'Utils/addDefaultValue';
@@ -23,6 +24,7 @@ export const QuestionWrapper = ({
 	moveItem,
 	example,
 	handleRemoveQuestion,
+	handleSaveQuestion,
 	handleAnswer,
 	notification,
 }) => {
@@ -63,9 +65,12 @@ export const QuestionWrapper = ({
 	drag(drop(ref));
 
 	const removeCb = (id) => {
-		localStorage.removeItem(id.toString());
 		setCurrent(null);
 		handleRemoveQuestion(id);
+	};
+
+	const cancelCb = () => {
+		setCurrent(question);
 	};
 
 	const changeCb = (fieldName, value, id) => {
@@ -80,16 +85,23 @@ export const QuestionWrapper = ({
 	};
 
 	const saveCb = (edited) => {
-		if (question.type === 'text') {
-			const newQuestion = handleAnswer(edited, current);
-			setCurrent(newQuestion);
-		} else {
-			getNotification.failed(notification);
-			setCurrent({
+		const checkCorrectAnswers = current.options.some(
+			(option) => option.correct === true
+		);
+
+		if (checkCorrectAnswers) {
+			const newQuestion = {
 				...current,
-				question: edited.question,
-			});
+				question: edited?.question || current.question,
+			};
+			setCurrent(newQuestion);
+
+			handleSaveQuestion(current.id, newQuestion);
+			return true;
 		}
+
+		getNotification.failed(notification);
+		return false;
 	};
 
 	const {
@@ -100,16 +112,27 @@ export const QuestionWrapper = ({
 		handleRemove,
 		handleOnChangeField,
 		handleSaveEditing,
-	} = useItemEditing({ removeCb, saveCb, changeCb });
+	} = useItemEditing({ removeCb, saveCb, cancelCb, changeCb });
 
-	const handleAddingField = useCallback(() => {
+	const handleCorrectAnswers = (id) => {
+		const newOptions = handleAnswer(id, current.options);
+
 		setCurrent({
 			...current,
-			options: [...current.options, addDefaultValue.option()],
+			options: newOptions,
+		});
+
+		getNotification.success('Ответ сохранен.');
+	};
+
+	const handleOnAddField = useCallback(() => {
+		setCurrent({
+			...current,
+			options: [...current.options, addDefaultValue.option(question.type)],
 		});
 	});
 
-	const handleRemovingField = (e, id) => {
+	const handleOnRemoveField = (e, id) => {
 		e.stopPropagation();
 
 		const newOptions = removeFromArrByID(current.options, id);
@@ -118,19 +141,6 @@ export const QuestionWrapper = ({
 			...current,
 			options: newOptions,
 		});
-	};
-
-	const handleCorrectAnswers = (e) => {
-		if (question.type !== 'text' && e.target.name !== 'option') {
-			const newOptions = handleAnswer(e, current.options);
-
-			setCurrent({
-				...current,
-				options: newOptions,
-			});
-
-			getNotification.success('Ответ сохранен.');
-		}
 	};
 
 	const handleShowExample = useCallback(() => {
@@ -142,29 +152,23 @@ export const QuestionWrapper = ({
 	});
 
 	useEffect(() => {
-		current !== null &&
-			localStorage.setItem(question.id.toString(), JSON.stringify(current));
-	}, [current]);
+		const required = checkQueryForQuestion(
+			queries,
+			'Звездочки обязательных полей'
+		);
+		setRequired(required);
+
+		return () => setRequired(false);
+	}, [queries]);
 
 	useEffect(() => {
 		handleEdit(question.id);
+
 		setCurrent({
 			...current,
-			options: [...current.options, addDefaultValue.option()],
+			options: [...current.options, addDefaultValue.option(question.type)],
 		});
 	}, []);
-
-	useEffect(() => {
-		queries.forEach((query) => {
-			if (
-				query.checked === true &&
-				query.title === 'Звездочки обязательных полей'
-			) {
-				setRequired(true);
-			}
-		});
-		return () => setRequired(false);
-	}, [queries]);
 
 	return (
 		<div
@@ -213,7 +217,6 @@ export const QuestionWrapper = ({
 						role="menuitem"
 						key={option.id}
 						id={option.id}
-						onClick={handleCorrectAnswers}
 					>
 						<ActionInput
 							idToEdit={idToEdit}
@@ -221,7 +224,8 @@ export const QuestionWrapper = ({
 							question={current}
 							option={option}
 							type={question.type}
-							handleRemove={handleRemovingField}
+							handleRemove={handleOnRemoveField}
+							handleCorrect={handleCorrectAnswers}
 							handleOnChangeField={handleOnChangeField}
 						/>
 					</li>
@@ -230,7 +234,7 @@ export const QuestionWrapper = ({
 					<li
 						className="question__list_option p_info"
 						role="menuitem"
-						onClick={handleAddingField}
+						onClick={handleOnAddField}
 					>
 						<IconBtn btnIcon={<BsPlusSquare />} />
 						Добавить ответ...
@@ -251,19 +255,27 @@ export const QuestionWrapper = ({
 };
 
 QuestionWrapper.propTypes = {
+	index: PropTypes.number,
+	queries: PropTypes.arrayOf(propTypesConst.query),
 	question: propTypesConst.question,
 	questionNum: PropTypes.number,
 	notification: PropTypes.string,
 	example: PropTypes.node,
 	handleRemoveQuestion: PropTypes.func,
+	handleSaveQuestion: PropTypes.func,
 	handleAnswer: PropTypes.func,
+	moveItem: PropTypes.func,
 };
 
 QuestionWrapper.defaultProps = {
+	index: 0,
+	queries: [],
 	question: {},
 	questionNum: 0,
 	notification: '',
 	example: null,
 	handleRemoveQuestion: () => {},
+	handleSaveQuestion: () => {},
 	handleAnswer: () => {},
+	moveItem: () => {},
 };

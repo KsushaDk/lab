@@ -11,10 +11,11 @@ export const RadioQuestion = ({
 	queries,
 	moveItem,
 	handleRemoveQuestion,
+	handleSaveQuestion,
 }) => {
-	const handleRadioAnswer = (e, options) => {
+	const handleRadioAnswer = (id, options) => {
 		const newOptions = options.map((item) => {
-			if (item.id.toString() === e.currentTarget.id.toString()) {
+			if (item.id.toString() === id.toString()) {
 				item.checked = !item.checked;
 				item.correct = !item.correct;
 			} else {
@@ -26,6 +27,7 @@ export const RadioQuestion = ({
 
 		return newOptions;
 	};
+
 	return (
 		<QuestionWrapper
 			question={question}
@@ -35,6 +37,7 @@ export const RadioQuestion = ({
 			moveItem={moveItem}
 			example={<RadioQuestionExample />}
 			handleRemoveQuestion={handleRemoveQuestion}
+			handleSaveQuestion={handleSaveQuestion}
 			handleAnswer={handleRadioAnswer}
 			notification="Выберете правильный вариант ответа."
 		/>
@@ -44,11 +47,19 @@ export const RadioQuestion = ({
 RadioQuestion.propTypes = {
 	question: propTypesConst.question,
 	questionNum: PropTypes.number,
+	index: PropTypes.number,
+	queries: PropTypes.arrayOf(propTypesConst.query),
 	handleRemoveQuestion: PropTypes.func,
+	handleSaveQuestion: PropTypes.func,
+	moveItem: PropTypes.func,
 };
 
 RadioQuestion.defaultProps = {
 	question: {},
+	index: 0,
+	queries: [],
 	questionNum: 0,
 	handleRemoveQuestion: () => {},
+	handleSaveQuestion: () => {},
+	moveItem: () => {},
 };

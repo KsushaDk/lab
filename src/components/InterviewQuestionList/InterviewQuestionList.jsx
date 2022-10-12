@@ -15,6 +15,7 @@ export const InterviewQuestionList = ({
 	queries,
 	handleRemoveInterview,
 	handleRemoveQuestion,
+	handleSaveQuestion,
 }) => {
 	const moveItem = (dragIndex, hoverIndex) => {
 		const draggedItem = interview.questions[dragIndex];
@@ -45,6 +46,7 @@ export const InterviewQuestionList = ({
 								index,
 								queries,
 								handleRemoveQuestion,
+								handleSaveQuestion,
 								moveItem
 							)[getQuestionType(question.type)]
 					)}
@@ -60,12 +62,17 @@ InterviewQuestionList.propTypes = {
 		name: PropTypes.string,
 		questions: PropTypes.arrayOf(propTypesConst.question),
 	}),
+	queries: PropTypes.arrayOf(propTypesConst.query),
+	setInterview: PropTypes.func.isRequired,
 	handleRemoveInterview: PropTypes.func,
 	handleRemoveQuestion: PropTypes.func,
+	handleSaveQuestion: PropTypes.func,
 };
 
 InterviewQuestionList.defaultProps = {
 	interview: {},
+	queries: [],
 	handleRemoveInterview: () => {},
 	handleRemoveQuestion: () => {},
+	handleSaveQuestion: () => {},
 };

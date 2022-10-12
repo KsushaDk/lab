@@ -5,6 +5,7 @@ export const addDefaultValue = {
 		id: uuidv4(),
 		name: '',
 		questions: [],
+		queries: [],
 	}),
 	question: (type) => ({
 		id: uuidv4(),
@@ -13,10 +14,10 @@ export const addDefaultValue = {
 		options: [],
 		required: false,
 	}),
-	option: () => ({
+	option: (type) => ({
 		id: uuidv4(),
 		title: '',
-		checked: false,
-		correct: false,
+		checked: type === 'text',
+		correct: type === 'text',
 	}),
 };

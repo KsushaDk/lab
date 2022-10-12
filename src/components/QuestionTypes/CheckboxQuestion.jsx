@@ -12,12 +12,10 @@ export const CheckboxQuestion = ({
 	queries,
 	moveItem,
 	handleRemoveQuestion,
+	handleSaveQuestion,
 }) => {
-	const handleCheckboxAnswer = (e, options) => {
-		const newOptions = toggleValueByKey(options, e.currentTarget.id, [
-			'checked',
-			'correct',
-		]);
+	const handleCheckboxAnswer = (id, options) => {
+		const newOptions = toggleValueByKey(options, id, ['checked', 'correct']);
 		return newOptions;
 	};
 
@@ -30,6 +28,7 @@ export const CheckboxQuestion = ({
 			queries={queries}
 			example={<CheckboxQuestionExample />}
 			handleRemoveQuestion={handleRemoveQuestion}
+			handleSaveQuestion={handleSaveQuestion}
 			handleAnswer={handleCheckboxAnswer}
 			notification="Выберете правильные варианты ответа."
 		/>
@@ -39,11 +38,19 @@ export const CheckboxQuestion = ({
 CheckboxQuestion.propTypes = {
 	question: propTypesConst.question,
 	questionNum: PropTypes.number,
+	index: PropTypes.number,
+	queries: PropTypes.arrayOf(propTypesConst.query),
 	handleRemoveQuestion: PropTypes.func,
+	handleSaveQuestion: PropTypes.func,
+	moveItem: PropTypes.func,
 };
 
 CheckboxQuestion.defaultProps = {
 	question: {},
+	index: 0,
+	queries: [],
 	questionNum: 0,
 	handleRemoveQuestion: () => {},
+	handleSaveQuestion: () => {},
+	moveItem: () => {},
 };

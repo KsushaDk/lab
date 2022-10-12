@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { BsX } from 'react-icons/bs';
+import { BsX, BsCheck } from 'react-icons/bs';
 import { getAnswerFieldType } from 'Utils/getAnswerFieldType';
 import { SecondaryInput } from '../ui/input/SecondaryInput/SecondaryInput';
 
@@ -11,11 +11,19 @@ export const ActionInput = ({
 	option,
 	type,
 	handleRemove,
+	handleCorrect,
 	handleOnChangeField,
 }) => {
 	if (idToEdit === currentId || question === null) {
 		return (
 			<>
+				{type !== 'text' && (
+					<BsCheck
+						className={option.correct ? 'icon_black' : 'icon_gray'}
+						onClick={() => handleCorrect(option.id)}
+					/>
+				)}
+
 				<SecondaryInput
 					name="option"
 					id={option.id}
@@ -45,6 +53,7 @@ ActionInput.propTypes = {
 	currentId: PropTypes.string,
 	type: PropTypes.string,
 	handleOnChangeField: PropTypes.func,
+	handleCorrect: PropTypes.func,
 	handleRemove: PropTypes.func,
 };
 
@@ -53,5 +62,6 @@ ActionInput.defaultProps = {
 	currentId: null,
 	type: '',
 	handleOnChangeField: () => {},
+	handleCorrect: () => {},
 	handleRemove: () => {},
 };

@@ -17,6 +17,7 @@ export const getQuestionToRender = (
 	index,
 	queries,
 	handleRemoveQuestion,
+	handleSaveQuestion,
 	moveItem
 ) => ({
 	[Question.Text]: (
@@ -28,6 +29,7 @@ export const getQuestionToRender = (
 			moveItem={moveItem}
 			key={question.id}
 			handleRemoveQuestion={handleRemoveQuestion}
+			handleSaveQuestion={handleSaveQuestion}
 		/>
 	),
 	[Question.Checkbox]: (
@@ -39,6 +41,7 @@ export const getQuestionToRender = (
 			moveItem={moveItem}
 			key={question.id}
 			handleRemoveQuestion={handleRemoveQuestion}
+			handleSaveQuestion={handleSaveQuestion}
 		/>
 	),
 	[Question.Radio]: (
@@ -50,6 +53,7 @@ export const getQuestionToRender = (
 			moveItem={moveItem}
 			key={question.id}
 			handleRemoveQuestion={handleRemoveQuestion}
+			handleSaveQuestion={handleSaveQuestion}
 		/>
 	),
 	[Question.File]: null,

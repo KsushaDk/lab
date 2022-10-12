@@ -66,4 +66,9 @@ export const propTypesConst = {
 		registered: PropTypes.string,
 		interviews: PropTypes.number,
 	}),
+	query: PropTypes.shape({
+		checked: PropTypes.bool,
+		id: PropTypes.string,
+		title: PropTypes.string,
+	}),
 };
