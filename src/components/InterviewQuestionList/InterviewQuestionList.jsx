@@ -59,7 +59,7 @@ export const InterviewQuestionList = ({
 InterviewQuestionList.propTypes = {
 	interview: PropTypes.shape({
 		id: PropTypes.string,
-		name: PropTypes.string,
+		title: PropTypes.string,
 		questions: PropTypes.arrayOf(propTypesConst.question),
 	}),
 	queries: PropTypes.arrayOf(propTypesConst.query),

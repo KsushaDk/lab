@@ -7,6 +7,8 @@ export const getCellType = (cellName) => {
 		case 'email':
 		case 'password':
 		case 'password_repeat':
+		case 'queries':
+		case 'questions':
 			cellType = Cell.Empty;
 			break;
 

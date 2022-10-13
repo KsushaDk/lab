@@ -3,14 +3,16 @@ import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { propTypesConst } from 'Constants/propTypesConst';
 import { setModalState } from 'Redux/slices/modalSlice';
-import { getModalResponse } from 'Utils/getModalResponse';
 import { removeFromArrByID } from 'Utils/removeFromArrByID';
+import { getModalResponse } from 'Utils/getModalResponse';
+import { setToLSByKey } from 'Utils/funcForLSByKey';
 import { saveItem } from 'Utils/editingItemFunc';
 import { useItemEditing } from 'Hooks/useItemEditing';
 import { PrimaryModal } from '../modal/PrimaryModal/PrimaryModal';
 import { Table } from './Table';
 
 export const TableWrapper = ({
+	storageName,
 	slice,
 	columns,
 	rows,
@@ -81,7 +83,9 @@ export const TableWrapper = ({
 	};
 
 	useEffect(() => {
-		dispatch(slice(totalRowsState));
+		storageName === 'interviews'
+			? setToLSByKey(storageName, totalRowsState)
+			: dispatch(slice(totalRowsState));
 	}, [totalRowsState]);
 
 	useEffect(() => {

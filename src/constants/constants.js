@@ -221,37 +221,37 @@ export const questionTypeList = [
 		id: uuidv4(),
 		title: 'Варианты ответа (один)',
 		type: 'radio',
-		icon: <BsListUl className="icon_black" />,
+		icon: <BsListUl className="icon_black icon_l" />,
 	},
 	{
 		id: uuidv4(),
 		title: 'Варианты ответа (несколько)',
 		type: 'checkbox',
-		icon: <BsListOl className="icon_black" />,
+		icon: <BsListOl className="icon_black icon_l" />,
 	},
 	{
 		id: uuidv4(),
 		title: 'Текст',
 		type: 'text',
-		icon: <BsTextareaT className="icon_black" />,
+		icon: <BsTextareaT className="icon_black icon_l" />,
 	},
 	// {
 	// 	id: uuidv4(),
 	// 	title: 'Файл',
 	// 	type: 'file',
-	// 	icon: <BsFileEarmarkFill className="icon_black" />,
+	// 	icon: <BsFileEarmarkFill className="icon_black icon_l" />,
 	// },
 	// {
 	// 	id: uuidv4(),
 	// 	title: 'Рейтинг в звездах',
 	// 	type: 'rating',
-	// 	icon: <BsStar className="icon_black" />,
+	// 	icon: <BsStar className="icon_black icon_l" />,
 	// },
 	// {
 	// 	id: uuidv4(),
 	// 	title: 'Шкала',
 	// 	type: 'scale',
-	// 	icon: <BsBatteryHalf className="icon_black" />,
+	// 	icon: <BsBatteryHalf className="icon_black icon_l" />,
 	// },
 ];
 
@@ -288,31 +288,37 @@ export const infoNotification = {
 export const interviewQuery = [
 	{
 		id: uuidv4(),
+		key: 'anonymousInterview',
 		title: 'Анонимный опрос',
 		checked: false,
 	},
 	{
 		id: uuidv4(),
+		key: 'questionNum',
 		title: 'Номера вопросов',
 		checked: false,
 	},
 	// {
 	// 	id: uuidv4(),
+	// key: 'pageNum',
 	// 	title: 'Номера страниц',
 	// 	checked: false,
 	// },
 	{
 		id: uuidv4(),
+		key: 'randomQuestionOrder',
 		title: 'Случайный порядок вопросов',
 		checked: false,
 	},
 	{
 		id: uuidv4(),
+		key: 'requiredFields',
 		title: 'Звездочки обязательных полей',
 		checked: false,
 	},
 	{
 		id: uuidv4(),
+		key: 'progressBar',
 		title: 'Индикатор выполнения',
 		checked: false,
 	},

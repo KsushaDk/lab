@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { updateInterviews } from 'Redux/slices/interviewSlice';
 import { getNotification } from 'Utils/getNotification';
 import { columnsInterviews } from 'Constants/constants';
 import { propTypesConst } from 'Constants/propTypesConst';
@@ -20,7 +19,7 @@ export const InterviewTable = ({ interviewData, searchResult }) => {
 
 	return (
 		<TableWrapper
-			slice={updateInterviews}
+			storageName="interviews"
 			caption="Мои опросы"
 			total="Всего опросов"
 			columns={columnsInterviews}

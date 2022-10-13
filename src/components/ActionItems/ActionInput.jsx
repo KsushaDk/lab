@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { BsX, BsCheck } from 'react-icons/bs';
-import { getAnswerFieldType } from 'Utils/getAnswerFieldType';
+import { getOptionToRender } from 'Constants/OptionType';
+import { getOptionType } from 'Utils/getOptionType';
 import { SecondaryInput } from '../ui/input/SecondaryInput/SecondaryInput';
 
 export const ActionInput = ({
@@ -19,7 +20,9 @@ export const ActionInput = ({
 			<>
 				{type !== 'text' && (
 					<BsCheck
-						className={option.correct ? 'icon_black' : 'icon_gray'}
+						className={
+							option.correct ? 'icon_black icon_l' : 'icon_gray icon_l'
+						}
 						onClick={() => handleCorrect(option.id)}
 					/>
 				)}
@@ -38,14 +41,14 @@ export const ActionInput = ({
 
 				{type !== 'text' && (
 					<BsX
-						className="icon_black"
+						className="icon_black icon_l"
 						onClick={(e) => handleRemove(e, option.id)}
 					/>
 				)}
 			</>
 		);
 	}
-	return getAnswerFieldType(type, option);
+	return getOptionToRender(option)[getOptionType(type)];
 };
 
 ActionInput.propTypes = {

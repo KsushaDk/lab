@@ -15,7 +15,7 @@ export const CheckboxQuestion = ({
 	handleSaveQuestion,
 }) => {
 	const handleCheckboxAnswer = (id, options) => {
-		const newOptions = toggleValueByKey(options, id, ['checked', 'correct']);
+		const newOptions = toggleValueByKey(options, id, ['correct']);
 		return newOptions;
 	};
 

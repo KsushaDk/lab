@@ -24,7 +24,7 @@ export const ActionRequiredMark = ({
 		);
 	}
 	if (currentItem.required) {
-		return <BsAsterisk className="icon_red" />;
+		return <BsAsterisk className="icon_red icon_xs" />;
 	}
 };
 

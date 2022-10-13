@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { toggleOptionClick } from 'Utils/toggleOptionClick';
 import { propTypesConst } from 'Constants/propTypesConst';
 import { QuestionWrapper } from './QuestionWrapper';
 import { RadioQuestionExample } from './RadioQuestionExample';
@@ -14,16 +15,7 @@ export const RadioQuestion = ({
 	handleSaveQuestion,
 }) => {
 	const handleRadioAnswer = (id, options) => {
-		const newOptions = options.map((item) => {
-			if (item.id.toString() === id.toString()) {
-				item.checked = !item.checked;
-				item.correct = !item.correct;
-			} else {
-				item.checked = false;
-				item.correct = false;
-			}
-			return item;
-		});
+		const newOptions = toggleOptionClick(options, id, question.type, 'correct');
 
 		return newOptions;
 	};

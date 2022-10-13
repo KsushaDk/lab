@@ -26,8 +26,6 @@ export const PrimarySelect = ({
 
 PrimarySelect.propTypes = {
 	name: PropTypes.string.isRequired,
-	defaultValue: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
-		.isRequired,
 	options: PropTypes.arrayOf(PropTypes.string).isRequired,
 	hangleSelectChange: PropTypes.func.isRequired,
 };

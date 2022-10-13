@@ -88,7 +88,7 @@ export const CustomSelect = ({ data, multi }) => {
 										<span>{option.title}</span>
 										<IconBtn
 											btnIcon={<BsX />}
-											className="icon_white"
+											className="icon_white icon_m"
 											handleClick={(e) => handleChangeOption(e, option.id)}
 										/>
 									</div>

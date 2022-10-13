@@ -6,30 +6,32 @@ import { QuestionTypeList } from 'Components/QuestionTypeList/QuestionTypeList';
 import { InterviewInfo } from 'Components/InterviewInfo/InterviewInfo';
 import { Loader } from 'Components/Loader/Loader';
 import { interviewQuery } from 'Constants/constants';
+import { updateDataInLS } from 'Utils/updateDataInLS';
 import { addDefaultValue } from 'Utils/addDefaultValue';
 import { getNotification } from 'Utils/getNotification';
 import { toggleValueByKey } from 'Utils/toggleValueByKey';
 import { removeFromArrByID } from 'Utils/removeFromArrByID';
+import { getFromLSByKey, setToLSByKey } from 'Utils/funcForLSByKey';
 import './CreateInterviewPage.scss';
 
 export const CreateInterviewPage = () => {
 	const [interview, setInterview] = useState(null);
 	const [interviewQueries, setInterviewQueries] = useState(interviewQuery);
 
-	const handleInterviewName = (e) => {
+	const handleInterviewTitle = (e) => {
 		setInterview({
 			...interview,
-			name: e.target.value,
+			title: e.target.value,
 		});
 	};
 
 	const handleChangeQuery = (e) => {
-		const updatedQuery = toggleValueByKey(
+		const updatedQueries = toggleValueByKey(
 			interviewQueries,
 			e.currentTarget.id,
 			'checked'
 		);
-		setInterviewQueries(updatedQuery);
+		setInterviewQueries(updatedQueries);
 	};
 
 	const handleAddQuestion = (e) => {
@@ -65,24 +67,40 @@ export const CreateInterviewPage = () => {
 	};
 
 	const handleRemoveInterview = () => {
-		localStorage.removeItem(interview.id.toString());
+		const interviewsFromLS = getFromLSByKey('interviews');
+		const updatedInterviews = removeFromArrByID(interviewsFromLS, interview.id);
+
+		setToLSByKey('interviews', updatedInterviews);
+
 		getNotification.success('Опрос удален!');
 
 		setInterview(addDefaultValue.interview());
 	};
 
 	const handleSaveInterview = () => {
-		if (interview.name === '') {
+		if (interview.title === '') {
 			getNotification.failed('Введите название опроса');
 		} else {
-			localStorage.setItem(
-				interview.id.toString(),
-				JSON.stringify({ ...interview, queries: interviewQueries })
-			);
+			updateDataInLS('interviews', {
+				...interview,
+				changed: new Date(Date.now()).toLocaleDateString(),
+				link: `/interview/${interview.id}`,
+			});
 
 			getNotification.success('Опрос успешно сохранен!');
 		}
 	};
+
+	useEffect(() => {
+		const updatedQueries = Object.fromEntries(
+			interviewQueries.map((query) => [query.key, query.checked])
+		);
+
+		setInterview({
+			...interview,
+			queries: updatedQueries,
+		});
+	}, [interviewQueries]);
 
 	useEffect(() => {
 		setInterview(addDefaultValue.interview(interviewQueries));
@@ -99,8 +117,8 @@ export const CreateInterviewPage = () => {
 						<input
 							className="content__head_input"
 							placeholder="Опрос номер..."
-							value={interview?.name}
-							onChange={handleInterviewName}
+							value={interview?.title}
+							onChange={handleInterviewTitle}
 						/>
 					</div>
 					<InterviewInfo pages={1} questions={interview?.questions.length} />

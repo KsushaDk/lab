@@ -3,7 +3,12 @@ import PropTypes from 'prop-types';
 import './IconBtn.scss';
 
 export const IconBtn = ({ btnIcon, handleClick, type = 'button', ...args }) => (
-	<button className="icon_btn" type={type} {...args} onClick={handleClick}>
+	<button
+		className="icon_btn icon_m"
+		type={type}
+		{...args}
+		onClick={handleClick}
+	>
 		{btnIcon}
 	</button>
 );

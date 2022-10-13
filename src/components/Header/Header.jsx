@@ -44,11 +44,11 @@ export const Header = () => {
 					</NavLink>
 				) : (
 					<div className="nav__user">
-						<ImUser className="icon_white" />
+						<ImUser className="icon_white icon_m" />
 						<span className="nav__user_name">
 							Привет, {currentUser.username}!
 						</span>
-						<BsBoxArrowRight className="icon_white" onClick={logout} />
+						<BsBoxArrowRight className="icon_white icon_l" onClick={logout} />
 					</div>
 				)}
 			</nav>

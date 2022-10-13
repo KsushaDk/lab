@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useCallback, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { useDrag, useDrop } from 'react-dnd';
-import { BsPlusSquare, BsInfo } from 'react-icons/bs';
+import { BsPlusSquare, BsInfo, BsCheck2 } from 'react-icons/bs';
 import { propTypesConst } from 'Constants/propTypesConst';
 import { DragDropItem } from 'Constants/constants';
 import { checkQueryForQuestion } from 'Utils/checkQueryForQuestion';
@@ -193,7 +193,7 @@ export const QuestionWrapper = ({
 					/>
 				)}
 				<BsInfo
-					className="icon_black"
+					className="icon_black icon_l"
 					onMouseOver={handleShowExample}
 					onMouseOut={handleShowExample}
 				/>
@@ -228,6 +228,9 @@ export const QuestionWrapper = ({
 							handleCorrect={handleCorrectAnswers}
 							handleOnChangeField={handleOnChangeField}
 						/>
+						{option.correct && idToEdit !== question.id && (
+							<BsCheck2 className="icon_red icon_m" />
+						)}
 					</li>
 				))}
 				{idToEdit === question.id && question.type !== 'text' && (
