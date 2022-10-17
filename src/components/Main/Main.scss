@@ -161,6 +161,10 @@
 				border: none;
 				border-bottom: 3px solid $primary-gray;
 				cursor: pointer;
+
+				&:last-of-type {
+					border: none;
+				}
 			}
 		}
 
@@ -217,22 +221,10 @@
 	align-self: flex-start;
 }
 
-.vertical_gray-line {
-	background: $primary-gray;
-	height: 100vh;
-	width: 2px;
-	flex-shrink: 0;
-
-	@media (max-width: 768px) {
-		background: $primary-gray;
-		width: 100%;
-		height: 2px;
-	}
-}
-
 .Toastify__toast-theme--light {
-	background-color: $secondary-gray;
+	background-color: $primary-white;
 	color: $primary-black;
+	border: $border;
 	@include text($font-size: 1rem);
 }
 
@@ -274,11 +266,8 @@
 	gap: 0.5rem;
 	padding: 0.3rem 0.5rem;
 	background: $example-gray;
-	position: absolute;
-	z-index: 5;
 	padding: 0.5rem 1rem;
-	top: 3rem;
-	right: 2rem;
+	min-width: 30rem;
 	height: auto;
 	border: 2px dotted $primary-red;
 }
@@ -289,39 +278,8 @@
 	opacity: 0.8;
 }
 
-.progress-bar {
-	&__wrapper {
-		@include flex($align-items: center, $gap: 0.5rem);
-		background: transparent;
-		width: 80%;
-
-		height: 1.2rem;
-		position: relative;
-	}
-
-	&__state {
-		@include text($font-weight: 500);
-	}
-
-	&-unfill {
-		width: 100%;
-		height: 100%;
-		background: transparent;
-		border: $border;
-		border-radius: 4px;
-		position: relative;
-		margin-right: auto;
-	}
-
-	&-fill {
-		position: absolute;
-		background: $primary-red;
-		height: 100%;
-		display: block;
-		width: 0;
-		border-radius: 4px;
-		-webkit-transition: width 0.8s ease;
-		-moz-transition: width 0.8s ease;
-		transition: width 0.8s ease;
-	}
+.popup-info__wrapper {
+	position: relative;
+	border: $border;
+	box-shadow: $shadow-form;
 }

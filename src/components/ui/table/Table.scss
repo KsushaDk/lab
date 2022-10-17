@@ -98,31 +98,3 @@
 	font-weight: 700;
 	cursor: not-allowed;
 }
-
-.dropdown {
-	position: relative;
-	display: inline-block;
-
-	&__content {
-		@include flex($flex-direction: column, $gap: 0rem);
-		background: $primary-white;
-		border: $border;
-		position: absolute;
-		right: 0;
-		z-index: 1;
-		filter: $shadow-form;
-
-		&_link {
-			@include text($font-weight: 600);
-			padding: 0.5rem;
-			display: block;
-			width: 100%;
-			text-align: left;
-			text-decoration: none;
-
-			&:hover {
-				background-color: $primary-gray;
-			}
-		}
-	}
-}

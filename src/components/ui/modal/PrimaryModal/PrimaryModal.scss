@@ -12,7 +12,7 @@
 		height: 100vh;
 		overflow: auto;
 		background-color: rgba(0, 0, 0, 0.4);
-		opacity: 0;
+		opacity: 1;
 		pointer-events: none;
 		transition: 0.5s;
 	}
@@ -23,8 +23,9 @@
 		padding: 2rem;
 		border: $border;
 		width: 50vw;
-		transform: scale(0.5);
+		transform: scale(1);
 		transition: 0.5s all;
+		animation: 1s content ease;
 	}
 
 	&__title {
@@ -37,10 +38,14 @@
 }
 
 .active_modal {
-	opacity: 1;
 	pointer-events: all;
 }
 
-.active_modal-content {
-	transform: scale(1);
+@keyframes content {
+	from {
+		transform: scale(0.5);
+	}
+	to {
+		transform: scale(1);
+	}
 }

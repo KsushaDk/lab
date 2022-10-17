@@ -16,9 +16,7 @@ const App = () => (
 			<Route path="interview/:interviewId" element={<InterviewPage />} />
 			<Route
 				path="*"
-				element={
-					<ErrorPage link="/" message="This page doesn't exist. Go&nbsp;" />
-				}
+				element={<ErrorPage link="/" message="This page doesn't exist." />}
 			/>
 		</Route>
 	</Routes>

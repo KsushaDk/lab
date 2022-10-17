@@ -1,0 +1,42 @@
+@import 'Scss/vars.scss';
+@import 'Scss/mixins.scss';
+
+.dropdown {
+	position: relative;
+	display: inline-block;
+	margin-left: auto;
+
+	&__content {
+		@include flex($flex-direction: column, $gap: 0rem);
+		background: $primary-white;
+		border: $border;
+		filter: $shadow-form;
+		position: absolute;
+		padding: 0.5rem;
+		right: 0;
+		z-index: 1;
+		animation: 0.5s show ease;
+
+		&_link {
+			@include text($font-weight: 600);
+			padding: 0.5rem;
+			display: block;
+			width: 100%;
+			text-align: left;
+			text-decoration: none;
+
+			&:hover {
+				background-color: $primary-gray;
+			}
+		}
+	}
+}
+
+@keyframes show {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
+}

@@ -15,6 +15,7 @@ import { ActionRequiredMark } from '../ActionItems/ActionRequiredMark';
 import { ActionTitle } from '../ActionItems/ActionTitle';
 import { ActionInput } from '../ActionItems/ActionInput';
 import { IconBtn } from '../ui/button/IconBtn/IconBtn';
+import { PrimaryDropDown } from '../ui/dropdown/PrimaryDropDown';
 
 export const QuestionWrapper = ({
 	question,
@@ -29,7 +30,6 @@ export const QuestionWrapper = ({
 	notification,
 }) => {
 	const [current, setCurrent] = useState(question);
-	const [isExampleShown, setIsExampleShown] = useState(false);
 	const [isRequired, setRequired] = useState(false);
 
 	const ref = useRef(null);
@@ -143,10 +143,6 @@ export const QuestionWrapper = ({
 		});
 	};
 
-	const handleShowExample = useCallback(() => {
-		setIsExampleShown((prevState) => !prevState);
-	});
-
 	const handleRequiredField = useCallback(() => {
 		setCurrent({ ...current, required: !current.required });
 	});
@@ -192,12 +188,9 @@ export const QuestionWrapper = ({
 						handleRequiredField={handleRequiredField}
 					/>
 				)}
-				<BsInfo
-					className="icon_black icon_l"
-					onMouseOver={handleShowExample}
-					onMouseOut={handleShowExample}
-				/>
-				{isExampleShown && example}
+				<PrimaryDropDown trigger={<BsInfo className="icon_black icon_l" />}>
+					{example}
+				</PrimaryDropDown>
 			</div>
 
 			<ActionTitle

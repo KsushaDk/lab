@@ -1,13 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import { ImPencil, ImBin } from 'react-icons/im';
-import { BsXSquare, BsCheckSquare } from 'react-icons/bs';
+import { BsXSquare, BsCheckSquare, BsCaretDownFill } from 'react-icons/bs';
 import { useDispatch } from 'react-redux';
 import { propTypesConst } from 'Constants/propTypesConst';
 import { setModalState } from 'Redux/slices/modalSlice';
-import { TableCell } from './TableCell';
+import { PrimaryDropDown } from '../dropdown/PrimaryDropDown';
 import { IconBtn } from '../button/IconBtn/IconBtn';
-import { TableDropMenu } from './TableDropMenu';
+import { TableCell } from './TableCell';
 
 export const TableRow = ({
 	total,
@@ -71,7 +72,16 @@ export const TableRow = ({
 					/>
 				)}
 
-				{total.includes('опросов') && <TableDropMenu />}
+				{total.includes('опросов') && (
+					<PrimaryDropDown trigger={<IconBtn btnIcon={<BsCaretDownFill />} />}>
+						<Link className="dropdown__content_link" to="/home/create">
+							Copy
+						</Link>
+						<Link className="dropdown__content_link" to="/home/create">
+							Play/Resume
+						</Link>
+					</PrimaryDropDown>
+				)}
 			</td>
 		</tr>
 	);

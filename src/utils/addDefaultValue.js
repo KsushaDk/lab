@@ -28,6 +28,7 @@ export const addDefaultValue = {
 	option: (type) => ({
 		id: uuidv4(),
 		title: '',
+		answer: type === 'text' ? '' : null,
 		checked: false,
 		correct: type === 'text',
 	}),
