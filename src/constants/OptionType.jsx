@@ -12,24 +12,10 @@ export const Option = Object.freeze({
 	Rating: 6,
 });
 
-export const getOptionToRender = (
-	option
-) => ({
-	[Option.Text]: (
-		<PrimaryOutput
-			option={option}
-		/>
-	),
-	[Option.Checkbox]: (
-		<CheckboxInput
-			option={option}
-		/>
-	),
-	[Option.Radio]: (
-		<RadioInput
-			option={option}
-		/>
-	),
+export const getOptionToRender = (option) => ({
+	[Option.Text]: <PrimaryOutput option={option} />,
+	[Option.Checkbox]: <CheckboxInput option={option} />,
+	[Option.Radio]: <RadioInput option={option} />,
 	[Option.File]: null,
 	[Option.Scale]: null,
 	[Option.Rating]: null,

@@ -11,6 +11,7 @@ import './InterviewPage.scss';
 
 export const InterviewPage = () => {
 	const [interview, setInterview] = useState(null);
+	const [percent, setPercent] = useState(1);
 
 	const { interviewId } = useParams();
 
@@ -35,6 +36,20 @@ export const InterviewPage = () => {
 			});
 		}
 	};
+
+	useEffect(() => {
+		if (interview !== null) {
+			const questionPercent = Math.floor(100 / interview.questions.length);
+
+			const selectedQuestions = interview.questions.filter((question) =>
+				question.options.find((option) => option.checked === true)
+			);
+
+			const currentPercent = selectedQuestions.length * questionPercent;
+
+			setPercent(currentPercent);
+		}
+	}, [interview]);
 
 	useEffect(() => {
 		const dataFromLS = getFromLSByKey('interviews');
@@ -84,6 +99,20 @@ export const InterviewPage = () => {
 								</ul>
 							</div>
 						))}
+					</div>
+					<div className="progress-bar__wrapper">
+						<div className="progress-bar__state">
+							{Math.floor((interview.questions.length * percent) / 100)}
+							&#47;{interview.questions.length}
+						</div>
+
+						<div className="progress-bar-unfill">
+							<span
+								className="progress-bar-fill"
+								style={{ width: `${percent}%` }}
+							/>
+						</div>
+						<div className="progress-bar__state">{percent}%</div>
 					</div>
 				</>
 			)}
