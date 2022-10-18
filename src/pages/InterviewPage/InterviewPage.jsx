@@ -1,24 +1,30 @@
-import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useState, useEffect, useCallback } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 import { BsAsterisk } from 'react-icons/bs';
 import { SecondaryInput } from 'Components/ui/input/SecondaryInput/SecondaryInput';
+import { SaveCancelActionBtns } from 'Components/ActionItems/SaveCancelActionBtns';
 import { PrimaryDropDown } from 'Components/ui/dropdown/PrimaryDropDown';
 import { ProgressBar } from 'Components/ui/progressbar/ProgressBar';
 import { Loader } from 'Components/Loader/Loader';
+import { useUsers } from 'Hooks/useUsers';
+import { interviewResultMessage, infoMessage } from 'Constants/constants';
 import { getOptionToRender } from 'Constants/OptionType';
+import { getFromLSByKey, updateDataInLS } from 'Utils/funcForLSByKey';
+import { checkRequeredField } from 'Utils/checkRequiredField';
 import { toggleOptionClick } from 'Utils/toggleOptionClick';
 import { getNotification } from 'Utils/getNotification';
-import { getFromLSByKey } from 'Utils/funcForLSByKey';
 import { getOptionType } from 'Utils/getOptionType';
 import { shuffleArray } from 'Utils/shuffleArray';
-
 import './InterviewPage.scss';
 
 export const InterviewPage = () => {
 	const [interview, setInterview] = useState(null);
 	const [percent, setPercent] = useState(1);
 
+	const navigate = useNavigate();
 	const { interviewId } = useParams();
+
+	const { currentUser } = useUsers();
 
 	const handleSelectionAnswer = (e, id, type) => {
 		if (type !== 'text') {
@@ -44,7 +50,7 @@ export const InterviewPage = () => {
 
 	const handleTextAnswer = (e, id) => {
 		if (e.target.value === '') {
-			return getNotification.failed('Упс, поле не может быть пустым');
+			return getNotification.failed(infoMessage.notEmptyField);
 		}
 
 		const newQuestions = interview.questions.map((question) => {
@@ -60,6 +66,37 @@ export const InterviewPage = () => {
 			questions: newQuestions,
 		});
 	};
+
+	const handleSaveCancelAnswers = useCallback((value) => {
+		if (value === 'cancel') {
+			return navigate('/info', {
+				state: {
+					message: interviewResultMessage.cancel,
+					link: '/home/interviews',
+				},
+				replace: true,
+			});
+		}
+
+		const checkRequired = checkRequeredField(interview.questions);
+
+		if (!checkRequired) {
+			navigate('/info', {
+				state: {
+					message: interviewResultMessage.save,
+					link: '/home/interviews',
+				},
+				replace: true,
+			});
+
+			updateDataInLS('answers', {
+				id: currentUser.id,
+				interviews: [interview],
+			});
+		} else {
+			getNotification.failed(infoMessage.requiredField);
+		}
+	});
 
 	useEffect(() => {
 		if (interview !== null) {
@@ -92,6 +129,12 @@ export const InterviewPage = () => {
 				<Loader />
 			) : (
 				<>
+					<div className="btn_group">
+						<SaveCancelActionBtns
+							handleSaveEditing={() => handleSaveCancelAnswers('save')}
+							handleCancelEditing={() => handleSaveCancelAnswers('cancel')}
+						/>
+					</div>
 					<div className="content__head_center">
 						<h2 className="title_s">Опрос: {interview.title}</h2>
 					</div>
@@ -103,7 +146,7 @@ export const InterviewPage = () => {
 									<PrimaryDropDown
 										trigger={<BsAsterisk className="icon_red icon_s" />}
 									>
-										<div className="p_primary">Обязательный вопрос.</div>
+										<span className="p_primary">Обязательный вопрос</span>
 									</PrimaryDropDown>
 								)}
 								<h2 className="p_secondary">

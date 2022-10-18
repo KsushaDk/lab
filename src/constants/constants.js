@@ -48,6 +48,17 @@ export const errMessages = {
 	incorrectPass: 'Check your email or password',
 };
 
+export const interviewResultMessage = {
+	save: 'Поздравляем, Ваши ответы сохранены! Если Вам интересно пройти другие тесты, кликайте',
+	cancel:
+		'Ваши ответы удалены. Если Вам интересно пройти другие тесты, кликайте',
+};
+
+export const infoMessage = {
+	requiredField: 'Все обязательные поля должны быть заполнены',
+	notEmptyField: 'Упс, поле не может быть пустым',
+};
+
 export const regEmail =
 	/^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@(gmail|yahoo)+(\.com)$/gm;
 export const regPass = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])/;

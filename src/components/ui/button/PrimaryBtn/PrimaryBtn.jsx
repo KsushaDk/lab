@@ -9,7 +9,7 @@ export const PrimaryBtn = ({ btnValue }) => {
 	const path = location.pathname.split('/');
 
 	const handleClick = (link) => {
-		navigate(link);
+		navigate(link, { replace: true });
 	};
 
 	return (

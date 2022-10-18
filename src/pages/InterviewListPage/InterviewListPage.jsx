@@ -32,7 +32,9 @@ export const InterviewListPage = () => {
 	return (
 		<section className="content">
 			<div className="content__head">
-				<PrimaryBtn btnValue={{ value: 'Создать опрос', link: 'create' }} />
+				<PrimaryBtn
+					btnValue={{ value: 'Создать опрос', link: '/home/create' }}
+				/>
 				<SearchForm handleSubmit={handleSubmit} />
 			</div>
 			{interviewData === null ? (

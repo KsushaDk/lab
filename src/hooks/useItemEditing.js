@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { getNotification } from 'Utils/getNotification';
+import { infoMessage } from 'Constants/constants';
 
 export const useItemEditing = ({ removeCb, saveCb, cancelCb, changeCb }) => {
 	const [idToEdit, setIdToEdit] = useState(null);
@@ -26,7 +27,7 @@ export const useItemEditing = ({ removeCb, saveCb, cancelCb, changeCb }) => {
 
 		switch (true) {
 			case value.trim() === '':
-				getNotification.failed('Упс, поле не может быть пустым');
+				getNotification.failed(infoMessage.notEmptyField);
 				handleCancelEditing();
 				break;
 

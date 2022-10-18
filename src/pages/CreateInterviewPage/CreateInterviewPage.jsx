@@ -6,12 +6,15 @@ import { QuestionTypeList } from 'Components/QuestionTypeList/QuestionTypeList';
 import { InterviewInfo } from 'Components/InterviewInfo/InterviewInfo';
 import { Loader } from 'Components/Loader/Loader';
 import { interviewQuery } from 'Constants/constants';
-import { updateDataInLS } from 'Utils/updateDataInLS';
 import { addDefaultValue } from 'Utils/addDefaultValue';
 import { getNotification } from 'Utils/getNotification';
 import { toggleValueByKey } from 'Utils/toggleValueByKey';
 import { removeFromArrByID } from 'Utils/removeFromArrByID';
-import { getFromLSByKey, setToLSByKey } from 'Utils/funcForLSByKey';
+import {
+	getFromLSByKey,
+	setToLSByKey,
+	updateDataInLS,
+} from 'Utils/funcForLSByKey';
 import './CreateInterviewPage.scss';
 
 export const CreateInterviewPage = () => {
@@ -88,6 +91,8 @@ export const CreateInterviewPage = () => {
 			});
 
 			getNotification.success('Опрос успешно сохранен!');
+
+			setInterview(addDefaultValue.interview());
 		}
 	};
 
@@ -103,7 +108,7 @@ export const CreateInterviewPage = () => {
 	}, [interviewQueries]);
 
 	useEffect(() => {
-		setInterview(addDefaultValue.interview(interviewQueries));
+		setInterview(addDefaultValue.interview());
 	}, []);
 
 	return (

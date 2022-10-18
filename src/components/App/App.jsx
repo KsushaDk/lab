@@ -4,6 +4,7 @@ import { InterviewPage } from 'Pages/InterviewPage/InterviewPage';
 import { SignUpPage } from 'Pages/SignUpPage/SignUpPage';
 import { LogInPage } from 'Pages/LogInPage/LogInPage';
 import { ErrorPage } from 'Pages/ErrorPage/ErrorPage';
+import { InfoPage } from 'Pages/InfoPage/InfoPage';
 import { Layout } from './Layout';
 import { Main } from '../Main/Main';
 
@@ -14,6 +15,7 @@ const App = () => (
 			<Route path="home/*" element={<Main />} />
 			<Route path="signup" element={<SignUpPage />} />
 			<Route path="interview/:interviewId" element={<InterviewPage />} />
+			<Route path="info" element={<InfoPage />} />
 			<Route
 				path="*"
 				element={<ErrorPage link="/" message="This page doesn't exist." />}
