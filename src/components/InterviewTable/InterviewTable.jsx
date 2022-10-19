@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { getNotification } from 'Utils/getNotification';
-import { columnsInterviews } from 'Constants/constants';
+import { columnsInterviews, infoMessage } from 'Constants/constants';
 import { propTypesConst } from 'Constants/propTypesConst';
 import { TableWrapper } from '../ui/table/TableWrapper';
 
@@ -10,7 +10,7 @@ export const InterviewTable = ({ interviewData, searchResult }) => {
 		const checkUniqueTitle = interviewData.find((item) => item.title === value);
 
 		if (checkUniqueTitle !== undefined) {
-			getNotification.failed('Название опроса должно быть уникальным');
+			getNotification.failed(infoMessage.uniqueInterviewTitle);
 			return false;
 		}
 

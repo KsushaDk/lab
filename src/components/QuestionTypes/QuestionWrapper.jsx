@@ -3,8 +3,9 @@ import PropTypes from 'prop-types';
 import { useDrag, useDrop } from 'react-dnd';
 import { BsPlusSquare, BsInfo, BsCheck2 } from 'react-icons/bs';
 import { propTypesConst } from 'Constants/propTypesConst';
-import { DragDropItem } from 'Constants/constants';
+import { DragDropItem, infoMessage } from 'Constants/constants';
 import { checkQueryForQuestion } from 'Utils/checkQueryForQuestion';
+import { validateOptionsState } from 'Utils/validateOptionsState';
 import { removeFromArrByID } from 'Utils/removeFromArrByID';
 import { getNotification } from 'Utils/getNotification';
 import { addDefaultValue } from 'Utils/addDefaultValue';
@@ -14,8 +15,8 @@ import { SaveCancelActionBtns } from '../ActionItems/SaveCancelActionBtns';
 import { ActionRequiredMark } from '../ActionItems/ActionRequiredMark';
 import { ActionTitle } from '../ActionItems/ActionTitle';
 import { ActionInput } from '../ActionItems/ActionInput';
-import { IconBtn } from '../ui/button/IconBtn/IconBtn';
 import { PrimaryDropDown } from '../ui/dropdown/PrimaryDropDown';
+import { IconBtn } from '../ui/button/IconBtn/IconBtn';
 
 export const QuestionWrapper = ({
 	question,
@@ -41,7 +42,6 @@ export const QuestionWrapper = ({
 				return;
 			}
 			const dragIndex = item.index;
-
 			const hoverIndex = index;
 
 			if (dragIndex === hoverIndex) {
@@ -70,7 +70,10 @@ export const QuestionWrapper = ({
 	};
 
 	const cancelCb = () => {
-		setCurrent(question);
+		setCurrent({
+			...question,
+			options: [addDefaultValue.option(question.type)],
+		});
 	};
 
 	const changeCb = (fieldName, value, id) => {
@@ -85,11 +88,12 @@ export const QuestionWrapper = ({
 	};
 
 	const saveCb = (edited) => {
-		const checkCorrectAnswers = current.options.some(
-			(option) => option.correct === true
+		const validatedOptions = validateOptionsState(
+			current.options,
+			notification
 		);
 
-		if (checkCorrectAnswers) {
+		if (validatedOptions) {
 			const newQuestion = {
 				...current,
 				question: edited?.question || current.question,
@@ -99,8 +103,6 @@ export const QuestionWrapper = ({
 			handleSaveQuestion(current.id, newQuestion);
 			return true;
 		}
-
-		getNotification.failed(notification);
 		return false;
 	};
 
@@ -122,7 +124,7 @@ export const QuestionWrapper = ({
 			options: newOptions,
 		});
 
-		getNotification.success('Ответ сохранен.');
+		getNotification.success(infoMessage.saveAnswer);
 	};
 
 	const handleOnAddField = useCallback(() => {
@@ -131,6 +133,14 @@ export const QuestionWrapper = ({
 			options: [...current.options, addDefaultValue.option(question.type)],
 		});
 	});
+
+	useEffect(() => {
+		if (current.options.length > 0) {
+			document
+				.getElementById(current.options[current.options.length - 1].id)
+				.focus();
+		}
+	}, [current.options.length]);
 
 	const handleOnRemoveField = (e, id) => {
 		e.stopPropagation();
@@ -148,10 +158,7 @@ export const QuestionWrapper = ({
 	});
 
 	useEffect(() => {
-		const required = checkQueryForQuestion(
-			queries,
-			'Звездочки обязательных полей'
-		);
+		const required = checkQueryForQuestion(queries, 'requiredFields');
 		setRequired(required);
 
 		return () => setRequired(false);
@@ -172,6 +179,8 @@ export const QuestionWrapper = ({
 				isDragging ? 'content__body_item dragged' : 'content__body_item'
 			}
 			ref={ref}
+			role="menuitem"
+			tabIndex={0}
 		>
 			<div className="question__head">
 				<EditDeleteActionBtns
@@ -199,7 +208,9 @@ export const QuestionWrapper = ({
 				currentId={question.id}
 				currentNum={questionNum}
 				defaultValue={editedItem ? editedItem.question : current?.question}
-				title={current.question === '' ? 'Введите вопрос...' : current.question}
+				title={
+					current.question === '' ? infoMessage.enterQuestion : current.question
+				}
 				handleOnChangeField={handleOnChangeField}
 			/>
 
@@ -210,6 +221,7 @@ export const QuestionWrapper = ({
 						role="menuitem"
 						key={option.id}
 						id={option.id}
+						tabIndex={0}
 					>
 						<ActionInput
 							idToEdit={idToEdit}
@@ -233,7 +245,7 @@ export const QuestionWrapper = ({
 						onClick={handleOnAddField}
 					>
 						<IconBtn btnIcon={<BsPlusSquare />} />
-						Добавить ответ...
+						{infoMessage.addAnswer}
 					</li>
 				)}
 			</ul>

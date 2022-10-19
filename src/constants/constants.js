@@ -57,6 +57,29 @@ export const interviewResultMessage = {
 export const infoMessage = {
 	requiredField: 'Все обязательные поля должны быть заполнены',
 	notEmptyField: 'Упс, поле не может быть пустым',
+	fillEmptyField: 'Заполните пустые поля',
+	enterCorrectAnswer: 'Введите правильный ответ...',
+	addAnswer: 'Добавить ответ...',
+	enterAnswer: 'Введите вариант ответа...',
+	enterQuestion: 'Введите вопрос...',
+	enterInterviewTitle: 'Введите название опроса.',
+	saveAnswer: 'Ответ сохранен.',
+	saveInterview: 'Опрос успешно сохранен!',
+	deleteInterview: 'Опрос удален!',
+	uniqueInterviewTitle: 'Название опроса должно быть уникальным',
+	notificationCheckbox: 'Выберете правильные варианты ответа.',
+	notificationRadio: 'Выберете правильный вариант ответа.',
+	noSearchResult: 'Ничего не найдено, попробуйте еще раз.',
+	fetchSuccess: 'Данные успешно загружены!',
+	fetchFailed: 'Что-то пошло не так...',
+	fetchEror: 'Error in request. Error status:',
+	deleteSuccess: 'Успешно удалено!',
+	saveSuccess: 'Успешно сохранено!',
+	enterUserAnswer: 'Введите ваш ответ...',
+};
+
+export const modalMessage = {
+	submitSave: 'Вы действительно хотите сохранить изменения?',
 };
 
 export const regEmail =

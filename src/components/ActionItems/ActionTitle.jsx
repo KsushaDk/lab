@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { infoMessage } from 'Constants/constants';
 import { checkQueryForQuestion } from 'Utils/checkQueryForQuestion';
 import { SecondaryInput } from '../ui/input/SecondaryInput/SecondaryInput';
 
@@ -15,7 +16,7 @@ export const ActionTitle = ({
 	const [showNumber, setShowNumber] = useState(false);
 
 	useEffect(() => {
-		const number = checkQueryForQuestion(queries, 'Номера вопросов');
+		const number = checkQueryForQuestion(queries, 'questionNum');
 		setShowNumber(number);
 
 		return () => setShowNumber(false);
@@ -26,7 +27,7 @@ export const ActionTitle = ({
 			<SecondaryInput
 				name="question"
 				id={currentId}
-				placeholder="Введите вопрос..."
+				placeholder={infoMessage.enterQuestion}
 				defaultValue={defaultValue}
 				handleBlur={handleOnChangeField}
 			/>

@@ -5,7 +5,7 @@ import { SaveCancelActionBtns } from 'Components/ActionItems/SaveCancelActionBtn
 import { QuestionTypeList } from 'Components/QuestionTypeList/QuestionTypeList';
 import { InterviewInfo } from 'Components/InterviewInfo/InterviewInfo';
 import { Loader } from 'Components/Loader/Loader';
-import { interviewQuery } from 'Constants/constants';
+import { interviewQuery, infoMessage } from 'Constants/constants';
 import { addDefaultValue } from 'Utils/addDefaultValue';
 import { getNotification } from 'Utils/getNotification';
 import { toggleValueByKey } from 'Utils/toggleValueByKey';
@@ -75,14 +75,14 @@ export const CreateInterviewPage = () => {
 
 		setToLSByKey('interviews', updatedInterviews);
 
-		getNotification.success('Опрос удален!');
+		getNotification.success(infoMessage.deleteInterview);
 
 		setInterview(addDefaultValue.interview());
 	};
 
 	const handleSaveInterview = () => {
 		if (interview.title === '') {
-			getNotification.failed('Введите название опроса');
+			getNotification.failed(infoMessage.enterInterviewTitle);
 		} else {
 			updateDataInLS('interviews', {
 				...interview,
@@ -90,7 +90,7 @@ export const CreateInterviewPage = () => {
 				link: `/interview/${interview.id}`,
 			});
 
-			getNotification.success('Опрос успешно сохранен!');
+			getNotification.success(infoMessage.saveInterview);
 
 			setInterview(addDefaultValue.interview());
 		}

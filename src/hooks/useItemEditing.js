@@ -8,7 +8,7 @@ export const useItemEditing = ({ removeCb, saveCb, cancelCb, changeCb }) => {
 
 	const handleRemove = (id) => {
 		removeCb(id);
-		getNotification.success('Успешно удалено!');
+		getNotification.success(infoMessage.deleteSuccess);
 	};
 
 	const handleEdit = (id) => {
@@ -57,7 +57,7 @@ export const useItemEditing = ({ removeCb, saveCb, cancelCb, changeCb }) => {
 
 		if (success) {
 			setIdToEdit(null);
-			getNotification.success('Успешно сохранено!');
+			getNotification.success(infoMessage.saveSuccess);
 		}
 	};
 

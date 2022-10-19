@@ -3,6 +3,7 @@
 
 .primary_output {
 	@include text;
+	min-height: 1rem;
 	padding: 0.3rem 0.5rem;
 	background-color: transparent;
 	width: 100%;

@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { propTypesConst } from 'Constants/propTypesConst';
+import { infoMessage } from 'Constants/constants';
 import { Loader } from '../../Loader/Loader';
 import { TablePagination } from './TablePagination';
 import { TableRow } from './TableRow';
@@ -60,9 +61,7 @@ export const Table = ({
 					<tbody className="table__body">
 						{rowsToDisplay.length === 0 && (
 							<tr>
-								<td colSpan={columns.length}>
-									No sush item. Try again please.
-								</td>
+								<td colSpan={columns.length}>{infoMessage.noSearchResult}</td>
 							</tr>
 						)}
 						{rowsToDisplay.map((row) => (

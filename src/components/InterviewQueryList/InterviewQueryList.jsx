@@ -1,18 +1,25 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { CheckboxInput } from 'Components/ui/input/CheckboxInput/CheckboxInput';
+import { selectElByKeyDown } from 'Utils/selectElByKeyDown';
+import { propTypesConst } from 'Constants/propTypesConst';
 
 export const InterviewQueryList = ({ queries, handleChangeQuery }) => (
 	<div className="interview__settings">
 		<h3 className="title_xs">Параметры опроса</h3>
 		<ul className="settings__list" role="menu">
-			{queries.map((query) => (
+			{queries.map((query, index) => (
 				<li
 					className="settings__list_option"
 					key={query.id}
 					id={query.id}
+					index={index}
 					onClick={handleChangeQuery}
 					role="menuitem"
+					tabIndex={0}
+					onKeyDown={(e) => {
+						selectElByKeyDown(e, handleChangeQuery, queries);
+					}}
 				>
 					<CheckboxInput option={query} />
 				</li>
@@ -22,9 +29,11 @@ export const InterviewQueryList = ({ queries, handleChangeQuery }) => (
 );
 
 InterviewQueryList.propTypes = {
+	queries: PropTypes.arrayOf(propTypesConst.query),
 	handleChangeQuery: PropTypes.func,
 };
 
 InterviewQueryList.defaultProps = {
 	handleChangeQuery: () => {},
+	queries: [],
 };

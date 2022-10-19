@@ -100,13 +100,17 @@ export const InterviewPage = () => {
 
 	useEffect(() => {
 		if (interview !== null) {
-			const questionPercent = Math.floor(100 / interview.questions.length);
+			const questionPercent = Math.ceil(100 / interview.questions.length);
 
 			const selectedQuestions = interview.questions.filter((question) =>
 				question.options.find((option) => option.checked === true)
 			);
 
-			const currentPercent = selectedQuestions.length * questionPercent;
+			let currentPercent = selectedQuestions.length * questionPercent;
+
+			if (currentPercent > 100) {
+				currentPercent = 100;
+			}
 
 			setPercent(currentPercent);
 		}
@@ -170,7 +174,7 @@ export const InterviewPage = () => {
 												<SecondaryInput
 													name="option"
 													id={option.id}
-													placeholder="Введите ваш ответ..."
+													placeholder={infoMessage.enterUserAnswer}
 													defaultValue={option.answer}
 													handleBlur={(e) => handleTextAnswer(e, question.id)}
 												/>

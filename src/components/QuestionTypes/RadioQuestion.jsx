@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { toggleOptionClick } from 'Utils/toggleOptionClick';
 import { propTypesConst } from 'Constants/propTypesConst';
+import { infoMessage } from 'Constants/constants';
 import { QuestionWrapper } from './QuestionWrapper';
 import { RadioQuestionExample } from './RadioQuestionExample';
 
@@ -31,7 +32,7 @@ export const RadioQuestion = ({
 			handleRemoveQuestion={handleRemoveQuestion}
 			handleSaveQuestion={handleSaveQuestion}
 			handleAnswer={handleRadioAnswer}
-			notification="Выберете правильный вариант ответа."
+			notification={infoMessage.notificationRadio}
 		/>
 	);
 };

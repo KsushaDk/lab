@@ -90,8 +90,11 @@
 
 		&_left {
 			@include flex($flex-direction: column, $align-items: start, $gap: 2rem);
-
 			min-width: 65%;
+
+			@media (max-width: 768px) {
+				width: 100%;
+			}
 		}
 
 		&_right {
@@ -101,19 +104,19 @@
 			@media (max-width: 768px) {
 				width: 100%;
 				@include flex(
-					$flex-direction: row,
+					$flex-direction: row-reverse,
 					$justify-content: space-between,
-					$align-items: stretch,
+					$align-items: baseline,
 					$gap: 1rem
 				);
 			}
 
 			@media (max-width: 576px) {
-				padding: $padding-s;
+				padding: 0;
 				@include flex(
 					$flex-direction: column,
 					$justify-content: space-between,
-					$align-items: stretch,
+					$align-items: baseline,
 					$gap: 1rem
 				);
 			}
@@ -178,7 +181,7 @@
 		}
 
 		@media (max-width: 576px) {
-			padding: $padding-s;
+			padding: 1rem 0;
 		}
 	}
 
@@ -249,10 +252,4 @@
 	border: 3px dotted $primary-red;
 	background: $secondary-gray;
 	opacity: 0.8;
-}
-
-.popup-info__wrapper {
-	position: relative;
-	border: $border;
-	box-shadow: $shadow-form;
 }

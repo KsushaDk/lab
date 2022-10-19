@@ -5,6 +5,7 @@ import { ImPencil, ImBin } from 'react-icons/im';
 import { BsXSquare, BsCheckSquare, BsCaretDownFill } from 'react-icons/bs';
 import { useDispatch } from 'react-redux';
 import { propTypesConst } from 'Constants/propTypesConst';
+import { modalMessage } from 'Constants/constants';
 import { setModalState } from 'Redux/slices/modalSlice';
 import { PrimaryDropDown } from '../dropdown/PrimaryDropDown';
 import { IconBtn } from '../button/IconBtn/IconBtn';
@@ -44,7 +45,7 @@ export const TableRow = ({
 							dispatch(
 								setModalState({
 									isActive: true,
-									message: 'Вы действительно хотите сохранить изменения?',
+									message: modalMessage.submitSave,
 									btnValues: ['Сохранить', 'Отмена'],
 									isSubmitted: false,
 								})

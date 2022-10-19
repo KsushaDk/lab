@@ -12,6 +12,7 @@ export const InfoPage = () => {
 			<Link to={location.state.link} className="page_info_link">
 				сюда
 			</Link>
+			.
 		</div>
 	);
 };

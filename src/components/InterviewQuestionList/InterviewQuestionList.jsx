@@ -34,7 +34,7 @@ export const InterviewQuestionList = ({
 	return (
 		<DndProvider backend={HTML5Backend}>
 			{interview.questions.length !== 0 && (
-				<div className="content__body_items">
+				<div className="content__body_items" role="menu" tabIndex={0}>
 					<IconBtn
 						handleClick={() => handleRemoveInterview()}
 						btnIcon={<ImBin />}

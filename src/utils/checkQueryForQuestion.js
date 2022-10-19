@@ -1,6 +1,6 @@
-export const checkQueryForQuestion = (queries, title) => {
+export const checkQueryForQuestion = (queries, key) => {
 	const checkQuery = queries.find(
-		(query) => query.title === title && query.checked === true
+		(query) => query.key === key && query.checked === true
 	);
 
 	if (checkQuery) {

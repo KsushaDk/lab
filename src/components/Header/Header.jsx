@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import { ImUser } from 'react-icons/im';
 import { BsBoxArrowRight } from 'react-icons/bs';
-import { useUsers } from 'Hooks/useUsers';
-import { useDispatch } from 'react-redux';
 import { logoutUser } from 'Redux/slices/userSlice';
+import { useUsers } from 'Hooks/useUsers';
 import logo from './logo.svg';
 import './Header.scss';
 
