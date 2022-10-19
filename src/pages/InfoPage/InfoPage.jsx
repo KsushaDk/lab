@@ -9,9 +9,9 @@ export const InfoPage = () => {
 		<div className="page_info">
 			{location.state.message}
 			&nbsp;
-			<Link to={location.state.link}>сюда</Link>
+			<Link to={location.state.link} className="page_info_link">
+				сюда
+			</Link>
 		</div>
 	);
 };
-
-InfoPage.propTypes = {};

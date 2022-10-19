@@ -1,0 +1,64 @@
+@import 'Scss/vars.scss';
+@import 'Scss/mixins.scss';
+
+.RichEditor-root {
+	@include text;
+	background: transparent;
+	border: $border;
+	padding: 0.7rem;
+	width: 100%;
+}
+
+.RichEditor-editor {
+	@include text;
+	border-top: $border;
+	cursor: text;
+	margin-top: 1rem;
+}
+
+.RichEditor-editor .public-DraftEditorPlaceholder-root,
+.RichEditor-editor .public-DraftEditor-content {
+	margin: 0 -1rem -1rem;
+	padding: 1rem;
+}
+
+.RichEditor-editor .public-DraftEditor-content {
+	min-height: 8rem;
+}
+
+.RichEditor-hidePlaceholder .public-DraftEditorPlaceholder-root {
+	display: none;
+}
+
+.RichEditor-editor .RichEditor-blockquote {
+	@include text;
+	border-left: 3px solid $primary-gray;
+	color: $info-gray;
+	font-style: italic;
+	margin: 1rem 0;
+	padding: 0.5rem 1rem;
+}
+
+.RichEditor-editor .public-DraftStyleDefault-pre {
+	@include text;
+	background-color: $primary-gray;
+	padding: 1rem;
+}
+
+.RichEditor-controls {
+	@include text;
+	margin-bottom: 0.3rem;
+	user-select: none;
+}
+
+.RichEditor-styleButton {
+	color: $info-gray;
+	cursor: pointer;
+	margin-right: 1rem;
+	padding: 0.2rem 0;
+	display: inline-block;
+}
+
+.RichEditor-activeButton {
+	color: $primary-red;
+}

@@ -7,7 +7,7 @@
 	background: $primary-white;
 	border-bottom: 2px solid $primary-gray;
 
-	> a {
+	&_link {
 		text-decoration: none;
 		color: $info-gray;
 

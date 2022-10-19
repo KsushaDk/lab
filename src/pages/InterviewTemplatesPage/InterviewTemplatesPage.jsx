@@ -1,7 +1,8 @@
 import React from 'react';
+import { PrimaryTextEditor } from 'Components/ui/editor/PrimaryTextEditor/PrimaryTextEditor';
+import { CustomSelect } from 'Components/ui/select/CustomSelect/CustomSelect';
 import { PrimaryBtn } from 'Components/ui/button/PrimaryBtn/PrimaryBtn';
 import { SearchForm } from 'Components/ui/form/SearchForm/SearchForm';
-import { CustomSelect } from 'Components/ui/select/CustomSelect/CustomSelect';
 import { Loader } from 'Components/Loader/Loader';
 import { dataTemplates } from 'Constants/constants';
 import { useFetch } from 'Hooks/useFetch';
@@ -22,6 +23,7 @@ export const InterviewTemplatesPage = () => {
 					<CustomSelect data={data} multi />
 				</>
 			)}
+			<PrimaryTextEditor />
 
 			<h2 className="title_m">Шаблоны</h2>
 			<div className="content__head">
