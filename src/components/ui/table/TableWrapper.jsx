@@ -1,15 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
+import { propTypesConst } from 'Constants/propTypesConst';
 import { setModalState } from 'Redux/slices/modalSlice';
-import { getModalResponse } from 'Utils/getModalResponse';
 import { removeFromArrByID } from 'Utils/removeFromArrByID';
+import { getModalResponse } from 'Utils/getModalResponse';
+import { setToLSByKey } from 'Utils/funcForLSByKey';
 import { saveItem } from 'Utils/editingItemFunc';
 import { useItemEditing } from 'Hooks/useItemEditing';
 import { PrimaryModal } from '../modal/PrimaryModal/PrimaryModal';
 import { Table } from './Table';
 
 export const TableWrapper = ({
+	storageName,
 	slice,
 	columns,
 	rows,
@@ -34,10 +37,18 @@ export const TableWrapper = ({
 	};
 
 	const saveCb = (edited, id) => {
-		const newData = saveItem(edited, id, totalRowsState);
+		if (edited !== null) {
+			const newData = saveItem(edited, id, totalRowsState);
 
-		setTotalRowsState(newData);
+			setTotalRowsState(newData);
+			setSubmitted(false);
+
+			return true;
+		}
+
+		setTotalRowsState(totalRowsState);
 		setSubmitted(false);
+		return false;
 	};
 
 	const changeCb = (fieldName, value) => {
@@ -72,7 +83,9 @@ export const TableWrapper = ({
 	};
 
 	useEffect(() => {
-		dispatch(slice(totalRowsState));
+		storageName === 'interviews'
+			? setToLSByKey(storageName, totalRowsState)
+			: dispatch(slice(totalRowsState));
 	}, [totalRowsState]);
 
 	useEffect(() => {
@@ -103,7 +116,7 @@ export const TableWrapper = ({
 TableWrapper.propTypes = {
 	caption: PropTypes.string.isRequired,
 	total: PropTypes.string.isRequired,
-	searchResult: PropTypes.string,
+	searchResult: PropTypes.arrayOf(propTypesConst.tableRowsItem),
 	handleInterviewChange: PropTypes.func,
 	columns: PropTypes.arrayOf(
 		PropTypes.shape({
@@ -111,36 +124,8 @@ TableWrapper.propTypes = {
 			fieldName: PropTypes.string,
 		})
 	).isRequired,
-	rows: PropTypes.arrayOf(
-		PropTypes.oneOfType([
-			PropTypes.shape({
-				id: PropTypes.string,
-				username: PropTypes.string,
-				email: PropTypes.string,
-				password: PropTypes.string,
-				role: PropTypes.string,
-				registered: PropTypes.string,
-				interviews: PropTypes.number,
-			}),
-			PropTypes.shape({
-				id: PropTypes.string,
-				changed: PropTypes.string,
-				answers: PropTypes.number,
-				title: PropTypes.string,
-				link: PropTypes.string,
-				results: PropTypes.string,
-			}),
-		])
-	).isRequired,
-	current: PropTypes.shape({
-		id: PropTypes.string,
-		username: PropTypes.string,
-		email: PropTypes.string,
-		password: PropTypes.string,
-		role: PropTypes.string,
-		registered: PropTypes.string,
-		interviews: PropTypes.number,
-	}),
+	rows: PropTypes.arrayOf(propTypesConst.tableRowsItem).isRequired,
+	current: propTypesConst.currentUser,
 };
 
 TableWrapper.defaultProps = {

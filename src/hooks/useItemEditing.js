@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { getNotification } from 'Utils/getNotification';
+import { infoMessage } from 'Constants/constants';
 
 export const useItemEditing = ({ removeCb, saveCb, cancelCb, changeCb }) => {
 	const [idToEdit, setIdToEdit] = useState(null);
@@ -7,7 +8,7 @@ export const useItemEditing = ({ removeCb, saveCb, cancelCb, changeCb }) => {
 
 	const handleRemove = (id) => {
 		removeCb(id);
-		getNotification.success('Успешно удалено!');
+		getNotification.success(infoMessage.deleteSuccess);
 	};
 
 	const handleEdit = (id) => {
@@ -26,7 +27,7 @@ export const useItemEditing = ({ removeCb, saveCb, cancelCb, changeCb }) => {
 
 		switch (true) {
 			case value.trim() === '':
-				getNotification.failed('Упс, поле не может быть пустым');
+				getNotification.failed(infoMessage.notEmptyField);
 				handleCancelEditing();
 				break;
 
@@ -52,10 +53,12 @@ export const useItemEditing = ({ removeCb, saveCb, cancelCb, changeCb }) => {
 	};
 
 	const handleSaveEditing = () => {
-		editedItem === null ? handleCancelEditing() : saveCb(editedItem, idToEdit);
+		const success = saveCb(editedItem, idToEdit);
 
-		setIdToEdit(null);
-		getNotification.success('Успешно сохранено!');
+		if (success) {
+			setIdToEdit(null);
+			getNotification.success(infoMessage.saveSuccess);
+		}
 	};
 
 	return {

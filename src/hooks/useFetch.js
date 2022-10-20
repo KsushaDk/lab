@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { getNotification } from 'Utils/getNotification';
+import { infoMessage } from 'Constants/constants';
 
 export const useFetch = (url) => {
 	const [data, setData] = useState([]);
@@ -11,15 +12,15 @@ export const useFetch = (url) => {
 		fetch(url)
 			.then((response) => {
 				if (response.ok) {
-					getNotification.success('Данные успешно загружены!');
+					getNotification.success(infoMessage.fetchSuccess);
 					return response.json();
 				}
 				return Promise.reject(response);
 			})
 			.then((json) => setData(json))
 			.catch((err) => {
-				getNotification.failed('Что-то пошло не так...');
-				setError(`Error in request. Error status: ${err.status}`);
+				getNotification.failed(infoMessage.fetchFailed);
+				setError(`${infoMessage.fetchEror} ${err.status}`);
 			})
 			.finally(() => setLoading(false));
 	}, [url]);

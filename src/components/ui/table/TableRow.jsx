@@ -1,12 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import { ImPencil, ImBin } from 'react-icons/im';
-import { BsXSquare, BsCheckSquare } from 'react-icons/bs';
+import { BsXSquare, BsCheckSquare, BsCaretDownFill } from 'react-icons/bs';
 import { useDispatch } from 'react-redux';
+import { propTypesConst } from 'Constants/propTypesConst';
+import { modalMessage } from 'Constants/constants';
 import { setModalState } from 'Redux/slices/modalSlice';
-import { TableCell } from './TableCell';
+import { PrimaryDropDown } from '../dropdown/PrimaryDropDown';
 import { IconBtn } from '../button/IconBtn/IconBtn';
-import { TableDropMenu } from './TableDropMenu';
+import { TableCell } from './TableCell';
 
 export const TableRow = ({
 	total,
@@ -42,7 +45,7 @@ export const TableRow = ({
 							dispatch(
 								setModalState({
 									isActive: true,
-									message: 'Вы действительно хотите сохранить изменения?',
+									message: modalMessage.submitSave,
 									btnValues: ['Сохранить', 'Отмена'],
 									isSubmitted: false,
 								})
@@ -70,7 +73,16 @@ export const TableRow = ({
 					/>
 				)}
 
-				{total.includes('опросов') && <TableDropMenu />}
+				{total.includes('опросов') && (
+					<PrimaryDropDown trigger={<IconBtn btnIcon={<BsCaretDownFill />} />}>
+						<Link className="dropdown__content_link" to="/home/create">
+							Copy
+						</Link>
+						<Link className="dropdown__content_link" to="/home/create">
+							Play/Resume
+						</Link>
+					</PrimaryDropDown>
+				)}
 			</td>
 		</tr>
 	);
@@ -78,34 +90,8 @@ export const TableRow = ({
 
 TableRow.propTypes = {
 	total: PropTypes.string.isRequired,
-	row: PropTypes.oneOfType([
-		PropTypes.shape({
-			id: PropTypes.string,
-			username: PropTypes.string,
-			email: PropTypes.string,
-			password: PropTypes.string,
-			role: PropTypes.string,
-			registered: PropTypes.string,
-			interviews: PropTypes.number,
-		}),
-		PropTypes.shape({
-			id: PropTypes.string,
-			changed: PropTypes.string,
-			answers: PropTypes.number,
-			title: PropTypes.string,
-			link: PropTypes.string,
-			results: PropTypes.string,
-		}),
-	]).isRequired,
-	current: PropTypes.shape({
-		id: PropTypes.string,
-		username: PropTypes.string,
-		email: PropTypes.string,
-		password: PropTypes.string,
-		role: PropTypes.string,
-		registered: PropTypes.string,
-		interviews: PropTypes.number,
-	}),
+	row: PropTypes.oneOfType([propTypesConst.tableRowsItem]).isRequired,
+	current: propTypesConst.currentUser,
 	idToEdit: PropTypes.string,
 	handleOnChangeField: PropTypes.func.isRequired,
 	handleEdit: PropTypes.func.isRequired,

@@ -12,29 +12,48 @@ export const Question = Object.freeze({
 	Rating: 6,
 });
 
-export const getQuestionToRender = (question, handleRemoveQuestion) => ({
+export const getQuestionToRender = (
+	question,
+	index,
+	queries,
+	handleRemoveQuestion,
+	handleSaveQuestion,
+	moveItem
+) => ({
 	[Question.Text]: (
 		<TextQuestion
-			questionId={question.id}
-			questionType={question.type}
+			question={question}
+			questionNum={index + 1}
+			index={index}
+			queries={queries}
+			moveItem={moveItem}
 			key={question.id}
 			handleRemoveQuestion={handleRemoveQuestion}
+			handleSaveQuestion={handleSaveQuestion}
 		/>
 	),
 	[Question.Checkbox]: (
 		<CheckboxQuestion
-			questionId={question.id}
-			questionType={question.type}
+			question={question}
+			questionNum={index + 1}
+			index={index}
+			queries={queries}
+			moveItem={moveItem}
 			key={question.id}
 			handleRemoveQuestion={handleRemoveQuestion}
+			handleSaveQuestion={handleSaveQuestion}
 		/>
 	),
 	[Question.Radio]: (
 		<RadioQuestion
-			questionId={question.id}
-			questionType={question.type}
+			question={question}
+			questionNum={index + 1}
+			index={index}
+			queries={queries}
+			moveItem={moveItem}
 			key={question.id}
 			handleRemoveQuestion={handleRemoveQuestion}
+			handleSaveQuestion={handleSaveQuestion}
 		/>
 	),
 	[Question.File]: null,

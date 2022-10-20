@@ -1,12 +1,12 @@
 import React from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import {
-	BsFileEarmarkFill,
+	// BsFileEarmarkFill,
 	BsListOl,
 	BsListUl,
 	BsTextareaT,
-	BsStar,
-	BsBatteryHalf,
+	// BsStar,
+	// BsBatteryHalf,
 } from 'react-icons/bs';
 
 export const labels = [
@@ -46,6 +46,41 @@ export const errMessages = {
 	notMatchPass: 'The passwords do not match',
 	incorrectEmail: 'Email is incorrect',
 	incorrectPass: 'Check your email or password',
+};
+
+export const interviewResultMessage = {
+	save: 'Поздравляем, Ваши ответы сохранены! Если Вам интересно пройти другие тесты, кликайте',
+	cancel:
+		'Ваши ответы удалены. Если Вам интересно пройти другие тесты, кликайте',
+};
+
+export const infoMessage = {
+	requiredField: 'Все обязательные поля должны быть заполнены.',
+	notEmptyField: 'Упс, поле не может быть пустым.',
+	fillEmptyField: 'Заполните пустые поля.',
+	enterCorrectAnswer: 'Введите правильный ответ...',
+	addAnswer: 'Добавить ответ...',
+	enterAnswer: 'Введите вариант ответа...',
+	enterQuestion: 'Введите вопрос...',
+	enterInterviewTitle: 'Введите название опроса.',
+	saveAnswer: 'Ответ сохранен.',
+	saveInterview: 'Опрос успешно сохранен!',
+	deleteInterview: 'Опрос удален!',
+	uniqueInterviewTitle: 'Название опроса должно быть уникальным.',
+	notificationCheckbox: 'Выберете правильные варианты ответа.',
+	notificationRadio: 'Выберете правильный вариант ответа.',
+	noSearchResult: 'Ничего не найдено, попробуйте еще раз.',
+	noInterviews: 'Ни одного опроса еще не создано.',
+	fetchSuccess: 'Данные успешно загружены!',
+	fetchFailed: 'Что-то пошло не так...',
+	fetchEror: 'Error in request. Error status:',
+	deleteSuccess: 'Успешно удалено!',
+	saveSuccess: 'Успешно сохранено!',
+	enterUserAnswer: 'Введите ваш ответ...',
+};
+
+export const modalMessage = {
+	submitSave: 'Вы действительно хотите сохранить изменения?',
 };
 
 export const regEmail =
@@ -221,38 +256,38 @@ export const questionTypeList = [
 		id: uuidv4(),
 		title: 'Варианты ответа (один)',
 		type: 'radio',
-		icon: <BsListUl className="icon_black" />,
+		icon: <BsListUl className="icon_black icon_l" />,
 	},
 	{
 		id: uuidv4(),
 		title: 'Варианты ответа (несколько)',
 		type: 'checkbox',
-		icon: <BsListOl className="icon_black" />,
+		icon: <BsListOl className="icon_black icon_l" />,
 	},
 	{
 		id: uuidv4(),
 		title: 'Текст',
 		type: 'text',
-		icon: <BsTextareaT className="icon_black" />,
+		icon: <BsTextareaT className="icon_black icon_l" />,
 	},
-	{
-		id: uuidv4(),
-		title: 'Файл',
-		type: 'file',
-		icon: <BsFileEarmarkFill className="icon_black" />,
-	},
-	{
-		id: uuidv4(),
-		title: 'Рейтинг в звездах',
-		type: 'rating',
-		icon: <BsStar className="icon_black" />,
-	},
-	{
-		id: uuidv4(),
-		title: 'Шкала',
-		type: 'scale',
-		icon: <BsBatteryHalf className="icon_black" />,
-	},
+	// {
+	// 	id: uuidv4(),
+	// 	title: 'Файл',
+	// 	type: 'file',
+	// 	icon: <BsFileEarmarkFill className="icon_black icon_l" />,
+	// },
+	// {
+	// 	id: uuidv4(),
+	// 	title: 'Рейтинг в звездах',
+	// 	type: 'rating',
+	// 	icon: <BsStar className="icon_black icon_l" />,
+	// },
+	// {
+	// 	id: uuidv4(),
+	// 	title: 'Шкала',
+	// 	type: 'scale',
+	// 	icon: <BsBatteryHalf className="icon_black icon_l" />,
+	// },
 ];
 
 export const successNotification = {
@@ -288,31 +323,37 @@ export const infoNotification = {
 export const interviewQuery = [
 	{
 		id: uuidv4(),
+		key: 'anonymousInterview',
 		title: 'Анонимный опрос',
 		checked: false,
 	},
 	{
 		id: uuidv4(),
+		key: 'questionNum',
 		title: 'Номера вопросов',
 		checked: false,
 	},
+	// {
+	// 	id: uuidv4(),
+	// key: 'pageNum',
+	// 	title: 'Номера страниц',
+	// 	checked: false,
+	// },
 	{
 		id: uuidv4(),
-		title: 'Номера страниц',
-		checked: false,
-	},
-	{
-		id: uuidv4(),
+		key: 'randomQuestionOrder',
 		title: 'Случайный порядок вопросов',
 		checked: false,
 	},
 	{
 		id: uuidv4(),
+		key: 'requiredFields',
 		title: 'Звездочки обязательных полей',
 		checked: false,
 	},
 	{
 		id: uuidv4(),
+		key: 'progressBar',
 		title: 'Индикатор выполнения',
 		checked: false,
 	},
@@ -384,4 +425,8 @@ export const questionTextExample = {
 			correct: true,
 		},
 	],
+};
+
+export const DragDropItem = {
+	QUESTION: 'question',
 };

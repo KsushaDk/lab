@@ -1,58 +1,109 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback, useRef } from 'react';
 import PropTypes from 'prop-types';
-import { BsPlusSquare } from 'react-icons/bs';
+import { useDrag, useDrop } from 'react-dnd';
+import { BsPlusSquare, BsInfo, BsCheck2 } from 'react-icons/bs';
+import { propTypesConst } from 'Constants/propTypesConst';
+import { DragDropItem, infoMessage } from 'Constants/constants';
+import { checkQueryForQuestion } from 'Utils/checkQueryForQuestion';
+import { validateOptionsState } from 'Utils/validateOptionsState';
 import { removeFromArrByID } from 'Utils/removeFromArrByID';
 import { getNotification } from 'Utils/getNotification';
 import { addDefaultValue } from 'Utils/addDefaultValue';
 import { useItemEditing } from 'Hooks/useItemEditing';
 import { EditDeleteActionBtns } from '../ActionItems/EditDeleteActionBtns';
 import { SaveCancelActionBtns } from '../ActionItems/SaveCancelActionBtns';
+import { ActionRequiredMark } from '../ActionItems/ActionRequiredMark';
 import { ActionTitle } from '../ActionItems/ActionTitle';
 import { ActionInput } from '../ActionItems/ActionInput';
+import { PrimaryDropDown } from '../ui/dropdown/PrimaryDropDown';
 import { IconBtn } from '../ui/button/IconBtn/IconBtn';
 
 export const QuestionWrapper = ({
-	questionId,
-	questionType,
+	question,
+	questionNum,
+	index,
+	queries,
+	moveItem,
 	example,
 	handleRemoveQuestion,
+	handleSaveQuestion,
 	handleAnswer,
 	notification,
 }) => {
-	const [question, setQuestion] = useState(
-		addDefaultValue.question(questionId, questionType)
-	);
+	const [current, setCurrent] = useState(question);
+	const [isRequired, setRequired] = useState(false);
+
+	const ref = useRef(null);
+
+	const [, drop] = useDrop({
+		accept: DragDropItem.QUESTION,
+		hover(item) {
+			if (!ref.current) {
+				return;
+			}
+			const dragIndex = item.index;
+			const hoverIndex = index;
+
+			if (dragIndex === hoverIndex) {
+				return;
+			}
+
+			moveItem(dragIndex, hoverIndex);
+
+			item.index = hoverIndex;
+		},
+	});
+
+	const [{ isDragging }, drag] = useDrag(() => ({
+		type: DragDropItem.QUESTION,
+		item: { id: question.id, index },
+		collect: (monitor) => ({
+			isDragging: monitor.isDragging(),
+		}),
+	}));
+
+	drag(drop(ref));
 
 	const removeCb = (id) => {
-		localStorage.removeItem(id.toString());
-		setQuestion(null);
+		setCurrent(null);
 		handleRemoveQuestion(id);
 	};
 
+	const cancelCb = () => {
+		setCurrent({
+			...question,
+			options: [addDefaultValue.option(question.type)],
+		});
+	};
+
 	const changeCb = (fieldName, value, id) => {
-		const newOptions = question.options.map((option) => {
+		const newOptions = current.options.map((option) => {
 			if (option.id === id) {
 				option.title = value;
 			}
 			return option;
 		});
 
-		setQuestion({ ...question, id, type: questionType, options: newOptions });
+		setCurrent({ ...current, options: newOptions });
 	};
 
-	const saveCb = (edited, id) => {
-		if (questionType === 'text') {
-			const newQuestion = handleAnswer(edited, id, question.options);
-			setQuestion(newQuestion);
-		} else {
-			getNotification.failed(notification);
-			setQuestion({
-				...edited,
-				id,
-				type: questionType,
-				options: question.options,
-			});
+	const saveCb = (edited) => {
+		const validatedOptions = validateOptionsState(
+			current.options,
+			notification
+		);
+
+		if (validatedOptions) {
+			const newQuestion = {
+				...current,
+				question: edited?.question || current.question,
+			};
+			setCurrent(newQuestion);
+
+			handleSaveQuestion(current.id, newQuestion);
+			return true;
 		}
+		return false;
 	};
 
 	const {
@@ -63,130 +114,176 @@ export const QuestionWrapper = ({
 		handleRemove,
 		handleOnChangeField,
 		handleSaveEditing,
-	} = useItemEditing({ removeCb, saveCb, changeCb });
+	} = useItemEditing({ removeCb, saveCb, cancelCb, changeCb });
 
-	const handleAddingField = () => {
-		setQuestion({
-			...question,
-			options: [...question.options, addDefaultValue.option()],
+	const handleCorrectAnswers = (id) => {
+		const newOptions = handleAnswer(id, current.options);
+
+		setCurrent({
+			...current,
+			options: newOptions,
 		});
+
+		getNotification.success(infoMessage.saveAnswer);
 	};
 
-	const handleRemovingField = (e, id) => {
+	const handleOnAddField = useCallback(() => {
+		setCurrent({
+			...current,
+			options: [...current.options, addDefaultValue.option(question.type)],
+		});
+	});
+
+	useEffect(() => {
+		if (current.options.length > 0) {
+			document
+				.getElementById(current.options[current.options.length - 1].id)
+				.focus();
+		}
+	}, [current.options.length]);
+
+	const handleOnRemoveField = (e, id) => {
 		e.stopPropagation();
 
-		const newOptions = removeFromArrByID(question.options, id);
+		const newOptions = removeFromArrByID(current.options, id);
 
-		setQuestion({
-			...question,
+		setCurrent({
+			...current,
 			options: newOptions,
 		});
 	};
 
-	const handleCorrectAnswers = (e) => {
-		if (questionType !== 'text' && e.target.name !== 'option') {
-			const newOptions = handleAnswer(e, question.options);
-
-			setQuestion({
-				...question,
-				options: newOptions,
-			});
-
-			getNotification.success('Ответ сохранен.');
-		}
-	};
+	const handleRequiredField = useCallback(() => {
+		setCurrent({ ...current, required: !current.required });
+	});
 
 	useEffect(() => {
-		question !== null &&
-			localStorage.setItem(questionId.toString(), JSON.stringify(question));
-	}, [question]);
+		const required = checkQueryForQuestion(queries, 'requiredFields');
+		setRequired(required);
+
+		return () => setRequired(false);
+	}, [queries]);
 
 	useEffect(() => {
-		handleEdit(questionId);
+		handleEdit(question.id);
+
+		setCurrent({
+			...current,
+			options: [...current.options, addDefaultValue.option(question.type)],
+		});
 	}, []);
 
 	return (
-		<>
-			{example}
-			<div className="content__body_item">
-				<div className="question__head">
-					<EditDeleteActionBtns
+		<div
+			className={
+				isDragging ? 'content__body_item dragged' : 'content__body_item'
+			}
+			ref={ref}
+			role="menuitem"
+			tabIndex={0}
+		>
+			<div className="question__head">
+				<EditDeleteActionBtns
+					idToEdit={idToEdit}
+					currentId={question.id}
+					handleRemove={handleRemove}
+					handleEdit={handleEdit}
+				/>
+				{isRequired && (
+					<ActionRequiredMark
 						idToEdit={idToEdit}
-						currentId={questionId}
-						handleRemove={handleRemove}
-						handleEdit={handleEdit}
+						currentId={question.id}
+						currentItem={current}
+						handleRequiredField={handleRequiredField}
+					/>
+				)}
+				<PrimaryDropDown trigger={<BsInfo className="icon_black icon_l" />}>
+					{example}
+				</PrimaryDropDown>
+			</div>
+
+			<ActionTitle
+				queries={queries}
+				idToEdit={idToEdit}
+				currentId={question.id}
+				currentNum={questionNum}
+				defaultValue={editedItem ? editedItem.question : current?.question}
+				title={
+					current.question === '' ? infoMessage.enterQuestion : current.question
+				}
+				handleOnChangeField={handleOnChangeField}
+			/>
+
+			<ul className="question__list" role="menu">
+				{current.options.map((option) => (
+					<li
+						className="question__list_option"
+						role="menuitem"
+						key={option.id}
+						id={option.id}
+						tabIndex={0}
+					>
+						<ActionInput
+							idToEdit={idToEdit}
+							currentId={question.id}
+							question={current}
+							option={option}
+							type={question.type}
+							handleRemove={handleOnRemoveField}
+							handleCorrect={handleCorrectAnswers}
+							handleOnChangeField={handleOnChangeField}
+						/>
+						{option.correct && idToEdit !== question.id && (
+							<BsCheck2 className="icon_red icon_m" />
+						)}
+					</li>
+				))}
+				{idToEdit === question.id && question.type !== 'text' && (
+					<li
+						className="question__list_option p_info"
+						role="menuitem"
+						onClick={handleOnAddField}
+					>
+						<IconBtn btnIcon={<BsPlusSquare />} />
+						{infoMessage.addAnswer}
+					</li>
+				)}
+			</ul>
+
+			{idToEdit === question.id && (
+				<div className="question__control_btn">
+					<SaveCancelActionBtns
+						handleSaveEditing={handleSaveEditing}
+						handleCancelEditing={handleCancelEditing}
 					/>
 				</div>
-
-				<ActionTitle
-					idToEdit={idToEdit}
-					currentId={questionId}
-					defaultValue={editedItem ? editedItem.question : question?.question}
-					title={
-						question.question === '' ? 'Введите вопрос...' : question.question
-					}
-					handleOnChangeField={handleOnChangeField}
-				/>
-
-				<ul className="question__list" role="menu">
-					{question.options.map((option) => (
-						<li
-							className="question__list_option"
-							role="menuitem"
-							key={option.id}
-							id={option.id}
-							onClick={handleCorrectAnswers}
-						>
-							<ActionInput
-								idToEdit={idToEdit}
-								currentId={questionId}
-								question={question}
-								option={option}
-								type={questionType}
-								handleRemove={handleRemovingField}
-								handleOnChangeField={handleOnChangeField}
-							/>
-						</li>
-					))}
-					{idToEdit === questionId && questionType !== 'text' && (
-						<li
-							className="question__list_option p_info"
-							role="menuitem"
-							onClick={handleAddingField}
-						>
-							<IconBtn btnIcon={<BsPlusSquare />} />
-							Добавить ответ...
-						</li>
-					)}
-				</ul>
-
-				{idToEdit === questionId && (
-					<div className="question__control_btn">
-						<SaveCancelActionBtns
-							handleSaveEditing={handleSaveEditing}
-							handleCancelEditing={handleCancelEditing}
-						/>
-					</div>
-				)}
-			</div>
-		</>
+			)}
+		</div>
 	);
 };
 
 QuestionWrapper.propTypes = {
-	questionId: PropTypes.string,
+	index: PropTypes.number,
+	queries: PropTypes.arrayOf(propTypesConst.query),
+	question: propTypesConst.question,
+	questionNum: PropTypes.number,
 	notification: PropTypes.string,
-	questionType: PropTypes.string,
 	example: PropTypes.node,
 	handleRemoveQuestion: PropTypes.func,
+	handleSaveQuestion: PropTypes.func,
 	handleAnswer: PropTypes.func,
+	moveItem: PropTypes.func,
 };
 
 QuestionWrapper.defaultProps = {
+	index: 0,
+	queries: [],
+	question: {},
+	questionNum: 0,
 	notification: '',
-	questionId: null,
-	questionType: null,
 	example: null,
 	handleRemoveQuestion: () => {},
+	handleSaveQuestion: () => {},
 	handleAnswer: () => {},
+	moveItem: () => {},
 };

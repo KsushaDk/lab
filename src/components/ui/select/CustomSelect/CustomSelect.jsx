@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { BsChevronUp, BsChevronDown, BsX } from 'react-icons/bs';
+import { propTypesConst } from 'Constants/propTypesConst';
+import { infoMessage } from 'Constants/constants';
 import { useDebounce } from 'Hooks/useDebounce';
-import { getNextElem } from 'Utils/getNextElem';
-import { getSearchResult } from 'Utils/getSearchResult';
+import { selectElByKeyDown } from 'Utils/selectElByKeyDown';
 import { toggleValueByKey } from 'Utils/toggleValueByKey';
+import { getSearchResult } from 'Utils/getSearchResult';
 import { findInArrByID } from 'Utils/findInArrByID';
 import { Loader } from '../../../Loader/Loader';
 import { IconBtn } from '../../button/IconBtn/IconBtn';
@@ -48,15 +50,6 @@ export const CustomSelect = ({ data, multi }) => {
 		multi ? handleMultiSelection(id) : handleSingleSelection(id);
 	};
 
-	const handleKeyDownOption = (e) => {
-		if (e.key === 'Enter') {
-			handleChangeOption(e);
-		} else {
-			const nextEl = getNextElem(e.key, e.target.id);
-			nextEl.focus();
-		}
-	};
-
 	useEffect(() => {
 		setIsLoading(true);
 
@@ -87,7 +80,7 @@ export const CustomSelect = ({ data, multi }) => {
 										<span>{option.title}</span>
 										<IconBtn
 											btnIcon={<BsX />}
-											className="icon_white"
+											className="icon_white icon_m"
 											handleClick={(e) => handleChangeOption(e, option.id)}
 										/>
 									</div>
@@ -113,11 +106,9 @@ export const CustomSelect = ({ data, multi }) => {
 					) : (
 						<ul className="select__options" role="menu">
 							{options.length === 0 ? (
-								<li className="select__option">
-									No such item. Please try again.
-								</li>
+								<li className="select__option">{infoMessage.noSearchResult}</li>
 							) : (
-								options.map((option) => (
+								options.map((option, index) => (
 									<li
 										className={
 											option.checked
@@ -126,9 +117,12 @@ export const CustomSelect = ({ data, multi }) => {
 										}
 										key={option.id}
 										id={option.id}
+										index={index}
 										role="menuitem"
 										tabIndex={0}
-										onKeyDown={handleKeyDownOption}
+										onKeyDown={(e) => {
+											selectElByKeyDown(e, handleChangeOption, options);
+										}}
 										onClick={handleChangeOption}
 									>
 										{multi ? <CheckboxInput option={option} /> : option.title}
@@ -145,14 +139,7 @@ export const CustomSelect = ({ data, multi }) => {
 
 CustomSelect.propTypes = {
 	multi: PropTypes.bool.isRequired,
-	data: PropTypes.arrayOf(
-		PropTypes.shape({
-			userId: PropTypes.number,
-			id: PropTypes.number,
-			title: PropTypes.string,
-			completed: PropTypes.bool,
-		}).isRequired
-	),
+	data: PropTypes.arrayOf(propTypesConst.selectItem),
 };
 
 CustomSelect.defaultProps = {

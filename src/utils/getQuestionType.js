@@ -1,7 +1,7 @@
 import { Question } from '../constants/QuestionType';
 
 export const getQuestionType = (questionName) => {
-	let questionType = '';
+	let questionType = 0;
 
 	switch (questionName) {
 		case 'text':

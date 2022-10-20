@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
-import { BsX } from 'react-icons/bs';
-import { getAnswerFieldType } from 'Utils/getAnswerFieldType';
+import { BsX, BsCheck } from 'react-icons/bs';
+import { getOptionToRender } from 'Constants/OptionType';
+import { infoMessage } from 'Constants/constants';
+import { getOptionType } from 'Utils/getOptionType';
 import { SecondaryInput } from '../ui/input/SecondaryInput/SecondaryInput';
 
 export const ActionInput = ({
@@ -11,18 +13,37 @@ export const ActionInput = ({
 	option,
 	type,
 	handleRemove,
+	handleCorrect,
 	handleOnChangeField,
 }) => {
+	const handleOnkeyDown = useCallback((e) => {
+		e.key === 'Enter' && handleCorrect(option.id);
+	});
+
+	const handleOnClick = useCallback(() => handleCorrect(option.id));
+
 	if (idToEdit === currentId || question === null) {
 		return (
 			<>
+				{type !== 'text' && (
+					<BsCheck
+						className={
+							option.correct ? 'icon_black icon_l' : 'icon_gray icon_l'
+						}
+						role="button"
+						tabIndex={0}
+						onKeyDown={handleOnkeyDown}
+						onClick={handleOnClick}
+					/>
+				)}
+
 				<SecondaryInput
 					name="option"
 					id={option.id}
 					placeholder={
 						type === 'text'
-							? 'Введите правильный ответ...'
-							: 'Введите вариант ответа...'
+							? infoMessage.enterCorrectAnswer
+							: infoMessage.enterAnswer
 					}
 					defaultValue={option.title}
 					handleBlur={handleOnChangeField}
@@ -30,14 +51,17 @@ export const ActionInput = ({
 
 				{type !== 'text' && (
 					<BsX
-						className="icon_black"
+						className="icon_black icon_l"
+						role="button"
+						tabIndex={0}
+						onKeyDown={(e) => e.key === 'Enter' && handleRemove(e, option.id)}
 						onClick={(e) => handleRemove(e, option.id)}
 					/>
 				)}
 			</>
 		);
 	}
-	return getAnswerFieldType(type, option);
+	return getOptionToRender(option)[getOptionType(type)];
 };
 
 ActionInput.propTypes = {
@@ -45,6 +69,7 @@ ActionInput.propTypes = {
 	currentId: PropTypes.string,
 	type: PropTypes.string,
 	handleOnChangeField: PropTypes.func,
+	handleCorrect: PropTypes.func,
 	handleRemove: PropTypes.func,
 };
 
@@ -53,5 +78,6 @@ ActionInput.defaultProps = {
 	currentId: null,
 	type: '',
 	handleOnChangeField: () => {},
+	handleCorrect: () => {},
 	handleRemove: () => {},
 };

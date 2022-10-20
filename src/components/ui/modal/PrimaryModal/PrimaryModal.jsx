@@ -11,10 +11,6 @@ export const PrimaryModal = ({ children, handleModalClick }) => {
 		? 'primary_modal__wrapper active_modal'
 		: 'primary_modal__wrapper';
 
-	const contentModalStyle = modal.isActive
-		? 'primary_modal__content active_modal-content'
-		: 'primary_modal__content';
-
 	return (
 		<div>
 			{modal.isActive && (
@@ -24,7 +20,7 @@ export const PrimaryModal = ({ children, handleModalClick }) => {
 						onClick={(e) => handleModalClick(e)}
 					>
 						<div
-							className={contentModalStyle}
+							className="primary_modal__content"
 							onClick={(e) => e.stopPropagation()}
 						>
 							<div className="primary_modal__head">

@@ -1,58 +1,40 @@
 import React, { useState, useEffect } from 'react';
-import { ImBin } from 'react-icons/im';
-import { v4 as uuidv4 } from 'uuid';
 import { InterviewQueryList } from 'Components/InterviewQueryList/InterviewQueryList';
+import { InterviewQuestionList } from 'Components/InterviewQuestionList/InterviewQuestionList';
 import { SaveCancelActionBtns } from 'Components/ActionItems/SaveCancelActionBtns';
 import { QuestionTypeList } from 'Components/QuestionTypeList/QuestionTypeList';
 import { InterviewInfo } from 'Components/InterviewInfo/InterviewInfo';
-import { IconBtn } from 'Components/ui/button/IconBtn/IconBtn';
 import { Loader } from 'Components/Loader/Loader';
-import { getQuestionToRender } from 'Constants/QuestionType';
-import { interviewQuery } from 'Constants/constants';
+import { interviewQuery, infoMessage } from 'Constants/constants';
 import { addDefaultValue } from 'Utils/addDefaultValue';
 import { getNotification } from 'Utils/getNotification';
-import { getQuestionType } from 'Utils/getQuestionType';
 import { toggleValueByKey } from 'Utils/toggleValueByKey';
 import { removeFromArrByID } from 'Utils/removeFromArrByID';
+import {
+	getFromLSByKey,
+	setToLSByKey,
+	updateDataInLS,
+} from 'Utils/funcForLSByKey';
 import './CreateInterviewPage.scss';
 
 export const CreateInterviewPage = () => {
 	const [interview, setInterview] = useState(null);
-	const [queryForInterview, setQueryForInterview] = useState(interviewQuery);
+	const [interviewQueries, setInterviewQueries] = useState(interviewQuery);
 
-	const handleInterviewName = (e) => {
+	const handleInterviewTitle = (e) => {
 		setInterview({
 			...interview,
-			name: e.target.value,
+			title: e.target.value,
 		});
 	};
 
 	const handleChangeQuery = (e) => {
-		const updatedQuery = toggleValueByKey(
-			queryForInterview,
+		const updatedQueries = toggleValueByKey(
+			interviewQueries,
 			e.currentTarget.id,
 			'checked'
 		);
-
-		setQueryForInterview(updatedQuery);
-	};
-
-	const handleRemoveInterview = () => {
-		localStorage.clear();
-		setInterview(addDefaultValue.interview());
-
-		getNotification.success('Опрос удален!');
-	};
-
-	const handleSaveInterview = () => {
-		const questionsFromLS = interview.questions.map((question) =>
-			JSON.parse(localStorage.getItem(question.id.toString()))
-		);
-
-		setInterview({ ...interview, questions: questionsFromLS });
-
-		localStorage.clear();
-		getNotification.success('Опрос успешно сохранен!');
+		setInterviewQueries(updatedQueries);
 	};
 
 	const handleAddQuestion = (e) => {
@@ -60,7 +42,7 @@ export const CreateInterviewPage = () => {
 			...interview,
 			questions: [
 				...interview.questions,
-				addDefaultValue.question(uuidv4(), e.target.getAttribute('name')),
+				addDefaultValue.question(e.target.getAttribute('name')),
 			],
 		});
 	};
@@ -73,10 +55,57 @@ export const CreateInterviewPage = () => {
 		});
 	};
 
+	const handleSaveQuestion = (id, item) => {
+		const newQuestions = interview.questions.map((question) => {
+			if (question.id === id) {
+				return item;
+			}
+			return question;
+		});
+
+		setInterview({
+			...interview,
+			questions: newQuestions,
+		});
+	};
+
+	const handleRemoveInterview = () => {
+		const interviewsFromLS = getFromLSByKey('interviews');
+		const updatedInterviews = removeFromArrByID(interviewsFromLS, interview.id);
+
+		setToLSByKey('interviews', updatedInterviews);
+
+		getNotification.success(infoMessage.deleteInterview);
+
+		setInterview(addDefaultValue.interview());
+	};
+
+	const handleSaveInterview = () => {
+		if (interview.title === '') {
+			getNotification.failed(infoMessage.enterInterviewTitle);
+		} else {
+			updateDataInLS('interviews', {
+				...interview,
+				changed: new Date(Date.now()).toLocaleDateString(),
+				link: `/interview/${interview.id}`,
+			});
+
+			getNotification.success(infoMessage.saveInterview);
+
+			setInterview(addDefaultValue.interview());
+		}
+	};
+
 	useEffect(() => {
-		interview !== null &&
-			localStorage.setItem(interview.id.toString(), JSON.stringify(interview));
-	}, [interview]);
+		const updatedQueries = Object.fromEntries(
+			interviewQueries.map((query) => [query.key, query.checked])
+		);
+
+		setInterview({
+			...interview,
+			queries: updatedQueries,
+		});
+	}, [interviewQueries]);
 
 	useEffect(() => {
 		setInterview(addDefaultValue.interview());
@@ -93,8 +122,8 @@ export const CreateInterviewPage = () => {
 						<input
 							className="content__head_input"
 							placeholder="Опрос номер..."
-							value={interview?.name}
-							onChange={handleInterviewName}
+							value={interview?.title}
+							onChange={handleInterviewTitle}
 						/>
 					</div>
 					<InterviewInfo pages={1} questions={interview?.questions.length} />
@@ -106,26 +135,20 @@ export const CreateInterviewPage = () => {
 					</div>
 					<div className="content__body">
 						<div className="content__body_left">
-							{interview?.questions.length !== 0 && (
-								<div className="content__body_items">
-									<IconBtn
-										handleClick={() => handleRemoveInterview()}
-										btnIcon={<ImBin />}
-									/>
-									{interview?.questions.map(
-										(question) =>
-											getQuestionToRender(question, handleRemoveQuestion)[
-												getQuestionType(question.type)
-											]
-									)}
-								</div>
-							)}
+							<InterviewQuestionList
+								interview={interview}
+								setInterview={setInterview}
+								queries={interviewQueries}
+								handleRemoveInterview={handleRemoveInterview}
+								handleRemoveQuestion={handleRemoveQuestion}
+								handleSaveQuestion={handleSaveQuestion}
+							/>
 						</div>
 
 						<aside className="content__body_right">
 							<QuestionTypeList handleAddQuestion={handleAddQuestion} />
 							<InterviewQueryList
-								queries={queryForInterview}
+								queries={interviewQueries}
 								handleChangeQuery={handleChangeQuery}
 							/>
 						</aside>

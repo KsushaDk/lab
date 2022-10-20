@@ -3,19 +3,33 @@ import { v4 as uuidv4 } from 'uuid';
 export const addDefaultValue = {
 	interview: () => ({
 		id: uuidv4(),
-		name: '',
+		title: '',
 		questions: [],
+		queries: {
+			anonymousInterview: false,
+			questionNum: false,
+			pageNum: false,
+			randomQuestionOrder: false,
+			requiredFields: false,
+			progressBar: false,
+		},
+		changed: '',
+		answers: 0,
+		link: '',
+		results: 'результаты',
 	}),
-	question: (id, type) => ({
-		id,
+	question: (type) => ({
+		id: uuidv4(),
 		type,
 		question: '',
 		options: [],
+		required: false,
 	}),
-	option: () => ({
+	option: (type) => ({
 		id: uuidv4(),
 		title: '',
+		answer: type === 'text' ? '' : null,
 		checked: false,
-		correct: false,
+		correct: type === 'text',
 	}),
 };

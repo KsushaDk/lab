@@ -64,6 +64,10 @@
 			@include flex($flex-direction: column);
 			align-items: flex-start;
 		}
+
+		&_center {
+			@include flex($align-items: center);
+		}
 	}
 
 	&__picture {
@@ -86,8 +90,11 @@
 
 		&_left {
 			@include flex($flex-direction: column, $align-items: start, $gap: 2rem);
-
 			min-width: 65%;
+
+			@media (max-width: 768px) {
+				width: 100%;
+			}
 		}
 
 		&_right {
@@ -97,21 +104,33 @@
 			@media (max-width: 768px) {
 				width: 100%;
 				@include flex(
-					$flex-direction: row,
+					$flex-direction: row-reverse,
 					$justify-content: space-between,
-					$align-items: stretch,
+					$align-items: baseline,
 					$gap: 1rem
 				);
 			}
 
 			@media (max-width: 576px) {
-				padding: $padding-s;
+				padding: 0;
 				@include flex(
 					$flex-direction: column,
 					$justify-content: space-between,
-					$align-items: stretch,
+					$align-items: baseline,
 					$gap: 1rem
 				);
+			}
+		}
+
+		&_center {
+			@include flex($flex-direction: column, $align-items: center, $gap: 0);
+			width: 100%;
+			border: $border;
+			padding: $padding-l;
+
+			@media (max-width: 768px) {
+				padding: $padding-s;
+				border: none;
 			}
 		}
 
@@ -128,10 +147,29 @@
 
 		&_item {
 			@include flex($flex-direction: column, $gap: 1.5rem, $align-items: start);
+			position: relative;
 			border: $border;
 			padding: 1rem;
 			width: 100%;
 			min-height: 5rem;
+			cursor: move;
+
+			&_center {
+				@include flex(
+					$flex-direction: column,
+					$gap: 1.5rem,
+					$align-items: start
+				);
+				padding: $padding-s;
+				width: 100%;
+				border: none;
+				border-bottom: 3px solid $primary-gray;
+				cursor: pointer;
+
+				&:last-of-type {
+					border: none;
+				}
+			}
 		}
 
 		@media (max-width: 768px) {
@@ -143,7 +181,7 @@
 		}
 
 		@media (max-width: 576px) {
-			padding: $padding-s;
+			padding: 1rem 0;
 		}
 	}
 
@@ -164,20 +202,28 @@
 		@include flex($flex-direction: column);
 	}
 
+	&_center {
+		@include flex($flex-direction: column, $align-items: center, $gap: 1.5rem);
+		margin: 2rem auto;
+		width: 80%;
+
+		@media (max-width: 768px) {
+			@include flex($flex-direction: column, $align-items: center, $gap: 1rem);
+			width: 100%;
+			margin: 0;
+			padding: $padding-s;
+		}
+	}
+
 	@media (max-width: 768px) {
 		width: 100%;
 	}
 }
 
-.total {
-	margin-top: 1rem;
-	align-self: flex-start;
-}
-
 .vertical_gray-line {
 	background: $primary-gray;
-	height: 100%;
-	width: 2px;
+	height: 100vh;
+	width: 3px;
 	flex-shrink: 0;
 
 	@media (max-width: 768px) {
@@ -187,31 +233,23 @@
 	}
 }
 
-.Toastify__toast-theme--light {
-	background-color: $secondary-gray;
-	color: $primary-black;
-	@include text($font-size: 1rem);
-}
-
-.icon_black {
-	background-color: transparent;
-	border: none;
-	color: $primary-black;
-	width: 1.6rem;
-	height: 1.6rem;
-	cursor: pointer;
-	outline-color: $primary-black;
-
-	> svg {
-		width: 100%;
-		height: 100%;
-	}
-
-	&:hover {
-		opacity: 0.7;
-	}
+.total {
+	margin-top: 1rem;
+	align-self: flex-start;
 }
 
 .example {
+	gap: 0.5rem;
+	padding: 0.3rem 0.5rem;
+	background: $example-gray;
+	padding: 0.5rem 1rem;
+	min-width: 30rem;
+	height: auto;
+	border: 2px dotted $primary-red;
+}
+
+.dragged {
+	border: 3px dotted $primary-red;
 	background: $secondary-gray;
+	opacity: 0.8;
 }

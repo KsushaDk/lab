@@ -1,41 +1,58 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { toggleOptionClick } from 'Utils/toggleOptionClick';
+import { propTypesConst } from 'Constants/propTypesConst';
+import { infoMessage } from 'Constants/constants';
 import { QuestionWrapper } from './QuestionWrapper';
 import { RadioQuestionExample } from './RadioQuestionExample';
 
 export const RadioQuestion = ({
-	questionId,
-	questionType,
+	question,
+	questionNum,
+	index,
+	queries,
+	moveItem,
 	handleRemoveQuestion,
+	handleSaveQuestion,
 }) => {
-	const handleRadioAnswer = (e, options) => {
-		const newOptions = options.map((item) => {
-			if (item.id.toString() === e.currentTarget.id.toString()) {
-				item.checked = !item.checked;
-				item.correct = !item.correct;
-			} else {
-				item.checked = false;
-				item.correct = false;
-			}
-			return item;
-		});
+	const handleRadioAnswer = (id, options) => {
+		const newOptions = toggleOptionClick(options, id, question.type, 'correct');
 
 		return newOptions;
 	};
+
 	return (
 		<QuestionWrapper
-			questionId={questionId}
-			questionType={questionType}
+			question={question}
+			questionNum={questionNum}
+			index={index}
+			queries={queries}
+			moveItem={moveItem}
 			example={<RadioQuestionExample />}
 			handleRemoveQuestion={handleRemoveQuestion}
+			handleSaveQuestion={handleSaveQuestion}
 			handleAnswer={handleRadioAnswer}
-			notification="Выберете правильный вариант ответа."
+			notification={infoMessage.notificationRadio}
 		/>
 	);
 };
 
 RadioQuestion.propTypes = {
-	questionId: PropTypes.string.isRequired,
-	questionType: PropTypes.string.isRequired,
-	handleRemoveQuestion: PropTypes.func.isRequired,
+	question: propTypesConst.question,
+	questionNum: PropTypes.number,
+	index: PropTypes.number,
+	queries: PropTypes.arrayOf(propTypesConst.query),
+	handleRemoveQuestion: PropTypes.func,
+	handleSaveQuestion: PropTypes.func,
+	moveItem: PropTypes.func,
+};
+
+RadioQuestion.defaultProps = {
+	question: {},
+	index: 0,
+	queries: [],
+	questionNum: 0,
+	handleRemoveQuestion: () => {},
+	handleSaveQuestion: () => {},
+	moveItem: () => {},
 };

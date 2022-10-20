@@ -5,7 +5,7 @@
 	@include flex($justify-content: start);
 	flex-wrap: wrap;
 	width: 100%;
-	padding-top: 1.5rem;
+	padding-top: 1rem;
 }
 
 .interview__settings {
@@ -29,6 +29,7 @@
 		padding: 0.5rem 1rem;
 		width: 100%;
 		cursor: pointer;
+		outline-color: $primary-red;
 
 		&:hover {
 			background: $primary-gray;
@@ -39,7 +40,7 @@
 .question {
 	&__head {
 		@include flex;
-		margin-left: auto;
+		width: 100%;
 	}
 
 	&__list {
@@ -61,9 +62,16 @@
 		}
 	}
 
-	&__control_btn {
-		@include flex($justify-content: flex-end);
-		width: 100%;
-		padding: 1rem 0;
+	&__control {
+		&_btn {
+			@include flex($justify-content: flex-end);
+			width: 100%;
+			padding: 1rem 0;
+		}
+
+		&_required {
+			height: 60%;
+			margin-right: auto;
+		}
 	}
 }

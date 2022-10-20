@@ -53,3 +53,23 @@ body {
 .p_info {
 	@include text($font-size: 1rem, $color: $info-gray);
 }
+
+.icon_l {
+	width: 1.6rem;
+	height: 1.6rem;
+}
+
+.icon_m {
+	width: 1.2rem;
+	height: 1.2rem;
+}
+
+.icon_s {
+	width: 0.8rem;
+	height: 0.8rem;
+}
+
+.icon_xs {
+	width: 0.6rem;
+	height: 0.6rem;
+}

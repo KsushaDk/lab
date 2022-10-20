@@ -24,12 +24,8 @@ module.exports = {
 				use: 'html-loader',
 			},
 			{
-				test: /\.css$/i,
-				use: ['style-loader', 'css-loader'],
-			},
-			{
-				test: /\.s(a|c)ss$/,
-				use: ['style-loader', 'css-loader', 'sass-loader'],
+				test: /\.s(a|c)ss|css$/,
+				use: ['style-loader', 'css-loader', 'sass-loader', 'postcss-loader'],
 			},
 			{
 				test: /\.(?:ico|gif|png|jpg|jpeg|svg)$/i,

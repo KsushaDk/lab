@@ -1,9 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { updateInterviews } from 'Redux/slices/interviewSlice';
 import { getNotification } from 'Utils/getNotification';
-import { columnsInterviews } from 'Constants/constants';
-
+import { columnsInterviews, infoMessage } from 'Constants/constants';
+import { propTypesConst } from 'Constants/propTypesConst';
 import { TableWrapper } from '../ui/table/TableWrapper';
 
 export const InterviewTable = ({ interviewData, searchResult }) => {
@@ -11,7 +10,7 @@ export const InterviewTable = ({ interviewData, searchResult }) => {
 		const checkUniqueTitle = interviewData.find((item) => item.title === value);
 
 		if (checkUniqueTitle !== undefined) {
-			getNotification.failed('Название опроса должно быть уникальным');
+			getNotification.failed(infoMessage.uniqueInterviewTitle);
 			return false;
 		}
 
@@ -20,7 +19,7 @@ export const InterviewTable = ({ interviewData, searchResult }) => {
 
 	return (
 		<TableWrapper
-			slice={updateInterviews}
+			storageName="interviews"
 			caption="Мои опросы"
 			total="Всего опросов"
 			columns={columnsInterviews}
@@ -32,26 +31,8 @@ export const InterviewTable = ({ interviewData, searchResult }) => {
 };
 
 InterviewTable.propTypes = {
-	interviewData: PropTypes.arrayOf(
-		PropTypes.shape({
-			id: PropTypes.string,
-			changed: PropTypes.string,
-			answers: PropTypes.number,
-			title: PropTypes.string,
-			link: PropTypes.string,
-			results: PropTypes.string,
-		})
-	).isRequired,
-	searchResult: PropTypes.arrayOf(
-		PropTypes.shape({
-			id: PropTypes.string,
-			changed: PropTypes.string,
-			answers: PropTypes.number,
-			title: PropTypes.string,
-			link: PropTypes.string,
-			results: PropTypes.string,
-		})
-	),
+	interviewData: PropTypes.arrayOf(propTypesConst.interviewDataItem).isRequired,
+	searchResult: PropTypes.arrayOf(propTypesConst.interviewDataItem),
 };
 
 InterviewTable.defaultProps = {

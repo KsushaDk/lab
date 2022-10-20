@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { PrimarySelect } from 'Components/ui/select/PrimarySelect/PrimarySelect';
 
 export const Cell = Object.freeze({
@@ -20,9 +21,9 @@ export const getСellToRender = ({
 	[Cell.Empty]: null,
 	[Cell.Link]: (
 		<td>
-			<a className="link_black" href="/">
-				{value}
-			</a>
+			<Link className="link_black" to={value}>
+				{key === 'link' ? 'опрос' : 'результаты'}
+			</Link>
 		</td>
 	),
 	[Cell.Select]: (

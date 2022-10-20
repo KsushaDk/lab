@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import { ImUser } from 'react-icons/im';
 import { BsBoxArrowRight } from 'react-icons/bs';
-import { useUsers } from 'Hooks/useUsers';
-import { useDispatch } from 'react-redux';
 import { logoutUser } from 'Redux/slices/userSlice';
+import { useUsers } from 'Hooks/useUsers';
 import logo from './logo.svg';
 import './Header.scss';
 
@@ -44,11 +44,11 @@ export const Header = () => {
 					</NavLink>
 				) : (
 					<div className="nav__user">
-						<ImUser className="icon_white" />
+						<ImUser className="icon_white icon_m" />
 						<span className="nav__user_name">
 							Привет, {currentUser.username}!
 						</span>
-						<BsBoxArrowRight className="icon_white" onClick={logout} />
+						<BsBoxArrowRight className="icon_white icon_l" onClick={logout} />
 					</div>
 				)}
 			</nav>
