@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { BsX, BsCheck } from 'react-icons/bs';
 import { getOptionToRender } from 'Constants/OptionType';
@@ -16,6 +16,12 @@ export const ActionInput = ({
 	handleCorrect,
 	handleOnChangeField,
 }) => {
+	const handleOnkeyDown = useCallback((e) => {
+		e.key === 'Enter' && handleCorrect(option.id);
+	});
+
+	const handleOnClick = useCallback(() => handleCorrect(option.id));
+
 	if (idToEdit === currentId || question === null) {
 		return (
 			<>
@@ -26,8 +32,8 @@ export const ActionInput = ({
 						}
 						role="button"
 						tabIndex={0}
-						onKeyDown={(e) => e.key === 'Enter' && handleCorrect(option.id)}
-						onClick={() => handleCorrect(option.id)}
+						onKeyDown={handleOnkeyDown}
+						onClick={handleOnClick}
 					/>
 				)}
 

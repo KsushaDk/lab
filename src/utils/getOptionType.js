@@ -1,7 +1,7 @@
 import { Option } from '../constants/OptionType';
 
 export const getOptionType = (type) => {
-	let optionType = '';
+	let optionType = 0;
 
 	switch (type) {
 		case 'text':

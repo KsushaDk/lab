@@ -1,9 +1,8 @@
 export const checkRequeredField = (questions) =>
 	questions
-		.map((question) => {
-			if (question.required) {
-				return !!question.options.find((option) => option.checked === true);
-			}
-			return true;
-		})
+		.map((question) =>
+			question.required
+				? question.options.some((option) => option.checked === true)
+				: true
+		)
 		.includes(false);

@@ -55,9 +55,9 @@ export const interviewResultMessage = {
 };
 
 export const infoMessage = {
-	requiredField: 'Все обязательные поля должны быть заполнены',
-	notEmptyField: 'Упс, поле не может быть пустым',
-	fillEmptyField: 'Заполните пустые поля',
+	requiredField: 'Все обязательные поля должны быть заполнены.',
+	notEmptyField: 'Упс, поле не может быть пустым.',
+	fillEmptyField: 'Заполните пустые поля.',
 	enterCorrectAnswer: 'Введите правильный ответ...',
 	addAnswer: 'Добавить ответ...',
 	enterAnswer: 'Введите вариант ответа...',
@@ -66,10 +66,11 @@ export const infoMessage = {
 	saveAnswer: 'Ответ сохранен.',
 	saveInterview: 'Опрос успешно сохранен!',
 	deleteInterview: 'Опрос удален!',
-	uniqueInterviewTitle: 'Название опроса должно быть уникальным',
+	uniqueInterviewTitle: 'Название опроса должно быть уникальным.',
 	notificationCheckbox: 'Выберете правильные варианты ответа.',
 	notificationRadio: 'Выберете правильный вариант ответа.',
 	noSearchResult: 'Ничего не найдено, попробуйте еще раз.',
+	noInterviews: 'Ни одного опроса еще не создано.',
 	fetchSuccess: 'Данные успешно загружены!',
 	fetchFailed: 'Что-то пошло не так...',
 	fetchEror: 'Error in request. Error status:',

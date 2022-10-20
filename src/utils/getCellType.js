@@ -1,7 +1,8 @@
 import { Cell } from '../constants/CellType';
 
 export const getCellType = (cellName) => {
-	let cellType = '';
+	let cellType = 0;
+
 	switch (cellName) {
 		case 'id':
 		case 'email':

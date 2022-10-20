@@ -3,9 +3,5 @@ export const checkQueryForQuestion = (queries, key) => {
 		(query) => query.key === key && query.checked === true
 	);
 
-	if (checkQuery) {
-		return true;
-	}
-
-	return false;
+	return !!checkQuery;
 };

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { PrimaryBtn } from 'Components/ui/button/PrimaryBtn/PrimaryBtn';
 import { SearchForm } from 'Components/ui/form/SearchForm/SearchForm';
 import { InterviewTable } from 'Components/InterviewTable/InterviewTable';
-import { Loader } from 'Components/Loader/Loader';
+import { infoMessage } from 'Constants/constants';
 import { getSearchResult } from 'Utils/getSearchResult';
 import { getFromLSByKey } from 'Utils/funcForLSByKey';
 
@@ -23,10 +23,7 @@ export const InterviewListPage = () => {
 
 	useEffect(() => {
 		const interviews = getFromLSByKey('interviews');
-
-		if (interviews !== null) {
-			setInterviewData([...interviews]);
-		}
+		interviews && setInterviewData([...interviews]);
 	}, []);
 
 	return (
@@ -37,8 +34,8 @@ export const InterviewListPage = () => {
 				/>
 				<SearchForm handleSubmit={handleSubmit} />
 			</div>
-			{interviewData === null ? (
-				<Loader />
+			{!interviewData ? (
+				<h2 className="title_s">{infoMessage.noInterviews}</h2>
 			) : (
 				<InterviewTable
 					interviewData={interviewData}

@@ -1,18 +1,10 @@
 import React, { useState, useRef } from 'react';
 import { Editor, EditorState, RichUtils, getDefaultKeyBinding } from 'draft-js';
+import { styleMap } from 'Constants/textEditorConstants';
 import { BlockStyleControls } from './BlockStyleControls ';
 import { InlineStyleControls } from './InlineStyleControls';
 import 'draft-js/dist/Draft.css';
 import './PrimaryTextEditor.scss';
-
-const styleMap = {
-	CODE: {
-		backgroundColor: 'rgba(0, 0, 0, 0.05)',
-		fontFamily: '"Inconsolata", "Menlo", "Consolas", monospace',
-		fontSize: 16,
-		padding: 2,
-	},
-};
 
 export const PrimaryTextEditor = () => {
 	const [editorState, setEditorState] = useState(() =>
