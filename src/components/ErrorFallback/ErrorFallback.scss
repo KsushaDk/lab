@@ -1,0 +1,5 @@
+@import 'Scss/mixins.scss';
+
+.error_fallback__wrapper {
+	@include flex($flex-direction: column, $align-items: start, $gap: 0.5rem);
+}

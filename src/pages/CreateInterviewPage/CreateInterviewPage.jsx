@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import { ErrorBoundary } from 'react-error-boundary';
 import { InterviewQueryList } from 'Components/InterviewQueryList/InterviewQueryList';
 import { InterviewQuestionList } from 'Components/InterviewQuestionList/InterviewQuestionList';
 import { SaveCancelActionBtns } from 'Components/ActionItems/SaveCancelActionBtns';
 import { QuestionTypeList } from 'Components/QuestionTypeList/QuestionTypeList';
 import { InterviewInfo } from 'Components/InterviewInfo/InterviewInfo';
+import { ErrorFallback } from 'Components/ErrorFallback/ErrorFallback';
 import { interviewQuery } from 'Constants/constants';
 import { addDefaultValue } from 'Utils/addDefaultValue';
 import { getNotification } from 'Utils/getNotification';
@@ -116,7 +118,7 @@ const CreateInterviewPage = () => {
 	return (
 		<section className="content">
 			{interview && (
-				<>
+				<ErrorBoundary FallbackComponent={ErrorFallback}>
 					<div className="content__head">
 						<h2 className="title_m">{t('createInterview.title')}</h2>
 						{/* <div>{t('createInterview.date', { date: new Date() })}</div> */}
@@ -154,7 +156,7 @@ const CreateInterviewPage = () => {
 							/>
 						</aside>
 					</div>
-				</>
+				</ErrorBoundary>
 			)}
 		</section>
 	);

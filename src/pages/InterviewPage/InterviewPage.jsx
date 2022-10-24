@@ -1,10 +1,12 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import { ErrorBoundary } from 'react-error-boundary';
 import { useTranslation } from 'react-i18next';
 import { BsAsterisk } from 'react-icons/bs';
 import { SecondaryInput } from 'Components/ui/input/SecondaryInput/SecondaryInput';
 import { SaveCancelActionBtns } from 'Components/ActionItems/SaveCancelActionBtns';
 import { PrimaryDropDown } from 'Components/ui/dropdown/PrimaryDropDown';
+import { ErrorFallback } from 'Components/ErrorFallback/ErrorFallback';
 import { ProgressBar } from 'Components/ui/progressbar/ProgressBar';
 import { useUsers } from 'Hooks/useUsers';
 import { getOptionToRender } from 'Constants/OptionType';
@@ -131,7 +133,7 @@ const InterviewPage = () => {
 	return (
 		<section className="content_center">
 			{interview && (
-				<>
+				<ErrorBoundary FallbackComponent={ErrorFallback}>
 					<div className="btn_group">
 						<SaveCancelActionBtns
 							handleSaveEditing={() => handleSaveCancelAnswers('save')}
@@ -194,7 +196,7 @@ const InterviewPage = () => {
 							percent={percent}
 						/>
 					)}
-				</>
+				</ErrorBoundary>
 			)}
 		</section>
 	);
