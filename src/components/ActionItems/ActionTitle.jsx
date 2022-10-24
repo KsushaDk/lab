@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { infoMessage } from 'Constants/constants';
+import { useTranslation } from 'react-i18next';
 import { checkQueryForQuestion } from 'Utils/checkQueryForQuestion';
 import { SecondaryInput } from '../ui/input/SecondaryInput/SecondaryInput';
 
@@ -15,6 +15,8 @@ export const ActionTitle = ({
 }) => {
 	const [showNumber, setShowNumber] = useState(false);
 
+	const { t } = useTranslation();
+
 	useEffect(() => {
 		const number = checkQueryForQuestion(queries, 'questionNum');
 		setShowNumber(number);
@@ -27,7 +29,7 @@ export const ActionTitle = ({
 			<SecondaryInput
 				name="question"
 				id={currentId}
-				placeholder={infoMessage.enterQuestion}
+				placeholder={t('infoMessage.enterQuestion')}
 				defaultValue={defaultValue}
 				handleBlur={handleOnChangeField}
 			/>

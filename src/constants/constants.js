@@ -9,90 +9,41 @@ import {
 	// BsBatteryHalf,
 } from 'react-icons/bs';
 
+export const lngs = {
+	en: { nativeName: 'English' },
+	ru: { nativeName: 'Russian' },
+};
+
 export const labels = [
-	'О нас',
-	'Обучение',
-	'Бенефиты',
-	'Для студентов',
-	'Наши преимущества',
-	'Вакансии',
-	'Контакты',
+	'aboutUs',
+	'studying',
+	'benefits',
+	'forStudents',
+	'advantages',
+	'jobs',
+	'contacts',
 ];
 
 export const btnValues = [
-	{ value: 'Новый опрос', link: 'create' },
-	{ value: 'Мои опросы', link: 'interviews' },
-	{ value: 'Шаблоны опросов', link: 'templates' },
-	{ value: 'Пользователи', link: 'users' },
+	{ key: 'newInterview', link: 'create' },
+	{ key: 'myInterviews', link: 'interviews' },
+	{ key: 'interviewTemplates', link: 'templates' },
+	{ key: 'users', link: 'users' },
 ];
 
 export const dammyText =
 	'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolorem, excepturi deleniti, ducimus debitis aliquid sit magnam enim atque tempora. Lorem ipsum dolor sit amet consectetur adipisicing elit. Error quo, nulla, sequi magni eaque a, velit perferendis illo cum repellat voluptas impedit cupiditate vel expedita labore minus voluptatibus tenetur odit.';
-
-export const errMessages = {
-	minLength: {
-		username: 'Name must have at least 4 characters',
-		password: 'Password must have at least 8 characters',
-	},
-	maxLength: {
-		username: 'Name must have less than 20 characters',
-		password: 'Password must have less than 15 characters',
-	},
-	notEmptyField: 'The field can not be empty',
-	emailErr: 'Invalid email',
-	emailUniqueErr: 'This email already exists',
-	passErr:
-		'Password must have a number, a special character and lowercase/uppercase letters',
-	notMatchPass: 'The passwords do not match',
-	incorrectEmail: 'Email is incorrect',
-	incorrectPass: 'Check your email or password',
-};
-
-export const interviewResultMessage = {
-	save: 'Поздравляем, Ваши ответы сохранены! Если Вам интересно пройти другие тесты, кликайте',
-	cancel:
-		'Ваши ответы удалены. Если Вам интересно пройти другие тесты, кликайте',
-};
-
-export const infoMessage = {
-	requiredField: 'Все обязательные поля должны быть заполнены.',
-	notEmptyField: 'Упс, поле не может быть пустым.',
-	fillEmptyField: 'Заполните пустые поля.',
-	enterCorrectAnswer: 'Введите правильный ответ...',
-	addAnswer: 'Добавить ответ...',
-	enterAnswer: 'Введите вариант ответа...',
-	enterQuestion: 'Введите вопрос...',
-	enterInterviewTitle: 'Введите название опроса.',
-	saveAnswer: 'Ответ сохранен.',
-	saveInterview: 'Опрос успешно сохранен!',
-	deleteInterview: 'Опрос удален!',
-	uniqueInterviewTitle: 'Название опроса должно быть уникальным.',
-	notificationCheckbox: 'Выберете правильные варианты ответа.',
-	notificationRadio: 'Выберете правильный вариант ответа.',
-	noSearchResult: 'Ничего не найдено, попробуйте еще раз.',
-	noInterviews: 'Ни одного опроса еще не создано.',
-	fetchSuccess: 'Данные успешно загружены!',
-	fetchFailed: 'Что-то пошло не так...',
-	fetchEror: 'Error in request. Error status:',
-	deleteSuccess: 'Успешно удалено!',
-	saveSuccess: 'Успешно сохранено!',
-	enterUserAnswer: 'Введите ваш ответ...',
-};
-
-export const modalMessage = {
-	submitSave: 'Вы действительно хотите сохранить изменения?',
-};
 
 export const regEmail =
 	/^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@(gmail|yahoo)+(\.com)$/gm;
 export const regPass = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])/;
 
 export const columnsUsers = [
-	{ field: 'username', fieldName: 'Имя' },
-	{ field: 'role', fieldName: 'Роль' },
-	{ field: 'registered', fieldName: 'Зарегистрирован' },
-	{ field: 'interviews', fieldName: 'Опросы' },
-	{ field: 'actions', fieldName: 'Действия' },
+	{ key: 'username' },
+	{ key: 'role' },
+	{ key: 'registered' },
+	{ key: 'interviews' },
+	{ key: 'actions' },
 ];
 
 export const dataUsers = [
@@ -189,12 +140,12 @@ export const dataUsers = [
 ];
 
 export const columnsInterviews = [
-	{ field: 'title', fieldName: 'Название' },
-	{ field: 'changed', fieldName: 'Изменен' },
-	{ field: 'answers', fieldName: 'Ответы' },
-	{ field: 'link', fieldName: 'Ссылка' },
-	{ field: 'results', fieldName: 'Результаты' },
-	{ field: 'actions', fieldName: 'Действия' },
+	{ key: 'title' },
+	{ key: 'changed' },
+	{ key: 'answers' },
+	{ key: 'link' },
+	{ key: 'results' },
+	{ key: 'actions' },
 ];
 
 export const dataInterviews = [
@@ -254,37 +205,37 @@ export const dataTemplates = [
 export const questionTypeList = [
 	{
 		id: uuidv4(),
-		title: 'Варианты ответа (один)',
+		key: 'singleQuestion',
 		type: 'radio',
 		icon: <BsListUl className="icon_black icon_l" />,
 	},
 	{
 		id: uuidv4(),
-		title: 'Варианты ответа (несколько)',
+		key: 'multiQuestion',
 		type: 'checkbox',
 		icon: <BsListOl className="icon_black icon_l" />,
 	},
 	{
 		id: uuidv4(),
-		title: 'Текст',
+		key: 'textQuestion',
 		type: 'text',
 		icon: <BsTextareaT className="icon_black icon_l" />,
 	},
 	// {
 	// 	id: uuidv4(),
-	// 	title: 'Файл',
+	// key: 'fileQuestion',
 	// 	type: 'file',
 	// 	icon: <BsFileEarmarkFill className="icon_black icon_l" />,
 	// },
 	// {
 	// 	id: uuidv4(),
-	// 	title: 'Рейтинг в звездах',
+	// key: 'ratingQuestion',
 	// 	type: 'rating',
 	// 	icon: <BsStar className="icon_black icon_l" />,
 	// },
 	// {
 	// 	id: uuidv4(),
-	// 	title: 'Шкала',
+	// key: 'scaleQuestion',
 	// 	type: 'scale',
 	// 	icon: <BsBatteryHalf className="icon_black icon_l" />,
 	// },
@@ -324,37 +275,31 @@ export const interviewQuery = [
 	{
 		id: uuidv4(),
 		key: 'anonymousInterview',
-		title: 'Анонимный опрос',
 		checked: false,
 	},
 	{
 		id: uuidv4(),
 		key: 'questionNum',
-		title: 'Номера вопросов',
 		checked: false,
 	},
 	// {
 	// 	id: uuidv4(),
 	// key: 'pageNum',
-	// 	title: 'Номера страниц',
 	// 	checked: false,
 	// },
 	{
 		id: uuidv4(),
 		key: 'randomQuestionOrder',
-		title: 'Случайный порядок вопросов',
 		checked: false,
 	},
 	{
 		id: uuidv4(),
 		key: 'requiredFields',
-		title: 'Звездочки обязательных полей',
 		checked: false,
 	},
 	{
 		id: uuidv4(),
 		key: 'progressBar',
-		title: 'Индикатор выполнения',
 		checked: false,
 	},
 ];

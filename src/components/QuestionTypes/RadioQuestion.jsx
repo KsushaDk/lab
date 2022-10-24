@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { useTranslation } from 'react-i18next';
 import { toggleOptionClick } from 'Utils/toggleOptionClick';
 import { propTypesConst } from 'Constants/propTypesConst';
-import { infoMessage } from 'Constants/constants';
 import { QuestionWrapper } from './QuestionWrapper';
 import { RadioQuestionExample } from './RadioQuestionExample';
 
@@ -15,6 +15,8 @@ export const RadioQuestion = ({
 	handleRemoveQuestion,
 	handleSaveQuestion,
 }) => {
+	const { t } = useTranslation();
+
 	const handleRadioAnswer = (id, options) => {
 		const newOptions = toggleOptionClick(options, id, question.type, 'correct');
 
@@ -32,7 +34,7 @@ export const RadioQuestion = ({
 			handleRemoveQuestion={handleRemoveQuestion}
 			handleSaveQuestion={handleSaveQuestion}
 			handleAnswer={handleRadioAnswer}
-			notification={infoMessage.notificationRadio}
+			notification={t('infoMessage.notificationRadio')}
 		/>
 	);
 };

@@ -1,8 +1,8 @@
 import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
+import { useTranslation } from 'react-i18next';
 import { BsX, BsCheck } from 'react-icons/bs';
 import { getOptionToRender } from 'Constants/OptionType';
-import { infoMessage } from 'Constants/constants';
 import { getOptionType } from 'Utils/getOptionType';
 import { SecondaryInput } from '../ui/input/SecondaryInput/SecondaryInput';
 
@@ -16,6 +16,8 @@ export const ActionInput = ({
 	handleCorrect,
 	handleOnChangeField,
 }) => {
+	const { t } = useTranslation();
+
 	const handleOnkeyDown = useCallback((e) => {
 		e.key === 'Enter' && handleCorrect(option.id);
 	});
@@ -42,8 +44,8 @@ export const ActionInput = ({
 					id={option.id}
 					placeholder={
 						type === 'text'
-							? infoMessage.enterCorrectAnswer
-							: infoMessage.enterAnswer
+							? t('infoMessage.enterCorrectAnswer')
+							: t('infoMessage.enterAnswer')
 					}
 					defaultValue={option.title}
 					handleBlur={handleOnChangeField}

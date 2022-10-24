@@ -1,9 +1,10 @@
 import React, { useEffect, useState, useCallback, useRef } from 'react';
 import PropTypes from 'prop-types';
+import { useTranslation } from 'react-i18next';
 import { useDrag, useDrop } from 'react-dnd';
 import { BsPlusSquare, BsInfo, BsCheck2 } from 'react-icons/bs';
 import { propTypesConst } from 'Constants/propTypesConst';
-import { DragDropItem, infoMessage } from 'Constants/constants';
+import { DragDropItem } from 'Constants/constants';
 import { checkQueryForQuestion } from 'Utils/checkQueryForQuestion';
 import { validateOptionsState } from 'Utils/validateOptionsState';
 import { removeFromArrByID } from 'Utils/removeFromArrByID';
@@ -32,6 +33,8 @@ export const QuestionWrapper = ({
 }) => {
 	const [current, setCurrent] = useState(question);
 	const [isRequired, setRequired] = useState(false);
+
+	const { t } = useTranslation();
 
 	const ref = useRef(null);
 
@@ -90,7 +93,8 @@ export const QuestionWrapper = ({
 	const saveCb = (edited) => {
 		const validatedOptions = validateOptionsState(
 			current.options,
-			notification
+			notification,
+			t('infoMessage.fillEmptyField')
 		);
 
 		if (validatedOptions) {
@@ -124,7 +128,7 @@ export const QuestionWrapper = ({
 			options: newOptions,
 		});
 
-		getNotification.success(infoMessage.saveAnswer);
+		getNotification.success(t('infoMessage.saveAnswer'));
 	};
 
 	const handleOnAddField = useCallback(() => {
@@ -209,7 +213,9 @@ export const QuestionWrapper = ({
 				currentNum={questionNum}
 				defaultValue={editedItem ? editedItem.question : current?.question}
 				title={
-					current.question === '' ? infoMessage.enterQuestion : current.question
+					current.question === ''
+						? t('infoMessage.enterQuestion')
+						: current.question
 				}
 				handleOnChangeField={handleOnChangeField}
 			/>
@@ -245,7 +251,7 @@ export const QuestionWrapper = ({
 						onClick={handleOnAddField}
 					>
 						<IconBtn btnIcon={<BsPlusSquare />} />
-						{infoMessage.addAnswer}
+						{t('infoMessage.addAnswer')}
 					</li>
 				)}
 			</ul>

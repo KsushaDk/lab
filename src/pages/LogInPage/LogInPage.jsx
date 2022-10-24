@@ -2,10 +2,10 @@ import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import { PrimaryInput } from 'Components/ui/input/PrimaryInput/PrimaryInput';
 import { SubmitInput } from 'Components/ui/input/SubmitInput/SubmitInput';
 import { PrimaryForm } from 'Components/ui/form/PrimaryForm/PrimaryForm';
-import { errMessages } from 'Constants/constants';
 import { useUsers } from 'Hooks/useUsers';
 import { loginUser } from 'Redux/slices/userSlice';
 import './LogInPage.scss';
@@ -13,6 +13,8 @@ import './LogInPage.scss';
 export const LogInPage = () => {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
+
+	const { t } = useTranslation();
 
 	const {
 		register,
@@ -38,18 +40,21 @@ export const LogInPage = () => {
 	};
 
 	return (
-		<PrimaryForm title="Вход" handleSubmit={() => handleSubmit(onSubmit)}>
+		<PrimaryForm
+			title={t('logInForm.title')}
+			handleSubmit={() => handleSubmit(onSubmit)}
+		>
 			<PrimaryInput
 				type="text"
 				name="email"
-				placeholder="Enter your email..."
+				placeholder={t('logInForm.enterEmail')}
 				autoComplete="on"
 				register={register}
 				rules={{
-					required: errMessages.notEmptyField,
+					required: t('validationErrMessages.notEmptyField'),
 					validate: (value) => {
 						const currentUser = users.find((user) => user.email === value);
-						return currentUser || errMessages.incorrectEmail;
+						return currentUser || t('validationErrMessages.incorrectEmail');
 					},
 				}}
 				errors={errors}
@@ -57,18 +62,18 @@ export const LogInPage = () => {
 			<PrimaryInput
 				type="password"
 				name="password"
-				placeholder="Enter your password..."
+				placeholder={t('logInForm.enterPass')}
 				autoComplete="off"
 				register={register}
 				rules={{
-					required: errMessages.notEmptyField,
+					required: t('validationErrMessages.notEmptyField'),
 					validate: (value) => {
 						const currentUser = users.find(
 							(user) => user.email === getValues('email')
 						);
 						return (
 							(currentUser && currentUser.password === value) ||
-							errMessages.incorrectPass
+							t('validationErrMessages.incorrectPass')
 						);
 					},
 				}}
@@ -77,10 +82,10 @@ export const LogInPage = () => {
 
 			<div className="login__form_help-block">
 				<Link className="link_black" to="/signup">
-					Регистрация
+					{t('signUpForm.title')}
 				</Link>
 				<a className="link_black" href="/">
-					Забыли пароль?
+					{t('logInForm.forgotPass')}
 				</a>
 			</div>
 

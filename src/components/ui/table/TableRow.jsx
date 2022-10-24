@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { ImPencil, ImBin } from 'react-icons/im';
 import { BsXSquare, BsCheckSquare, BsCaretDownFill } from 'react-icons/bs';
 import { useDispatch } from 'react-redux';
 import { propTypesConst } from 'Constants/propTypesConst';
-import { modalMessage } from 'Constants/constants';
 import { setModalState } from 'Redux/slices/modalSlice';
 import { PrimaryDropDown } from '../dropdown/PrimaryDropDown';
 import { IconBtn } from '../button/IconBtn/IconBtn';
@@ -23,6 +23,8 @@ export const TableRow = ({
 	handleRemove,
 }) => {
 	const dispatch = useDispatch();
+
+	const { t } = useTranslation();
 
 	return (
 		<tr>
@@ -45,8 +47,8 @@ export const TableRow = ({
 							dispatch(
 								setModalState({
 									isActive: true,
-									message: modalMessage.submitSave,
-									btnValues: ['Сохранить', 'Отмена'],
+									message: t('infoMessage.submitSave'),
+									btnValues: [t('btnValues.save'), t('btnValues.cancel')],
 									isSubmitted: false,
 								})
 							);
@@ -73,7 +75,7 @@ export const TableRow = ({
 					/>
 				)}
 
-				{total.includes('опросов') && (
+				{total.includes(t('interviewTable.total')) && (
 					<PrimaryDropDown trigger={<IconBtn btnIcon={<BsCaretDownFill />} />}>
 						<Link className="dropdown__content_link" to="/home/create">
 							Copy

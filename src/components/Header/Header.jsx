@@ -2,15 +2,19 @@ import React from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { ImUser } from 'react-icons/im';
+import { useTranslation } from 'react-i18next';
 import { BsBoxArrowRight } from 'react-icons/bs';
 import { logoutUser } from 'Redux/slices/userSlice';
 import { useUsers } from 'Hooks/useUsers';
+import { LngSwitcher } from '../LngSwitcher/LngSwitcher';
 import logo from './logo.svg';
 import './Header.scss';
 
 export const Header = () => {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
+
+	const { t } = useTranslation();
 
 	const { currentUser } = useUsers();
 
@@ -31,8 +35,9 @@ export const Header = () => {
 						isActive ? 'active link_white' : 'link_white'
 					}
 				>
-					О компании
+					{t('header.about')}
 				</NavLink>
+
 				{currentUser === null ? (
 					<NavLink
 						to="/"
@@ -40,17 +45,18 @@ export const Header = () => {
 							isActive ? 'active link_white' : 'link_white'
 						}
 					>
-						Вход
+						{t('header.logIn')}
 					</NavLink>
 				) : (
 					<div className="nav__user">
 						<ImUser className="icon_white icon_m" />
 						<span className="nav__user_name">
-							Привет, {currentUser.username}!
+							{t('header.greeting')}, {currentUser.username}!
 						</span>
 						<BsBoxArrowRight className="icon_white icon_l" onClick={logout} />
 					</div>
 				)}
+				<LngSwitcher />
 			</nav>
 		</header>
 	);

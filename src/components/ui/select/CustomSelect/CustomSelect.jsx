@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { useTranslation } from 'react-i18next';
 import { BsChevronUp, BsChevronDown, BsX } from 'react-icons/bs';
 import { propTypesConst } from 'Constants/propTypesConst';
-import { infoMessage } from 'Constants/constants';
 import { useDebounce } from 'Hooks/useDebounce';
 import { selectElByKeyDown } from 'Utils/selectElByKeyDown';
 import { toggleValueByKey } from 'Utils/toggleValueByKey';
 import { getSearchResult } from 'Utils/getSearchResult';
 import { findInArrByID } from 'Utils/findInArrByID';
+import { CheckboxInput } from '../../input/CheckboxInput/CheckboxInput';
 import { Loader } from '../../../Loader/Loader';
 import { IconBtn } from '../../button/IconBtn/IconBtn';
-import { CheckboxInput } from '../../input/CheckboxInput/CheckboxInput';
 import './CustomSelect.scss';
 
 export const CustomSelect = ({ data, multi }) => {
@@ -19,6 +19,8 @@ export const CustomSelect = ({ data, multi }) => {
 	const [isOptionOpen, setIsOptionOpen] = useState(false);
 	const [selectedOption, setSelectedOption] = useState(null);
 	const [search, setSearch] = useState('');
+
+	const { t } = useTranslation();
 
 	const debouncedSearch = useDebounce(search, 500);
 
@@ -106,7 +108,9 @@ export const CustomSelect = ({ data, multi }) => {
 					) : (
 						<ul className="select__options" role="menu">
 							{options.length === 0 ? (
-								<li className="select__option">{infoMessage.noSearchResult}</li>
+								<li className="select__option">
+									{t('infoMessage.noSearchResult')}
+								</li>
 							) : (
 								options.map((option, index) => (
 									<li

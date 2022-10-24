@@ -1,13 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { useTranslation } from 'react-i18next';
 import './InterviewInfo.scss';
 
-export const InterviewInfo = ({ questions, pages }) => (
-	<div className="interview__info">
-		<p className="p_secondary">Вопросов&#x3a; {questions}</p>
-		<p className="p_secondary">Страниц&#x3a; {pages}</p>
-	</div>
-);
+export const InterviewInfo = ({ questions, pages }) => {
+	const { t } = useTranslation();
+
+	return (
+		<div className="interview__info">
+			<p className="p_secondary">
+				{t('createInterview.infoQuestion')}&#x3a; {questions}
+			</p>
+			<p className="p_secondary">
+				{t('createInterview.infoPages')}&#x3a; {pages}
+			</p>
+		</div>
+	);
+};
 
 InterviewInfo.propTypes = {
 	questions: PropTypes.number.isRequired,

@@ -1,0 +1,138 @@
+{
+	"header": {
+		"about": "О компании",
+		"logIn": "Вход",
+		"greeting": "Привет"
+	},
+	"logInForm": {
+		"title": "Вход",
+		"enterEmail": "Введите логин...",
+		"enterPass": "Введите пароль...",
+		"forgotPass": "Забыли пароль?"
+	},
+	"signUpForm": {
+		"title": "Регистрация",
+		"enterUsername": "Введите свое имя...",
+		"repeatPass": "Повторите пароль..."
+	},
+	"validationErrMessages": {
+		"minLength": {
+			"username": "Длина имени должна быть как минимум 4 символа",
+			"password": "Длина пароля должна быть как минимум 8 символов"
+		},
+		"maxLength": {
+			"username": "Длина имени должна быть не более 20 символов",
+			"password": "Длина пароля должна быть не более 15 символов"
+		},
+		"notEmptyField": "Поле не может быть пустым",
+		"emailErr": "Неправильный email",
+		"emailUniqueErr": "Этот email уже существует",
+		"passErr": "Пароль должен иметь как минимум одну цифру, одну букву верхнего и нижнего регистра, один специальный символ",
+		"notMatchPass": "Пароли не совпадают",
+		"incorrectEmail": "Неправильный email",
+		"incorrectPass": "Неправильный пароль"
+	},
+	"btnValues": {
+		"cancel": "Отмена",
+		"save": "Сохранить",
+		"ok": "Ок",
+		"send": "Отправить",
+		"newInterview": "Новый опрос",
+		"createInterview": "Создать опрос",
+		"myInterviews": "Мои опросы",
+		"interviewTemplates": "Шаблоны опросов",
+		"users": "Пользователи"
+	},
+	"tabBarLabels": {
+		"aboutUs": "О нас",
+		"studying": "Обучение",
+		"benefits": "Бенефиты",
+		"forStudents": "Для студентов",
+		"advantages": "Наши преимущества",
+		"jobs": "Вакансии",
+		"contacts": "Контакты"
+	},
+	"createInterview": {
+		"title": "Новый опрос",
+		"placeholderName": "Опрос номер...",
+		"infoQuestion": "Вопросов",
+		"infoPages": "Страниц",
+		"date": "{{date, DATE_HUGE}}"
+	},
+	"interviewPage": {
+		"title": "Опрос"
+	},
+	"interviewTemplates": {
+		"title": "Шаблоны",
+		"total": "Всего шаблонов"
+	},
+	"interviewQueries": {
+		"title": "Параметры опроса",
+		"anonymousInterview": "Анонимный опрос",
+		"questionNum": "Номера вопросов",
+		"pageNum": "Номера страниц",
+		"randomQuestionOrder": "Случайный порядок вопросов",
+		"requiredFields": "Звездочки обязательных полей",
+		"progressBar": "Индикатор выполнения",
+		"required": "Обязательный"
+	},
+	"questionTypes": {
+		"title": "Тип вопроса",
+		"singleQuestion": "Варианты ответа (один)",
+		"multiQuestion": "Варианты ответа (несколько)",
+		"textQuestion": "Текст",
+		"fileQuestion": "Файл",
+		"rationQuestion": "Рейтинг в звездах",
+		"scaleQuestion": "Шкала"
+	},
+	"infoMessage": {
+		"requiredField": "Все обязательные поля должны быть заполнены.",
+		"notEmptyField": "Упс, поле не может быть пустым.",
+		"fillEmptyField": "Заполните пустые поля.",
+		"enterCorrectAnswer": "Введите правильный ответ...",
+		"addAnswer": "Добавить ответ...",
+		"enterAnswer": "Введите вариант ответа...",
+		"enterQuestion": "Введите вопрос...",
+		"enterInterviewTitle": "Введите название опроса.",
+		"saveAnswer": "Ответ сохранен.",
+		"saveInterview": "Опрос успешно сохранен!",
+		"deleteInterview": "Опрос удален!",
+		"uniqueInterviewTitle": "Название опроса должно быть уникальным.",
+		"notificationCheckbox": "Выберете правильные варианты ответа.",
+		"notificationRadio": "Выберете правильный вариант ответа.",
+		"noSearchResult": "Ничего не найдено, попробуйте еще раз.",
+		"noInterviews": "Ни одного опроса еще не создано.",
+		"fetchSuccess": "Данные успешно загружены!",
+		"fetchFailed": "Что-то пошло не так...",
+		"fetchEror": "Ошибка в запросе на сервер. Номер ошибки:",
+		"deleteSuccess": "Успешно удалено!",
+		"saveSuccess": "Успешно сохранено!",
+		"enterUserAnswer": "Введите ваш ответ...",
+		"saveInterviewAnswers": "Поздравляем, Ваши ответы сохранены! Если Вам интересно пройти другие тесты, кликайте",
+		"cancelInterviewAnswers": "Ваши ответы удалены. Если Вам интересно пройти другие тесты, кликайте",
+		"submitSave": "Вы действительно хотите сохранить изменения?",
+		"here": "сюда",
+		"requiredQuestion": "Обязательный вопрос",
+		"notAccess": "У вас нет доступа к этой странице!"
+	},
+	"interviewTable": {
+		"caption": "Мои опросы",
+		"total": "Всего опросов"
+	},
+	"userTable": {
+		"caption": "Пользователи",
+		"total": "Всего пользователей"
+	},
+	"tableColumns": {
+		"username": "Имя",
+		"role": "Роль",
+		"registered": "Зарегистрирован",
+		"interviews": "Опросы",
+		"actions": "Действия",
+		"title": "Название",
+		"changed": "Изменен",
+		"link": "Ссылка",
+		"answers": "Ответы",
+		"results": "Результаты"
+	}
+}
