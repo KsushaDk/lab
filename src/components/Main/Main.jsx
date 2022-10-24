@@ -2,13 +2,22 @@ import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { PublicPath } from 'Hoc/PublicPath';
 import { AdminPath } from 'Hoc/AdminPath';
-import { InterviewTemplatesPage } from 'Pages/InterviewTemplatesPage/InterviewTemplatesPage';
-import { CreateInterviewPage } from 'Pages/CreateInterviewPage/CreateInterviewPage';
-import { InterviewListPage } from 'Pages/InterviewListPage/InterviewListPage';
-import { UserListPage } from 'Pages/UserListPage/UserListPage';
-import { AboutPage } from 'Pages/AboutPage/AboutPage';
 import { Sidebar } from '../Sidebar/Sidebar';
 import './Main.scss';
+
+const AboutPage = React.lazy(() => import('Pages/AboutPage/AboutPage'));
+const UserListPage = React.lazy(() =>
+	import('Pages/UserListPage/UserListPage')
+);
+const InterviewListPage = React.lazy(() =>
+	import('Pages/InterviewListPage/InterviewListPage')
+);
+const CreateInterviewPage = React.lazy(() =>
+	import('Pages/CreateInterviewPage/CreateInterviewPage')
+);
+const InterviewTemplatesPage = React.lazy(() =>
+	import('Pages/InterviewTemplatesPage/InterviewTemplatesPage')
+);
 
 export const Main = () => (
 	<PublicPath>

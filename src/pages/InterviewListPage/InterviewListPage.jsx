@@ -6,7 +6,7 @@ import { InterviewTable } from 'Components/InterviewTable/InterviewTable';
 import { getSearchResult } from 'Utils/getSearchResult';
 import { getFromLSByKey } from 'Utils/funcForLSByKey';
 
-export const InterviewListPage = () => {
+const InterviewListPage = () => {
 	const [interviewData, setInterviewData] = useState(null);
 	const [searchResult, setSearchResult] = useState(null);
 
@@ -47,3 +47,5 @@ export const InterviewListPage = () => {
 		</section>
 	);
 };
+
+export default InterviewListPage;

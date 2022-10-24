@@ -5,7 +5,6 @@ import { InterviewQuestionList } from 'Components/InterviewQuestionList/Intervie
 import { SaveCancelActionBtns } from 'Components/ActionItems/SaveCancelActionBtns';
 import { QuestionTypeList } from 'Components/QuestionTypeList/QuestionTypeList';
 import { InterviewInfo } from 'Components/InterviewInfo/InterviewInfo';
-import { Loader } from 'Components/Loader/Loader';
 import { interviewQuery } from 'Constants/constants';
 import { addDefaultValue } from 'Utils/addDefaultValue';
 import { getNotification } from 'Utils/getNotification';
@@ -18,7 +17,7 @@ import {
 } from 'Utils/funcForLSByKey';
 import './CreateInterviewPage.scss';
 
-export const CreateInterviewPage = () => {
+const CreateInterviewPage = () => {
 	const [interview, setInterview] = useState(null);
 	const [interviewQueries, setInterviewQueries] = useState(interviewQuery);
 
@@ -116,9 +115,7 @@ export const CreateInterviewPage = () => {
 
 	return (
 		<section className="content">
-			{interview === null ? (
-				<Loader />
-			) : (
+			{interview && (
 				<>
 					<div className="content__head">
 						<h2 className="title_m">{t('createInterview.title')}</h2>
@@ -162,3 +159,5 @@ export const CreateInterviewPage = () => {
 		</section>
 	);
 };
+
+export default CreateInterviewPage;

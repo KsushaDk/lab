@@ -9,7 +9,8 @@ import { setToLSByKey } from 'Utils/funcForLSByKey';
 import { saveItem } from 'Utils/editingItemFunc';
 import { useItemEditing } from 'Hooks/useItemEditing';
 import { PrimaryModal } from '../modal/PrimaryModal/PrimaryModal';
-import { Table } from './Table';
+
+const Table = React.lazy(() => import('./Table'));
 
 export const TableWrapper = ({
 	storageName,

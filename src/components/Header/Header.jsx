@@ -51,7 +51,7 @@ export const Header = () => {
 					<div className="nav__user">
 						<ImUser className="icon_white icon_m" />
 						<span className="nav__user_name">
-							{t('header.greeting')}, {currentUser.username}!
+							{t('header.greeting')},&nbsp;{currentUser.username}!
 						</span>
 						<BsBoxArrowRight className="icon_white icon_l" onClick={logout} />
 					</div>

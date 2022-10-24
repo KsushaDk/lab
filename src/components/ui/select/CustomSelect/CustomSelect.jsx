@@ -9,13 +9,11 @@ import { toggleValueByKey } from 'Utils/toggleValueByKey';
 import { getSearchResult } from 'Utils/getSearchResult';
 import { findInArrByID } from 'Utils/findInArrByID';
 import { CheckboxInput } from '../../input/CheckboxInput/CheckboxInput';
-import { Loader } from '../../../Loader/Loader';
 import { IconBtn } from '../../button/IconBtn/IconBtn';
 import './CustomSelect.scss';
 
-export const CustomSelect = ({ data, multi }) => {
+const CustomSelect = ({ data, multi }) => {
 	const [options, setOptions] = useState([]);
-	const [isLoading, setIsLoading] = useState(false);
 	const [isOptionOpen, setIsOptionOpen] = useState(false);
 	const [selectedOption, setSelectedOption] = useState(null);
 	const [search, setSearch] = useState('');
@@ -53,12 +51,8 @@ export const CustomSelect = ({ data, multi }) => {
 	};
 
 	useEffect(() => {
-		setIsLoading(true);
-
 		const searchResult = getSearchResult(data, debouncedSearch, 'title');
 		setOptions(searchResult);
-
-		setIsLoading(false);
 	}, [debouncedSearch]);
 
 	useEffect(() => {
@@ -103,38 +97,34 @@ export const CustomSelect = ({ data, multi }) => {
 
 			{isOptionOpen && (
 				<div className="select__content">
-					{isLoading ? (
-						<Loader />
-					) : (
-						<ul className="select__options" role="menu">
-							{options.length === 0 ? (
-								<li className="select__option">
-									{t('infoMessage.noSearchResult')}
+					<ul className="select__options" role="menu">
+						{options.length === 0 ? (
+							<li className="select__option">
+								{t('infoMessage.noSearchResult')}
+							</li>
+						) : (
+							options.map((option, index) => (
+								<li
+									className={
+										option.checked
+											? 'select__option selected'
+											: 'select__option'
+									}
+									key={option.id}
+									id={option.id}
+									index={index}
+									role="menuitem"
+									tabIndex={0}
+									onKeyDown={(e) => {
+										selectElByKeyDown(e, handleChangeOption, options);
+									}}
+									onClick={handleChangeOption}
+								>
+									{multi ? <CheckboxInput option={option} /> : option.title}
 								</li>
-							) : (
-								options.map((option, index) => (
-									<li
-										className={
-											option.checked
-												? 'select__option selected'
-												: 'select__option'
-										}
-										key={option.id}
-										id={option.id}
-										index={index}
-										role="menuitem"
-										tabIndex={0}
-										onKeyDown={(e) => {
-											selectElByKeyDown(e, handleChangeOption, options);
-										}}
-										onClick={handleChangeOption}
-									>
-										{multi ? <CheckboxInput option={option} /> : option.title}
-									</li>
-								))
-							)}
-						</ul>
-					)}
+							))
+						)}
+					</ul>
 				</div>
 			)}
 		</div>
@@ -149,3 +139,5 @@ CustomSelect.propTypes = {
 CustomSelect.defaultProps = {
 	data: null,
 };
+
+export default CustomSelect;

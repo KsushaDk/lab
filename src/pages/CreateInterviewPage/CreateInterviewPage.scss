@@ -1,13 +1,6 @@
 @import 'Scss/vars.scss';
 @import 'Scss/mixins.scss';
 
-.btn_group {
-	@include flex($justify-content: start);
-	flex-wrap: wrap;
-	width: 100%;
-	padding-top: 1rem;
-}
-
 .interview__settings {
 	@include flex($flex-direction: column);
 	padding-top: 1rem;

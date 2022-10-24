@@ -2,12 +2,11 @@ import React, { useState, useEffect, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import { propTypesConst } from 'Constants/propTypesConst';
-import { Loader } from '../../Loader/Loader';
 import { TablePagination } from './TablePagination';
 import { TableRow } from './TableRow';
 import './Table.scss';
 
-export const Table = ({
+const Table = ({
 	idToEdit,
 	editedItem,
 	handleOnChangeField,
@@ -48,7 +47,7 @@ export const Table = ({
 
 	return (
 		<div className="table__wrap">
-			{rowsToDisplay ? (
+			{rowsToDisplay && (
 				<table className="table__content">
 					<caption className="table__caption">{caption}</caption>
 					<thead className="table__head">
@@ -100,8 +99,6 @@ export const Table = ({
 						</tr>
 					</tfoot>
 				</table>
-			) : (
-				<Loader />
 			)}
 		</div>
 	);
@@ -131,3 +128,5 @@ Table.defaultProps = {
 	searchResult: null,
 	idToEdit: null,
 };
+
+export default Table;

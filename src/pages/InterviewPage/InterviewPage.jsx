@@ -6,7 +6,6 @@ import { SecondaryInput } from 'Components/ui/input/SecondaryInput/SecondaryInpu
 import { SaveCancelActionBtns } from 'Components/ActionItems/SaveCancelActionBtns';
 import { PrimaryDropDown } from 'Components/ui/dropdown/PrimaryDropDown';
 import { ProgressBar } from 'Components/ui/progressbar/ProgressBar';
-import { Loader } from 'Components/Loader/Loader';
 import { useUsers } from 'Hooks/useUsers';
 import { getOptionToRender } from 'Constants/OptionType';
 import { getFromLSByKey, updateDataInLS } from 'Utils/funcForLSByKey';
@@ -17,7 +16,7 @@ import { getOptionType } from 'Utils/getOptionType';
 import { shuffleArray } from 'Utils/shuffleArray';
 import './InterviewPage.scss';
 
-export const InterviewPage = () => {
+const InterviewPage = () => {
 	const [interview, setInterview] = useState(null);
 	const [percent, setPercent] = useState(1);
 
@@ -131,9 +130,7 @@ export const InterviewPage = () => {
 
 	return (
 		<section className="content_center">
-			{interview === null ? (
-				<Loader />
-			) : (
+			{interview && (
 				<>
 					<div className="btn_group">
 						<SaveCancelActionBtns
@@ -202,3 +199,5 @@ export const InterviewPage = () => {
 		</section>
 	);
 };
+
+export default InterviewPage;
