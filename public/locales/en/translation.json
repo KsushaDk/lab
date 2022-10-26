@@ -63,6 +63,10 @@
 	"interviewPage": {
 		"title": "Interview"
 	},
+	"interviewResultsPage": {
+		"title": "Interview results",
+		"total": "Total count of answers"
+	},
 	"interviewTemplates": {
 		"title": "Templates",
 		"total": "Total count of templates"

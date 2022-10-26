@@ -92,6 +92,7 @@ const CreateInterviewPage = () => {
 				...interview,
 				changed: new Date(Date.now()).toLocaleDateString(),
 				link: `/interview/${interview.id}`,
+				results: `/home/results/${interview.id}`,
 			});
 
 			getNotification.success(t('infoMessage.saveInterview'));

@@ -62,6 +62,10 @@
 	"interviewPage": {
 		"title": "Опрос"
 	},
+	"interviewResultsPage": {
+		"title": "Результаты опроса",
+		"total": "Всего ответов"
+	},
 	"interviewTemplates": {
 		"title": "Шаблоны",
 		"total": "Всего шаблонов"

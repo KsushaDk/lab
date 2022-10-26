@@ -18,6 +18,9 @@ const CreateInterviewPage = React.lazy(() =>
 const InterviewTemplatesPage = React.lazy(() =>
 	import('Pages/InterviewTemplatesPage/InterviewTemplatesPage')
 );
+const InterviewResultsPage = React.lazy(() =>
+	import('Pages/InterviewResultsPage/InterviewResultsPage')
+);
 
 export const Main = () => (
 	<PublicPath>
@@ -55,6 +58,14 @@ export const Main = () => (
 					element={
 						<AdminPath>
 							<UserListPage />
+						</AdminPath>
+					}
+				/>
+				<Route
+					path="results/:interviewId"
+					element={
+						<AdminPath>
+							<InterviewResultsPage />
 						</AdminPath>
 					}
 				/>

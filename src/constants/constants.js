@@ -375,3 +375,48 @@ export const questionTextExample = {
 export const DragDropItem = {
 	QUESTION: 'question',
 };
+
+export const barOptions = {
+	indexAxis: 'y',
+	responsive: true,
+	plugins: {
+		legend: {
+			display: false,
+		},
+		title: {
+			display: false,
+			// position: 'top',
+			// color: 'black',
+			// font: {
+			// 	family: 'IBM Plex Sans Condensed',
+			// 	size: 20,
+			// 	weight: 500,
+			// },
+			// padding: { bottom: 20 },
+			// align: 'start',
+			// text: question.question,
+		},
+	},
+	scales: {
+		x: {
+			min: 0,
+			max: 100,
+			ticks: {
+				callback(value) {
+					return `${value}%`;
+				},
+				color: 'rgba(152, 152, 152, 0.91)',
+			},
+		},
+		y: {
+			ticks: {
+				color: '#101010',
+				font: {
+					family: 'IBM Plex Sans Condensed',
+					size: 16,
+					weight: 500,
+				},
+			},
+		},
+	},
+};
