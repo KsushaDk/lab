@@ -2,7 +2,7 @@ import React, { useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import './PrimaryDropDown.scss';
 
-export const PrimaryDropDown = ({ trigger, children }) => {
+export const PrimaryDropDown = ({ trigger, children, ...attrs }) => {
 	const [isShown, setShown] = useState(false);
 
 	const handleDropMenu = useCallback(() => {
@@ -18,6 +18,7 @@ export const PrimaryDropDown = ({ trigger, children }) => {
 			onMouseOut={handleDropMenu}
 			onFocus={handleDropMenu}
 			onBlur={handleDropMenu}
+			{...attrs}
 		>
 			{trigger}
 

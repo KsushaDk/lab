@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
+import { ErrorBoundary } from 'react-error-boundary';
 import { InterviewQueryList } from 'Components/InterviewQueryList/InterviewQueryList';
 import { InterviewQuestionList } from 'Components/InterviewQuestionList/InterviewQuestionList';
 import { SaveCancelActionBtns } from 'Components/ActionItems/SaveCancelActionBtns';
 import { QuestionTypeList } from 'Components/QuestionTypeList/QuestionTypeList';
 import { InterviewInfo } from 'Components/InterviewInfo/InterviewInfo';
-import { Loader } from 'Components/Loader/Loader';
-import { interviewQuery, infoMessage } from 'Constants/constants';
+import { ErrorFallback } from 'Components/ErrorFallback/ErrorFallback';
+import { interviewQuery } from 'Constants/constants';
 import { addDefaultValue } from 'Utils/addDefaultValue';
 import { getNotification } from 'Utils/getNotification';
 import { toggleValueByKey } from 'Utils/toggleValueByKey';
@@ -17,9 +19,11 @@ import {
 } from 'Utils/funcForLSByKey';
 import './CreateInterviewPage.scss';
 
-export const CreateInterviewPage = () => {
+const CreateInterviewPage = () => {
 	const [interview, setInterview] = useState(null);
 	const [interviewQueries, setInterviewQueries] = useState(interviewQuery);
+
+	const { t } = useTranslation();
 
 	const handleInterviewTitle = (e) => {
 		setInterview({
@@ -75,22 +79,23 @@ export const CreateInterviewPage = () => {
 
 		setToLSByKey('interviews', updatedInterviews);
 
-		getNotification.success(infoMessage.deleteInterview);
+		getNotification.success(t('infoMessage.deleteInterview'));
 
 		setInterview(addDefaultValue.interview());
 	};
 
 	const handleSaveInterview = () => {
 		if (interview.title === '') {
-			getNotification.failed(infoMessage.enterInterviewTitle);
+			getNotification.failed(t('infoMessage.enterInterviewTitle'));
 		} else {
 			updateDataInLS('interviews', {
 				...interview,
 				changed: new Date(Date.now()).toLocaleDateString(),
 				link: `/interview/${interview.id}`,
+				results: `/home/results/${interview.id}`,
 			});
 
-			getNotification.success(infoMessage.saveInterview);
+			getNotification.success(t('infoMessage.saveInterview'));
 
 			setInterview(addDefaultValue.interview());
 		}
@@ -113,15 +118,14 @@ export const CreateInterviewPage = () => {
 
 	return (
 		<section className="content">
-			{interview === null ? (
-				<Loader />
-			) : (
-				<>
+			{interview && (
+				<ErrorBoundary FallbackComponent={ErrorFallback}>
 					<div className="content__head">
-						<h2 className="title_m">Новый опрос</h2>
+						<h2 className="title_m">{t('createInterview.title')}</h2>
+						{/* <div>{t('createInterview.date', { date: new Date() })}</div> */}
 						<input
 							className="content__head_input"
-							placeholder="Опрос номер..."
+							placeholder={t('createInterview.placeholderName')}
 							value={interview?.title}
 							onChange={handleInterviewTitle}
 						/>
@@ -153,8 +157,10 @@ export const CreateInterviewPage = () => {
 							/>
 						</aside>
 					</div>
-				</>
+				</ErrorBoundary>
 			)}
 		</section>
 	);
 };
+
+export default CreateInterviewPage;

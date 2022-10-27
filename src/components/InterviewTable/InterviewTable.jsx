@@ -1,16 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { useTranslation } from 'react-i18next';
 import { getNotification } from 'Utils/getNotification';
-import { columnsInterviews, infoMessage } from 'Constants/constants';
+import { columnsInterviews } from 'Constants/constants';
 import { propTypesConst } from 'Constants/propTypesConst';
 import { TableWrapper } from '../ui/table/TableWrapper';
 
 export const InterviewTable = ({ interviewData, searchResult }) => {
+	const { t } = useTranslation();
+
 	const handleInterviewChange = (value) => {
 		const checkUniqueTitle = interviewData.find((item) => item.title === value);
 
 		if (checkUniqueTitle !== undefined) {
-			getNotification.failed(infoMessage.uniqueInterviewTitle);
+			getNotification.failed(t('infoMessage.uniqueInterviewTitle'));
 			return false;
 		}
 
@@ -20,8 +23,8 @@ export const InterviewTable = ({ interviewData, searchResult }) => {
 	return (
 		<TableWrapper
 			storageName="interviews"
-			caption="Мои опросы"
-			total="Всего опросов"
+			caption={t('interviewTable.caption')}
+			total={t('interviewTable.total')}
 			columns={columnsInterviews}
 			rows={interviewData}
 			searchResult={searchResult}

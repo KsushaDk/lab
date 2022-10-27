@@ -1,13 +1,14 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import { ErrorBoundary } from 'react-error-boundary';
+import { useTranslation } from 'react-i18next';
 import { BsAsterisk } from 'react-icons/bs';
 import { SecondaryInput } from 'Components/ui/input/SecondaryInput/SecondaryInput';
 import { SaveCancelActionBtns } from 'Components/ActionItems/SaveCancelActionBtns';
 import { PrimaryDropDown } from 'Components/ui/dropdown/PrimaryDropDown';
+import { ErrorFallback } from 'Components/ErrorFallback/ErrorFallback';
 import { ProgressBar } from 'Components/ui/progressbar/ProgressBar';
-import { Loader } from 'Components/Loader/Loader';
 import { useUsers } from 'Hooks/useUsers';
-import { interviewResultMessage, infoMessage } from 'Constants/constants';
 import { getOptionToRender } from 'Constants/OptionType';
 import { getFromLSByKey, updateDataInLS } from 'Utils/funcForLSByKey';
 import { checkRequeredField } from 'Utils/checkRequiredField';
@@ -17,9 +18,11 @@ import { getOptionType } from 'Utils/getOptionType';
 import { shuffleArray } from 'Utils/shuffleArray';
 import './InterviewPage.scss';
 
-export const InterviewPage = () => {
+const InterviewPage = () => {
 	const [interview, setInterview] = useState(null);
 	const [percent, setPercent] = useState(1);
+
+	const { t } = useTranslation();
 
 	const navigate = useNavigate();
 	const { interviewId } = useParams();
@@ -50,7 +53,7 @@ export const InterviewPage = () => {
 
 	const handleTextAnswer = (e, id) => {
 		if (e.target.value === '') {
-			return getNotification.failed(infoMessage.notEmptyField);
+			return getNotification.failed(t('infoMessage.notEmptyField'));
 		}
 
 		const newQuestions = interview.questions.map((question) => {
@@ -71,7 +74,7 @@ export const InterviewPage = () => {
 		if (value === 'cancel') {
 			return navigate('/info', {
 				state: {
-					message: interviewResultMessage.cancel,
+					message: t('infoMessage.cancelInterviewAnswers'),
 					link: '/home/interviews',
 				},
 				replace: true,
@@ -83,7 +86,7 @@ export const InterviewPage = () => {
 		if (!checkRequired) {
 			navigate('/info', {
 				state: {
-					message: interviewResultMessage.save,
+					message: t('infoMessage.saveInterviewAnswers'),
 					link: '/home/interviews',
 				},
 				replace: true,
@@ -94,7 +97,7 @@ export const InterviewPage = () => {
 				interviews: [interview],
 			});
 		} else {
-			getNotification.failed(infoMessage.requiredField);
+			getNotification.failed(t('infoMessage.requiredField'));
 		}
 	});
 
@@ -129,10 +132,8 @@ export const InterviewPage = () => {
 
 	return (
 		<section className="content_center">
-			{interview === null ? (
-				<Loader />
-			) : (
-				<>
+			{interview && (
+				<ErrorBoundary FallbackComponent={ErrorFallback}>
 					<div className="btn_group">
 						<SaveCancelActionBtns
 							handleSaveEditing={() => handleSaveCancelAnswers('save')}
@@ -140,7 +141,9 @@ export const InterviewPage = () => {
 						/>
 					</div>
 					<div className="content__head_center">
-						<h2 className="title_s">Опрос: {interview.title}</h2>
+						<h2 className="title_s">
+							{t('interviewPage.title')}&#58; {interview.title}
+						</h2>
 					</div>
 
 					<div className="content__body_center">
@@ -150,7 +153,9 @@ export const InterviewPage = () => {
 									<PrimaryDropDown
 										trigger={<BsAsterisk className="icon_red icon_s" />}
 									>
-										<span className="p_primary">Обязательный вопрос</span>
+										<span className="p_primary">
+											{t('infoMessage.requiredQuestion')}
+										</span>
 									</PrimaryDropDown>
 								)}
 								<h2 className="p_secondary">
@@ -174,7 +179,7 @@ export const InterviewPage = () => {
 												<SecondaryInput
 													name="option"
 													id={option.id}
-													placeholder={infoMessage.enterUserAnswer}
+													placeholder={t('infoMessage.enterUserAnswer')}
 													defaultValue={option.answer}
 													handleBlur={(e) => handleTextAnswer(e, question.id)}
 												/>
@@ -191,8 +196,10 @@ export const InterviewPage = () => {
 							percent={percent}
 						/>
 					)}
-				</>
+				</ErrorBoundary>
 			)}
 		</section>
 	);
 };
+
+export default InterviewPage;

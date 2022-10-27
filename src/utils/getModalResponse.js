@@ -4,10 +4,13 @@ export const getModalResponse = (btnValue) => {
 	switch (btnValue) {
 		case 'Сохранить':
 		case 'Ок':
+		case 'Ok':
+		case 'Save':
 			modalSubmit = true;
 			break;
 
 		case 'Отмена':
+		case 'Cancel':
 			modalSubmit = false;
 			break;
 

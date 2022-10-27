@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { ErrorBoundary } from 'react-error-boundary';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { propTypesConst } from 'Constants/propTypesConst';
@@ -8,8 +9,10 @@ import { getModalResponse } from 'Utils/getModalResponse';
 import { setToLSByKey } from 'Utils/funcForLSByKey';
 import { saveItem } from 'Utils/editingItemFunc';
 import { useItemEditing } from 'Hooks/useItemEditing';
+import { ErrorFallback } from '../../ErrorFallback/ErrorFallback';
 import { PrimaryModal } from '../modal/PrimaryModal/PrimaryModal';
-import { Table } from './Table';
+
+const Table = React.lazy(() => import('./Table'));
 
 export const TableWrapper = ({
 	storageName,
@@ -93,7 +96,7 @@ export const TableWrapper = ({
 	}, [isSubmitted]);
 
 	return (
-		<>
+		<ErrorBoundary FallbackComponent={ErrorFallback}>
 			<PrimaryModal handleModalClick={handleModalClick} />
 			<Table
 				idToEdit={idToEdit}
@@ -109,7 +112,7 @@ export const TableWrapper = ({
 				total={total}
 				current={current}
 			/>
-		</>
+		</ErrorBoundary>
 	);
 };
 

@@ -17,7 +17,7 @@ export const ActionRequiredMark = ({
 					option={{
 						id: currentItem.id,
 						checked: currentItem.required,
-						title: 'Обязательный',
+						key: 'required',
 					}}
 				/>
 			</div>

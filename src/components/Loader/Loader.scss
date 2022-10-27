@@ -1,7 +1,12 @@
 @import 'Scss/vars.scss';
+@import 'Scss/mixins.scss';
+
+.loader_wrapper {
+	margin: 20% auto;
+	@include flex($justify-content: center);
+}
 
 .loader_svg {
-	margin: 5rem auto;
 	width: 4em;
 	transform-origin: center;
 	animation: rotate 2s linear infinite;

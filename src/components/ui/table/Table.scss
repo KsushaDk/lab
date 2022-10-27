@@ -69,16 +69,6 @@
 	}
 }
 
-.link_black {
-	@include text;
-	color: $primary-black;
-	cursor: pointer;
-
-	&:hover {
-		opacity: 0.8;
-	}
-}
-
 .page_num {
 	@include text($font-size: 1rem);
 	margin: 0 0.2rem;

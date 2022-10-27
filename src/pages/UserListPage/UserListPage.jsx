@@ -4,7 +4,7 @@ import { useUsers } from 'Hooks/useUsers';
 import { UserTable } from 'Components/UserTable/UserTable';
 import { getSearchResult } from 'Utils/getSearchResult';
 
-export const UserListPage = () => {
+const UserListPage = () => {
 	const { users } = useUsers();
 
 	const [userData, setUserData] = useState(users);
@@ -28,3 +28,5 @@ export const UserListPage = () => {
 		</section>
 	);
 };
+
+export default UserListPage;

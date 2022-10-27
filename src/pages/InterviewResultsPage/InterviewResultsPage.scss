@@ -1,0 +1,7 @@
+@import 'Scss/vars.scss';
+@import 'Scss/mixins.scss';
+
+.results__info {
+	@include flex($flex-direction: column);
+	@include text;
+}

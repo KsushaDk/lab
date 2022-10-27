@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import PropTypes from 'prop-types';
 import './PrimaryBtn.scss';
 
@@ -8,9 +9,11 @@ export const PrimaryBtn = ({ btnValue }) => {
 	const location = useLocation();
 	const path = location.pathname.split('/');
 
-	const handleClick = (link) => {
+	const { t } = useTranslation();
+
+	const handleClick = useCallback((link) => {
 		navigate(link, { replace: true });
-	};
+	});
 
 	return (
 		<button
@@ -22,7 +25,7 @@ export const PrimaryBtn = ({ btnValue }) => {
 			type="button"
 			onClick={() => handleClick(btnValue.link)}
 		>
-			{btnValue.value}
+			{t(`btnValues.${btnValue.key}`)}
 		</button>
 	);
 };

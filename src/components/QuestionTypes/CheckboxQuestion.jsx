@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { useTranslation } from 'react-i18next';
 import { propTypesConst } from 'Constants/propTypesConst';
-import { infoMessage } from 'Constants/constants';
 import { toggleValueByKey } from 'Utils/toggleValueByKey';
 import { CheckboxQuestionExample } from './CheckboxQuestionExample';
 import { QuestionWrapper } from './QuestionWrapper';
@@ -15,6 +15,8 @@ export const CheckboxQuestion = ({
 	handleRemoveQuestion,
 	handleSaveQuestion,
 }) => {
+	const { t } = useTranslation();
+
 	const handleCheckboxAnswer = (id, options) => {
 		const newOptions = toggleValueByKey(options, id, ['correct']);
 		return newOptions;
@@ -31,7 +33,7 @@ export const CheckboxQuestion = ({
 			handleRemoveQuestion={handleRemoveQuestion}
 			handleSaveQuestion={handleSaveQuestion}
 			handleAnswer={handleCheckboxAnswer}
-			notification={infoMessage.notificationCheckbox}
+			notification={t('infoMessage.notificationCheckbox')}
 		/>
 	);
 };

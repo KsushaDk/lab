@@ -1,0 +1,144 @@
+{
+	"header": {
+		"about": "About company",
+		"logIn": "Log In",
+		"greeting": "Hello"
+	},
+	"logInForm": {
+		"title": "Log In",
+		"enterEmail": "Enter your email...",
+		"enterPass": "Enter your password...",
+		"forgotPass": "Forgot password?"
+	},
+	"signUpForm": {
+		"title": "Sign Up",
+		"enterUsername": "Enter your name...",
+		"repeatPass": "Repeat your password..."
+	},
+	"validationErrMessages": {
+		"minLength": {
+			"username": "Name must have at least 4 characters",
+			"password": "Password must have at least 8 characters"
+		},
+		"maxLength": {
+			"username": "Name must have less than 20 characters",
+			"password": "Password must have less than 15 characters"
+		},
+		"notEmptyField": "The field can not be empty",
+		"emailErr": "Invalid email",
+		"emailUniqueErr": "This email already exists",
+		"passErr": "Password must have a number, a special character and lowercase/uppercase letters",
+		"notMatchPass": "The passwords do not match",
+		"incorrectEmail": "Email is incorrect",
+		"incorrectPass": "Check your password"
+	},
+	"btnValues": {
+		"cancel": "Cancel",
+		"save": "Save",
+		"ok": "Ok",
+		"send": "Send",
+		"newInterview": "Create interview",
+		"createInterview": "Create interview",
+		"createTemplate": "Create template",
+		"myInterviews": "My interviews",
+		"interviewTemplates": "Templates",
+		"users": "Users"
+	},
+	"tabBarLabels": {
+		"aboutUs": "About us",
+		"studying": "Studying",
+		"benefits": "Benefits",
+		"forStudents": "For students",
+		"advantages": "Our advantages",
+		"jobs": "Jobs",
+		"contacts": "Contacts"
+	},
+	"createInterview": {
+		"title": "New interview",
+		"placeholderName": "Interview number...",
+		"infoQuestion": "Questions",
+		"infoPages": "Pages",
+		"date": "{{date, DATE_HUGE}}"
+	},
+	"interviewPage": {
+		"title": "Interview"
+	},
+	"interviewResultsPage": {
+		"title": "Interview results",
+		"total": "Total count of answers"
+	},
+	"interviewTemplates": {
+		"title": "Templates",
+		"total": "Total count of templates"
+	},
+	"interviewQueries": {
+		"title": "Interview queries",
+		"anonymousInterview": "Anonymous interview",
+		"questionNum": "Question numbers",
+		"pageNum": "Page numbers",
+		"randomQuestionOrder": "Random question order",
+		"requiredFields": "Required fields",
+		"progressBar": "Progress bar",
+		"required": "Required"
+	},
+	"questionTypes": {
+		"title": "Question types",
+		"singleQuestion": "Single choice question",
+		"multiQuestion": "Multi choice question",
+		"textQuestion": "Text question",
+		"fileQuestion": "File question",
+		"rationQuestion": "Ration question",
+		"scaleQuestion": "Scale question"
+	},
+	"infoMessage": {
+		"requiredField": "All required fields must be filled in.",
+		"notEmptyField": "Oops, the field can not be empty.",
+		"fillEmptyField": "Fill in the empty fields.",
+		"enterCorrectAnswer": "Please enter the correct answer...",
+		"addAnswer": "Add answer...",
+		"enterAnswer": "Please enter an answer...",
+		"enterQuestion": "Enter question...",
+		"enterInterviewTitle": "Enter a title for the interview.",
+		"saveAnswer": "Answer saved.",
+		"saveInterview": "Interview successfully saved!",
+		"deleteInterview": "Interview removed!",
+		"uniqueInterviewTitle": "The name of the interview must be unique.",
+		"notificationCheckbox": "Choose the correct answer options.",
+		"notificationRadio": "Choose the correct answer.",
+		"noSearchResult": "Nothing found, please try again.",
+		"noInterviews": "No interview has been created yet.",
+		"fetchSuccess": "Data uploaded successfully!",
+		"fetchFailed": "Something went wrong...",
+		"fetchEror": "Error in request. Error status:",
+		"deleteSuccess": "Successfully removed!",
+		"saveSuccess": "Successfully saved!",
+		"enterUserAnswer": "Enter your answer...",
+		"saveInterviewAnswers": "Congratulations, your answers have been saved! If you are interested in taking other interviews, click",
+		"cancelInterviewAnswers": "Your replies have been deleted. If you are interested in taking other interviews, click",
+		"submitSave": "Are you sure you want to save your changes?",
+		"here": "here",
+		"requiredQuestion": "Required question",
+		"notAccess": "You don't have an access to this page!",
+		"error": "Error"
+	},
+	"interviewTable": {
+		"caption": "My interviews",
+		"total": "Total count of interviews"
+	},
+	"userTable": {
+		"caption": "Users",
+		"total": "Total count of users"
+	},
+	"tableColumns": {
+		"username": "Username",
+		"role": "Role",
+		"registered": "Registered",
+		"interviews": "Interviews",
+		"actions": "Actions",
+		"title": "Title",
+		"changed": "Changed",
+		"link": "Link",
+		"answers": "Answers",
+		"results": "Results"
+	}
+}

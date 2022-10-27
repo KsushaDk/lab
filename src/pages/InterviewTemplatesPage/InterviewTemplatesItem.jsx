@@ -9,7 +9,7 @@ export const InterviewTemplatesItem = ({ template }) => (
 		<h3 className="title_s">{template.title}</h3>
 		<p className="p_primary">{dammyText}</p>
 		<InterviewInfo pages={template.pages} questions={template.questions} />
-		<PrimaryBtn btnValue={{ value: 'Создать опрос', link: 'create' }} />
+		<PrimaryBtn btnValue={{ key: 'createTemplate', link: 'create-template' }} />
 	</div>
 );
 

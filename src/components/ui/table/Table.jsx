@@ -1,13 +1,12 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import PropTypes from 'prop-types';
+import { useTranslation } from 'react-i18next';
 import { propTypesConst } from 'Constants/propTypesConst';
-import { infoMessage } from 'Constants/constants';
-import { Loader } from '../../Loader/Loader';
 import { TablePagination } from './TablePagination';
 import { TableRow } from './TableRow';
 import './Table.scss';
 
-export const Table = ({
+const Table = ({
 	idToEdit,
 	editedItem,
 	handleOnChangeField,
@@ -26,6 +25,8 @@ export const Table = ({
 	//  pagination
 	const [pageSize, setPageSize] = useState(5);
 	const [currentPage, setCurrentPage] = useState(1);
+
+	const { t } = useTranslation();
 
 	useEffect(() => {
 		if (currentPage >= rows.length / pageSize) setCurrentPage(1);
@@ -46,14 +47,14 @@ export const Table = ({
 
 	return (
 		<div className="table__wrap">
-			{rowsToDisplay ? (
+			{rowsToDisplay && (
 				<table className="table__content">
 					<caption className="table__caption">{caption}</caption>
 					<thead className="table__head">
 						<tr>
 							{columns.map((column) => (
-								<th key={column.field} scope="col">
-									{column.fieldName}
+								<th key={column.key} scope="col">
+									{t(`tableColumns.${column.key}`)}
 								</th>
 							))}
 						</tr>
@@ -61,7 +62,9 @@ export const Table = ({
 					<tbody className="table__body">
 						{rowsToDisplay.length === 0 && (
 							<tr>
-								<td colSpan={columns.length}>{infoMessage.noSearchResult}</td>
+								<td colSpan={columns.length}>
+									{t('infoMessage.noSearchResult')}
+								</td>
 							</tr>
 						)}
 						{rowsToDisplay.map((row) => (
@@ -96,8 +99,6 @@ export const Table = ({
 						</tr>
 					</tfoot>
 				</table>
-			) : (
-				<Loader />
 			)}
 		</div>
 	);
@@ -127,3 +128,5 @@ Table.defaultProps = {
 	searchResult: null,
 	idToEdit: null,
 };
+
+export default Table;

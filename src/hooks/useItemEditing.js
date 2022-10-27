@@ -1,14 +1,16 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { getNotification } from 'Utils/getNotification';
-import { infoMessage } from 'Constants/constants';
 
 export const useItemEditing = ({ removeCb, saveCb, cancelCb, changeCb }) => {
 	const [idToEdit, setIdToEdit] = useState(null);
 	const [editedItem, setEditedItem] = useState(null);
 
+	const { t } = useTranslation();
+
 	const handleRemove = (id) => {
 		removeCb(id);
-		getNotification.success(infoMessage.deleteSuccess);
+		getNotification.success(t('infoMessage.deleteSuccess'));
 	};
 
 	const handleEdit = (id) => {
@@ -27,7 +29,7 @@ export const useItemEditing = ({ removeCb, saveCb, cancelCb, changeCb }) => {
 
 		switch (true) {
 			case value.trim() === '':
-				getNotification.failed(infoMessage.notEmptyField);
+				getNotification.failed(t('infoMessage.notEmptyField'));
 				handleCancelEditing();
 				break;
 
@@ -57,7 +59,7 @@ export const useItemEditing = ({ removeCb, saveCb, cancelCb, changeCb }) => {
 
 		if (success) {
 			setIdToEdit(null);
-			getNotification.success(infoMessage.saveSuccess);
+			getNotification.success(t('infoMessage.saveSuccess'));
 		}
 	};
 

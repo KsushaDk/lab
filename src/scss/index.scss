@@ -50,6 +50,10 @@ body {
 	@include text($font-size: 1.3rem, $font-weight: 500);
 }
 
+.p_info-error {
+	@include text($font-size: 1.2rem, $color: $primary-red);
+}
+
 .p_info {
 	@include text($font-size: 1rem, $color: $info-gray);
 }
