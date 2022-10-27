@@ -118,7 +118,8 @@
 		"submitSave": "Are you sure you want to save your changes?",
 		"here": "here",
 		"requiredQuestion": "Required question",
-		"notAccess": "You don't have an access to this page!"
+		"notAccess": "You don't have an access to this page!",
+		"error": "Error"
 	},
 	"interviewTable": {
 		"caption": "My interviews",

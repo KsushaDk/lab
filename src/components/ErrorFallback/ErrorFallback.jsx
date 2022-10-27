@@ -7,7 +7,7 @@ export const ErrorFallback = ({ error }) => {
 	return (
 		<div className="error_fallback__wrapper" role="alert">
 			<p className="title_xs">{t('infoMessage.fetchFailed')}</p>
-			<pre className="p_info-error">Error: {error.message}</pre>
+			<pre className="p_info-error">{t('infoMessage.error')}: {error.message}</pre>
 		</div>
 	);
 };
