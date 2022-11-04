@@ -41,7 +41,9 @@
 		"createInterview": "Создать опрос",
 		"myInterviews": "Мои опросы",
 		"interviewTemplates": "Шаблоны опросов",
-		"users": "Пользователи"
+		"users": "Пользователи",
+		"sumQuestions": "Сводные данные по вопросам",
+		"separateAnswers": "Отдельные ответы"
 	},
 	"tabBarLabels": {
 		"aboutUs": "О нас",
@@ -64,7 +66,8 @@
 	},
 	"interviewResultsPage": {
 		"title": "Результаты опроса",
-		"total": "Всего ответов"
+		"total": "Всего ответов",
+		"correctAnswer": "Правильный ответ"
 	},
 	"interviewTemplates": {
 		"title": "Шаблоны",
@@ -118,7 +121,9 @@
 		"here": "сюда",
 		"requiredQuestion": "Обязательный вопрос",
 		"notAccess": "У вас нет доступа к этой странице!",
-		"error": "Ошибка"
+		"error": "Ошибка",
+		"answers": "ответов",
+		"answer": "Ответ"
 	},
 	"interviewTable": {
 		"caption": "Мои опросы",
@@ -138,6 +143,8 @@
 		"changed": "Изменен",
 		"link": "Ссылка",
 		"answers": "Ответы",
-		"results": "Результаты"
+		"results": "Результаты",
+		"answer": "Ответ",
+		"user": "Пользователь"
 	}
 }

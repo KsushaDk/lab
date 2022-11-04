@@ -10,11 +10,15 @@ export const getCellType = (cellName) => {
 		case 'password_repeat':
 		case 'queries':
 		case 'questions':
+		case 'correct':
+		case 'checked':
+		case 'answer':
 			cellType = Cell.Empty;
 			break;
 
 		case 'link':
 		case 'results':
+		case 'userId':
 			cellType = Cell.Link;
 			break;
 

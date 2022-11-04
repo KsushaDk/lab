@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
 // import PropTypes from 'prop-types';
+
+import { BsAsterisk } from 'react-icons/bs';
+import { useTranslation } from 'react-i18next';
 import {
 	Chart as ChartJS,
 	CategoryScale,
@@ -11,7 +14,8 @@ import {
 } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
 import { getDataForQuestionResults } from 'Utils/getDataForQuestionResults';
-import { barOptions } from 'Constants/constants';
+import { barOptions, columnsTextResults } from 'Constants/constants';
+import Table from 'Components/ui/table/Table';
 
 ChartJS.register(
 	CategoryScale,
@@ -22,12 +26,29 @@ ChartJS.register(
 	Legend
 );
 
-const InterviewResultsItem = ({ question, interview }) => {
+export const InterviewResultsItem = ({ question, interview }) => {
 	const [chartData, setChartData] = useState(null);
+	const [numOptions, setNumOptions] = useState([]);
+	const [textOptions, setTextOptions] = useState([]);
+
+	const { t } = useTranslation();
 
 	useEffect(() => {
-		const labels = question.options.map((option) => option.title);
-		const { optionsData } = getDataForQuestionResults(interview, question);
+		const labels = question.options.map(
+			(option, index) => `${t('infoMessage.answer')} ${index + 1}`
+		);
+		const {
+			optionsData,
+			selectedOptions,
+			optionsColor,
+		} = getDataForQuestionResults(interview, question);
+
+		const getTextOptions = interview.allQuestions
+			.filter((item) => item.type === 'text')
+			.map((q) => ({ userId: q.userId, ...q.options[0] }));
+
+		setTextOptions(getTextOptions);
+		setNumOptions(selectedOptions);
 
 		setChartData({
 			labels,
@@ -35,8 +56,7 @@ const InterviewResultsItem = ({ question, interview }) => {
 				{
 					label: question.question,
 					data: optionsData,
-					backgroundColor: ['#eb3d26'],
-					hoverBackgroundColor: 'rgba(152, 152, 152, 0.91)',
+					backgroundColor: Object.values(optionsColor),
 				},
 			],
 		});
@@ -44,21 +64,52 @@ const InterviewResultsItem = ({ question, interview }) => {
 
 	return (
 		<div className="content__body_item_center">
-			{question.type !== 'text' && chartData && (
+			{chartData && (
 				<>
-					<h2 className="title_s">{question.question}</h2>
-					<Bar options={barOptions} data={chartData} />
-					<div className="results__info">
-						{question.options.map((option) => (
-							<div key={option.id}>{option.title}</div>
-						))}
-					</div>
+					<h2 className="title_xs">
+						{question.question}
+						&nbsp;
+						{question.required && (
+							<>
+								&#40;
+								<BsAsterisk className="icon_red icon_xs" />
+								&#41;
+							</>
+						)}
+					</h2>
+					{question.type !== 'text' ? (
+						<>
+							<div className="chart__wrapper">
+								<Bar options={barOptions} data={chartData} />
+							</div>
+							<div className="results__info">
+								{question.options.map((option, index) => (
+									<div key={option.id}>
+										{t('infoMessage.answer')}&nbsp;{index + 1}:&nbsp;
+										<span className="p_info ">
+											{numOptions[option.title]}&nbsp;
+											{t('infoMessage.answers')}
+										</span>
+									</div>
+								))}
+							</div>
+						</>
+					) : (
+						<>
+							<h3 className="p_info-error">
+								{`${t('interviewResultsPage.correctAnswer')}: ${
+									textOptions[0].answer
+								}`}
+							</h3>
+							<Table
+								columns={columnsTextResults}
+								rows={textOptions}
+								total={t('interviewResultsPage.total')}
+							/>
+						</>
+					)}
 				</>
 			)}
 		</div>
 	);
 };
-
-// InterviewResultsItem.propTypes = {};
-
-export default InterviewResultsItem;

@@ -17,47 +17,65 @@ export const getСellToRender = ({
 	row,
 	handleOnChangeField,
 	editedItem,
-}) => ({
-	[Cell.Empty]: null,
-	[Cell.Link]: (
-		<td>
-			<Link className="link_black" to={value}>
-				{key === 'link' ? 'опрос' : 'результаты'}
-			</Link>
-		</td>
-	),
-	[Cell.Select]: (
-		<td>
-			{idToEdit === row.id ? (
-				<PrimarySelect
-					name="role"
-					options={['Администратор', 'Пользователь']}
-					defaultValue={value}
-					hangleSelectChange={handleOnChangeField}
-				/>
-			) : (
-				value
-			)}
-		</td>
-	),
-	[Cell.Input]: (
-		<td>
-			{idToEdit === row.id ? (
-				<form>
-					<input
-						className="secondary_input"
-						autoComplete="off"
-						type="text"
-						defaultValue={editedItem ? editedItem[key] : value}
-						id={row.id}
-						name={key}
-						onBlur={handleOnChangeField}
+}) => {
+	let linkValue = '';
+	switch (key) {
+		case 'link':
+			linkValue = 'опрос';
+			break;
+		case 'results':
+			linkValue = 'результаты';
+			break;
+		case 'userId':
+			linkValue = 'показать ответы респондента';
+			break;
+
+		default:
+			linkValue = 'link';
+	}
+
+	return {
+		[Cell.Empty]: null,
+		[Cell.Link]: (
+			<td>
+				<Link className="link_black" to={value}>
+					{linkValue}
+				</Link>
+			</td>
+		),
+		[Cell.Select]: (
+			<td>
+				{idToEdit === row.id ? (
+					<PrimarySelect
+						name="role"
+						options={['Администратор', 'Пользователь']}
+						defaultValue={value}
+						hangleSelectChange={handleOnChangeField}
 					/>
-				</form>
-			) : (
-				value
-			)}
-		</td>
-	),
-	[Cell.Text]: <td>{value}</td>,
-});
+				) : (
+					value
+				)}
+			</td>
+		),
+		[Cell.Input]: (
+			<td>
+				{idToEdit === row.id ? (
+					<form>
+						<input
+							className="secondary_input"
+							autoComplete="off"
+							type="text"
+							defaultValue={editedItem ? editedItem[key] : value}
+							id={row.id}
+							name={key}
+							onBlur={handleOnChangeField}
+						/>
+					</form>
+				) : (
+					value
+				)}
+			</td>
+		),
+		[Cell.Text]: <td>{value}</td>,
+	};
+};

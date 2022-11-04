@@ -47,7 +47,7 @@ export const ActionInput = ({
 							? t('infoMessage.enterCorrectAnswer')
 							: t('infoMessage.enterAnswer')
 					}
-					defaultValue={option.title}
+					defaultValue={type === 'text' ? option.answer : option.title}
 					handleBlur={handleOnChangeField}
 				/>
 

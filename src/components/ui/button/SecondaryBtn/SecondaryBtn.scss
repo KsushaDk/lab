@@ -21,3 +21,9 @@
 		color: $primary-white;
 	}
 }
+
+.active_secondary_btn {
+	box-shadow: $shadow-checkbox;
+	background-color: $primary-red;
+	color: $primary-white;
+}

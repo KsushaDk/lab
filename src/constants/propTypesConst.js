@@ -33,7 +33,7 @@ export const propTypesConst = {
 	}),
 	selectItem: PropTypes.shape({
 		userId: PropTypes.number,
-		id: PropTypes.number,
+		id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 		title: PropTypes.string,
 		completed: PropTypes.bool,
 	}),

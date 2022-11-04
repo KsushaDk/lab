@@ -12,7 +12,7 @@ import { CheckboxInput } from '../../input/CheckboxInput/CheckboxInput';
 import { IconBtn } from '../../button/IconBtn/IconBtn';
 import './CustomSelect.scss';
 
-const CustomSelect = ({ data, multi }) => {
+const CustomSelect = ({ data, handleChange, multi }) => {
 	const [options, setOptions] = useState([]);
 	const [isOptionOpen, setIsOptionOpen] = useState(false);
 	const [selectedOption, setSelectedOption] = useState(null);
@@ -56,13 +56,19 @@ const CustomSelect = ({ data, multi }) => {
 	}, [debouncedSearch]);
 
 	useEffect(() => {
-		const updatedOptions = data.map((option) => {
-			option.checked = false;
-			return option;
-		});
-
-		setOptions(updatedOptions);
+		// const updatedOptions = data.map((option) => {
+		// 	if (option.question === undefined) {
+		// 		option.checked = false;
+		// 		return option;
+		// 	}
+		// 	return option;
+		// });
+		// setOptions(data);
 	}, [data]);
+
+	useEffect(() => {
+		handleChange(options);
+	}, [options]);
 
 	return (
 		<div className="select__wrapper" onClick={toggleOption}>
@@ -133,11 +139,13 @@ const CustomSelect = ({ data, multi }) => {
 
 CustomSelect.propTypes = {
 	multi: PropTypes.bool.isRequired,
+	handleChange: PropTypes.func,
 	data: PropTypes.arrayOf(propTypesConst.selectItem),
 };
 
 CustomSelect.defaultProps = {
 	data: null,
+	handleChange: () => {},
 };
 
 export default CustomSelect;

@@ -42,7 +42,9 @@
 		"createTemplate": "Create template",
 		"myInterviews": "My interviews",
 		"interviewTemplates": "Templates",
-		"users": "Users"
+		"users": "Users",
+		"sumQuestions": "Summary of questions",
+		"separateAnswers": "Separate answers"
 	},
 	"tabBarLabels": {
 		"aboutUs": "About us",
@@ -65,7 +67,8 @@
 	},
 	"interviewResultsPage": {
 		"title": "Interview results",
-		"total": "Total count of answers"
+		"total": "Total count of answers",
+		"correctAnswer": "Correct answer"
 	},
 	"interviewTemplates": {
 		"title": "Templates",
@@ -119,7 +122,9 @@
 		"here": "here",
 		"requiredQuestion": "Required question",
 		"notAccess": "You don't have an access to this page!",
-		"error": "Error"
+		"error": "Error",
+		"answers": "answers",
+		"answer": "Answer"
 	},
 	"interviewTable": {
 		"caption": "My interviews",
@@ -139,6 +144,8 @@
 		"changed": "Changed",
 		"link": "Link",
 		"answers": "Answers",
-		"results": "Results"
+		"results": "Results",
+		"answer": "Answer",
+		"user": "User"
 	}
 }

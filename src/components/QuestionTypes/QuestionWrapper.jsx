@@ -82,7 +82,9 @@ export const QuestionWrapper = ({
 	const changeCb = (fieldName, value, id) => {
 		const newOptions = current.options.map((option) => {
 			if (option.id === id) {
-				option.title = value;
+				question.type === 'text'
+					? (option.answer = value)
+					: (option.title = value);
 			}
 			return option;
 		});
@@ -91,6 +93,17 @@ export const QuestionWrapper = ({
 	};
 
 	const saveCb = (edited) => {
+		if (question.type === 'text') {
+			const newQuestion = {
+				...current,
+				question: edited?.question || current.question,
+			};
+			setCurrent(newQuestion);
+
+			handleSaveQuestion(current.id, newQuestion);
+			return true;
+		}
+
 		const validatedOptions = validateOptionsState(
 			current.options,
 			notification,

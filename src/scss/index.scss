@@ -47,7 +47,7 @@ body {
 }
 
 .p_secondary {
-	@include text($font-size: 1.3rem, $font-weight: 500);
+	@include text($font-size: 1.2rem, $font-weight: 500);
 }
 
 .p_info-error {

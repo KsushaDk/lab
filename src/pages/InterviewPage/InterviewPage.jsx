@@ -58,7 +58,7 @@ const InterviewPage = () => {
 
 		const newQuestions = interview.questions.map((question) => {
 			if (question.id === id) {
-				question.options[0].answer = e.target.value;
+				question.options[0].title = e.target.value;
 				question.options[0].checked = true;
 			}
 			return question;
@@ -94,7 +94,7 @@ const InterviewPage = () => {
 
 			updateDataInLS('answers', {
 				id: currentUser.id,
-				interviews: [interview],
+				interviews: [{ ...interview, userId: currentUser.id }],
 			});
 		} else {
 			getNotification.failed(t('infoMessage.requiredField'));
@@ -180,7 +180,7 @@ const InterviewPage = () => {
 													name="option"
 													id={option.id}
 													placeholder={t('infoMessage.enterUserAnswer')}
-													defaultValue={option.answer}
+													defaultValue={option.title}
 													handleBlur={(e) => handleTextAnswer(e, question.id)}
 												/>
 											)}

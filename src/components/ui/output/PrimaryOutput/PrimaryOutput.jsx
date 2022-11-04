@@ -4,7 +4,7 @@ import './PrimaryOutput.scss';
 
 export const PrimaryOutput = ({ option }) => (
 	<output className="primary_output" id={option.id}>
-		{option.title}
+		{option.title || option.answer}
 	</output>
 );
 
