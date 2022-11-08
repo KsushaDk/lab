@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-// import PropTypes from 'prop-types';
-
+import PropTypes from 'prop-types';
 import { BsAsterisk } from 'react-icons/bs';
 import { useTranslation } from 'react-i18next';
 import {
@@ -15,6 +14,7 @@ import {
 import { Bar } from 'react-chartjs-2';
 import { getDataForQuestionResults } from 'Utils/getDataForQuestionResults';
 import { barOptions, columnsTextResults } from 'Constants/constants';
+import { propTypesConst } from 'Constants/propTypesConst';
 import Table from 'Components/ui/table/Table';
 
 ChartJS.register(
@@ -44,7 +44,7 @@ export const InterviewResultsItem = ({ question, interview }) => {
 		} = getDataForQuestionResults(interview, question);
 
 		const getTextOptions = interview.allQuestions
-			.filter((item) => item.type === 'text')
+			.filter((item) => item.type === 'text' && item.id === question.id)
 			.map((q) => ({ userId: q.userId, ...q.options[0] }));
 
 		setTextOptions(getTextOptions);
@@ -96,7 +96,7 @@ export const InterviewResultsItem = ({ question, interview }) => {
 						</>
 					) : (
 						<>
-							<h3 className="p_info-error">
+							<h3 className="p_info-red">
 								{`${t('interviewResultsPage.correctAnswer')}: ${
 									textOptions[0].answer
 								}`}
@@ -112,4 +112,20 @@ export const InterviewResultsItem = ({ question, interview }) => {
 			)}
 		</div>
 	);
+};
+
+InterviewResultsItem.propTypes = {
+	interview: PropTypes.shape({
+		id: PropTypes.string,
+		title: PropTypes.string,
+		total: PropTypes.number,
+		questions: PropTypes.arrayOf(propTypesConst.question),
+		allQuestions: PropTypes.arrayOf(propTypesConst.question),
+	}),
+	question: propTypesConst.question,
+};
+
+InterviewResultsItem.defaultProps = {
+	interview: {},
+	question: {},
 };

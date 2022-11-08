@@ -3,20 +3,23 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { ErrorBoundary } from 'react-error-boundary';
 import { useTranslation } from 'react-i18next';
 import { BsAsterisk } from 'react-icons/bs';
-import { SecondaryInput } from 'Components/ui/input/SecondaryInput/SecondaryInput';
 import { SaveCancelActionBtns } from 'Components/ActionItems/SaveCancelActionBtns';
+import { SecondaryInput } from 'Components/ui/input/SecondaryInput/SecondaryInput';
 import { PrimaryDropDown } from 'Components/ui/dropdown/PrimaryDropDown';
 import { ErrorFallback } from 'Components/ErrorFallback/ErrorFallback';
 import { ProgressBar } from 'Components/ui/progressbar/ProgressBar';
-import { useUsers } from 'Hooks/useUsers';
 import { getOptionToRender } from 'Constants/OptionType';
-import { getFromLSByKey, updateDataInLS } from 'Utils/funcForLSByKey';
 import { checkRequeredField } from 'Utils/checkRequiredField';
 import { toggleOptionClick } from 'Utils/toggleOptionClick';
 import { getNotification } from 'Utils/getNotification';
 import { getOptionType } from 'Utils/getOptionType';
 import { shuffleArray } from 'Utils/shuffleArray';
-import './InterviewPage.scss';
+import { getUserData } from 'Utils/getUserData';
+import {
+	getFromLSByKey,
+	setToLSByKey,
+	updateDataInLS,
+} from 'Utils/funcForLSByKey';
 
 const InterviewPage = () => {
 	const [interview, setInterview] = useState(null);
@@ -27,7 +30,7 @@ const InterviewPage = () => {
 	const navigate = useNavigate();
 	const { interviewId } = useParams();
 
-	const { currentUser } = useUsers();
+	const { currentUser } = getUserData();
 
 	const handleSelectionAnswer = (e, id, type) => {
 		if (type !== 'text') {
@@ -92,10 +95,27 @@ const InterviewPage = () => {
 				replace: true,
 			});
 
-			updateDataInLS('answers', {
-				id: currentUser.id,
-				interviews: [{ ...interview, userId: currentUser.id }],
+			const interviewData = getFromLSByKey('interviews');
+			const updatedInterview = interviewData.find(
+				(item) => item.id === interview.id
+			);
+
+			updateDataInLS('interviews', {
+				...updatedInterview,
+				answers: Array.from(
+					new Set([...updatedInterview.answers, currentUser.id])
+				),
 			});
+
+			const answersData = getFromLSByKey('answers') || [];
+			setToLSByKey('answers', [
+				...answersData,
+				{
+					...interview,
+					answers: [...interview.answers, currentUser.id],
+					userId: currentUser.id,
+				},
+			]);
 		} else {
 			getNotification.failed(t('infoMessage.requiredField'));
 		}

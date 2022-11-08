@@ -96,7 +96,7 @@ export const TableRow = ({
 TableRow.propTypes = {
 	total: PropTypes.string,
 	row: PropTypes.oneOfType([propTypesConst.tableRowsItem]).isRequired,
-	current: propTypesConst.currentUser,
+	current: propTypesConst.userDataItem,
 	idToEdit: PropTypes.string,
 	handleOnChangeField: PropTypes.func.isRequired,
 	handleEdit: PropTypes.func.isRequired,

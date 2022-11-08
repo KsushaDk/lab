@@ -69,7 +69,7 @@ const Table = ({
 						)}
 						{rowsToDisplay.map((row) => (
 							<TableRow
-								key={row.id}
+								key={row.userId ? row.title : row.id}
 								total={total}
 								current={current}
 								row={row}
@@ -119,7 +119,7 @@ Table.propTypes = {
 	).isRequired,
 	rows: PropTypes.arrayOf(propTypesConst.tableRowsItem).isRequired,
 	idToEdit: PropTypes.string,
-	current: propTypesConst.currentUser,
+	current: propTypesConst.userDataItem,
 };
 
 Table.defaultProps = {

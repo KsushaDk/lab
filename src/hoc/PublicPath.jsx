@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Navigate } from 'react-router-dom';
-import { useUsers } from 'Hooks/useUsers';
+import { getUserData } from 'Utils/getUserData';
 
 export const PublicPath = ({ children }) => {
-	const { currentUser } = useUsers();
+	const { users, currentUser } = getUserData();
 
-	if (currentUser === null) {
+	if (!currentUser || !users) {
 		return <Navigate to="/" replace />;
 	}
 	return children;

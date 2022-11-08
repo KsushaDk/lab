@@ -16,7 +16,7 @@ export const updateDataInLS = (key, newItem) => {
 		} else {
 			const updatedData = dataFromLS.map((item) => {
 				if (item.id.toString() === newItem.id.toString()) {
-					return key === 'interviews'
+					return key === 'interviews' || key === 'users'
 						? newItem
 						: {
 								id: item.id,

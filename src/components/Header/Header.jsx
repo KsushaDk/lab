@@ -1,25 +1,24 @@
 import React from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
 import { ImUser } from 'react-icons/im';
 import { useTranslation } from 'react-i18next';
 import { BsBoxArrowRight } from 'react-icons/bs';
-import { logoutUser } from 'Redux/slices/userSlice';
-import { useUsers } from 'Hooks/useUsers';
+import { updateDataInLS } from 'Utils/funcForLSByKey';
+import { getUserData } from 'Utils/getUserData';
 import { LngSwitcher } from '../LngSwitcher/LngSwitcher';
 import logo from './logo.svg';
 import './Header.scss';
 
 export const Header = () => {
 	const navigate = useNavigate();
-	const dispatch = useDispatch();
 
 	const { t } = useTranslation();
 
-	const { currentUser } = useUsers();
+	const { currentUser } = getUserData();
 
 	const logout = () => {
-		dispatch(logoutUser());
+		const updatedUser = { ...currentUser, isAuth: false };
+		updateDataInLS('users', updatedUser);
 		navigate('/', { replace: true });
 	};
 
@@ -38,7 +37,7 @@ export const Header = () => {
 					{t('header.about')}
 				</NavLink>
 
-				{currentUser === null ? (
+				{!currentUser ? (
 					<NavLink
 						to="/"
 						className={({ isActive }) =>

@@ -13,6 +13,7 @@ export const getCellType = (cellName) => {
 		case 'correct':
 		case 'checked':
 		case 'answer':
+		case 'isAuth':
 			cellType = Cell.Empty;
 			break;
 

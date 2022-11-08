@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { PrimarySelect } from 'Components/ui/select/PrimarySelect/PrimarySelect';
 
@@ -18,6 +19,8 @@ export const getСellToRender = ({
 	handleOnChangeField,
 	editedItem,
 }) => {
+	const { t } = useTranslation();
+
 	let linkValue = '';
 	switch (key) {
 		case 'link':
@@ -27,7 +30,7 @@ export const getСellToRender = ({
 			linkValue = 'результаты';
 			break;
 		case 'userId':
-			linkValue = 'показать ответы респондента';
+			linkValue = t('infoMessage.showUserAnswers');
 			break;
 
 		default:
@@ -76,6 +79,10 @@ export const getСellToRender = ({
 				)}
 			</td>
 		),
-		[Cell.Text]: <td>{value}</td>,
+		[Cell.Text]: (
+			<td>
+				{key === 'interviews' || key === 'answers' ? value.length : value}
+			</td>
+		),
 	};
 };

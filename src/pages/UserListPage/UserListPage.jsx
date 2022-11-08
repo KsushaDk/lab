@@ -1,30 +1,31 @@
 import React, { useState, useEffect } from 'react';
 import { SearchForm } from 'Components/ui/form/SearchForm/SearchForm';
-import { useUsers } from 'Hooks/useUsers';
 import { UserTable } from 'Components/UserTable/UserTable';
 import { getSearchResult } from 'Utils/getSearchResult';
+import { getFromLSByKey } from 'Utils/funcForLSByKey';
 
 const UserListPage = () => {
-	const { users } = useUsers();
-
-	const [userData, setUserData] = useState(users);
+	const [userData, setUserData] = useState(null);
 	const [searchResult, setSearchResult] = useState(null);
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
 
-		const search = getSearchResult(users, e.target.search.value, 'username');
+		const search = getSearchResult(userData, e.target.search.value, 'username');
 		setSearchResult(search);
 	};
 
 	useEffect(() => {
+		const users = getFromLSByKey('users');
 		setUserData(users);
-	}, [users]);
+	}, []);
 
 	return (
 		<section className="content">
 			<SearchForm handleSubmit={handleSubmit} />
-			<UserTable userData={userData} searchResult={searchResult} />
+			{userData && (
+				<UserTable userData={userData} searchResult={searchResult} />
+			)}
 		</section>
 	);
 };

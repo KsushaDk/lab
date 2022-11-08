@@ -1,20 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
-import { updateUsers } from 'Redux/slices/userSlice';
 import { propTypesConst } from 'Constants/propTypesConst';
 import { columnsUsers } from 'Constants/constants';
-import { useUsers } from 'Hooks/useUsers';
+import { getUserData } from 'Utils/getUserData';
 import { TableWrapper } from '../ui/table/TableWrapper';
 
 export const UserTable = ({ userData, searchResult }) => {
 	const { t } = useTranslation();
 
-	const { currentUser } = useUsers();
+	const { currentUser } = getUserData();
 
 	return (
 		<TableWrapper
-			slice={updateUsers}
+			storageName="users"
 			caption={t('userTable.caption')}
 			total={t('userTable.total')}
 			columns={columnsUsers}

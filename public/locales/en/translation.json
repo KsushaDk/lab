@@ -68,7 +68,8 @@
 	"interviewResultsPage": {
 		"title": "Interview results",
 		"total": "Total count of answers",
-		"correctAnswer": "Correct answer"
+		"correctAnswer": "Correct answer",
+		"username": "Username"
 	},
 	"interviewTemplates": {
 		"title": "Templates",
@@ -110,6 +111,7 @@
 		"notificationRadio": "Choose the correct answer.",
 		"noSearchResult": "Nothing found, please try again.",
 		"noInterviews": "No interview has been created yet.",
+		"noAnswers": "No one has answered this interview yet.",
 		"fetchSuccess": "Data uploaded successfully!",
 		"fetchFailed": "Something went wrong...",
 		"fetchEror": "Error in request. Error status:",
@@ -124,7 +126,9 @@
 		"notAccess": "You don't have an access to this page!",
 		"error": "Error",
 		"answers": "answers",
-		"answer": "Answer"
+		"answer": "Answer",
+		"showUserAnswers": "show respondent's answers",
+		"noUsersAnswer": "This user has not completed this interview yet."
 	},
 	"interviewTable": {
 		"caption": "My interviews",

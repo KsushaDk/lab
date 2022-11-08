@@ -38,6 +38,10 @@ body {
 	@include text($font-size: 1.5rem, $font-weight: 600);
 }
 
+.title_s_red {
+	@include text($font-size: 1.5rem, $font-weight: 500, $color: $primary-red);
+}
+
 .title_xs {
 	@include text($font-size: 1.2rem, $font-weight: 600);
 }
@@ -50,7 +54,7 @@ body {
 	@include text($font-size: 1.2rem, $font-weight: 500);
 }
 
-.p_info-error {
+.p_info-red {
 	@include text($font-size: 1.2rem, $color: $primary-red);
 }
 

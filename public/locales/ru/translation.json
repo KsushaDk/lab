@@ -67,7 +67,8 @@
 	"interviewResultsPage": {
 		"title": "Результаты опроса",
 		"total": "Всего ответов",
-		"correctAnswer": "Правильный ответ"
+		"correctAnswer": "Правильный ответ",
+		"username": "Имя пользователя"
 	},
 	"interviewTemplates": {
 		"title": "Шаблоны",
@@ -109,6 +110,7 @@
 		"notificationRadio": "Выберете правильный вариант ответа.",
 		"noSearchResult": "Ничего не найдено, попробуйте еще раз.",
 		"noInterviews": "Ни одного опроса еще не создано.",
+		"noAnswers": "Никто еще не прошел этот опрос.",
 		"fetchSuccess": "Данные успешно загружены!",
 		"fetchFailed": "Что-то пошло не так...",
 		"fetchEror": "Ошибка в запросе на сервер. Номер ошибки:",
@@ -123,7 +125,9 @@
 		"notAccess": "У вас нет доступа к этой странице!",
 		"error": "Ошибка",
 		"answers": "ответов",
-		"answer": "Ответ"
+		"answer": "Ответ",
+		"showUserAnswers": "показать ответы респондента",
+		"noUsersAnswer": "Этот пользователь еще не прошел этот опрос."
 	},
 	"interviewTable": {
 		"caption": "Мои опросы",
