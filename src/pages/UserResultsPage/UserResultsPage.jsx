@@ -22,9 +22,7 @@ const UserResultsPage = () => {
 
 	const { users } = getUserData();
 
-	const selectedUser = getFromLSByKey('users').find(
-		(user) => user.id === userId
-	);
+	const selectedUser = users.find((user) => user.id === userId);
 
 	const selectedInterview = getFromLSByKey('interviews').find(
 		(user) => user.id === interviewId
@@ -36,8 +34,10 @@ const UserResultsPage = () => {
 	});
 
 	useEffect(() => {
-		const dataFromLS = getFromLSByKey('answers');
-		const userAnswers = dataFromLS.filter((answer) => answer.userId === userId);
+		const answersFromLS = getFromLSByKey('answers');
+		const userAnswers = answersFromLS.filter(
+			(answer) => answer.userId === userId
+		);
 		const userResultsData = userAnswers.filter(
 			(interview) => interview.id === interviewId
 		);

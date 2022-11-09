@@ -23,8 +23,8 @@ const InterviewResultsPage = () => {
 	});
 
 	useEffect(() => {
-		const interviewData = getDataForInterviewResults(interviewId);
-		setInterviewResults(interviewData);
+		const interviewResultsData = getDataForInterviewResults(interviewId);
+		setInterviewResults(interviewResultsData);
 	}, []);
 
 	return (

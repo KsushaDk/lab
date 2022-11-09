@@ -9,17 +9,14 @@ import { PrimaryDropDown } from 'Components/ui/dropdown/PrimaryDropDown';
 import { ErrorFallback } from 'Components/ErrorFallback/ErrorFallback';
 import { ProgressBar } from 'Components/ui/progressbar/ProgressBar';
 import { getOptionToRender } from 'Constants/OptionType';
+import { getFromLSByKey, updateDataInLS } from 'Utils/funcForLSByKey';
 import { checkRequeredField } from 'Utils/checkRequiredField';
 import { toggleOptionClick } from 'Utils/toggleOptionClick';
 import { getNotification } from 'Utils/getNotification';
 import { getOptionType } from 'Utils/getOptionType';
+import { findInArrByID } from 'Utils/findInArrByID';
 import { shuffleArray } from 'Utils/shuffleArray';
 import { getUserData } from 'Utils/getUserData';
-import {
-	getFromLSByKey,
-	setToLSByKey,
-	updateDataInLS,
-} from 'Utils/funcForLSByKey';
 
 const InterviewPage = () => {
 	const [interview, setInterview] = useState(null);
@@ -31,6 +28,11 @@ const InterviewPage = () => {
 	const { interviewId } = useParams();
 
 	const { currentUser } = getUserData();
+
+	const interviewFromLS = findInArrByID(
+		getFromLSByKey('interviews'),
+		interviewId
+	);
 
 	const handleSelectionAnswer = (e, id, type) => {
 		if (type !== 'text') {
@@ -54,7 +56,7 @@ const InterviewPage = () => {
 		}
 	};
 
-	const handleTextAnswer = (e, id) => {
+	const handleSelectionTextAnswer = (e, id) => {
 		if (e.target.value === '') {
 			return getNotification.failed(t('infoMessage.notEmptyField'));
 		}
@@ -95,27 +97,18 @@ const InterviewPage = () => {
 				replace: true,
 			});
 
-			const interviewData = getFromLSByKey('interviews');
-			const updatedInterview = interviewData.find(
-				(item) => item.id === interview.id
-			);
-
 			updateDataInLS('interviews', {
-				...updatedInterview,
+				...interviewFromLS,
 				answers: Array.from(
-					new Set([...updatedInterview.answers, currentUser.id])
+					new Set([...interviewFromLS.answers, currentUser.id])
 				),
 			});
 
-			const answersData = getFromLSByKey('answers') || [];
-			setToLSByKey('answers', [
-				...answersData,
-				{
-					...interview,
-					answers: [...interview.answers, currentUser.id],
-					userId: currentUser.id,
-				},
-			]);
+			updateDataInLS('answers', {
+				...interview,
+				answers: Array.from(new Set([...interview.answers, currentUser.id])),
+				userId: currentUser.id,
+			});
 		} else {
 			getNotification.failed(t('infoMessage.requiredField'));
 		}
@@ -140,14 +133,11 @@ const InterviewPage = () => {
 	}, [interview]);
 
 	useEffect(() => {
-		const dataFromLS = getFromLSByKey('interviews');
-		const interviewData = dataFromLS.find((item) => item.id === interviewId);
-
-		if (interviewData.queries.randomQuestionOrder) {
-			shuffleArray(interviewData.questions);
+		if (interviewFromLS.queries.randomQuestionOrder) {
+			shuffleArray(interviewFromLS.questions);
 		}
 
-		setInterview(interviewData);
+		setInterview(interviewFromLS);
 	}, []);
 
 	return (
@@ -201,7 +191,9 @@ const InterviewPage = () => {
 													id={option.id}
 													placeholder={t('infoMessage.enterUserAnswer')}
 													defaultValue={option.title}
-													handleBlur={(e) => handleTextAnswer(e, question.id)}
+													handleBlur={(e) =>
+														handleSelectionTextAnswer(e, question.id)
+													}
 												/>
 											)}
 										</li>

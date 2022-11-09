@@ -37,6 +37,7 @@ export const InterviewResultsItem = ({ question, interview }) => {
 		const labels = question.options.map(
 			(option, index) => `${t('infoMessage.answer')} ${index + 1}`
 		);
+
 		const {
 			optionsData,
 			selectedOptions,

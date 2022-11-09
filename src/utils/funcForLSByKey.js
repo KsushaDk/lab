@@ -5,26 +5,32 @@ export const setToLSByKey = (key, data) =>
 
 export const getFromLSByKey = (key) => JSON.parse(localStorage.getItem(key));
 
+const chechAnswerItem = (data, newItem) =>
+	data.find((item) => item.id === newItem.id && item.userId === newItem.userId);
+
 export const updateDataInLS = (key, newItem) => {
 	const dataFromLS = getFromLSByKey(key);
 
 	if (dataFromLS !== null) {
-		const checkItem = findInArrByID(dataFromLS, newItem.id);
+		const checkItem =
+			key === 'answers'
+				? chechAnswerItem(dataFromLS, newItem)
+				: findInArrByID(dataFromLS, newItem.id);
 
 		if (!checkItem) {
 			setToLSByKey(key, [...dataFromLS, newItem]);
 		} else {
-			const updatedData = dataFromLS.map((item) => {
-				if (item.id.toString() === newItem.id.toString()) {
-					return key === 'interviews' || key === 'users'
-						? newItem
-						: {
-								id: item.id,
-								interviews: [...item.interviews, ...newItem.interviews],
-						  };
-				}
-				return item;
-			});
+			const updatedData =
+				key === 'answers'
+					? dataFromLS.map((item) =>
+							item.id === newItem.id && item.userId === newItem.userId
+								? newItem
+								: item
+					  )
+					: dataFromLS.map((item) =>
+							item.id.toString() === newItem.id.toString() ? newItem : item
+					  );
+
 			setToLSByKey(key, updatedData);
 		}
 	} else {
