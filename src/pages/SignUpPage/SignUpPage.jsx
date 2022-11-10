@@ -1,19 +1,17 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { v4 as uuidv4 } from 'uuid';
 import { PrimaryForm } from 'Components/ui/form/PrimaryForm/PrimaryForm';
 import { PrimaryInput } from 'Components/ui/input/PrimaryInput/PrimaryInput';
 import { SubmitInput } from 'Components/ui/input/SubmitInput/SubmitInput';
 import { regEmail, regPass } from 'Constants/constants';
-import { useUsers } from 'Hooks/useUsers';
-import { addUser } from 'Redux/slices/userSlice';
+import { updateDataInLS } from 'Utils/funcForLSByKey';
+import { getUserData } from 'Utils/getUserData';
 
 export const SignUpPage = () => {
 	const navigate = useNavigate();
-	const dispatch = useDispatch();
 
 	const { t } = useTranslation();
 
@@ -27,17 +25,17 @@ export const SignUpPage = () => {
 		mode: 'onBlur',
 	});
 
-	const { users } = useUsers();
+	const { users } = getUserData();
 
 	const onSubmit = async (data) => {
-		const newData = {
+		updateDataInLS('users', {
 			...data,
 			id: uuidv4(),
-			role: 'Пользователь',
-			interviews: 0,
+			role: 'Администратор',
 			registered: new Date(Date.now()).toLocaleDateString(),
-		};
-		dispatch(addUser(newData));
+			interviews: [],
+			isAuth: false,
+		});
 
 		navigate('/', { replace: true });
 		reset();
@@ -80,7 +78,7 @@ export const SignUpPage = () => {
 						message: t('validationErrMessages.emailErr'),
 					},
 					validate: (value) => {
-						const checkUserEmail = users.find((user) => user.email === value);
+						const checkUserEmail = users?.find((user) => user.email === value);
 						return !checkUserEmail || t('validationErrMessages.emailUniqueErr');
 					},
 				}}

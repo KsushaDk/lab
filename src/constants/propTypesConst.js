@@ -17,7 +17,7 @@ export const propTypesConst = {
 	interviewDataItem: PropTypes.shape({
 		id: PropTypes.string,
 		changed: PropTypes.string,
-		answers: PropTypes.number,
+		answers: PropTypes.arrayOf(PropTypes.string),
 		title: PropTypes.string,
 		link: PropTypes.string,
 		results: PropTypes.string,
@@ -25,19 +25,20 @@ export const propTypesConst = {
 	userDataItem: PropTypes.shape({
 		id: PropTypes.string,
 		email: PropTypes.string,
-		interviews: PropTypes.number,
+		interviews: PropTypes.arrayOf(PropTypes.string),
 		password: PropTypes.string,
 		registered: PropTypes.string,
 		role: PropTypes.string,
 		username: PropTypes.string,
+		isAuth: PropTypes.bool,
 	}),
 	selectItem: PropTypes.shape({
 		userId: PropTypes.number,
-		id: PropTypes.number,
+		id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 		title: PropTypes.string,
 		completed: PropTypes.bool,
+		checked: PropTypes.bool,
 	}),
-
 	tableRowsItem: PropTypes.oneOfType([
 		PropTypes.shape({
 			id: PropTypes.string,
@@ -46,26 +47,17 @@ export const propTypesConst = {
 			password: PropTypes.string,
 			role: PropTypes.string,
 			registered: PropTypes.string,
-			interviews: PropTypes.number,
+			interviews: PropTypes.arrayOf(PropTypes.string),
 		}),
 		PropTypes.shape({
 			id: PropTypes.string,
 			changed: PropTypes.string,
-			answers: PropTypes.number,
+			answers: PropTypes.arrayOf(PropTypes.string),
 			title: PropTypes.string,
 			link: PropTypes.string,
 			results: PropTypes.string,
 		}),
 	]),
-	currentUser: PropTypes.shape({
-		id: PropTypes.string,
-		username: PropTypes.string,
-		email: PropTypes.string,
-		password: PropTypes.string,
-		role: PropTypes.string,
-		registered: PropTypes.string,
-		interviews: PropTypes.number,
-	}),
 	query: PropTypes.shape({
 		checked: PropTypes.bool,
 		id: PropTypes.string,

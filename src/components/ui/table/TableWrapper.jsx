@@ -16,7 +16,6 @@ const Table = React.lazy(() => import('./Table'));
 
 export const TableWrapper = ({
 	storageName,
-	slice,
 	columns,
 	rows,
 	caption,
@@ -86,9 +85,7 @@ export const TableWrapper = ({
 	};
 
 	useEffect(() => {
-		storageName === 'interviews'
-			? setToLSByKey(storageName, totalRowsState)
-			: dispatch(slice(totalRowsState));
+		setToLSByKey(storageName, totalRowsState);
 	}, [totalRowsState]);
 
 	useEffect(() => {
@@ -128,7 +125,7 @@ TableWrapper.propTypes = {
 		})
 	).isRequired,
 	rows: PropTypes.arrayOf(propTypesConst.tableRowsItem).isRequired,
-	current: propTypesConst.currentUser,
+	current: propTypesConst.userDataItem,
 };
 
 TableWrapper.defaultProps = {

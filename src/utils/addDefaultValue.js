@@ -14,7 +14,7 @@ export const addDefaultValue = {
 			progressBar: false,
 		},
 		changed: '',
-		answers: 0,
+		answers: [],
 		link: '',
 		results: 'результаты',
 	}),

@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { useParams } from 'react-router-dom';
 import { ErrorBoundary } from 'react-error-boundary';
 import { useTranslation } from 'react-i18next';
+import { InterviewResultsHead } from 'Components/InterviewResultsHead/InterviewResultsHead';
 import { ErrorFallback } from 'Components/ErrorFallback/ErrorFallback';
-import { InterviewInfo } from 'Components/InterviewInfo/InterviewInfo';
 import { getDataForInterviewResults } from 'Utils/getDataForInterviewResults';
-import InterviewResultsItem from './InterviewResultsItem';
+import { InterviewResultsItem } from './InterviewResultsItem';
 import './InterviewResultsPage.scss';
 
 const InterviewResultsPage = () => {
@@ -15,39 +15,42 @@ const InterviewResultsPage = () => {
 
 	const { interviewId } = useParams();
 
-	useEffect(() => {
-		const interviewData = getDataForInterviewResults(interviewId);
+	const handleSelectChange = useCallback((data) => {
+		setInterviewResults({
+			...interviewResults,
+			questions: data,
+		});
+	});
 
-		setInterviewResults(interviewData);
+	useEffect(() => {
+		const interviewResultsData = getDataForInterviewResults(interviewId);
+		setInterviewResults(interviewResultsData);
 	}, []);
 
 	return (
 		<section className="content">
-			{interviewResults && (
+			{!interviewResults ? (
+				<h2 className="title_s">{t('infoMessage.noAnswers')}</h2>
+			) : (
 				<ErrorBoundary FallbackComponent={ErrorFallback}>
-					<h2 className="title_s">
-						{t('interviewResultsPage.title')}&#58;&nbsp;
-						{interviewResults.title}
-					</h2>
-					<div className="content__head">
-						<InterviewInfo
-							pages={1}
-							questions={interviewResults.questions.length}
-						/>
-						<h2 className="p_info">
-							{t('interviewResultsPage.total')}&#58;&nbsp;
-							{interviewResults.total}
-						</h2>
-					</div>
-
+					<InterviewResultsHead
+						results={interviewResults}
+						handleSelectChange={handleSelectChange}
+						dataForSelect={interviewResults.questions}
+					/>
 					<div className="content__body_center">
-						{interviewResults.questions.map((question) => (
-							<InterviewResultsItem
-								key={question.id}
-								question={question}
-								interview={interviewResults}
-							/>
-						))}
+						{interviewResults.questions.map((question) => {
+							if (question.checked) {
+								return (
+									<InterviewResultsItem
+										key={question.id}
+										question={question}
+										interview={interviewResults}
+									/>
+								);
+							}
+							return null;
+						})}
 					</div>
 				</ErrorBoundary>
 			)}

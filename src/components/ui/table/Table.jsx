@@ -49,7 +49,7 @@ const Table = ({
 		<div className="table__wrap">
 			{rowsToDisplay && (
 				<table className="table__content">
-					<caption className="table__caption">{caption}</caption>
+					{caption && <caption className="table__caption">{caption}</caption>}
 					<thead className="table__head">
 						<tr>
 							{columns.map((column) => (
@@ -69,7 +69,7 @@ const Table = ({
 						)}
 						{rowsToDisplay.map((row) => (
 							<TableRow
-								key={row.id}
+								key={row.userId ? row.title : row.id}
 								total={total}
 								current={current}
 								row={row}
@@ -84,10 +84,10 @@ const Table = ({
 					</tbody>
 					<tfoot className="table__foot">
 						<tr>
-							<th scope="row" colSpan={3}>
+							<th scope="row">
 								{total}: &nbsp; {rows.length}
 							</th>
-							<td colSpan={columns.length - 3}>
+							<td colSpan={columns.length - 1}>
 								<TablePagination
 									totalCount={rows.length}
 									pageSize={pageSize}
@@ -105,28 +105,33 @@ const Table = ({
 };
 
 Table.propTypes = {
-	caption: PropTypes.string.isRequired,
-	total: PropTypes.string.isRequired,
+	caption: PropTypes.string,
+	total: PropTypes.string,
 	searchResult: PropTypes.arrayOf(propTypesConst.tableRowsItem),
-	handleCancelEditing: PropTypes.func.isRequired,
-	handleOnChangeField: PropTypes.func.isRequired,
-	handleRemove: PropTypes.func.isRequired,
-	handleEdit: PropTypes.func.isRequired,
+	handleCancelEditing: PropTypes.func,
+	handleOnChangeField: PropTypes.func,
+	handleRemove: PropTypes.func,
+	handleEdit: PropTypes.func,
 	columns: PropTypes.arrayOf(
 		PropTypes.shape({
-			field: PropTypes.string,
-			fieldName: PropTypes.string,
+			key: PropTypes.string,
 		})
 	).isRequired,
 	rows: PropTypes.arrayOf(propTypesConst.tableRowsItem).isRequired,
 	idToEdit: PropTypes.string,
-	current: propTypesConst.currentUser,
+	current: propTypesConst.userDataItem,
 };
 
 Table.defaultProps = {
 	current: undefined,
 	searchResult: null,
 	idToEdit: null,
+	caption: null,
+	total: null,
+	handleCancelEditing: () => {},
+	handleOnChangeField: () => {},
+	handleRemove: () => {},
+	handleEdit: () => {},
 };
 
 export default Table;

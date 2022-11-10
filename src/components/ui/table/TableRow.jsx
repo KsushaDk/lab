@@ -38,62 +38,65 @@ export const TableRow = ({
 					handleOnChangeField={(e) => handleOnChangeField(e)}
 				/>
 			))}
+			{!total.includes(t('interviewResultsPage.total')) && (
+				<td>
+					{idToEdit === row.id ? (
+						<IconBtn
+							type="submit"
+							handleClick={() => {
+								dispatch(
+									setModalState({
+										isActive: true,
+										message: t('infoMessage.submitSave'),
+										btnValues: [t('btnValues.save'), t('btnValues.cancel')],
+										isSubmitted: false,
+									})
+								);
+							}}
+							btnIcon={<BsCheckSquare />}
+						/>
+					) : (
+						<IconBtn
+							handleClick={() => handleEdit(row.id)}
+							btnIcon={<ImPencil />}
+						/>
+					)}
 
-			<td>
-				{idToEdit === row.id ? (
-					<IconBtn
-						type="submit"
-						handleClick={() => {
-							dispatch(
-								setModalState({
-									isActive: true,
-									message: t('infoMessage.submitSave'),
-									btnValues: [t('btnValues.save'), t('btnValues.cancel')],
-									isSubmitted: false,
-								})
-							);
-						}}
-						btnIcon={<BsCheckSquare />}
-					/>
-				) : (
-					<IconBtn
-						handleClick={() => handleEdit(row.id)}
-						btnIcon={<ImPencil />}
-					/>
-				)}
+					{idToEdit === row.id ? (
+						<IconBtn
+							handleClick={() => handleCancelEditing()}
+							btnIcon={<BsXSquare />}
+						/>
+					) : (
+						<IconBtn
+							handleClick={() => handleRemove(row.id)}
+							disabled={current?.id === row.id}
+							btnIcon={<ImBin />}
+						/>
+					)}
 
-				{idToEdit === row.id ? (
-					<IconBtn
-						handleClick={() => handleCancelEditing()}
-						btnIcon={<BsXSquare />}
-					/>
-				) : (
-					<IconBtn
-						handleClick={() => handleRemove(row.id)}
-						disabled={current?.id === row.id}
-						btnIcon={<ImBin />}
-					/>
-				)}
-
-				{total.includes(t('interviewTable.total')) && (
-					<PrimaryDropDown trigger={<IconBtn btnIcon={<BsCaretDownFill />} />}>
-						<Link className="dropdown__content_link" to="/home/create">
-							Copy
-						</Link>
-						<Link className="dropdown__content_link" to="/home/create">
-							Play/Resume
-						</Link>
-					</PrimaryDropDown>
-				)}
-			</td>
+					{total.includes(t('interviewTable.total')) && (
+						<PrimaryDropDown
+							trigger={<IconBtn btnIcon={<BsCaretDownFill />} />}
+						>
+							<Link className="dropdown__content_link" to="/home/create">
+								Copy
+							</Link>
+							<Link className="dropdown__content_link" to="/home/create">
+								Play/Resume
+							</Link>
+						</PrimaryDropDown>
+					)}
+				</td>
+			)}
 		</tr>
 	);
 };
 
 TableRow.propTypes = {
-	total: PropTypes.string.isRequired,
+	total: PropTypes.string,
 	row: PropTypes.oneOfType([propTypesConst.tableRowsItem]).isRequired,
-	current: propTypesConst.currentUser,
+	current: propTypesConst.userDataItem,
 	idToEdit: PropTypes.string,
 	handleOnChangeField: PropTypes.func.isRequired,
 	handleEdit: PropTypes.func.isRequired,
@@ -104,4 +107,5 @@ TableRow.propTypes = {
 TableRow.defaultProps = {
 	current: undefined,
 	idToEdit: null,
+	total: null,
 };

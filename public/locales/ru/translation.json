@@ -41,7 +41,9 @@
 		"createInterview": "Создать опрос",
 		"myInterviews": "Мои опросы",
 		"interviewTemplates": "Шаблоны опросов",
-		"users": "Пользователи"
+		"users": "Пользователи",
+		"sumQuestions": "Сводные данные по вопросам",
+		"separateAnswers": "Отдельные ответы"
 	},
 	"tabBarLabels": {
 		"aboutUs": "О нас",
@@ -64,7 +66,9 @@
 	},
 	"interviewResultsPage": {
 		"title": "Результаты опроса",
-		"total": "Всего ответов"
+		"total": "Всего ответов",
+		"correctAnswer": "Правильный ответ",
+		"username": "Имя пользователя"
 	},
 	"interviewTemplates": {
 		"title": "Шаблоны",
@@ -106,6 +110,7 @@
 		"notificationRadio": "Выберете правильный вариант ответа.",
 		"noSearchResult": "Ничего не найдено, попробуйте еще раз.",
 		"noInterviews": "Ни одного опроса еще не создано.",
+		"noAnswers": "Никто еще не прошел этот опрос.",
 		"fetchSuccess": "Данные успешно загружены!",
 		"fetchFailed": "Что-то пошло не так...",
 		"fetchEror": "Ошибка в запросе на сервер. Номер ошибки:",
@@ -118,7 +123,11 @@
 		"here": "сюда",
 		"requiredQuestion": "Обязательный вопрос",
 		"notAccess": "У вас нет доступа к этой странице!",
-		"error": "Ошибка"
+		"error": "Ошибка",
+		"answers": "ответов",
+		"answer": "Ответ",
+		"showUserAnswers": "показать ответы респондента",
+		"noUsersAnswer": "Этот пользователь еще не прошел этот опрос."
 	},
 	"interviewTable": {
 		"caption": "Мои опросы",
@@ -138,6 +147,8 @@
 		"changed": "Изменен",
 		"link": "Ссылка",
 		"answers": "Ответы",
-		"results": "Результаты"
+		"results": "Результаты",
+		"answer": "Ответ",
+		"user": "Пользователь"
 	}
 }

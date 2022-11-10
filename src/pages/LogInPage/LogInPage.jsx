@@ -1,18 +1,15 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { PrimaryInput } from 'Components/ui/input/PrimaryInput/PrimaryInput';
 import { SubmitInput } from 'Components/ui/input/SubmitInput/SubmitInput';
 import { PrimaryForm } from 'Components/ui/form/PrimaryForm/PrimaryForm';
-import { useUsers } from 'Hooks/useUsers';
-import { loginUser } from 'Redux/slices/userSlice';
+import { getFromLSByKey, updateDataInLS } from 'Utils/funcForLSByKey';
 import './LogInPage.scss';
 
 export const LogInPage = () => {
 	const navigate = useNavigate();
-	const dispatch = useDispatch();
 
 	const { t } = useTranslation();
 
@@ -26,13 +23,13 @@ export const LogInPage = () => {
 		mode: 'onBlur',
 	});
 
-	const { users } = useUsers();
+	const users = getFromLSByKey('users');
 
 	const onSubmit = (data) => {
 		const currentUser = users.find((user) => user.email === data.email);
 
-		const newUser = { ...currentUser, isAuth: true };
-		dispatch(loginUser(newUser));
+		const updatedUser = { ...currentUser, isAuth: true };
+		updateDataInLS('users', updatedUser);
 
 		navigate('/home', { replace: true });
 
@@ -53,7 +50,7 @@ export const LogInPage = () => {
 				rules={{
 					required: t('validationErrMessages.notEmptyField'),
 					validate: (value) => {
-						const currentUser = users.find((user) => user.email === value);
+						const currentUser = users?.find((user) => user.email === value);
 						return currentUser || t('validationErrMessages.incorrectEmail');
 					},
 				}}
@@ -68,7 +65,7 @@ export const LogInPage = () => {
 				rules={{
 					required: t('validationErrMessages.notEmptyField'),
 					validate: (value) => {
-						const currentUser = users.find(
+						const currentUser = users?.find(
 							(user) => user.email === getValues('email')
 						);
 						return (

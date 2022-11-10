@@ -8,6 +8,7 @@ import { QuestionTypeList } from 'Components/QuestionTypeList/QuestionTypeList';
 import { InterviewInfo } from 'Components/InterviewInfo/InterviewInfo';
 import { ErrorFallback } from 'Components/ErrorFallback/ErrorFallback';
 import { interviewQuery } from 'Constants/constants';
+import { getUserData } from 'Utils/getUserData';
 import { addDefaultValue } from 'Utils/addDefaultValue';
 import { getNotification } from 'Utils/getNotification';
 import { toggleValueByKey } from 'Utils/toggleValueByKey';
@@ -88,6 +89,13 @@ const CreateInterviewPage = () => {
 		if (interview.title === '') {
 			getNotification.failed(t('infoMessage.enterInterviewTitle'));
 		} else {
+			const { currentUser } = getUserData();
+
+			updateDataInLS('users', {
+				...currentUser,
+				interviews: [...currentUser.interviews, interview.id],
+			});
+
 			updateDataInLS('interviews', {
 				...interview,
 				changed: new Date(Date.now()).toLocaleDateString(),

@@ -148,6 +148,8 @@ export const columnsInterviews = [
 	{ key: 'actions' },
 ];
 
+export const columnsTextResults = [{ key: 'user' }, { key: 'answer' }];
+
 export const dataInterviews = [
 	{
 		id: uuidv4(),
@@ -397,6 +399,7 @@ export const barOptions = {
 			// text: question.question,
 		},
 	},
+	maintainAspectRatio: false,
 	scales: {
 		x: {
 			min: 0,

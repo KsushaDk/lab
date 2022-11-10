@@ -3,20 +3,20 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { ErrorBoundary } from 'react-error-boundary';
 import { useTranslation } from 'react-i18next';
 import { BsAsterisk } from 'react-icons/bs';
-import { SecondaryInput } from 'Components/ui/input/SecondaryInput/SecondaryInput';
 import { SaveCancelActionBtns } from 'Components/ActionItems/SaveCancelActionBtns';
+import { SecondaryInput } from 'Components/ui/input/SecondaryInput/SecondaryInput';
 import { PrimaryDropDown } from 'Components/ui/dropdown/PrimaryDropDown';
 import { ErrorFallback } from 'Components/ErrorFallback/ErrorFallback';
 import { ProgressBar } from 'Components/ui/progressbar/ProgressBar';
-import { useUsers } from 'Hooks/useUsers';
 import { getOptionToRender } from 'Constants/OptionType';
 import { getFromLSByKey, updateDataInLS } from 'Utils/funcForLSByKey';
 import { checkRequeredField } from 'Utils/checkRequiredField';
 import { toggleOptionClick } from 'Utils/toggleOptionClick';
 import { getNotification } from 'Utils/getNotification';
 import { getOptionType } from 'Utils/getOptionType';
+import { findInArrByID } from 'Utils/findInArrByID';
 import { shuffleArray } from 'Utils/shuffleArray';
-import './InterviewPage.scss';
+import { getUserData } from 'Utils/getUserData';
 
 const InterviewPage = () => {
 	const [interview, setInterview] = useState(null);
@@ -27,7 +27,12 @@ const InterviewPage = () => {
 	const navigate = useNavigate();
 	const { interviewId } = useParams();
 
-	const { currentUser } = useUsers();
+	const { currentUser } = getUserData();
+
+	const interviewFromLS = findInArrByID(
+		getFromLSByKey('interviews'),
+		interviewId
+	);
 
 	const handleSelectionAnswer = (e, id, type) => {
 		if (type !== 'text') {
@@ -51,14 +56,14 @@ const InterviewPage = () => {
 		}
 	};
 
-	const handleTextAnswer = (e, id) => {
+	const handleSelectionTextAnswer = (e, id) => {
 		if (e.target.value === '') {
 			return getNotification.failed(t('infoMessage.notEmptyField'));
 		}
 
 		const newQuestions = interview.questions.map((question) => {
 			if (question.id === id) {
-				question.options[0].answer = e.target.value;
+				question.options[0].title = e.target.value;
 				question.options[0].checked = true;
 			}
 			return question;
@@ -92,9 +97,17 @@ const InterviewPage = () => {
 				replace: true,
 			});
 
+			updateDataInLS('interviews', {
+				...interviewFromLS,
+				answers: Array.from(
+					new Set([...interviewFromLS.answers, currentUser.id])
+				),
+			});
+
 			updateDataInLS('answers', {
-				id: currentUser.id,
-				interviews: [interview],
+				...interview,
+				answers: Array.from(new Set([...interview.answers, currentUser.id])),
+				userId: currentUser.id,
 			});
 		} else {
 			getNotification.failed(t('infoMessage.requiredField'));
@@ -120,14 +133,11 @@ const InterviewPage = () => {
 	}, [interview]);
 
 	useEffect(() => {
-		const dataFromLS = getFromLSByKey('interviews');
-		const interviewData = dataFromLS.find((item) => item.id === interviewId);
-
-		if (interviewData.queries.randomQuestionOrder) {
-			shuffleArray(interviewData.questions);
+		if (interviewFromLS.queries.randomQuestionOrder) {
+			shuffleArray(interviewFromLS.questions);
 		}
 
-		setInterview(interviewData);
+		setInterview(interviewFromLS);
 	}, []);
 
 	return (
@@ -180,8 +190,10 @@ const InterviewPage = () => {
 													name="option"
 													id={option.id}
 													placeholder={t('infoMessage.enterUserAnswer')}
-													defaultValue={option.answer}
-													handleBlur={(e) => handleTextAnswer(e, question.id)}
+													defaultValue={option.title}
+													handleBlur={(e) =>
+														handleSelectionTextAnswer(e, question.id)
+													}
 												/>
 											)}
 										</li>

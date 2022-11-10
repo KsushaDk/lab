@@ -1,19 +1,25 @@
 export const getDataForQuestionResults = (interview, question) => {
-	const qcurrentQuestions = interview.allQuestions.filter(
+	const currentQuestions = interview.allQuestions.filter(
 		(item) => item.id === question.id
 	);
-	const qcurrentOptions = qcurrentQuestions
-		.map((q) => q.options)
+
+	const currentOptions = currentQuestions
+		.map((item) =>
+			item.options.map((option) => ({ ...option, userId: item.userId }))
+		)
 		.flat(Infinity);
 
 	const selectedOptions = {};
+	const optionsColor = {};
 
-	qcurrentOptions.forEach((option) => {
+	currentOptions.forEach((option) => {
 		if (option.checked) {
+			optionsColor[option.title] = '#eb3d26';
 			selectedOptions[option.title]
 				? (selectedOptions[option.title] += 1)
 				: (selectedOptions[option.title] = 1);
 		} else if (!option.checked) {
+			optionsColor[option.title] = '#cac6c5';
 			selectedOptions[option.title]
 				? selectedOptions[option.title]
 				: (selectedOptions[option.title] = 0);
@@ -24,5 +30,5 @@ export const getDataForQuestionResults = (interview, question) => {
 		Math.floor((num * 100) / interview.total).toString()
 	);
 
-	return { optionsData, selectedOptions };
+	return { optionsData, selectedOptions, optionsColor };
 };
