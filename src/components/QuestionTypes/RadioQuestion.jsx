@@ -4,9 +4,10 @@ import { useTranslation } from 'react-i18next';
 import { toggleOptionClick } from 'Utils/toggleOptionClick';
 import { propTypesConst } from 'Constants/propTypesConst';
 import { QuestionWrapper } from './QuestionWrapper';
-import { RadioQuestionExample } from './RadioQuestionExample';
 
-export const RadioQuestion = ({
+const RadioQuestionExample = React.lazy(() => import('./RadioQuestionExample'));
+
+const RadioQuestion = ({
 	question,
 	questionNum,
 	index,
@@ -58,3 +59,5 @@ RadioQuestion.defaultProps = {
 	handleSaveQuestion: () => {},
 	moveItem: () => {},
 };
+
+export default RadioQuestion;

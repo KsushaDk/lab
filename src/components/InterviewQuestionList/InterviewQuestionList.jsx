@@ -9,7 +9,7 @@ import { getQuestionToRender } from 'Constants/QuestionType';
 import { propTypesConst } from 'Constants/propTypesConst';
 import { getQuestionType } from 'Utils/getQuestionType';
 
-export const InterviewQuestionList = ({
+const InterviewQuestionList = ({
 	interview,
 	setInterview,
 	queries,
@@ -76,3 +76,5 @@ InterviewQuestionList.defaultProps = {
 	handleRemoveQuestion: () => {},
 	handleSaveQuestion: () => {},
 };
+
+export default InterviewQuestionList;

@@ -2,11 +2,14 @@ import React, { useEffect, useState, useCallback } from 'react';
 import { useParams } from 'react-router-dom';
 import { ErrorBoundary } from 'react-error-boundary';
 import { useTranslation } from 'react-i18next';
-import { InterviewResultsHead } from 'Components/InterviewResultsHead/InterviewResultsHead';
 import { ErrorFallback } from 'Components/ErrorFallback/ErrorFallback';
 import { getDataForInterviewResults } from 'Utils/getDataForInterviewResults';
-import { InterviewResultsItem } from './InterviewResultsItem';
 import './InterviewResultsPage.scss';
+
+const InterviewResultsHead = React.lazy(() =>
+	import('Components/InterviewResultsHead/InterviewResultsHead')
+);
+const InterviewResultsItem = React.lazy(() => import('./InterviewResultsItem'));
 
 const InterviewResultsPage = () => {
 	const [interviewResults, setInterviewResults] = useState(null);

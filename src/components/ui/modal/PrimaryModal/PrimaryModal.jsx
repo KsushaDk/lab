@@ -4,7 +4,11 @@ import { useModal } from 'Hooks/useModal';
 import { Portal } from '../../portal/Portal';
 import './PrimaryModal.scss';
 
-export const PrimaryModal = ({ children, handleModalClick }) => {
+const SecondaryBtn = React.lazy(() =>
+	import('../../button/SecondaryBtn/SecondaryBtn')
+);
+
+const PrimaryModal = ({ children, handleModalClick }) => {
 	const { modal } = useModal();
 
 	const wrapperModalStyle = modal.isActive
@@ -31,15 +35,12 @@ export const PrimaryModal = ({ children, handleModalClick }) => {
 
 							<div className="primary_modal__footer">
 								{modal.btnValues.map((btnValue) => (
-									<button
+									<SecondaryBtn
 										key={btnValue}
-										className="secondary_btn"
-										type="button"
+										btnValue={btnValue}
 										value={btnValue}
-										onClick={(e) => handleModalClick(e)}
-									>
-										{btnValue}
-									</button>
+										onClick={handleModalClick}
+									/>
 								))}
 							</div>
 						</div>
@@ -59,3 +60,5 @@ PrimaryModal.defaultProps = {
 	children: null,
 	handleModalClick: () => {},
 };
+
+export default PrimaryModal;

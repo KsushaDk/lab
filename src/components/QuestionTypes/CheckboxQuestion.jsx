@@ -3,10 +3,13 @@ import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import { propTypesConst } from 'Constants/propTypesConst';
 import { toggleValueByKey } from 'Utils/toggleValueByKey';
-import { CheckboxQuestionExample } from './CheckboxQuestionExample';
 import { QuestionWrapper } from './QuestionWrapper';
 
-export const CheckboxQuestion = ({
+const CheckboxQuestionExample = React.lazy(() =>
+	import('./CheckboxQuestionExample')
+);
+
+const CheckboxQuestion = ({
 	question,
 	questionNum,
 	index,
@@ -57,3 +60,5 @@ CheckboxQuestion.defaultProps = {
 	handleSaveQuestion: () => {},
 	moveItem: () => {},
 };
+
+export default CheckboxQuestion;

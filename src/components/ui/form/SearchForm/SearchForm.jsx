@@ -3,7 +3,7 @@ import { BsSearch, BsXCircle } from 'react-icons/bs';
 import { IconBtn } from '../../button/IconBtn/IconBtn';
 import './SearchForm.scss';
 
-export const SearchForm = ({ handleSubmit }) => {
+const SearchForm = ({ handleSubmit }) => {
 	const [query, setQuery] = useState('');
 
 	return (
@@ -25,3 +25,5 @@ export const SearchForm = ({ handleSubmit }) => {
 		</form>
 	);
 };
+
+export default SearchForm;

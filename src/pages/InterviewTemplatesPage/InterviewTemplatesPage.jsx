@@ -2,13 +2,15 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { PrimaryTextEditor } from 'Components/ui/editor/PrimaryTextEditor/PrimaryTextEditor';
 import { PrimaryBtn } from 'Components/ui/button/PrimaryBtn/PrimaryBtn';
-import { SearchForm } from 'Components/ui/form/SearchForm/SearchForm';
 import { dataTemplates } from 'Constants/constants';
 import { useFetch } from 'Hooks/useFetch';
 import { InterviewTemplatesItem } from './InterviewTemplatesItem';
 
 const CustomSelect = React.lazy(() =>
 	import('Components/ui/select/CustomSelect/CustomSelect')
+);
+const SearchForm = React.lazy(() =>
+	import('Components/ui/form/SearchForm/SearchForm')
 );
 
 const InterviewTemplatesPage = () => {

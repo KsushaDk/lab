@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { questionTypeList } from 'Constants/constants';
 import { selectElByKeyDown } from 'Utils/selectElByKeyDown';
 
-export const QuestionTypeList = ({ handleAddQuestion }) => {
+const QuestionTypeList = ({ handleAddQuestion }) => {
 	const { t } = useTranslation();
 
 	return (
@@ -19,6 +19,7 @@ export const QuestionTypeList = ({ handleAddQuestion }) => {
 						index={index}
 						key={questionType.id}
 						role="menuitem"
+						aria-label="interview-settings"
 						tabIndex={0}
 						onKeyDown={(e) => {
 							selectElByKeyDown(e, handleAddQuestion, questionTypeList);
@@ -40,3 +41,5 @@ QuestionTypeList.propTypes = {
 QuestionTypeList.defaultProps = {
 	handleAddQuestion: () => {},
 };
+
+export default QuestionTypeList;

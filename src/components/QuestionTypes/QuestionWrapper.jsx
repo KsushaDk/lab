@@ -11,13 +11,22 @@ import { removeFromArrByID } from 'Utils/removeFromArrByID';
 import { getNotification } from 'Utils/getNotification';
 import { addDefaultValue } from 'Utils/addDefaultValue';
 import { useItemEditing } from 'Hooks/useItemEditing';
-import { EditDeleteActionBtns } from '../ActionItems/EditDeleteActionBtns';
-import { SaveCancelActionBtns } from '../ActionItems/SaveCancelActionBtns';
-import { ActionRequiredMark } from '../ActionItems/ActionRequiredMark';
-import { ActionTitle } from '../ActionItems/ActionTitle';
-import { ActionInput } from '../ActionItems/ActionInput';
-import { PrimaryDropDown } from '../ui/dropdown/PrimaryDropDown';
 import { IconBtn } from '../ui/button/IconBtn/IconBtn';
+
+const PrimaryDropDown = React.lazy(() =>
+	import('../ui/dropdown/PrimaryDropDown')
+);
+const ActionRequiredMark = React.lazy(() =>
+	import('../ActionItems/ActionRequiredMark')
+);
+const EditDeleteActionBtns = React.lazy(() =>
+	import('../ActionItems/EditDeleteActionBtns')
+);
+const SaveCancelActionBtns = React.lazy(() =>
+	import('../ActionItems/SaveCancelActionBtns')
+);
+const ActionTitle = React.lazy(() => import('../ActionItems/ActionTitle'));
+const ActionInput = React.lazy(() => import('../ActionItems/ActionInput'));
 
 export const QuestionWrapper = ({
 	question,
@@ -197,6 +206,7 @@ export const QuestionWrapper = ({
 			}
 			ref={ref}
 			role="menuitem"
+			aria-label="question"
 			tabIndex={0}
 		>
 			<div className="question__head">
@@ -238,6 +248,7 @@ export const QuestionWrapper = ({
 					<li
 						className="question__list_option"
 						role="menuitem"
+						aria-label="option"
 						key={option.id}
 						id={option.id}
 						tabIndex={0}
@@ -261,6 +272,7 @@ export const QuestionWrapper = ({
 					<li
 						className="question__list_option p_info"
 						role="menuitem"
+						aria-label="option"
 						onClick={handleOnAddField}
 					>
 						<IconBtn btnIcon={<BsPlusSquare />} />

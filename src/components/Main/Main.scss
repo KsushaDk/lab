@@ -3,7 +3,6 @@
 
 .main {
 	width: 100%;
-	height: 100%;
 	padding: $padding-l;
 	@include flex(
 		$align-items: stretch,
@@ -73,7 +72,7 @@
 	&__picture {
 		width: 80%;
 		min-height: 10rem;
-		background: url('../../../public/assets/bg.jpg');
+		background: url('../../../public/assets/bg.webp');
 		background-repeat: no-repeat;
 		background-size: cover;
 
@@ -222,7 +221,6 @@
 
 .vertical_gray-line {
 	background: $primary-gray;
-	height: 100vh;
 	width: 3px;
 	flex-shrink: 0;
 
@@ -259,16 +257,6 @@
 	flex-wrap: wrap;
 	width: 100%;
 	padding-top: 1rem;
-}
-
-.link_black {
-	@include text;
-	color: $primary-black;
-	cursor: pointer;
-
-	&:hover {
-		opacity: 0.8;
-	}
 }
 
 .question {

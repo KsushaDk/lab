@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { ImPencil, ImBin } from 'react-icons/im';
 import { IconBtn } from '../ui/button/IconBtn/IconBtn';
 
-export const EditDeleteActionBtns = ({
+const EditDeleteActionBtns = ({
 	idToEdit,
 	currentId,
 	handleRemove,
@@ -36,3 +36,5 @@ EditDeleteActionBtns.defaultProps = {
 	handleEdit: () => {},
 	handleRemove: () => {},
 };
+
+export default EditDeleteActionBtns;

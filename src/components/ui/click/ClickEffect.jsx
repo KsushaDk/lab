@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Portal } from '../portal/Portal';
 import './ClickEffect.scss';
 
-export const ClickEffect = ({ location, handleAnimationEnd }) => (
+const ClickEffect = ({ location, handleAnimationEnd }) => (
 	<Portal>
 		<div
 			className="clickEffect"
@@ -18,3 +18,5 @@ ClickEffect.propTypes = {
 	location: PropTypes.shape({ top: PropTypes.string, left: PropTypes.string })
 		.isRequired,
 };
+
+export default ClickEffect;

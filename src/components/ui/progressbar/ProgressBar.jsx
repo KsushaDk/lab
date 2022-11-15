@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './ProgressBar.scss';
 
-export const ProgressBar = ({ length, percent }) => (
+const ProgressBar = ({ length, percent }) => (
 	<div className="progress-bar__wrapper">
 		<div className="progress-bar__state">
 			{Math.floor((length * percent) / 100)}
@@ -20,3 +20,5 @@ ProgressBar.propTypes = {
 	length: PropTypes.number.isRequired,
 	percent: PropTypes.number.isRequired,
 };
+
+export default ProgressBar;

@@ -10,11 +10,13 @@ import { setToLSByKey } from 'Utils/funcForLSByKey';
 import { saveItem } from 'Utils/editingItemFunc';
 import { useItemEditing } from 'Hooks/useItemEditing';
 import { ErrorFallback } from '../../ErrorFallback/ErrorFallback';
-import { PrimaryModal } from '../modal/PrimaryModal/PrimaryModal';
 
 const Table = React.lazy(() => import('./Table'));
+const PrimaryModal = React.lazy(() =>
+	import('../modal/PrimaryModal/PrimaryModal')
+);
 
-export const TableWrapper = ({
+const TableWrapper = ({
 	storageName,
 	columns,
 	rows,
@@ -133,3 +135,5 @@ TableWrapper.defaultProps = {
 	searchResult: null,
 	handleInterviewChange: () => {},
 };
+
+export default TableWrapper;

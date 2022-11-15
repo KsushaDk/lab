@@ -4,9 +4,12 @@ import { useTranslation } from 'react-i18next';
 import { BsX, BsCheck } from 'react-icons/bs';
 import { getOptionToRender } from 'Constants/OptionType';
 import { getOptionType } from 'Utils/getOptionType';
-import { SecondaryInput } from '../ui/input/SecondaryInput/SecondaryInput';
 
-export const ActionInput = ({
+const SecondaryInput = React.lazy(() =>
+	import('../ui/input/SecondaryInput/SecondaryInput')
+);
+
+const ActionInput = ({
 	idToEdit,
 	currentId,
 	question,
@@ -83,3 +86,5 @@ ActionInput.defaultProps = {
 	handleCorrect: () => {},
 	handleRemove: () => {},
 };
+
+export default ActionInput;

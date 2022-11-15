@@ -2,9 +2,12 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import { checkQueryForQuestion } from 'Utils/checkQueryForQuestion';
-import { SecondaryInput } from '../ui/input/SecondaryInput/SecondaryInput';
 
-export const ActionTitle = ({
+const SecondaryInput = React.lazy(() =>
+	import('../ui/input/SecondaryInput/SecondaryInput')
+);
+
+const ActionTitle = ({
 	queries,
 	idToEdit,
 	currentId,
@@ -59,3 +62,5 @@ ActionTitle.defaultProps = {
 	title: '',
 	handleOnChangeField: () => {},
 };
+
+export default ActionTitle;

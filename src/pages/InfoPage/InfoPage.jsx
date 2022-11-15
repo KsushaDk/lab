@@ -3,7 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import './InfoPage.scss';
 
-export const InfoPage = () => {
+const InfoPage = () => {
 	const location = useLocation();
 	const { t } = useTranslation();
 
@@ -18,3 +18,5 @@ export const InfoPage = () => {
 		</div>
 	);
 };
+
+export default InfoPage;

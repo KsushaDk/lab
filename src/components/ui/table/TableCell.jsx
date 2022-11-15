@@ -1,13 +1,7 @@
 import { getCellType } from 'Utils/getCellType';
 import { getСellToRender } from 'Constants/CellType';
 
-export const TableCell = ({
-	idToEdit,
-	editedItem,
-	row,
-	td,
-	handleOnChangeField,
-}) => {
+const TableCell = ({ idToEdit, editedItem, row, td, handleOnChangeField }) => {
 	const content = {
 		key: td[0],
 		value: td[1],
@@ -23,3 +17,5 @@ export const TableCell = ({
 
 	return el;
 };
+
+export default TableCell;

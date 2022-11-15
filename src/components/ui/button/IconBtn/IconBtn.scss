@@ -17,9 +17,9 @@
 	&:hover {
 		opacity: 0.3;
 	}
-}
 
-button:disabled {
-	opacity: 0.5;
-	cursor: not-allowed;
+	&:disabled {
+		opacity: 0.5;
+		cursor: not-allowed;
+	}
 }

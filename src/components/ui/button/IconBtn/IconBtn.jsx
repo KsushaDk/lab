@@ -6,6 +6,7 @@ export const IconBtn = ({ btnIcon, handleClick, type = 'button', ...args }) => (
 	<button
 		className="icon_btn icon_m"
 		type={type}
+		aria-label="icon"
 		{...args}
 		onClick={handleClick}
 	>

@@ -3,13 +3,15 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { BsAsterisk } from 'react-icons/bs';
 import { ErrorBoundary } from 'react-error-boundary';
 import { useTranslation } from 'react-i18next';
-import { InterviewResultsHead } from 'Components/InterviewResultsHead/InterviewResultsHead';
 import { ErrorFallback } from 'Components/ErrorFallback/ErrorFallback';
 import { getOptionToRender } from 'Constants/OptionType';
 import { getFromLSByKey } from 'Utils/funcForLSByKey';
 import { getOptionType } from 'Utils/getOptionType';
 import { getUserData } from 'Utils/getUserData';
-import './UserResultsPage.scss';
+
+const InterviewResultsHead = React.lazy(() =>
+	import('Components/InterviewResultsHead/InterviewResultsHead')
+);
 
 const UserResultsPage = () => {
 	const [userResults, setUserResults] = useState(null);
@@ -82,6 +84,7 @@ const UserResultsPage = () => {
 										<li
 											className="question__list_option"
 											role="menuitem"
+											aria-label="option"
 											key={option.id}
 											id={option.id}
 										>

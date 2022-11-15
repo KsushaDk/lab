@@ -4,9 +4,10 @@ import { useTranslation } from 'react-i18next';
 import { propTypesConst } from 'Constants/propTypesConst';
 import { columnsUsers } from 'Constants/constants';
 import { getUserData } from 'Utils/getUserData';
-import { TableWrapper } from '../ui/table/TableWrapper';
 
-export const UserTable = ({ userData, searchResult }) => {
+const TableWrapper = React.lazy(() => import('../ui/table/TableWrapper'));
+
+const UserTable = ({ userData, searchResult }) => {
 	const { t } = useTranslation();
 
 	const { currentUser } = getUserData();
@@ -32,3 +33,5 @@ UserTable.propTypes = {
 UserTable.defaultProps = {
 	searchResult: null,
 };
+
+export default UserTable;

@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { SearchForm } from 'Components/ui/form/SearchForm/SearchForm';
-import { UserTable } from 'Components/UserTable/UserTable';
 import { getSearchResult } from 'Utils/getSearchResult';
 import { getFromLSByKey } from 'Utils/funcForLSByKey';
+
+const UserTable = React.lazy(() => import('Components/UserTable/UserTable'));
+const SearchForm = React.lazy(() =>
+	import('Components/ui/form/SearchForm/SearchForm')
+);
 
 const UserListPage = () => {
 	const [userData, setUserData] = useState(null);

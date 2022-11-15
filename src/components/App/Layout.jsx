@@ -2,10 +2,11 @@ import React, { Suspense, useCallback, useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { ClickEffect } from '../ui/click/ClickEffect';
-import { Header } from '../Header/Header';
-import { Loader } from '../Loader/Loader';
 import './App.scss';
+
+const Header = React.lazy(() => import('../Header/Header'));
+const Loader = React.lazy(() => import('../Loader/Loader'));
+const ClickEffect = React.lazy(() => import('../ui/click/ClickEffect'));
 
 export const Layout = () => {
 	const [isClicked, setClicked] = useState(false);

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './SecondaryInput.scss';
 
-export const SecondaryInput = ({ name, handleBlur, ...attrs }) => (
+const SecondaryInput = ({ name, handleBlur, ...attrs }) => (
 	<input
 		className="secondary_input"
 		autoComplete="off"
@@ -21,3 +21,5 @@ SecondaryInput.propTypes = {
 SecondaryInput.defaultProps = {
 	handleBlur: () => {},
 };
+
+export default SecondaryInput;

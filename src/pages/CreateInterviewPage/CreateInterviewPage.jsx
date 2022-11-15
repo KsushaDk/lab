@@ -1,11 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ErrorBoundary } from 'react-error-boundary';
-import { InterviewQueryList } from 'Components/InterviewQueryList/InterviewQueryList';
-import { InterviewQuestionList } from 'Components/InterviewQuestionList/InterviewQuestionList';
-import { SaveCancelActionBtns } from 'Components/ActionItems/SaveCancelActionBtns';
-import { QuestionTypeList } from 'Components/QuestionTypeList/QuestionTypeList';
-import { InterviewInfo } from 'Components/InterviewInfo/InterviewInfo';
 import { ErrorFallback } from 'Components/ErrorFallback/ErrorFallback';
 import { interviewQuery } from 'Constants/constants';
 import { getUserData } from 'Utils/getUserData';
@@ -19,6 +14,22 @@ import {
 	updateDataInLS,
 } from 'Utils/funcForLSByKey';
 import './CreateInterviewPage.scss';
+
+const QuestionTypeList = React.lazy(() =>
+	import('Components/QuestionTypeList/QuestionTypeList')
+);
+const InterviewQueryList = React.lazy(() =>
+	import('Components/InterviewQueryList/InterviewQueryList')
+);
+const InterviewQuestionList = React.lazy(() =>
+	import('Components/InterviewQuestionList/InterviewQuestionList')
+);
+const SaveCancelActionBtns = React.lazy(() =>
+	import('Components/ActionItems/SaveCancelActionBtns')
+);
+const InterviewInfo = React.lazy(() =>
+	import('Components/InterviewInfo/InterviewInfo')
+);
 
 const CreateInterviewPage = () => {
 	const [interview, setInterview] = useState(null);
