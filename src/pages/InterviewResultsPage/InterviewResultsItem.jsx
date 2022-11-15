@@ -15,7 +15,6 @@ import { Bar } from 'react-chartjs-2';
 import { getDataForQuestionResults } from 'Utils/getDataForQuestionResults';
 import { barOptions, columnsTextResults } from 'Constants/constants';
 import { propTypesConst } from 'Constants/propTypesConst';
-import Table from 'Components/ui/table/Table';
 
 ChartJS.register(
 	CategoryScale,
@@ -26,7 +25,9 @@ ChartJS.register(
 	Legend
 );
 
-export const InterviewResultsItem = ({ question, interview }) => {
+const Table = React.lazy(() => import('Components/ui/table/Table'));
+
+const InterviewResultsItem = ({ question, interview }) => {
 	const [chartData, setChartData] = useState(null);
 	const [numOptions, setNumOptions] = useState([]);
 	const [textOptions, setTextOptions] = useState([]);
@@ -130,3 +131,5 @@ InterviewResultsItem.defaultProps = {
 	interview: {},
 	question: {},
 };
+
+export default InterviewResultsItem;

@@ -10,7 +10,7 @@ import { usePagination } from 'Hooks/usePagination';
 import { IconBtn } from '../button/IconBtn/IconBtn';
 import { PrimarySelect } from '../select/PrimarySelect/PrimarySelect';
 
-export const TablePagination = ({
+const TablePagination = ({
 	totalCount,
 	changeItemsPerPage,
 	pageSize,
@@ -100,3 +100,5 @@ export const TablePagination = ({
 		</div>
 	);
 };
+
+export default TablePagination;

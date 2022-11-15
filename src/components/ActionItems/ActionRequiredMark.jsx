@@ -4,7 +4,7 @@ import { BsAsterisk } from 'react-icons/bs';
 import { propTypesConst } from 'Constants/propTypesConst';
 import { CheckboxInput } from '../ui/input/CheckboxInput/CheckboxInput';
 
-export const ActionRequiredMark = ({
+const ActionRequiredMark = ({
 	currentItem,
 	idToEdit,
 	currentId,
@@ -41,3 +41,5 @@ ActionRequiredMark.defaultProps = {
 	currentItem: 0,
 	handleRequiredField: () => {},
 };
+
+export default ActionRequiredMark;

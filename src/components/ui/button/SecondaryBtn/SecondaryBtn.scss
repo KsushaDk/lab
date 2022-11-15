@@ -20,6 +20,10 @@
 		background-color: $primary-red;
 		color: $primary-white;
 	}
+
+	&:disabled {
+		cursor: not-allowed;
+	}
 }
 
 .active_secondary_btn {

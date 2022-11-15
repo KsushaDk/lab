@@ -2,9 +2,10 @@ import React, { useState, useEffect, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import { propTypesConst } from 'Constants/propTypesConst';
-import { TablePagination } from './TablePagination';
-import { TableRow } from './TableRow';
 import './Table.scss';
+
+const TablePagination = React.lazy(() => import('./TablePagination'));
+const TableRow = React.lazy(() => import('./TableRow'));
 
 const Table = ({
 	idToEdit,

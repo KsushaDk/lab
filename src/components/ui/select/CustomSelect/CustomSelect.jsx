@@ -27,6 +27,7 @@ const CustomSelect = ({ data, handleChange, singleSelected, multi }) => {
 	};
 
 	const handleChangeInput = (e) => {
+		setIsOptionOpen(true);
 		setSelectedOption(null);
 		setSearch(e.target.value);
 	};
@@ -113,6 +114,7 @@ const CustomSelect = ({ data, handleChange, singleSelected, multi }) => {
 									id={option.id}
 									index={index}
 									role="menuitem"
+									aria-label="option"
 									tabIndex={0}
 									onKeyDown={(e) => {
 										selectElByKeyDown(e, handleChangeOption, options);

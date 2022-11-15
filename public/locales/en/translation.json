@@ -13,7 +13,9 @@
 	"signUpForm": {
 		"title": "Sign Up",
 		"enterUsername": "Enter your name...",
-		"repeatPass": "Repeat your password..."
+		"repeatPass": "Repeat your password...",
+		"admin": "Admin",
+		"user": "User"
 	},
 	"validationErrMessages": {
 		"minLength": {
@@ -128,7 +130,10 @@
 		"answers": "answers",
 		"answer": "Answer",
 		"showUserAnswers": "show respondent's answers",
-		"noUsersAnswer": "This user has not completed this interview yet."
+		"noUsersAnswer": "This user has not completed this interview yet.",
+		"resultLink": "results",
+		"interviewLink": "interview",
+		"example": "Example"
 	},
 	"interviewTable": {
 		"caption": "My interviews",

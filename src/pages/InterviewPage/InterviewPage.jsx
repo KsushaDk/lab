@@ -3,11 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { ErrorBoundary } from 'react-error-boundary';
 import { useTranslation } from 'react-i18next';
 import { BsAsterisk } from 'react-icons/bs';
-import { SaveCancelActionBtns } from 'Components/ActionItems/SaveCancelActionBtns';
-import { SecondaryInput } from 'Components/ui/input/SecondaryInput/SecondaryInput';
-import { PrimaryDropDown } from 'Components/ui/dropdown/PrimaryDropDown';
 import { ErrorFallback } from 'Components/ErrorFallback/ErrorFallback';
-import { ProgressBar } from 'Components/ui/progressbar/ProgressBar';
 import { getOptionToRender } from 'Constants/OptionType';
 import { getFromLSByKey, updateDataInLS } from 'Utils/funcForLSByKey';
 import { checkRequeredField } from 'Utils/checkRequiredField';
@@ -17,6 +13,19 @@ import { getOptionType } from 'Utils/getOptionType';
 import { findInArrByID } from 'Utils/findInArrByID';
 import { shuffleArray } from 'Utils/shuffleArray';
 import { getUserData } from 'Utils/getUserData';
+
+const SaveCancelActionBtns = React.lazy(() =>
+	import('Components/ActionItems/SaveCancelActionBtns')
+);
+const SecondaryInput = React.lazy(() =>
+	import('Components/ui/input/SecondaryInput/SecondaryInput')
+);
+const PrimaryDropDown = React.lazy(() =>
+	import('Components/ui/dropdown/PrimaryDropDown')
+);
+const ProgressBar = React.lazy(() =>
+	import('Components/ui/progressbar/ProgressBar')
+);
 
 const InterviewPage = () => {
 	const [interview, setInterview] = useState(null);
@@ -152,7 +161,8 @@ const InterviewPage = () => {
 					</div>
 					<div className="content__head_center">
 						<h2 className="title_s">
-							{t('interviewPage.title')}&#58; {interview.title}
+							{t('interviewPage.title')}&#58;{' '}
+							<span className="title_s_red">{interview.title}</span>
 						</h2>
 					</div>
 
@@ -177,6 +187,7 @@ const InterviewPage = () => {
 										<li
 											className="question__list_option"
 											role="menuitem"
+											aria-label="option"
 											key={option.id}
 											id={option.id}
 											onClick={(e) =>

@@ -10,7 +10,6 @@ export const CheckboxInput = ({ option }) => {
 	return (
 		<div
 			className="checkbox__wrapper"
-			id={option.id}
 			role="checkbox"
 			aria-checked={option.checked}
 			tabIndex={-1}

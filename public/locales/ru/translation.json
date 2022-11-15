@@ -13,7 +13,9 @@
 	"signUpForm": {
 		"title": "Регистрация",
 		"enterUsername": "Введите свое имя...",
-		"repeatPass": "Повторите пароль..."
+		"repeatPass": "Повторите пароль...",
+		"admin": "Администратор",
+		"user": "Пользователь"
 	},
 	"validationErrMessages": {
 		"minLength": {
@@ -127,7 +129,10 @@
 		"answers": "ответов",
 		"answer": "Ответ",
 		"showUserAnswers": "показать ответы респондента",
-		"noUsersAnswer": "Этот пользователь еще не прошел этот опрос."
+		"noUsersAnswer": "Этот пользователь еще не прошел этот опрос.",
+		"resultLink": "результаты",
+		"interviewLink": "опрос",
+		"example": "Пример"
 	},
 	"interviewTable": {
 		"caption": "Мои опросы",

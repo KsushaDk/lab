@@ -8,7 +8,7 @@ import { PrimaryForm } from 'Components/ui/form/PrimaryForm/PrimaryForm';
 import { getFromLSByKey, updateDataInLS } from 'Utils/funcForLSByKey';
 import './LogInPage.scss';
 
-export const LogInPage = () => {
+const LogInPage = () => {
 	const navigate = useNavigate();
 
 	const { t } = useTranslation();
@@ -90,3 +90,5 @@ export const LogInPage = () => {
 		</PrimaryForm>
 	);
 };
+
+export default LogInPage;

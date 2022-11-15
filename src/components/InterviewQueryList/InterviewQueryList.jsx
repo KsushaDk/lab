@@ -5,7 +5,7 @@ import { CheckboxInput } from 'Components/ui/input/CheckboxInput/CheckboxInput';
 import { selectElByKeyDown } from 'Utils/selectElByKeyDown';
 import { propTypesConst } from 'Constants/propTypesConst';
 
-export const InterviewQueryList = ({ queries, handleChangeQuery }) => {
+const InterviewQueryList = ({ queries, handleChangeQuery }) => {
 	const { t } = useTranslation();
 
 	return (
@@ -20,6 +20,7 @@ export const InterviewQueryList = ({ queries, handleChangeQuery }) => {
 						index={index}
 						onClick={handleChangeQuery}
 						role="menuitem"
+						aria-label="interview-query"
 						tabIndex={0}
 						onKeyDown={(e) => {
 							selectElByKeyDown(e, handleChangeQuery, queries);
@@ -42,3 +43,5 @@ InterviewQueryList.defaultProps = {
 	handleChangeQuery: () => {},
 	queries: [],
 };
+
+export default InterviewQueryList;

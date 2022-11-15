@@ -81,3 +81,13 @@ body {
 	width: 0.6rem;
 	height: 0.6rem;
 }
+
+.link_black {
+	@include text;
+	color: $primary-black;
+	cursor: pointer;
+
+	&:hover {
+		opacity: 0.8;
+	}
+}

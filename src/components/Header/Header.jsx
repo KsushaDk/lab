@@ -5,11 +5,12 @@ import { useTranslation } from 'react-i18next';
 import { BsBoxArrowRight } from 'react-icons/bs';
 import { updateDataInLS } from 'Utils/funcForLSByKey';
 import { getUserData } from 'Utils/getUserData';
-import { LngSwitcher } from '../LngSwitcher/LngSwitcher';
 import logo from './logo.svg';
 import './Header.scss';
 
-export const Header = () => {
+const LngSwitcher = React.lazy(() => import('../LngSwitcher/LngSwitcher'));
+
+const Header = () => {
 	const navigate = useNavigate();
 
 	const { t } = useTranslation();
@@ -60,3 +61,5 @@ export const Header = () => {
 		</header>
 	);
 };
+
+export default Header;

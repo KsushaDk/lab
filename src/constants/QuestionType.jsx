@@ -1,7 +1,14 @@
 import React from 'react';
-import { TextQuestion } from 'Components/QuestionTypes/TextQuestion';
-import { CheckboxQuestion } from 'Components/QuestionTypes/CheckboxQuestion';
-import { RadioQuestion } from 'Components/QuestionTypes/RadioQuestion';
+
+const TextQuestion = React.lazy(() =>
+	import('Components/QuestionTypes/TextQuestion')
+);
+const CheckboxQuestion = React.lazy(() =>
+	import('Components/QuestionTypes/CheckboxQuestion')
+);
+const RadioQuestion = React.lazy(() =>
+	import('Components/QuestionTypes/RadioQuestion')
+);
 
 export const Question = Object.freeze({
 	Text: 1,

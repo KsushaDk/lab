@@ -1,5 +1,8 @@
 import React from 'react';
-import { TabBarWrapper } from 'Components/ui/tabbar/TabBarWrapper';
+
+const TabBarWrapper = React.lazy(() =>
+	import('Components/ui/tabbar/TabBarWrapper')
+);
 
 const AboutPage = () => (
 	<section className="content">

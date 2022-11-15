@@ -10,7 +10,7 @@ import { regEmail, regPass } from 'Constants/constants';
 import { updateDataInLS } from 'Utils/funcForLSByKey';
 import { getUserData } from 'Utils/getUserData';
 
-export const SignUpPage = () => {
+const SignUpPage = () => {
 	const navigate = useNavigate();
 
 	const { t } = useTranslation();
@@ -31,7 +31,7 @@ export const SignUpPage = () => {
 		updateDataInLS('users', {
 			...data,
 			id: uuidv4(),
-			role: 'Администратор',
+			role: t('signUpForm.admin'),
 			registered: new Date(Date.now()).toLocaleDateString(),
 			interviews: [],
 			isAuth: false,
@@ -125,3 +125,5 @@ export const SignUpPage = () => {
 		</PrimaryForm>
 	);
 };
+
+export default SignUpPage;

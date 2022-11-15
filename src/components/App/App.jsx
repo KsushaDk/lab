@@ -1,16 +1,16 @@
 import React, { Suspense } from 'react';
 import { Routes, Route } from 'react-router-dom';
-import { SignUpPage } from 'Pages/SignUpPage/SignUpPage';
-import { LogInPage } from 'Pages/LogInPage/LogInPage';
-import { ErrorPage } from 'Pages/ErrorPage/ErrorPage';
-import { InfoPage } from 'Pages/InfoPage/InfoPage';
-import { Loader } from '../Loader/Loader';
-import { Main } from '../Main/Main';
 import { Layout } from './Layout';
 
+const SignUpPage = React.lazy(() => import('Pages/SignUpPage/SignUpPage'));
+const LogInPage = React.lazy(() => import('Pages/LogInPage/LogInPage'));
+const ErrorPage = React.lazy(() => import('Pages/ErrorPage/ErrorPage'));
+const InfoPage = React.lazy(() => import('Pages/InfoPage/InfoPage'));
 const InterviewPage = React.lazy(() =>
 	import('Pages/InterviewPage/InterviewPage')
 );
+const Loader = React.lazy(() => import('../Loader/Loader'));
+const Main = React.lazy(() => import('../Main/Main'));
 
 const App = () => (
 	<Suspense fallback={<Loader />}>

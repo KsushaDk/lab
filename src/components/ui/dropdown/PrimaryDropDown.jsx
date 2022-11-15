@@ -2,7 +2,7 @@ import React, { useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import './PrimaryDropDown.scss';
 
-export const PrimaryDropDown = ({ trigger, children, ...attrs }) => {
+const PrimaryDropDown = ({ trigger, children, ...attrs }) => {
 	const [isShown, setShown] = useState(false);
 
 	const handleDropMenu = useCallback(() => {
@@ -13,6 +13,7 @@ export const PrimaryDropDown = ({ trigger, children, ...attrs }) => {
 		<div
 			className="dropdown"
 			role="button"
+			aria-label="dropdown-icon"
 			tabIndex={0}
 			onMouseOver={handleDropMenu}
 			onMouseOut={handleDropMenu}
@@ -36,3 +37,5 @@ PrimaryDropDown.defaultProps = {
 	children: null,
 	trigger: null,
 };
+
+export default PrimaryDropDown;

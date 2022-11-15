@@ -7,11 +7,12 @@ import { BsXSquare, BsCheckSquare, BsCaretDownFill } from 'react-icons/bs';
 import { useDispatch } from 'react-redux';
 import { propTypesConst } from 'Constants/propTypesConst';
 import { setModalState } from 'Redux/slices/modalSlice';
-import { PrimaryDropDown } from '../dropdown/PrimaryDropDown';
 import { IconBtn } from '../button/IconBtn/IconBtn';
-import { TableCell } from './TableCell';
 
-export const TableRow = ({
+const PrimaryDropDown = React.lazy(() => import('../dropdown/PrimaryDropDown'));
+const TableCell = React.lazy(() => import('./TableCell'));
+
+const TableRow = ({
 	total,
 	current,
 	row,
@@ -109,3 +110,5 @@ TableRow.defaultProps = {
 	idToEdit: null,
 	total: null,
 };
+
+export default TableRow;

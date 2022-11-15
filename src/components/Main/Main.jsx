@@ -2,9 +2,9 @@ import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { PublicPath } from 'Hoc/PublicPath';
 import { AdminPath } from 'Hoc/AdminPath';
-import { Sidebar } from '../Sidebar/Sidebar';
 import './Main.scss';
 
+const Sidebar = React.lazy(() => import('../Sidebar/Sidebar'));
 const AboutPage = React.lazy(() => import('Pages/AboutPage/AboutPage'));
 const UserListPage = React.lazy(() =>
 	import('Pages/UserListPage/UserListPage')
@@ -25,7 +25,7 @@ const UserResultsPage = React.lazy(() =>
 	import('Pages/UserResultsPage/UserResultsPage')
 );
 
-export const Main = () => (
+const Main = () => (
 	<PublicPath>
 		<main className="main">
 			<Sidebar />
@@ -84,3 +84,5 @@ export const Main = () => (
 		</main>
 	</PublicPath>
 );
+
+export default Main;

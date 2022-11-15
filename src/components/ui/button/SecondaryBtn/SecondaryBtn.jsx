@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './SecondaryBtn.scss';
 
-export const SecondaryBtn = ({ btnValue, handleClick, isActive, ...attrs }) => (
+const SecondaryBtn = ({ btnValue, handleClick, isActive, ...attrs }) => (
 	<button
 		className={
 			isActive ? 'secondary_btn active_secondary_btn' : 'secondary_btn'
@@ -25,3 +25,5 @@ SecondaryBtn.defaultProps = {
 	isActive: false,
 	handleClick: () => {},
 };
+
+export default SecondaryBtn;

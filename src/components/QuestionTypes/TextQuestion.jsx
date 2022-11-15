@@ -2,9 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { propTypesConst } from 'Constants/propTypesConst';
 import { QuestionWrapper } from './QuestionWrapper';
-import { TextQuestionExample } from './TextQuestionExample';
 
-export const TextQuestion = ({
+const TextQuestionExample = React.lazy(() => import('./TextQuestionExample'));
+
+const TextQuestion = ({
 	question,
 	questionNum,
 	index,
@@ -44,3 +45,5 @@ TextQuestion.defaultProps = {
 	handleSaveQuestion: () => {},
 	moveItem: () => {},
 };
+
+export default TextQuestion;

@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
-import { SecondaryBtn } from '../ui/button/SecondaryBtn/SecondaryBtn';
 
-export const SaveCancelActionBtns = ({
-	handleSaveEditing,
-	handleCancelEditing,
-}) => {
+const SecondaryBtn = React.lazy(() =>
+	import('../ui/button/SecondaryBtn/SecondaryBtn')
+);
+
+const SaveCancelActionBtns = ({ handleSaveEditing, handleCancelEditing }) => {
 	const { t } = useTranslation();
 	return (
 		<>
@@ -31,3 +31,5 @@ SaveCancelActionBtns.defaultProps = {
 	handleSaveEditing: () => {},
 	handleCancelEditing: () => {},
 };
+
+export default SaveCancelActionBtns;

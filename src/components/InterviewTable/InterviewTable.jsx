@@ -4,9 +4,10 @@ import { useTranslation } from 'react-i18next';
 import { getNotification } from 'Utils/getNotification';
 import { columnsInterviews } from 'Constants/constants';
 import { propTypesConst } from 'Constants/propTypesConst';
-import { TableWrapper } from '../ui/table/TableWrapper';
 
-export const InterviewTable = ({ interviewData, searchResult }) => {
+const TableWrapper = React.lazy(() => import('../ui/table/TableWrapper'));
+
+const InterviewTable = ({ interviewData, searchResult }) => {
 	const { t } = useTranslation();
 
 	const handleInterviewChange = (value) => {
@@ -41,3 +42,5 @@ InterviewTable.propTypes = {
 InterviewTable.defaultProps = {
 	searchResult: null,
 };
+
+export default InterviewTable;

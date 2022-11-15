@@ -4,7 +4,7 @@ import { labels, dammyText } from 'Constants/constants';
 import { TabBar } from './TabBar';
 import { TabBarItem } from './TabBarItem';
 
-export const TabBarWrapper = () => {
+const TabBarWrapper = () => {
 	const { t } = useTranslation();
 
 	return (
@@ -18,3 +18,5 @@ export const TabBarWrapper = () => {
 		</TabBar>
 	);
 };
+
+export default TabBarWrapper;

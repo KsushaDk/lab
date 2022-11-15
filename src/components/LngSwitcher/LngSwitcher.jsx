@@ -2,10 +2,13 @@ import React, { useCallback } from 'react';
 import { BsGlobe } from 'react-icons/bs';
 import { useTranslation } from 'react-i18next';
 import { lngs } from 'Constants/constants';
-import { PrimaryDropDown } from '../ui/dropdown/PrimaryDropDown';
 import './LngSwitcher.scss';
 
-export const LngSwitcher = () => {
+const PrimaryDropDown = React.lazy(() =>
+	import('../ui/dropdown/PrimaryDropDown')
+);
+
+const LngSwitcher = () => {
 	const { i18n } = useTranslation();
 
 	const handleClick = useCallback((lng) => {
@@ -31,3 +34,5 @@ export const LngSwitcher = () => {
 		</div>
 	);
 };
+
+export default LngSwitcher;

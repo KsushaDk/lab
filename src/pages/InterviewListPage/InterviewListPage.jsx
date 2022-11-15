@@ -1,10 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { PrimaryBtn } from 'Components/ui/button/PrimaryBtn/PrimaryBtn';
-import { SearchForm } from 'Components/ui/form/SearchForm/SearchForm';
-import { InterviewTable } from 'Components/InterviewTable/InterviewTable';
 import { getSearchResult } from 'Utils/getSearchResult';
 import { getFromLSByKey } from 'Utils/funcForLSByKey';
+
+const InterviewTable = React.lazy(() =>
+	import('Components/InterviewTable/InterviewTable')
+);
+const SearchForm = React.lazy(() =>
+	import('Components/ui/form/SearchForm/SearchForm')
+);
 
 const InterviewListPage = () => {
 	const [interviewData, setInterviewData] = useState(null);

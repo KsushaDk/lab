@@ -2,13 +2,20 @@ import React, { useEffect, useState } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import { useTranslation } from 'react-i18next';
 import PropTypes from 'prop-types';
-import { SecondaryBtn } from 'Components/ui/button/SecondaryBtn/SecondaryBtn';
-import CustomSelect from 'Components/ui/select/CustomSelect/CustomSelect';
 import { ErrorFallback } from 'Components/ErrorFallback/ErrorFallback';
-import { InterviewInfo } from 'Components/InterviewInfo/InterviewInfo';
 import { propTypesConst } from 'Constants/propTypesConst';
 
-export const InterviewResultsHead = ({
+const CustomSelect = React.lazy(() =>
+	import('Components/ui/select/CustomSelect/CustomSelect')
+);
+const SecondaryBtn = React.lazy(() =>
+	import('Components/ui/button/SecondaryBtn/SecondaryBtn')
+);
+const InterviewInfo = React.lazy(() =>
+	import('Components/InterviewInfo/InterviewInfo')
+);
+
+const InterviewResultsHead = ({
 	results,
 	handleSelectChange,
 	dataForSelect,
@@ -37,10 +44,12 @@ export const InterviewResultsHead = ({
 				<SecondaryBtn
 					btnValue={t('btnValues.sumQuestions')}
 					isActive={btnsState}
+					disabled
 				/>
 				<SecondaryBtn
 					btnValue={t('btnValues.separateAnswers')}
 					isActive={!btnsState}
+					disabled
 				/>
 				<h2 className="p_info">
 					{t('interviewResultsPage.total')}&#58;&nbsp;
@@ -79,3 +88,5 @@ InterviewResultsHead.defaultProps = {
 	userName: null,
 	handleSelectChange: () => {},
 };
+
+export default InterviewResultsHead;

@@ -2,6 +2,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { PrimarySelect } from 'Components/ui/select/PrimarySelect/PrimarySelect';
+import SecondaryInput from 'Components/ui/input/SecondaryInput/SecondaryInput';
 
 export const Cell = Object.freeze({
 	Empty: 1,
@@ -24,10 +25,10 @@ export const getСellToRender = ({
 	let linkValue = '';
 	switch (key) {
 		case 'link':
-			linkValue = 'опрос';
+			linkValue = t('infoMessage.interviewLink');
 			break;
 		case 'results':
-			linkValue = 'результаты';
+			linkValue = t('infoMessage.resultLink');
 			break;
 		case 'userId':
 			linkValue = t('infoMessage.showUserAnswers');
@@ -51,7 +52,7 @@ export const getСellToRender = ({
 				{idToEdit === row.id ? (
 					<PrimarySelect
 						name="role"
-						options={['Администратор', 'Пользователь']}
+						options={[t('signUpForm.admin'), t('signUpForm.user')]}
 						defaultValue={value}
 						hangleSelectChange={handleOnChangeField}
 					/>
@@ -64,10 +65,7 @@ export const getСellToRender = ({
 			<td>
 				{idToEdit === row.id ? (
 					<form>
-						<input
-							className="secondary_input"
-							autoComplete="off"
-							type="text"
+						<SecondaryInput
 							defaultValue={editedItem ? editedItem[key] : value}
 							id={row.id}
 							name={key}

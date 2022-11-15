@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import './InterviewInfo.scss';
 
-export const InterviewInfo = ({ questions, pages }) => {
+const InterviewInfo = ({ questions, pages }) => {
 	const { t } = useTranslation();
 
 	return (
@@ -22,3 +22,5 @@ InterviewInfo.propTypes = {
 	questions: PropTypes.number.isRequired,
 	pages: PropTypes.number.isRequired,
 };
+
+export default InterviewInfo;
