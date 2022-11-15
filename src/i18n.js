@@ -12,8 +12,8 @@ i18n
 	.init({
 		load: 'languageOnly',
 		backend: {
-			loadPath: '/locales/{{lng}}/{{ns}}.json',
-			// loadPath: `${process.env.API_HOST}/locales/{{lng}}/{{ns}}.json`,
+			// loadPath: '/locales/{{lng}}/{{ns}}.json',
+			loadPath: `${process.env.API_HOST}/locales/{{lng}}/{{ns}}.json`,
 		},
 		debug: true,
 		fallbackLng: ['en', 'ru'],
