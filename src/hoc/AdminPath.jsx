@@ -10,7 +10,7 @@ export const AdminPath = ({ children }) => {
 
 	const { currentUser } = getUserData();
 
-	if (currentUser.role === t('signUpForm.admin')) {
+	if (currentUser.role === 'admin') {
 		return children;
 	}
 

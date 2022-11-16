@@ -22,7 +22,9 @@ const InterviewTemplatesPage = () => {
 	return (
 		<section className="content">
 			{error && <h2 className="enter_error">{error}</h2>}
-
+			<h2 className="enter_error" style={{ color: '#eb3d26' }}>
+				TEST PAGE
+			</h2>
 			<CustomSelect data={data} multi={false} />
 			<CustomSelect data={data} multi />
 

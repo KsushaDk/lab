@@ -38,6 +38,18 @@ export const getСellToRender = ({
 			linkValue = 'link';
 	}
 
+	let roleValue = '';
+	switch (value) {
+		case 'admin':
+			roleValue = t('signUpForm.admin');
+			break;
+		case 'user':
+			roleValue = t('signUpForm.user');
+			break;
+		default:
+			roleValue = t('signUpForm.admin');
+	}
+
 	return {
 		[Cell.Empty]: null,
 		[Cell.Link]: (
@@ -57,7 +69,7 @@ export const getСellToRender = ({
 						hangleSelectChange={handleOnChangeField}
 					/>
 				) : (
-					value
+					roleValue
 				)}
 			</td>
 		),

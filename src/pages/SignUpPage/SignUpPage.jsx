@@ -31,7 +31,7 @@ const SignUpPage = () => {
 		updateDataInLS('users', {
 			...data,
 			id: uuidv4(),
-			role: t('signUpForm.admin'),
+			role: 'admin',
 			registered: new Date(Date.now()).toLocaleDateString(),
 			interviews: [],
 			isAuth: false,
