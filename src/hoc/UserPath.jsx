@@ -10,7 +10,7 @@ export const UserPath = ({ children }) => {
 
 	const { currentUser } = getUserData();
 
-	if (currentUser.role === t('signUpForm.user')) {
+	if (currentUser.role === 'user') {
 		return children;
 	}
 
