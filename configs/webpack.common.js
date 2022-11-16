@@ -1,6 +1,7 @@
 const path = require('path');
-const HTMLWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
+const HTMLWebpackPlugin = require('html-webpack-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
 const dotenv = require('dotenv');
 
 const entryPath = path.resolve(__dirname, '../src/index.js');
@@ -61,6 +62,14 @@ module.exports = {
 		}),
 		new webpack.DefinePlugin({
 			'process.env': JSON.stringify(process.env),
+		}),
+		new CopyPlugin({
+			patterns: [
+				{
+					from: path.resolve(__dirname, '../public/locales'),
+					to: path.resolve(__dirname, '../dist/locales'),
+				},
+			],
 		}),
 	],
 };
