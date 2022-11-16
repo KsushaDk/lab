@@ -39,11 +39,8 @@ const InterviewResultsItem = ({ question, interview }) => {
 			(option, index) => `${t('infoMessage.answer')} ${index + 1}`
 		);
 
-		const {
-			optionsData,
-			selectedOptions,
-			optionsColor,
-		} = getDataForQuestionResults(interview, question);
+		const { optionsData, selectedOptions, optionsColor } =
+			getDataForQuestionResults(interview, question);
 
 		const getTextOptions = interview.allQuestions
 			.filter((item) => item.type === 'text' && item.id === question.id)

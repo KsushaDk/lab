@@ -12,6 +12,7 @@
 		"sourceType": "module"
 	},
 	"plugins": ["react"],
+	"ignorePatterns": ["/dist"],
 	"rules": {
 		"react/jsx-filename-extension": "off",
 		"react/function-component-definition": [
