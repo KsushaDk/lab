@@ -1,8 +1,10 @@
 import React from 'react';
-import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { PrimarySelect } from 'Components/ui/select/PrimarySelect/PrimarySelect';
 import SecondaryInput from 'Components/ui/input/SecondaryInput/SecondaryInput';
+import { getLinkValueForTableCell } from 'Utils/getLinkValueForTableCell';
+import { getQuantityForTableCell } from 'Utils/getQuantityForTableCell';
 
 export const Cell = Object.freeze({
 	Empty: 1,
@@ -22,28 +24,14 @@ export const getСellToRender = ({
 }) => {
 	const { t } = useTranslation();
 
-	let linkValue = '';
-	switch (key) {
-		case 'link':
-			linkValue = t('infoMessage.interviewLink');
-			break;
-		case 'results':
-			linkValue = t('infoMessage.resultLink');
-			break;
-		case 'userId':
-			linkValue = t('infoMessage.showUserAnswers');
-			break;
-
-		default:
-			linkValue = 'link';
-	}
-
 	let roleValue = '';
 	switch (value) {
 		case 'admin':
+		case 'админ':
 			roleValue = t('signUpForm.admin');
 			break;
 		case 'user':
+		case 'пользователь':
 			roleValue = t('signUpForm.user');
 			break;
 		default:
@@ -55,7 +43,7 @@ export const getСellToRender = ({
 		[Cell.Link]: (
 			<td>
 				<Link className="link_black" to={value}>
-					{linkValue}
+					{getLinkValueForTableCell(key)}
 				</Link>
 			</td>
 		),
@@ -91,7 +79,9 @@ export const getСellToRender = ({
 		),
 		[Cell.Text]: (
 			<td>
-				{key === 'interviews' || key === 'answers' ? value.length : value}
+				{key === 'answers' || key === 'interviews'
+					? getQuantityForTableCell(row.id, key)
+					: value}
 			</td>
 		),
 	};

@@ -49,7 +49,7 @@ const Header = () => {
 					</NavLink>
 				) : (
 					<div className="nav__user">
-						<ImUser className="icon_white icon_m" />
+						<ImUser className="icon_white icon_m disabled_item" />
 						<span className="nav__user_name">
 							{t('header.greeting')},&nbsp;{currentUser.username}!
 						</span>

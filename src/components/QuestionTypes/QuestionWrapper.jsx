@@ -2,7 +2,7 @@ import React, { useEffect, useState, useCallback, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import { useDrag, useDrop } from 'react-dnd';
-import { BsPlusSquare, BsInfo, BsCheck2 } from 'react-icons/bs';
+import { BsPlusSquare, BsInfo } from 'react-icons/bs';
 import { propTypesConst } from 'Constants/propTypesConst';
 import { DragDropItem } from 'Constants/constants';
 import { checkQueryForQuestion } from 'Utils/checkQueryForQuestion';
@@ -12,6 +12,7 @@ import { getNotification } from 'Utils/getNotification';
 import { addDefaultValue } from 'Utils/addDefaultValue';
 import { useItemEditing } from 'Hooks/useItemEditing';
 import { IconBtn } from '../ui/button/IconBtn/IconBtn';
+import ActionCorrectMark from '../ActionItems/ActionCorrectMark';
 
 const PrimaryDropDown = React.lazy(() =>
 	import('../ui/dropdown/PrimaryDropDown')
@@ -264,7 +265,7 @@ export const QuestionWrapper = ({
 							handleOnChangeField={handleOnChangeField}
 						/>
 						{option.correct && idToEdit !== question.id && (
-							<BsCheck2 className="icon_red icon_m" />
+							<ActionCorrectMark />
 						)}
 					</li>
 				))}

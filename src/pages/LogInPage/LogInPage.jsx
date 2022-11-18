@@ -81,7 +81,7 @@ const LogInPage = () => {
 				<Link className="link_black" to="/signup">
 					{t('signUpForm.title')}
 				</Link>
-				<a className="link_black" href="/">
+				<a className="link_black disabled_item" href="/">
 					{t('logInForm.forgotPass')}
 				</a>
 			</div>

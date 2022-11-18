@@ -80,10 +80,16 @@ const TableRow = ({
 						<PrimaryDropDown
 							trigger={<IconBtn btnIcon={<BsCaretDownFill />} />}
 						>
-							<Link className="dropdown__content_link" to="/home/create">
+							<Link
+								className="dropdown__content_link disabled_item"
+								to="/home/create"
+							>
 								Copy
 							</Link>
-							<Link className="dropdown__content_link" to="/home/create">
+							<Link
+								className="dropdown__content_link disabled_item"
+								to="/home/create"
+							>
 								Play/Resume
 							</Link>
 						</PrimaryDropDown>

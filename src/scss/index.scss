@@ -91,3 +91,7 @@ body {
 		opacity: 0.8;
 	}
 }
+
+.disabled_item {
+	cursor: not-allowed !important;
+}

@@ -14,8 +14,8 @@
 		"title": "Регистрация",
 		"enterUsername": "Введите свое имя...",
 		"repeatPass": "Повторите пароль...",
-		"admin": "Администратор",
-		"user": "Пользователь"
+		"admin": "администратор",
+		"user": "пользователь"
 	},
 	"validationErrMessages": {
 		"minLength": {
@@ -132,7 +132,8 @@
 		"noUsersAnswer": "Этот пользователь еще не прошел этот опрос.",
 		"resultLink": "результаты",
 		"interviewLink": "опрос",
-		"example": "Пример"
+		"example": "Пример",
+		"addAtLeastOne": "Добавьте хотя бы один вопрос."
 	},
 	"interviewTable": {
 		"caption": "Мои опросы",
