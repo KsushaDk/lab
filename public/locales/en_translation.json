@@ -14,8 +14,8 @@
 		"title": "Sign Up",
 		"enterUsername": "Enter your name...",
 		"repeatPass": "Repeat your password...",
-		"admin": "Admin",
-		"user": "User"
+		"admin": "admin",
+		"user": "user"
 	},
 	"validationErrMessages": {
 		"minLength": {
@@ -133,7 +133,8 @@
 		"noUsersAnswer": "This user has not completed this interview yet.",
 		"resultLink": "results",
 		"interviewLink": "interview",
-		"example": "Example"
+		"example": "Example",
+		"addAtLeastOne": "Add at least one question."
 	},
 	"interviewTable": {
 		"caption": "My interviews",

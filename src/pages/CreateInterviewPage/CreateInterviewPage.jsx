@@ -99,6 +99,8 @@ const CreateInterviewPage = () => {
 	const handleSaveInterview = () => {
 		if (interview.title === '') {
 			getNotification.failed(t('infoMessage.enterInterviewTitle'));
+		} else if (interview.questions.length === 0) {
+			getNotification.failed(t('infoMessage.addAtLeastOne'));
 		} else {
 			const { currentUser } = getUserData();
 
@@ -112,6 +114,7 @@ const CreateInterviewPage = () => {
 				changed: new Date(Date.now()).toLocaleDateString(),
 				link: `/interview/${interview.id}`,
 				results: `/home/results/${interview.id}`,
+				author: currentUser.id,
 			});
 
 			getNotification.success(t('infoMessage.saveInterview'));

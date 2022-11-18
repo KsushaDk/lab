@@ -30,7 +30,6 @@ export const useItemEditing = ({ removeCb, saveCb, cancelCb, changeCb }) => {
 		switch (true) {
 			case value.trim() === '':
 				getNotification.failed(t('infoMessage.notEmptyField'));
-				handleCancelEditing();
 				break;
 
 			case fieldName === 'title':

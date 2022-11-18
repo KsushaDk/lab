@@ -8,6 +8,7 @@ import { getOptionToRender } from 'Constants/OptionType';
 import { getFromLSByKey } from 'Utils/funcForLSByKey';
 import { getOptionType } from 'Utils/getOptionType';
 import { getUserData } from 'Utils/getUserData';
+import ActionCorrectMark from '../../components/ActionItems/ActionCorrectMark';
 
 const InterviewResultsHead = React.lazy(() =>
 	import('Components/InterviewResultsHead/InterviewResultsHead')
@@ -37,7 +38,7 @@ const UserResultsPage = () => {
 
 	useEffect(() => {
 		const answersFromLS = getFromLSByKey('answers');
-		const userAnswers = answersFromLS.filter(
+		const userAnswers = answersFromLS?.filter(
 			(answer) => answer.userId === userId
 		);
 		const userResultsData = userAnswers.filter(
@@ -89,6 +90,7 @@ const UserResultsPage = () => {
 											id={option.id}
 										>
 											{getOptionToRender(option)[getOptionType(question.type)]}
+											{option.correct && <ActionCorrectMark />}
 										</li>
 									))}
 								</ul>

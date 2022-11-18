@@ -4,11 +4,11 @@ import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { propTypesConst } from 'Constants/propTypesConst';
 import { setModalState } from 'Redux/slices/modalSlice';
+import { setToLSByKey, getFromLSByKey } from 'Utils/funcForLSByKey';
 import { removeFromArrByID } from 'Utils/removeFromArrByID';
 import { getModalResponse } from 'Utils/getModalResponse';
-import { setToLSByKey } from 'Utils/funcForLSByKey';
-import { saveItem } from 'Utils/editingItemFunc';
 import { useItemEditing } from 'Hooks/useItemEditing';
+import { saveItem } from 'Utils/editingItemFunc';
 import { ErrorFallback } from '../../ErrorFallback/ErrorFallback';
 
 const Table = React.lazy(() => import('./Table'));
@@ -36,6 +36,14 @@ const TableWrapper = ({
 	};
 
 	const removeCb = (id) => {
+		const answersFromLS = getFromLSByKey('answers');
+		if (answersFromLS) {
+			const updatedAnswers = removeFromArrByID(answersFromLS, id).filter(
+				(item) => item.userId !== id
+			);
+			setToLSByKey('answers', updatedAnswers);
+		}
+
 		const newData = removeFromArrByID(totalRowsState, id);
 		setTotalRowsState(newData);
 	};
