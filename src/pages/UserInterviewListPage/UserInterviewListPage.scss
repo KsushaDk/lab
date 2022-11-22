@@ -1,0 +1,8 @@
+@import 'Scss/vars.scss';
+@import 'Scss/mixins.scss';
+
+.interview__list {
+    @include flex($flex-direction: column);
+    list-style-position: inside
+
+}

@@ -89,7 +89,7 @@ const InterviewPage = () => {
 			return navigate('/info', {
 				state: {
 					message: t('infoMessage.cancelInterviewAnswers'),
-					link: '/home/interviews',
+					link: '/home',
 				},
 				replace: true,
 			});
@@ -101,7 +101,7 @@ const InterviewPage = () => {
 			navigate('/info', {
 				state: {
 					message: t('infoMessage.saveInterviewAnswers'),
-					link: '/home/interviews',
+					link: '/home',
 				},
 				replace: true,
 			});

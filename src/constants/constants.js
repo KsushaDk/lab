@@ -24,11 +24,17 @@ export const labels = [
 	'contacts',
 ];
 
-export const btnValues = [
+export const adminBtnValues = [
 	{ key: 'newInterview', link: 'create' },
 	{ key: 'myInterviews', link: 'interviews' },
 	{ key: 'interviewTemplates', link: 'templates' },
 	{ key: 'users', link: 'users' },
+];
+
+export const userBtnValues = [
+	{ key: 'aboutCompany', link: '/home' },
+	{ key: 'interviewList', link: 'interview-list' },
+	{ key: 'userAnswers', link: 'user-interviews' },
 ];
 
 export const dammyText =
@@ -149,6 +155,7 @@ export const columnsInterviews = [
 ];
 
 export const columnsTextResults = [{ key: 'user' }, { key: 'answer' }];
+export const columnsUserInterviews = [{ key: 'title' }, { key: 'results' }];
 
 export const dataInterviews = [
 	{
@@ -274,11 +281,11 @@ export const infoNotification = {
 };
 
 export const interviewQuery = [
-	{
-		id: uuidv4(),
-		key: 'anonymousInterview',
-		checked: false,
-	},
+	// {
+	// 	id: uuidv4(),
+	// 	key: 'anonymousInterview',
+	// 	checked: false,
+	// },
 	{
 		id: uuidv4(),
 		key: 'questionNum',

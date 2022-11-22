@@ -39,7 +39,10 @@
 		"save": "Сохранить",
 		"ok": "Ок",
 		"send": "Отправить",
+		"aboutCompany": "О компании",
+		"userAnswers": "Мои ответы",
 		"newInterview": "Новый опрос",
+		"interviewList": "Список опросов",
 		"createInterview": "Создать опрос",
 		"myInterviews": "Мои опросы",
 		"interviewTemplates": "Шаблоны опросов",
@@ -71,6 +74,12 @@
 		"total": "Всего ответов",
 		"correctAnswer": "Правильный ответ",
 		"username": "Имя пользователя"
+	},
+	"userAnswersListPage": {
+		"total": " Мои ответы"
+	},
+	"userInterviewListPage": {
+		"title": "Список опросов:"
 	},
 	"interviewTemplates": {
 		"title": "Шаблоны",
@@ -130,6 +139,7 @@
 		"answer": "Ответ",
 		"showUserAnswers": "показать ответы респондента",
 		"noUsersAnswer": "Этот пользователь еще не прошел этот опрос.",
+		"noUserAnswers": "Этот пользователь еще не прошел шги одного опроса.",
 		"resultLink": "результаты",
 		"interviewLink": "опрос",
 		"example": "Пример",

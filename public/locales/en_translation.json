@@ -39,6 +39,9 @@
 		"save": "Save",
 		"ok": "Ok",
 		"send": "Send",
+		"aboutCompany": "About company",
+		"userAnswers": "My answers",
+		"interviewList": "Interviews",
 		"newInterview": "Create interview",
 		"createInterview": "Create interview",
 		"createTemplate": "Create template",
@@ -66,6 +69,12 @@
 	},
 	"interviewPage": {
 		"title": "Interview"
+	},
+	"userAnswersListPage": {
+		"total": "My answers"
+	},
+	"userInterviewListPage": {
+		"title": "Interview list:"
 	},
 	"interviewResultsPage": {
 		"title": "Interview results",
@@ -131,6 +140,7 @@
 		"answer": "Answer",
 		"showUserAnswers": "show respondent's answers",
 		"noUsersAnswer": "This user has not completed this interview yet.",
+		"noUserAnswers": "This user has not completed any interviews yet.",
 		"resultLink": "results",
 		"interviewLink": "interview",
 		"example": "Example",

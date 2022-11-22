@@ -2,6 +2,7 @@ import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { PublicPath } from 'Hoc/PublicPath';
 import { AdminPath } from 'Hoc/AdminPath';
+import { UserPath } from 'Hoc/UserPath';
 import './Main.scss';
 
 const Sidebar = React.lazy(() => import('../Sidebar/Sidebar'));
@@ -21,8 +22,17 @@ const InterviewTemplatesPage = React.lazy(() =>
 const InterviewResultsPage = React.lazy(() =>
 	import('Pages/InterviewResultsPage/InterviewResultsPage')
 );
+const UserResultsListPage = React.lazy(() =>
+	import('Pages/UserResultsListPage/UserResultsListPage')
+);
 const UserResultsPage = React.lazy(() =>
 	import('Pages/UserResultsPage/UserResultsPage')
+);
+const UserInterviewResultPage = React.lazy(() =>
+	import('Pages/UserInterviewResultPage/UserInterviewResultPage')
+);
+const UserInterviewListPage = React.lazy(() =>
+	import('Pages/UserInterviewListPage/UserInterviewListPage')
 );
 
 const Main = () => (
@@ -46,6 +56,30 @@ const Main = () => (
 						<AdminPath>
 							<InterviewListPage />
 						</AdminPath>
+					}
+				/>
+				<Route
+					path="user-interviews"
+					element={
+						<UserPath>
+							<UserResultsListPage />
+						</UserPath>
+					}
+				/>
+				<Route
+					path="user-interviews/:interviewId/:userId"
+					element={
+						<UserPath>
+							<UserInterviewResultPage />
+						</UserPath>
+					}
+				/>
+				<Route
+					path="interview-list"
+					element={
+						<UserPath>
+							<UserInterviewListPage />
+						</UserPath>
 					}
 				/>
 				<Route
