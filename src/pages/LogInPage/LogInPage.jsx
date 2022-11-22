@@ -38,15 +38,15 @@ const LogInPage = () => {
 
 	useEffect(() => {
 		updateDataInLS('users', {
-			id: 'dff65601-8d01-40a1-b484-459488901d95',
-			username: 'Admin-test',
-			password: 'AdminTest1!',
-			password_repeat: 'AdminTest1!',
-			role: 'admin',
 			email: 'admin-test@gmail.com',
-			registered: new Date(Date.now()).toLocaleDateString(),
+			id: 'dff65601-8d01-40a1-b484-459488901d95',
 			interviews: [],
 			isAuth: false,
+			password: 'AdminTest1!',
+			password_repeat: 'AdminTest1!',
+			registered: new Date(Date.now()).toLocaleDateString,
+			role: 'admin',
+			username: 'Admin-test',
 		});
 	}, []);
 

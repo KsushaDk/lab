@@ -32,7 +32,6 @@ export const adminBtnValues = [
 ];
 
 export const userBtnValues = [
-	{ key: 'aboutCompany', link: '/home' },
 	{ key: 'interviewList', link: 'interview-list' },
 	{ key: 'userAnswers', link: 'user-interviews' },
 ];

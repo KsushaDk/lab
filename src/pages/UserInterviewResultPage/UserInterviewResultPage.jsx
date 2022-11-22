@@ -31,7 +31,11 @@ const UserInterviewResultPage = () => {
 						<span className="title_s_red">{interview.title}</span>
 					</h2>
 				)}
-				<UserInterviewResult userId={userId} interviewId={interviewId} />
+				<UserInterviewResult
+					userId={userId}
+					interviewId={interviewId}
+					showCorrect={false}
+				/>
 			</ErrorBoundary>
 		</section>
 	);
