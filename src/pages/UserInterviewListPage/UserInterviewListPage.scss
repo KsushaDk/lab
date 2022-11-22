@@ -2,7 +2,6 @@
 @import 'Scss/mixins.scss';
 
 .interview__list {
-    @include flex($flex-direction: column);
-    list-style-position: inside
-
+	@include flex($flex-direction: column);
+	list-style-position: inside;
 }

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
@@ -35,6 +35,20 @@ const LogInPage = () => {
 
 		reset();
 	};
+
+	useEffect(() => {
+		updateDataInLS('users', {
+			id: 'dff65601-8d01-40a1-b484-459488901d95',
+			username: 'Admin-test',
+			password: 'AdminTest1!',
+			password_repeat: 'AdminTest1!',
+			role: 'admin',
+			email: 'admin-test@gmail.com',
+			registered: new Date(Date.now()).toLocaleDateString(),
+			interviews: [],
+			isAuth: false,
+		});
+	}, []);
 
 	return (
 		<PrimaryForm

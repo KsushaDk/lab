@@ -5,7 +5,7 @@ export const setToLSByKey = (key, data) =>
 
 export const getFromLSByKey = (key) => JSON.parse(localStorage.getItem(key));
 
-const chechAnswerItem = (data, newItem) =>
+const checkAnswerItem = (data, newItem) =>
 	data.find((item) => item.id === newItem.id && item.userId === newItem.userId);
 
 export const updateDataInLS = (key, newItem) => {
@@ -14,7 +14,7 @@ export const updateDataInLS = (key, newItem) => {
 	if (dataFromLS !== null) {
 		const checkItem =
 			key === 'answers'
-				? chechAnswerItem(dataFromLS, newItem)
+				? checkAnswerItem(dataFromLS, newItem)
 				: findInArrByID(dataFromLS, newItem.id);
 
 		if (!checkItem) {
