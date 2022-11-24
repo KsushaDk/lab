@@ -38,15 +38,15 @@ const LogInPage = () => {
 
 	useEffect(() => {
 		updateDataInLS('users', {
-			email: 'admin-test@gmail.com',
 			id: 'dff65601-8d01-40a1-b484-459488901d95',
-			interviews: [],
-			isAuth: false,
+			username: 'Admin-test',
 			password: 'AdminTest1!',
 			password_repeat: 'AdminTest1!',
-			registered: new Date(Date.now()).toLocaleDateString,
 			role: 'admin',
-			username: 'Admin-test',
+			email: 'admin-test@gmail.com',
+			registered: new Date(Date.now()).toLocaleDateString(),
+			interviews: [],
+			isAuth: false,
 		});
 	}, []);
 
@@ -100,7 +100,7 @@ const LogInPage = () => {
 				</a>
 			</div>
 
-			<SubmitInput isValid={isValid} />
+			<SubmitInput isValid={isValid} btnValue={t('logInForm.btnValue')} />
 		</PrimaryForm>
 	);
 };

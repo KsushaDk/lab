@@ -8,11 +8,13 @@ $secondary-gray: rgba(145, 143, 143, 0.1);
 $example-gray: rgb(243, 243, 243);
 $info-gray: rgba(136, 136, 136, 0.91);
 $chart-gray: #cac6c5;
+$dark-gray: #505050;
 
 $border: 1px solid $primary-gray;
 $shadow-form: drop-shadow(4px 4px 4px $primary-gray);
 $shadow-text: $primary-white 1px 0 10px;
-$shadow-checkbox: $primary-red 1px 0 5px;
+$shadow-checkbox-light: $primary-red 1px 0 5px;
+$shadow-checkbox-dark: $primary-white 1px 0 5px;
 
 $padding-l: 2rem;
 $padding-m: 1.5rem 1rem;

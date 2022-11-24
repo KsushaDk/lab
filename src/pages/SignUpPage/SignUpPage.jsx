@@ -76,6 +76,7 @@ const SignUpPage = () => {
 					pattern: {
 						value: regEmail,
 						message: t('validationErrMessages.emailErr'),
+						// "emailErr": "Invalid email. You can use only gmail and yahoo domains.",
 					},
 					validate: (value) => {
 						const checkUserEmail = users?.find((user) => user.email === value);
@@ -121,7 +122,7 @@ const SignUpPage = () => {
 				}}
 				errors={errors}
 			/>
-			<SubmitInput isValid={isValid} />
+			<SubmitInput isValid={isValid} btnValue={t('signUpForm.btnValue')} />
 		</PrimaryForm>
 	);
 };

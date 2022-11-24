@@ -12,7 +12,7 @@
 .settings__list {
 	@include flex($flex-direction: column, $align-items: start, $gap: 0);
 	border-top: $border;
-	background: $secondary-gray;
+	@include theme-aware('background-color', 'table-bg');
 	list-style: none;
 	width: 100%;
 

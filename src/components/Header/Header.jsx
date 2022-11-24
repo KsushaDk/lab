@@ -1,10 +1,15 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { ImUser } from 'react-icons/im';
 import { useTranslation } from 'react-i18next';
-import { BsBoxArrowRight } from 'react-icons/bs';
+import {
+	BsBoxArrowRight,
+	BsBrightnessLowFill,
+	BsFillMoonStarsFill,
+} from 'react-icons/bs';
 import { updateDataInLS } from 'Utils/funcForLSByKey';
 import { getUserData } from 'Utils/getUserData';
+import { ThemeContext } from 'Hoc/ThemeProvider';
 import logo from './logo.svg';
 import './Header.scss';
 
@@ -12,6 +17,8 @@ const LngSwitcher = React.lazy(() => import('../LngSwitcher/LngSwitcher'));
 
 const Header = () => {
 	const navigate = useNavigate();
+
+	const { theme, toggleTheme } = useContext(ThemeContext);
 
 	const { t } = useTranslation();
 
@@ -55,6 +62,17 @@ const Header = () => {
 						</span>
 						<BsBoxArrowRight className="icon_white icon_l" onClick={logout} />
 					</div>
+				)}
+				{theme === 'dark' ? (
+					<BsBrightnessLowFill
+						className="icon_white icon_l"
+						onClick={toggleTheme}
+					/>
+				) : (
+					<BsFillMoonStarsFill
+						className="icon_white icon_m"
+						onClick={toggleTheme}
+					/>
 				)}
 				<LngSwitcher />
 			</nav>

@@ -10,6 +10,8 @@
 		$gap: 2rem
 	);
 
+	height: calc(100vh - 114px);
+
 	@media (max-width: 1200px) {
 		@include flex(
 			$align-items: stretch,
@@ -17,6 +19,7 @@
 			$gap: 1rem
 		);
 		padding: $padding-m;
+		height: calc(100vh - 80px);
 	}
 
 	@media (max-width: 768px) {
@@ -25,10 +28,12 @@
 			$justify-content: flex-start,
 			$gap: 2rem
 		);
+		height: calc(100vh - 69px);
 	}
 
 	@media (max-width: 576px) {
 		padding: $padding-s;
+		height: calc(100vh - 60px);
 	}
 }
 
@@ -75,6 +80,7 @@
 		background: url('../../../public/assets/bg.webp');
 		background-repeat: no-repeat;
 		background-size: cover;
+		@include theme-aware('filter', 'brightness');
 
 		@media (max-width: 768px) {
 			width: 100%;
@@ -126,6 +132,7 @@
 			width: 100%;
 			border: $border;
 			padding: $padding-l;
+			@include theme-aware('background-color', 'table-bg');
 
 			@media (max-width: 768px) {
 				padding: $padding-s;
@@ -135,6 +142,7 @@
 
 		&_items {
 			@include flex($flex-direction: column);
+			@include theme-aware('background-color', 'table-bg');
 			border: $border;
 			width: 100%;
 			padding: 2rem 1rem;
@@ -146,6 +154,7 @@
 
 		&_item {
 			@include flex($flex-direction: column, $gap: 1.5rem, $align-items: start);
+			@include theme-aware('background-color', 'q-item-bg');
 			position: relative;
 			border: $border;
 			padding: 1rem;
@@ -203,8 +212,10 @@
 
 	&_center {
 		@include flex($flex-direction: column, $align-items: center, $gap: 1.5rem);
-		margin: 2rem auto;
-		width: 80%;
+		@include theme-aware('background', 'main-background');
+		transition: all 1s;
+		padding: 2rem;
+		width: 100%;
 
 		@media (max-width: 768px) {
 			@include flex($flex-direction: column, $align-items: center, $gap: 1rem);
@@ -296,4 +307,21 @@
 			margin-right: auto;
 		}
 	}
+}
+
+.result_state__btn {
+	@include text($font-size: 1rem, $color: $primary-red, $font-weight: 500);
+	align-content: center;
+	padding: 0.3rem 1rem;
+	background-color: transparent;
+	border: 2px solid $primary-red;
+	transition: all 0.3s ease;
+	cursor: not-allowed;
+}
+
+.active_btn-state {
+	@include theme-aware('box-shadow', 'shadow-btn');
+	color: $primary-white;
+	background-color: $primary-red;
+	border: 2px solid $primary-red;
 }

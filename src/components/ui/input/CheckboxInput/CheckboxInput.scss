@@ -33,5 +33,5 @@
 
 .checked-box {
 	background-color: $primary-red;
-	box-shadow: $shadow-checkbox;
+	@include theme-aware('box-shadow', 'shadow-btn');
 }

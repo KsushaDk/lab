@@ -2,10 +2,10 @@
 @import 'Scss/mixins.scss';
 
 .header {
+    background-color: $primary-black;
 	border-bottom: $border;
 	padding: $padding-l;
 	@include flex;
-	background: $primary-black;
 
 	@media (max-width: 1200px) {
 		padding: $padding-s;
@@ -30,6 +30,7 @@
 .nav {
 	&__links {
 		@include flex($gap: 1rem);
+		background-color: $primary-black;
 	}
 
 	&__user {

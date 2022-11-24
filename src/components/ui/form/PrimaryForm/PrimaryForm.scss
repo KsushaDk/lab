@@ -8,16 +8,29 @@
 		justify-content: center;
 		align-items: center;
 		padding: 2rem;
+		transition: all 1s;
+
+		height: calc(100vh - 114px);
+
+		@media (max-width: 1200px) {
+			height: calc(100vh - 80px);
+		}
+
+		@media (max-width: 768px) {
+			height: calc(100vh - 69px);
+		}
 
 		@media (max-width: 576px) {
+			justify-content: flex-start;
 			padding: 1.5rem 1rem;
+			height: calc(100vh - 60px);
 		}
 	}
 
 	&__inner {
 		@include flex($flex-direction: column, $gap: 1.5rem);
 		min-width: 30rem;
-		padding: 2rem;
+		padding: 1rem;
 		background: $primary-white;
 		border: $border;
 		filter: $shadow-form;
@@ -25,7 +38,6 @@
 		@media (max-width: 576px) {
 			@include flex($flex-direction: column);
 			min-width: 25rem;
-			padding: 1rem;
 			border: none;
 			filter: none;
 			width: 100%;

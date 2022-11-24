@@ -4,7 +4,7 @@
 .submit_input {
 	padding: 0.7rem 1rem;
 	border: none;
-	background: $primary-red;
+	@include theme-aware('background-color', 'primary_btn-bg');
 	@include text($color: $primary-white, $font-weight: 500);
 	cursor: pointer;
 	outline-color: $primary-black;

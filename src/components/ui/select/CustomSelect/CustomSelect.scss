@@ -23,6 +23,7 @@
 			outline-color: transparent;
 			outline-offset: 2px;
 			min-width: 90%;
+			background: transparent;
 
 			&-multi {
 				@include flex($gap: 0.5rem, $justify-content: start);
