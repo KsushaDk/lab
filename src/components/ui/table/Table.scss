@@ -19,6 +19,7 @@
 		width: 100%;
 		border-collapse: collapse;
 		border: $border;
+		@include theme-aware('background-color', 'table-bg');
 
 		th,
 		td {

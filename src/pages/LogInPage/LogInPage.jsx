@@ -100,7 +100,7 @@ const LogInPage = () => {
 				</a>
 			</div>
 
-			<SubmitInput isValid={isValid} />
+			<SubmitInput isValid={isValid} btnValue={t('logInForm.btnValue')} />
 		</PrimaryForm>
 	);
 };

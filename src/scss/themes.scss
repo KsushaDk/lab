@@ -1,0 +1,28 @@
+@import './vars.scss';
+
+$themes: (
+	light: (
+		main-background: $primary-white,
+		title-color: $primary-black,
+		title-red-color: $primary-red,
+		brightness: brightness(1),
+		primary_btn-bg: $primary-red,
+		secondary_btn-text: $primary-red,
+		tabbar-bg: $secondary-gray,
+		table-bg: $secondary-gray,
+		q-item-bg: $primary-white,
+		shadow-btn: $shadow-checkbox-light,
+	),
+	dark: (
+		main-background: $info-gray,
+		title-color: $primary-white,
+		title-red-color: $primary-white,
+		brightness: brightness(75%),
+		primary_btn-bg: $dark-gray,
+		secondary_btn-text: $primary-black,
+		tabbar-bg: $chart-gray,
+		table-bg: $example-gray,
+		q-item-bg: $example-gray,
+		shadow-btn: $shadow-checkbox-dark,
+	),
+);

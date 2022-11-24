@@ -8,9 +8,6 @@ import { propTypesConst } from 'Constants/propTypesConst';
 const CustomSelect = React.lazy(() =>
 	import('Components/ui/select/CustomSelect/CustomSelect')
 );
-const SecondaryBtn = React.lazy(() =>
-	import('Components/ui/button/SecondaryBtn/SecondaryBtn')
-);
 const InterviewInfo = React.lazy(() =>
 	import('Components/InterviewInfo/InterviewInfo')
 );
@@ -22,14 +19,14 @@ const InterviewResultsHead = ({
 	singleSelected,
 	userName,
 }) => {
-	const [btnsState, setBtnsState] = useState(false);
+	const [btnsState, setBtnsState] = useState('');
 
 	const { t } = useTranslation();
 
 	useEffect(() => {
 		if (results.total) {
-			setBtnsState((prevState) => !prevState);
-		}
+			setBtnsState('sum');
+		} else setBtnsState('separate');
 	}, []);
 	return (
 		<ErrorBoundary FallbackComponent={ErrorFallback}>
@@ -41,16 +38,24 @@ const InterviewResultsHead = ({
 				<InterviewInfo pages={1} questions={results.questions.length} />
 			</div>
 			<div className="content__head">
-				<SecondaryBtn
-					btnValue={t('btnValues.sumQuestions')}
-					isActive={btnsState}
-					disabled
-				/>
-				<SecondaryBtn
-					btnValue={t('btnValues.separateAnswers')}
-					isActive={!btnsState}
-					disabled
-				/>
+				<div
+					className={
+						btnsState === 'sum'
+							? 'result_state__btn active_btn-state'
+							: 'result_state__btn'
+					}
+				>
+					{t('btnValues.sumQuestions')}
+				</div>
+				<div
+					className={
+						btnsState === 'separate'
+							? 'result_state__btn active_btn-state'
+							: 'result_state__btn'
+					}
+				>
+					{t('btnValues.separateAnswers')}
+				</div>
 				<h2 className="p_info">
 					{t('interviewResultsPage.total')}&#58;&nbsp;
 					{results.answers?.length || results.total}

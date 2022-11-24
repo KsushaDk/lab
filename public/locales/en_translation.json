@@ -8,14 +8,16 @@
 		"title": "Log In",
 		"enterEmail": "Enter your email...",
 		"enterPass": "Enter your password...",
-		"forgotPass": "Forgot password?"
+		"forgotPass": "Forgot password?",
+		"btnValue": "Enter"
 	},
 	"signUpForm": {
 		"title": "Sign Up",
 		"enterUsername": "Enter your name...",
 		"repeatPass": "Repeat your password...",
 		"admin": "admin",
-		"user": "user"
+		"user": "user",
+		"btnValue": "Create"
 	},
 	"validationErrMessages": {
 		"minLength": {
@@ -27,7 +29,7 @@
 			"password": "Password must have less than 15 characters"
 		},
 		"notEmptyField": "The field can not be empty",
-		"emailErr": "Invalid email",
+		"emailErr": "Invalid email.",
 		"emailUniqueErr": "This email already exists",
 		"passErr": "Password must have a number, a special character and lowercase/uppercase letters",
 		"notMatchPass": "The passwords do not match",
@@ -136,7 +138,7 @@
 		"requiredQuestion": "Required question",
 		"notAccess": "You don't have an access to this page!",
 		"error": "Error",
-		"answers": "answers",
+		"answers": "answer(s)",
 		"answer": "Answer",
 		"showUserAnswers": "show respondent's answers",
 		"noUsersAnswer": "This user has not completed this interview yet.",

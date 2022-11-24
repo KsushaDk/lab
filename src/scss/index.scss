@@ -40,6 +40,7 @@ body {
 
 .title_s_red {
 	@include text($font-size: 1.5rem, $font-weight: 500, $color: $primary-red);
+	@include theme-aware('color', 'title-red-color');
 }
 
 .title_xs {
@@ -59,7 +60,7 @@ body {
 }
 
 .p_info {
-	@include text($font-size: 1rem, $color: $info-gray);
+	@include text($font-size: 1rem, $color: $info-gray, $font-weight: 500);
 }
 
 .icon_l {

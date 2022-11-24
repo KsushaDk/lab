@@ -1,7 +1,8 @@
-import React, { Suspense, useCallback, useState } from 'react';
+import React, { Suspense, useCallback, useContext, useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { ThemeContext } from 'Hoc/ThemeProvider';
 import './App.scss';
 
 const Header = React.lazy(() => import('../Header/Header'));
@@ -14,6 +15,8 @@ export const Layout = () => {
 		top: '0px',
 		left: '0px',
 	});
+
+	const { theme } = useContext(ThemeContext);
 
 	const handleClick = useCallback((e) => {
 		setClicked(true);
@@ -28,7 +31,7 @@ export const Layout = () => {
 	});
 
 	return (
-		<div className="app" onClick={handleClick}>
+		<div className={`theme_${theme} app`} onClick={handleClick}>
 			<ToastContainer
 				position="bottom-right"
 				autoClose={1000}

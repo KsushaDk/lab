@@ -25,7 +25,6 @@
 			border-radius: 0 10px 0 0;
 			padding: 0.3rem;
 			cursor: pointer;
-			background: $primary-gray;
 			text-align: center;
 			white-space: nowrap;
 
@@ -36,6 +35,7 @@
 	}
 
 	&__content {
+		@include theme-aware('background', 'tabbar-bg');
 		@include flex($flex-direction: column, $align-items: start);
 		position: relative;
 		z-index: 1;
@@ -72,6 +72,6 @@
 }
 
 .active_tab {
-	background-color: $primary-white;
+	background-color: $primary-white !important;
 	border-bottom-color: transparent;
 }

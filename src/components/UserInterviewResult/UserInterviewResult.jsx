@@ -7,7 +7,7 @@ import { getOptionToRender } from 'Constants/OptionType';
 import { getFromLSByKey } from 'Utils/funcForLSByKey';
 import { getOptionType } from 'Utils/getOptionType';
 
-const UserInterviewResult = ({ userId, interviewId }) => {
+const UserInterviewResult = ({ userId, interviewId, showCorrect }) => {
 	const [userResults, setUserResults] = useState(null);
 
 	const { t } = useTranslation();
@@ -58,7 +58,9 @@ const UserInterviewResult = ({ userId, interviewId }) => {
 								id={option.id}
 							>
 								{getOptionToRender(option)[getOptionType(question.type)]}
-								{option.correct && <ActionCorrectMark />}
+								{option.correct && showCorrect && question.type !== 'text' && (
+									<ActionCorrectMark />
+								)}
 							</li>
 						))}
 					</ul>
@@ -71,6 +73,7 @@ const UserInterviewResult = ({ userId, interviewId }) => {
 UserInterviewResult.propTypes = {
 	userId: PropTypes.string.isRequired,
 	interviewId: PropTypes.string.isRequired,
+	showCorrect: PropTypes.bool.isRequired,
 };
 
 export default UserInterviewResult;

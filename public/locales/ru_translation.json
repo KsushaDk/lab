@@ -8,14 +8,16 @@
 		"title": "Вход",
 		"enterEmail": "Введите логин...",
 		"enterPass": "Введите пароль...",
-		"forgotPass": "Забыли пароль?"
+		"forgotPass": "Забыли пароль?",
+		"btnValue": "Войти"
 	},
 	"signUpForm": {
 		"title": "Регистрация",
 		"enterUsername": "Введите свое имя...",
 		"repeatPass": "Повторите пароль...",
 		"admin": "администратор",
-		"user": "пользователь"
+		"user": "пользователь",
+		"btnValue": "Создать"
 	},
 	"validationErrMessages": {
 		"minLength": {
@@ -135,7 +137,7 @@
 		"requiredQuestion": "Обязательный вопрос",
 		"notAccess": "У вас нет доступа к этой странице!",
 		"error": "Ошибка",
-		"answers": "ответов",
+		"answers": "ответ(ов)",
 		"answer": "Ответ",
 		"showUserAnswers": "показать ответы респондента",
 		"noUsersAnswer": "Этот пользователь еще не прошел этот опрос.",

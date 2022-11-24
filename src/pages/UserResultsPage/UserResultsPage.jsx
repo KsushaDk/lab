@@ -45,7 +45,11 @@ const UserResultsPage = () => {
 						userName={selectedUser?.username}
 					/>
 				)}
-				<UserInterviewResult userId={userId} interviewId={interviewId} />
+				<UserInterviewResult
+					userId={userId}
+					interviewId={interviewId}
+					showCorrect
+				/>
 			</ErrorBoundary>
 		</section>
 	);
