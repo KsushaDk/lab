@@ -5,6 +5,7 @@
 	&__wrapper {
 		@include flex($justify-content: start);
 		@include text($font-size: 1.1rem);
+		@include theme-aware('color', 'main-text-color');
 		background: transparent;
 		cursor: pointer;
 		width: 100%;
@@ -13,7 +14,9 @@
 	&__checkmark {
 		@include flex($justify-content: center);
 		flex-shrink: 0;
-		border: $border;
+		border-width: 1px;
+		border-style: solid;
+		@include theme-aware('border-color', 'border-color');
 		border-radius: 4px;
 		height: 1.2rem;
 		width: 1.2rem;

@@ -42,6 +42,7 @@ export const Layout = () => {
 				pauseOnFocusLoss
 				draggable
 				pauseOnHover
+				theme={theme}
 			/>
 			{isClicked && (
 				<ClickEffect

@@ -3,6 +3,7 @@
 
 .primary_output {
 	@include text;
+	color: $primary-black !important;
 	min-height: 1rem;
 	padding: 0.3rem 0.5rem;
 	background-color: transparent;

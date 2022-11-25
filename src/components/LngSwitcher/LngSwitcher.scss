@@ -9,7 +9,8 @@
 	}
 
 	&__item {
-		@include text($color: $primary-black, $font-weight: 600);
+		@include text($font-weight: 600);
+		color: $primary-black;
 		width: 100%;
 		cursor: pointer;
 		padding: 0.3rem;
@@ -18,7 +19,8 @@
 		border: none;
 
 		&:hover {
-			@include text($color: $primary-red, $font-weight: 600);
+			@include text($font-weight: 600);
+			color: $primary-red;
 		}
 	}
 }

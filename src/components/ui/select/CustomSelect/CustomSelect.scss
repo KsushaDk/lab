@@ -5,7 +5,9 @@
 	&__wrapper {
 		@include flex($flex-direction: column, $align-items: start, $gap: 0rem);
 		background-color: transparent;
-		border: $border;
+		border-width: 1px;
+		border-style: solid;
+		@include theme-aware('border-color', 'border-color');
 		width: 100%;
 	}
 
@@ -80,7 +82,9 @@
 }
 
 .input-multi_item {
-	@include text($color: $primary-white, $font-size: 1rem);
+	@include text($font-size: 1rem);
+	color: $primary-white !important;
+	@include theme-aware('background-color', 'primary_btn-bg');
 	@include flex($gap: 0.5rem);
 	align-self: flex-start;
 	padding: 0.2rem 0.4rem;

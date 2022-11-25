@@ -6,13 +6,13 @@
 	padding-top: 1rem;
 	border: $border;
 	width: 100%;
-	background: $primary-white;
+	@include theme-aware('background-color', 'form-bg');
 }
 
 .settings__list {
 	@include flex($flex-direction: column, $align-items: start, $gap: 0);
 	border-top: $border;
-	@include theme-aware('background-color', 'table-bg');
+	@include theme-aware('background-color', 'tabbar-bg');
 	list-style: none;
 	width: 100%;
 

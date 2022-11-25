@@ -1,5 +1,5 @@
-@use "sass:map";
-@import "./themes.scss";
+@use 'sass:map';
+@import './themes.scss';
 @import './vars.scss';
 
 @mixin flex(
@@ -16,16 +16,11 @@
 	gap: $gap;
 }
 
-@mixin text(
-	$font-family: $font-family,
-	$font-size: 1.2rem,
-	$font-weight: 400,
-	$color: $primary-black
-) {
+@mixin text($font-family: $font-family, $font-size: 1.2rem, $font-weight: 400) {
 	font-family: $font-family;
 	font-size: $font-size;
 	font-weight: $font-weight;
-	color: $color;
+	@include theme-aware('color', 'main-text-color');
 }
 
 @mixin icon($color: $primary-black) {
@@ -42,9 +37,7 @@
 }
 
 @mixin theme-aware($key, $color) {
-
-	@each $theme-name,
-	$theme-color in $themes {
+	@each $theme-name, $theme-color in $themes {
 		.theme_#{$theme-name} & {
 			#{$key}: map.get(map.get($themes, $theme-name), $color);
 		}

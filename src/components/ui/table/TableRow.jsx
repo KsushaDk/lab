@@ -1,15 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import { ImPencil, ImBin } from 'react-icons/im';
-import { BsXSquare, BsCheckSquare, BsCaretDownFill } from 'react-icons/bs';
+import { BsXSquare, BsCheckSquare } from 'react-icons/bs';
 import { useDispatch } from 'react-redux';
 import { propTypesConst } from 'Constants/propTypesConst';
 import { setModalState } from 'Redux/slices/modalSlice';
 import { IconBtn } from '../button/IconBtn/IconBtn';
 
-const PrimaryDropDown = React.lazy(() => import('../dropdown/PrimaryDropDown'));
+// const PrimaryDropDown = React.lazy(() => import('../dropdown/PrimaryDropDown'));
 const TableCell = React.lazy(() => import('./TableCell'));
 
 const TableRow = ({
@@ -76,7 +76,7 @@ const TableRow = ({
 						/>
 					)}
 
-					{total.includes(t('interviewTable.total')) && (
+					{/* {total.includes(t('interviewTable.total')) && (
 						<PrimaryDropDown
 							trigger={<IconBtn btnIcon={<BsCaretDownFill />} />}
 						>
@@ -93,7 +93,7 @@ const TableRow = ({
 								Play/Resume
 							</Link>
 						</PrimaryDropDown>
-					)}
+					)} */}
 				</td>
 			)}
 		</tr>

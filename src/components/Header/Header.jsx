@@ -4,7 +4,7 @@ import { ImUser } from 'react-icons/im';
 import { useTranslation } from 'react-i18next';
 import {
 	BsBoxArrowRight,
-	BsBrightnessLowFill,
+	BsFillBrightnessLowFill,
 	BsFillMoonStarsFill,
 } from 'react-icons/bs';
 import { updateDataInLS } from 'Utils/funcForLSByKey';
@@ -64,7 +64,7 @@ const Header = () => {
 					</div>
 				)}
 				{theme === 'dark' ? (
-					<BsBrightnessLowFill
+					<BsFillBrightnessLowFill
 						className="icon_white icon_l"
 						onClick={toggleTheme}
 					/>

@@ -2,5 +2,6 @@
 @import 'Scss/vars.scss';
 
 .enter_error {
-	@include text($color: $primary-red, $font-weight: 500);
+	@include text($font-weight: 500);
+	color: $primary-red !important;
 }
