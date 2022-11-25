@@ -12,8 +12,15 @@
 	@include text($font-size: 1rem);
 }
 
+.Toastify__toast-theme--dark {
+	background-color: $dark-bg;
+	color: $primary-white;
+	border: $border;
+	@include text($font-size: 1rem);
+}
+
 .icon_black {
-	@include icon($color: $primary-black);
+	@include theme-aware('color', 'main-text-color');
 
 	&:hover {
 		opacity: 0.7;

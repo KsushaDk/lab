@@ -9,26 +9,28 @@
 		align-items: center;
 		padding: 2rem;
 		transition: all 1s;
+		@include theme-aware('background-color', 'main-background');
 
-		height: calc(100vh - 114px);
+		min-height: calc(100vh - 114px);
 
 		@media (max-width: 1200px) {
-			height: calc(100vh - 80px);
+			min-height: calc(100vh - 80px);
 		}
 
 		@media (max-width: 768px) {
-			height: calc(100vh - 69px);
+			min-height: calc(100vh - 69px);
 		}
 
 		@media (max-width: 576px) {
 			justify-content: flex-start;
 			padding: 1.5rem 1rem;
-			height: calc(100vh - 60px);
+			min-height: calc(100vh - 60px);
 		}
 	}
 
 	&__inner {
 		@include flex($flex-direction: column, $gap: 1.5rem);
+		@include theme-aware('background-color', 'form-bg');
 		min-width: 30rem;
 		padding: 1rem;
 		background: $primary-white;

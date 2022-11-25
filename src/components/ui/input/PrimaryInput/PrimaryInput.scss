@@ -3,6 +3,7 @@
 
 .primary_input {
 	@include text($font-weight: 500);
+	background: transparent;
 	width: 100%;
 	border: none;
 	border-bottom: 2px solid $primary-red;

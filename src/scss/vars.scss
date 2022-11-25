@@ -5,10 +5,12 @@ $primary-red: #eb3d26;
 $primary-black: #101010;
 $primary-gray: rgba(0, 0, 0, 0.1);
 $secondary-gray: rgba(145, 143, 143, 0.1);
-$example-gray: rgb(243, 243, 243);
+$example-gray: rgba(243, 243, 243, 0.24);
 $info-gray: rgba(136, 136, 136, 0.91);
 $chart-gray: #cac6c5;
 $dark-gray: #505050;
+$dark-bg: #181a1b;
+$dark-item-bg: #1f2122;
 
 $border: 1px solid $primary-gray;
 $shadow-form: drop-shadow(4px 4px 4px $primary-gray);

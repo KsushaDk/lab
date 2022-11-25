@@ -27,6 +27,7 @@
 
 	&-fill {
 		position: absolute;
+		@include theme-aware('filter', 'brightness');
 		background: $primary-red;
 		height: 100%;
 		display: block;

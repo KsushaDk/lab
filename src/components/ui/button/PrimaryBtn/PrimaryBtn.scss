@@ -2,13 +2,14 @@
 @import 'Scss/vars.scss';
 
 .primary_btn {
-	@include text($font-weight: 500, $color: $primary-white);
+	@include text($font-weight: 500);
+	color: $primary-white !important;
 	align-content: center;
 	padding: 0.5rem 1rem;
 	transition: all 0.3s ease;
 	border: none;
 	cursor: pointer;
-	@include theme-aware('background-color', 'primary_btn-bg');
+	background-color: $primary-red;
 
 	@media (max-width: 576px) {
 		padding: 0.3rem 0.5rem;

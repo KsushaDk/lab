@@ -21,8 +21,9 @@
 
 	&_span {
 		@include text;
+		color: $primary-black !important;
 		cursor: pointer;
-		-webkit-transition: all 0.25s linear;
+		transition: all 0.25s linear;
 
 		&:hover {
 			color: $primary-red;

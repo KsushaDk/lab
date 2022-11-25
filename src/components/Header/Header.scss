@@ -2,7 +2,7 @@
 @import 'Scss/mixins.scss';
 
 .header {
-    background-color: $primary-black;
+	background-color: $primary-black;
 	border-bottom: $border;
 	padding: $padding-l;
 	@include flex;
@@ -38,7 +38,8 @@
 		white-space: nowrap;
 
 		&_name {
-			@include text($font-weight: 500, $color: $primary-white);
+			@include text($font-weight: 500);
+			color: $primary-white !important;
 
 			@media (max-width: 576px) {
 				display: none;
@@ -76,7 +77,8 @@
 
 .link_white {
 	position: relative;
-	@include text($font-weight: 500, $color: $primary-white);
+	@include text($font-weight: 500);
+	color: $primary-white !important;
 	text-decoration: none;
 	white-space: nowrap;
 	outline-color: $primary-white;

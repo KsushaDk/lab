@@ -2,17 +2,30 @@
 @import 'Scss/mixins.scss';
 
 .page_info {
-	@include text($font-size: 1.7rem, $font-weight: 600, $color: $primary-red);
+	@include text($font-size: 1.7rem, $font-weight: 600);
+	@include theme-aware('background-color', 'main-background');
+	color: $primary-red !important;
 	padding: 4rem;
-	background: $primary-white;
-	border-bottom: 2px solid $primary-gray;
+	min-height: calc(100vh - 114px);
+
+	@media (max-width: 1200px) {
+		min-height: calc(100vh - 80px);
+	}
+
+	@media (max-width: 768px) {
+		min-height: calc(100vh - 69px);
+	}
+
+	@media (max-width: 576px) {
+		min-height: calc(100vh - 60px);
+	}
 
 	&_link {
 		text-decoration: none;
 		color: $info-gray;
 
 		&:hover {
-			color: $primary-black;
+			opacity: 0.8;
 		}
 	}
 }
