@@ -10,7 +10,7 @@
 
 	&__item {
 		@include text($font-weight: 600);
-		color: $primary-black;
+		color: $primary-black !important;
 		width: 100%;
 		cursor: pointer;
 		padding: 0.3rem;
@@ -20,7 +20,7 @@
 
 		&:hover {
 			@include text($font-weight: 600);
-			color: $primary-red;
+			color: $primary-red !important;
 		}
 	}
 }
