@@ -8,6 +8,8 @@ import { addDefaultValue } from 'Utils/addDefaultValue';
 import { getNotification } from 'Utils/getNotification';
 import { toggleValueByKey } from 'Utils/toggleValueByKey';
 import { removeFromArrByID } from 'Utils/removeFromArrByID';
+import { getInterviewQueries } from 'Utils/getInterviewQueries';
+import { validateInterviewState } from 'Utils/validateInterviewState';
 import {
 	getFromLSByKey,
 	setToLSByKey,
@@ -97,11 +99,9 @@ const CreateInterviewPage = () => {
 	};
 
 	const handleSaveInterview = () => {
-		if (interview.title === '') {
-			getNotification.failed(t('infoMessage.enterInterviewTitle'));
-		} else if (interview.questions.length === 0) {
-			getNotification.failed(t('infoMessage.addAtLeastOne'));
-		} else {
+		const validationMessage = validateInterviewState(interview);
+
+		if (validationMessage === 'saveInterview') {
 			const { currentUser } = getUserData();
 
 			updateDataInLS('users', {
@@ -117,16 +117,16 @@ const CreateInterviewPage = () => {
 				author: currentUser.id,
 			});
 
-			getNotification.success(t('infoMessage.saveInterview'));
+			getNotification.success(t(`infoMessage.${validationMessage}`));
 
 			setInterview(addDefaultValue.interview());
+		} else {
+			getNotification.failed(t(`infoMessage.${validationMessage}`));
 		}
 	};
 
 	useEffect(() => {
-		const updatedQueries = Object.fromEntries(
-			interviewQueries.map((query) => [query.key, query.checked])
-		);
+		const updatedQueries = getInterviewQueries();
 
 		setInterview({
 			...interview,
@@ -173,10 +173,12 @@ const CreateInterviewPage = () => {
 
 						<aside className="content__body_right">
 							<QuestionTypeList handleAddQuestion={handleAddQuestion} />
-							<InterviewQueryList
-								queries={interviewQueries}
-								handleChangeQuery={handleChangeQuery}
-							/>
+							{interviewQueries && (
+								<InterviewQueryList
+									queries={interviewQueries}
+									handleChangeQuery={handleChangeQuery}
+								/>
+							)}
 						</aside>
 					</div>
 				</ErrorBoundary>
