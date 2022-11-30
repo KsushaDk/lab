@@ -29,7 +29,7 @@
 			"password": "Password must have less than 15 characters"
 		},
 		"notEmptyField": "The field can not be empty",
-		"emailErr": "Invalid email.",
+		"emailErr": "Invalid email. You can use only gmail and yahoo domains.",
 		"emailUniqueErr": "This email already exists",
 		"passErr": "Password must have a number, a special character and lowercase/uppercase letters",
 		"notMatchPass": "The passwords do not match",
@@ -120,6 +120,7 @@
 		"saveInterview": "Interview successfully saved!",
 		"deleteInterview": "Interview removed!",
 		"uniqueInterviewTitle": "The name of the interview must be unique.",
+		"interviewTitleNotUnique": "This name of interview already exists. Please try again.",
 		"notificationCheckbox": "Choose the correct answer options.",
 		"notificationRadio": "Choose the correct answer.",
 		"noSearchResult": "Nothing found, please try again.",

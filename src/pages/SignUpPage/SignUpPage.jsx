@@ -76,7 +76,6 @@ const SignUpPage = () => {
 					pattern: {
 						value: regEmail,
 						message: t('validationErrMessages.emailErr'),
-						// "emailErr": "Invalid email. You can use only gmail and yahoo domains.",
 					},
 					validate: (value) => {
 						const checkUserEmail = users?.find((user) => user.email === value);
