@@ -1,9 +1,14 @@
 import { getFromLSByKey } from 'Utils/funcForLSByKey';
 
 export const validateInterviewState = (interview) => {
-	const checkUniqueTitle = getFromLSByKey('interviews').find(
-		(item) => item.title === interview.title
-	);
+	const interviewFromLS = getFromLSByKey('interviews');
+
+	let checkUniqueTitle = false;
+	if (interviewFromLS) {
+		checkUniqueTitle = interviewFromLS.find(
+			(item) => item.title === interview.title
+		);
+	}
 
 	if (checkUniqueTitle) {
 		return 'interviewTitleNotUnique';
